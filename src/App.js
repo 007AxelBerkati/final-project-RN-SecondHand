@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { Text, View } from 'react-native';
 import CodePush from 'react-native-code-push';
+import React from 'react';
 
 const CodePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
@@ -14,11 +14,10 @@ function App() {
   return (
     <View>
       <Text>App</Text>
-
     </View>
   );
 }
 
 export default CodePush(CodePushOptions)(App);
 
-const styles = StyleSheet.create({});
+// const styles = StyleSheet.create({});
