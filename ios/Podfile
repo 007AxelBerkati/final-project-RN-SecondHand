@@ -19,6 +19,8 @@ target 'final_project_RN' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'final_project_RNTests' do
     inherit! :complete
     # Pods for testing
