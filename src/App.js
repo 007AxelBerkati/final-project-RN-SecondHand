@@ -1,6 +1,12 @@
-import { Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+} from 'react-native';
 import CodePush from 'react-native-code-push';
+import FlashMessage from 'react-native-flash-message';
+import { Provider, useSelector } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import React from 'react';
+import { Persistore, Store } from './redux';
 
 const CodePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
@@ -10,11 +16,26 @@ const CodePushOptions = {
   },
 };
 
+function MainApp() {
+  const stateGlobal = useSelector((state) => state.dataGlobal);
+
+  return (
+    <>
+      {/* <StatusBar barStyle="dark-content" backgroundColor={colors.background.secondary} /> */}
+      {/* <Router /> */}
+      <FlashMessage position="top" />
+      {stateGlobal.isLoading && <ActivityIndicator />}
+    </>
+  );
+}
+
 function App() {
   return (
-    <View>
-      <Text>App</Text>
-    </View>
+    <Provider store={Store}>
+      <PersistGate loading={null} persistor={Persistore}>
+        <MainApp />
+      </PersistGate>
+    </Provider>
   );
 }
 
