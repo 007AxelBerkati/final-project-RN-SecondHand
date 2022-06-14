@@ -5,14 +5,11 @@ const initialState = {
 };
 
 export const globalReducer = (state = initialState, action = {}) => {
-  switch (action.type) {
-    case SET_LOADING:
-      return {
-        ...state,
-        isLoading: action.loading,
-      };
-
-    default:
-      return state;
+  if (action.type === SET_LOADING) {
+    return {
+      ...state,
+      isLoading: action.value,
+    };
   }
+  return state;
 };

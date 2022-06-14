@@ -3,6 +3,10 @@ import CodePush from 'react-native-code-push';
 import FlashMessage from 'react-native-flash-message';
 import { Provider, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+
+import React from 'react';
+import Router from '@router';
+
 import { Persistore, Store } from './redux';
 
 const CodePushOptions = {
@@ -19,7 +23,7 @@ function MainApp() {
   return (
     <>
       {/* <StatusBar barStyle="dark-content" backgroundColor={colors.background.secondary} /> */}
-      {/* <Router /> */}
+      <Router />
       <FlashMessage position="top" />
       {stateGlobal.isLoading && <ActivityIndicator />}
     </>
