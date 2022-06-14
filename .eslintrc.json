@@ -6,7 +6,10 @@
     "extends": [
         "plugin:react/recommended",
         "airbnb",
-        "airbnb/hooks"
+        "airbnb/hooks",
+        "plugin:import/errors",
+        "plugin:import/warnings"
+        
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -19,10 +22,14 @@
         "react",
         "react-native"
     ],
+    "settings": {
+        "import/resolver": {
+          "babel-module": {}
+        }
+    },
     "rules": {
         // allow .js files to contain JSX code
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-            
         // prevent eslint to complain about the "styles" variable being used before it was defined
         "no-use-before-define": ["error", { "variables": false }],
 
