@@ -2,21 +2,30 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   AkunScreen, DaftarJualScreen, HomeScreen, JualScreen, NotifikasiScreen,
   LoginScreen, RegisterScreen,
-} from '@pages';
+} from '../pages';
 
-const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
     <Tab.Navigator
       activeColor="#fff"
       initialRouteName="Home"
+      screenOptions={() => ({
+        tabBarStyle: {
+          paddingTop: 10,
+          height: 60,
+        },
+        tabBarLabelStyle: {
+          marginBottom: 10,
+        },
+      })}
 
     >
       <Tab.Screen
@@ -24,10 +33,11 @@ function MyTabs() {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          //   tabBarColor:''
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={26} />
           ),
+          headerShown: false,
+
         }}
       />
 
@@ -36,9 +46,12 @@ function MyTabs() {
         component={NotifikasiScreen}
         options={{
           tabBarLabel: 'Notifikasi',
+          tabBarColor: 'red',
           tabBarIcon: ({ color }) => (
             <Icon name="notifications" color={color} size={26} />
           ),
+          headerShown: false,
+
         }}
       />
 
@@ -50,6 +63,8 @@ function MyTabs() {
           tabBarIcon: ({ color }) => (
             <Icon name="add-circle-outline" color={color} size={26} />
           ),
+          headerShown: false,
+
         }}
       />
 
@@ -58,9 +73,12 @@ function MyTabs() {
         component={DaftarJualScreen}
         options={{
           tabBarLabel: 'Daftar Jual',
+          tabBarColor: 'green',
           tabBarIcon: ({ color }) => (
             <Icon name="list" color={color} size={26} />
           ),
+          headerShown: false,
+
         }}
       />
       <Tab.Screen
@@ -71,6 +89,7 @@ function MyTabs() {
           tabBarIcon: ({ color }) => (
             <Icon name="person" color={color} size={26} />
           ),
+          headerShown: false,
         }}
       />
 
@@ -81,7 +100,7 @@ function MyTabs() {
 function Router() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MainApp">
+      <Stack.Navigator initialRouteName="LoginScreen">
 
         <Stack.Screen
           name="RegisterScreen"
