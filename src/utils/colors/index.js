@@ -11,7 +11,7 @@ const mainColors = {
   // red1: '#E06379',
   // blue1: '#2F80ED',
   // blue2: '#0066CB',
-  green1: '#0BCAD4',
+  green1: '#2AC63A',
   green2: '#EDFCFD',
   orange1: '#FF8303',
   orange2: '#FF9425',
@@ -21,9 +21,35 @@ const mainColors = {
 };
 
 export const colors = {
-  warning: mainColors.red1,
 
+  warning: mainColors.red1,
+  primary: 'white',
+  secondary: mainColors.orange1,
   background: {
-    secondary: mainColors.blue1,
+    primary: 'white',
+    secondary: mainColors.orange1,
+    black: mainColors.black1,
+  },
+  button: {
+    primary: {
+      background: mainColors.orange1,
+      text: 'white',
+    },
+    secondary: {
+      background: 'white',
+      text: mainColors.orange1,
+    },
+  },
+
+  text: {
+    primary: 'white',
+    secondary: mainColors.orange1,
+    subtitle: mainColors.grey1,
+    tertiary: mainColors.yellow1,
+  },
+
+  disable: {
+    background: mainColors.grey4,
+    text: mainColors.grey5,
   },
 };
