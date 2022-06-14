@@ -26,11 +26,9 @@ export const getRegister = (data, navigation) => async (dispatch) => {
   await axios.post(`${GET_API_AUTH}/register`, data)
     .then((response) => {
       dispatch(getRegisterSuccess(response.data));
-      dispatch(getRegisterLoading(false));
-      navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] });
+      navigation.replace('LoginScreen');
     })
     .catch((error) => {
       dispatch(getRegisterFail(error.response.data));
-      dispatch(getRegisterLoading(false));
     });
 };
