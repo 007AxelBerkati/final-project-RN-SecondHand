@@ -1,6 +1,5 @@
 import { Input } from '@components';
 import { StyleSheet, View } from 'react-native';
-import React from 'react';
 
 function LoginScreen() {
   return (
