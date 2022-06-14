@@ -13,7 +13,6 @@ const mainColors = {
   blue2: '#0066CB',
   green1: '#0BCAD4',
   green2: '#EDFCFD',
-
 };
 
 export const colors = {
@@ -22,5 +21,4 @@ export const colors = {
   background: {
     secondary: mainColors.blue1,
   },
-
 };
