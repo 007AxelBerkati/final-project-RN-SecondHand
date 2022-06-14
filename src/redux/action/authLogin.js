@@ -19,7 +19,7 @@ export const getLoginLoading = (loading) => ({
 
 export const getLogin = (email, password) => async (dispatch) => {
   dispatch(getLoginLoading(true));
-  await axios.get(`${GET_API_AUTH}/login`, {
+  await axios.post(`${GET_API_AUTH}/login`, {
     email, password,
   })
     .then((response) => {
@@ -27,7 +27,7 @@ export const getLogin = (email, password) => async (dispatch) => {
       dispatch(getLoginLoading(false));
     })
     .catch((error) => {
-      dispatch(getLoginFail(error.response.data));
+      dispatch(getLoginFail(error.response.data.message));
       dispatch(getLoginLoading(false));
     });
 };
