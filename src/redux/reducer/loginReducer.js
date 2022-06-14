@@ -3,10 +3,9 @@ import { GET_LOGIN_FAIL, GET_LOGIN_LOADING, GET_LOGIN_SUCCESS } from '../types';
 const initialLoginState = {
   isLoggedIn: false,
   isLoading: false,
-  isFail: false,
   isSuccess: false,
   data: {},
-  error: {},
+  error: '',
 };
 
 export const loginReducer = (state = initialLoginState, action = {}) => {
@@ -29,7 +28,7 @@ export const loginReducer = (state = initialLoginState, action = {}) => {
         ...state,
         isLoggedIn: false,
         isLoading: false,
-        isFail: true,
+        isSuccess: false,
         error: action.payload,
       };
     default:
