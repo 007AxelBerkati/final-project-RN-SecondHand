@@ -42,7 +42,7 @@ export const colors = {
   },
 
   text: {
-    primary: 'white',
+    primary: mainColors.black1,
     secondary: mainColors.orange1,
     subtitle: mainColors.grey1,
     tertiary: mainColors.yellow1,
