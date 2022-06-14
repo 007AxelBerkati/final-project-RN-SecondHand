@@ -24,11 +24,9 @@ export const getLogin = (email, password, navigation) => async (dispatch) => {
   })
     .then((response) => {
       dispatch(getLoginSuccess(response.data));
-      dispatch(getLoginLoading(false));
       navigation.replace('MainApp');
     })
     .catch((error) => {
       dispatch(getLoginFail(error.response.data.message));
-      dispatch(getLoginLoading(false));
     });
 };
