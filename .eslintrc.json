@@ -4,11 +4,14 @@
         "node": true
         },
     "extends": [
+       
         "plugin:react/recommended",
         "airbnb",
         "airbnb/hooks",
         "plugin:import/errors",
-        "plugin:import/warnings"
+        "plugin:import/warnings",
+        "eslint:recommended"
+       
         
     ],
     "parserOptions": {
@@ -20,7 +23,8 @@
     },
     "plugins": [
         "react",
-        "react-native"
+        "react-native",
+        "react-hooks"
     ],
     "settings": {
         "import/resolver": {
@@ -36,7 +40,9 @@
         // ignore errors for the react-navigation package
         "import/prefer-default-export": "off",
          "react/prop-types": 0,
-         "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+         "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+         "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+         "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
          
     }
 }
