@@ -1,5 +1,6 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from 'react';
 import { colors } from '../../../utils';
 
 function Icons({ label }) {

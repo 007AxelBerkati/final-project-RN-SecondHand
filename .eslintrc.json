@@ -10,7 +10,6 @@
         "airbnb/hooks",
         "plugin:import/errors",
         "plugin:import/warnings",
-        "plugin:react/jsx-runtime",
         "eslint:recommended"
        
         

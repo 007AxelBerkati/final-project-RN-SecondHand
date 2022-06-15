@@ -1,8 +1,7 @@
-
-import React, {memo, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {TextInput} from 'react-native-paper';
-import {colors, fonts} from '../../../utils';
+import React, { memo, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { TextInput } from 'react-native-paper';
+import { colors, fonts } from '../../../utils';
 
 function Input({
   onChangeText,
