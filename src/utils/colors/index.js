@@ -6,8 +6,8 @@ const mainColors = {
   grey3: '#E9E9E9',
   grey4: '#EDEEF0',
   grey5: '#B1B7C2',
-  // dark1: '#112340',
-  // dark2: '#495A75',
+  dark1: '#112340',
+  dark2: '#495A75',
   // red1: '#E06379',
   // blue1: '#2F80ED',
   // blue2: '#0066CB',
@@ -35,10 +35,12 @@ export const colors = {
     primary: {
       background: mainColors.orange1,
       text: 'white',
+      border: mainColors.orange1,
     },
     secondary: {
       background: 'white',
-      text: mainColors.orange1,
+      text: mainColors.black1,
+      border: mainColors.orange1,
     },
   },
 
@@ -53,4 +55,9 @@ export const colors = {
     background: mainColors.grey4,
     text: mainColors.grey5,
   },
+
+  lineTextInput: mainColors.orange1,
+  loadingBackground: mainColors.black2,
+  outlineInput: mainColors.grey2,
+  border: mainColors.grey3,
 };

@@ -46,8 +46,8 @@ export default memo(Input);
 
 const styles = StyleSheet.create({
   input: {
-    fontFamily: fonts.primary[600],
+    fontFamily: fonts.Poppins.Regular,
     fontSize: 16,
-    color: colors.text.secondary,
+    color: colors.text.primary,
   },
 });
