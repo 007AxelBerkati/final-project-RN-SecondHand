@@ -17,17 +17,16 @@ export const getLoginLoading = (loading) => ({
   payload: loading,
 });
 
-export const getLogin = (email, password) => async (dispatch) => {
+export const getLogin = (email, password, navigation) => async (dispatch) => {
   dispatch(getLoginLoading(true));
-  await axios.get(`${GET_API_AUTH}/login`, {
+  await axios.post(`${GET_API_AUTH}/login`, {
     email, password,
   })
     .then((response) => {
       dispatch(getLoginSuccess(response.data));
-      dispatch(getLoginLoading(false));
+      navigation.replace('MainApp');
     })
     .catch((error) => {
-      dispatch(getLoginFail(error.response.data));
-      dispatch(getLoginLoading(false));
+      dispatch(getLoginFail(error.response.data.message));
     });
 };
