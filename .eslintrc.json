@@ -4,13 +4,15 @@
         "node": true
         },
     "extends": [
-        "eslint:recommended",
+       
         "plugin:react/recommended",
         "airbnb",
         "airbnb/hooks",
         "plugin:import/errors",
         "plugin:import/warnings",
-        "plugin:react/jsx-runtime"
+        "plugin:react/jsx-runtime",
+        "eslint:recommended"
+       
      
        
         
@@ -25,6 +27,7 @@
     "plugins": [
         "react",
         "react-native"
+      
     ],
     "settings": {
         "import/resolver": {
