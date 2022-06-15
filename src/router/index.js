@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -8,9 +8,22 @@ import {
   AkunScreen, DaftarJualScreen, HomeScreen, JualScreen, NotifikasiScreen,
   LoginScreen, RegisterScreen,
 } from '../pages';
+import { colors } from '../utils';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: colors.background.primary,
+  },
+  fonts: {
+    regular: 'Poppins-Regular',
+
+  },
+};
 
 function MyTabs() {
   return (
@@ -99,7 +112,7 @@ function MyTabs() {
 
 function Router() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator initialRouteName="LoginScreen">
 
         <Stack.Screen
