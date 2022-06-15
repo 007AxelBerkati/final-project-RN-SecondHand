@@ -1,11 +1,8 @@
-import { Input } from '@components';
-import { StyleSheet, View } from 'react-native';
 import { Button, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLogin } from '@redux';
 import { showSuccess } from '../../utils';
-
 
 function LoginScreen({ navigation }) {
   const dispatch = useDispatch();

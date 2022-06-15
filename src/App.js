@@ -41,5 +41,3 @@ function App() {
 }
 
 export default CodePush(CodePushOptions)(App);
-
-// const styles = StyleSheet.create({});
