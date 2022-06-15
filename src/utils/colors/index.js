@@ -46,7 +46,7 @@ export const colors = {
 
   text: {
     primary: mainColors.black1,
-    secondary: mainColors.orange1,
+    secondary: 'white',
     subtitle: mainColors.grey1,
     tertiary: mainColors.yellow1,
   },

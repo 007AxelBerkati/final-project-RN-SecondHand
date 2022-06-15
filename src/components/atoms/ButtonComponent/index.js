@@ -5,16 +5,11 @@ import {
 import { colors, fonts } from '../../../utils';
 
 import IconButton from './IconButton';
-import IconOnly from './IconOnly';
 import FloatingButton from './FloatingButton';
 
 function ButtonComponent({
   type, title, onPress, icon, disable, nonButton, iconHeight, iconWidth, label, style,
 }) {
-  if (type === 'icon-only') {
-    return <IconOnly icon={icon} onPress={onPress} />;
-  }
-
   if (type === 'icon-button') {
     return (
       <IconButton
