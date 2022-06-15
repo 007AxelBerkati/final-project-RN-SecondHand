@@ -1,5 +1,4 @@
-import auth from '@react-native-firebase/auth';
-import {Formik} from 'formik';
+import { Formik } from 'formik';
 import {
   SafeAreaView,
   Text,
@@ -14,9 +13,9 @@ import * as yup from 'yup';
 import React from 'react';
 import Input from '../../components/atoms/Input';
 import Button from '../../components/atoms/Button';
-import {colors} from '../../utils';
+import { colors } from '../../utils';
 
-const LoginScreen = ({navigation}) => {
+function LoginScreen({ navigation }) {
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -24,18 +23,21 @@ const LoginScreen = ({navigation}) => {
       .required('Email Address is Required'),
     password: yup
       .string()
-      .min(6, ({min}) => `Password must be at least ${min} characters`)
+      .min(6, ({ min }) => `Password must be at least ${min} characters`)
       .required('Password is required'),
   });
   const windowHeight = Dimensions.get('window').height;
   return (
-    <View style={{backgroundColor: 'white', height: windowHeight}}>
+    <View style={{ backgroundColor: 'white', height: windowHeight }}>
       <StatusBar barStyle="light-content" backgroundColor={colors.white} />
       <Formik
-        initialValues={{email: '', password: ''}}
-        onSubmit={values => signIn(values)}
-        validationSchema={loginValidationSchema}>
-        {({handleChange, handleSubmit, errors, isValid, values}) => (
+        initialValues={{ email: '', password: '' }}
+        onSubmit={(values) => (values)}
+        validationSchema={loginValidationSchema}
+      >
+        {({
+          handleChange, handleSubmit, errors, isValid, values, handleBlur,
+        }) => (
           <SafeAreaView>
             <Text
               style={{
@@ -45,11 +47,12 @@ const LoginScreen = ({navigation}) => {
                 fontWeight: 'bold',
                 color: colors.green,
                 fontSize: 18,
-              }}>
+              }}
+            >
               Masuk
             </Text>
             <Input
-              placeHolder={'Email'}
+              placeHolder="Email"
               onChangeText={handleChange('email')}
               value={values.email}
               onBlur={handleBlur('email')}
@@ -58,21 +61,22 @@ const LoginScreen = ({navigation}) => {
             <Input
               onChangeText={handleChange('password')}
               value={values.password}
-              label={'Password'}
+              label="Password"
               onBlur={handleBlur('password')}
             />
             {errors.password && (
-              <Text style={styles.error}>{errors.password}</Text>
+            <Text style={styles.error}>{errors.password}</Text>
             )}
             <Button
-              title={'Login'}
+              title="Login"
               onPress={handleSubmit}
               disabled={!isValid}
             />
-            <Text style={{color: colors.text.primary}}>Belum Punya Akun ?</Text>
+            <Text style={{ color: colors.text.primary }}>Belum Punya Akun ?</Text>
             <TouchableOpacity
               style={styles.RegisterText}
-              onPress={() => navigation.navigate('RegisterScreen')}>
+              onPress={() => navigation.navigate('RegisterScreen')}
+            >
               <Text> Daftar Disini </Text>
             </TouchableOpacity>
           </SafeAreaView>
@@ -80,7 +84,7 @@ const LoginScreen = ({navigation}) => {
       </Formik>
     </View>
   );
-};
+}
 
 export default LoginScreen;
 
