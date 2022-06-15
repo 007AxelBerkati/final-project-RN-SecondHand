@@ -28,7 +28,6 @@ const MyTheme = {
 function MyTabs() {
   return (
     <Tab.Navigator
-      activeColor="#fff"
       initialRouteName="Home"
       screenOptions={() => ({
         tabBarStyle: {
@@ -38,8 +37,8 @@ function MyTabs() {
         tabBarLabelStyle: {
           marginBottom: 10,
         },
+        tabBarActiveTintColor: colors.secondary,
       })}
-
     >
       <Tab.Screen
         name="Home"
