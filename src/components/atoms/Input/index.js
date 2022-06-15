@@ -1,21 +1,53 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { memo, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { TextInput } from 'react-native-paper';
+import { colors, fonts } from '../../../utils';
 
-function Input() {
+function Input({
+  onChangeText,
+  value,
+  label,
+  onBlur,
+  cannotEdited,
+  secureTextEntry,
+  leftIcon,
+}) {
+  const [passwordVisible, setPasswordVisible] = useState(false);
   return (
-    <View style={styles.pages}>
-      <Text>Input</Text>
+    <View>
+      <TextInput
+        onChangeText={onChangeText}
+        value={value}
+        label={label}
+        onBlur={onBlur}
+        mode="outlined"
+        activeOutlineColor={colors.lineTextInput}
+        outlineColor={
+          cannotEdited ? colors.disable.background : colors.outlineInput
+        }
+        style={styles.input}
+        secureTextEntry={secureTextEntry ? passwordVisible : false}
+        left={<TextInput.Icon name={leftIcon} />}
+        right={
+          secureTextEntry ? (
+            <TextInput.Icon
+              name={passwordVisible ? 'eye' : 'eye-off'}
+              onPress={() => setPasswordVisible(!passwordVisible)}
+              color={passwordVisible ? colors.background.black : colors.warning}
+            />
+          ) : null
+        }
+      />
     </View>
   );
 }
 
-export default Input;
+export default memo(Input);
 
 const styles = StyleSheet.create({
-  pages: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-
+  input: {
+    fontFamily: fonts.Poppins.Regular,
+    fontSize: 16,
+    color: colors.text.primary,
   },
 });

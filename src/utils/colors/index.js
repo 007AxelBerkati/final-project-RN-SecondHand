@@ -8,19 +8,56 @@ const mainColors = {
   grey5: '#B1B7C2',
   dark1: '#112340',
   dark2: '#495A75',
-  red1: '#E06379',
-  blue1: '#2F80ED',
-  blue2: '#0066CB',
-  green1: '#0BCAD4',
+  // red1: '#E06379',
+  // blue1: '#2F80ED',
+  // blue2: '#0066CB',
+  green1: '#2AC63A',
   green2: '#EDFCFD',
-
+  orange1: '#FF8303',
+  orange2: '#FF9425',
+  orange3: '#FFA84D',
+  orange4: '#FFB669',
+  orange5: '#FFCB94',
 };
 
 export const colors = {
-  warning: mainColors.red1,
 
+  warning: mainColors.red1,
+  success: mainColors.green1,
+  primary: 'white',
+  secondary: mainColors.orange1,
   background: {
-    secondary: mainColors.blue1,
+    primary: 'white',
+    secondary: mainColors.orange1,
+    black: mainColors.black1,
+  },
+  button: {
+    primary: {
+      background: mainColors.orange1,
+      text: 'white',
+      border: mainColors.orange1,
+    },
+    secondary: {
+      background: 'white',
+      text: mainColors.black1,
+      border: mainColors.orange1,
+    },
   },
 
+  text: {
+    primary: mainColors.black1,
+    secondary: mainColors.orange1,
+    subtitle: mainColors.grey1,
+    tertiary: mainColors.yellow1,
+  },
+
+  disable: {
+    background: mainColors.grey4,
+    text: mainColors.grey5,
+  },
+
+  lineTextInput: mainColors.orange1,
+  loadingBackground: mainColors.black2,
+  outlineInput: mainColors.grey2,
+  border: mainColors.grey3,
 };
