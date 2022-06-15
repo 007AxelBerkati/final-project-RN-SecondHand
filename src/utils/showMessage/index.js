@@ -4,17 +4,27 @@ import { colors } from '../colors';
 export function showError(message) {
   showMessage({
     message,
-    type: 'default',
-    backgroundColor: colors.warning,
+    type: 'danger',
     color: colors.white,
+    icon: 'danger',
+
   });
 }
 
 export function showSuccess(message) {
   showMessage({
     message,
-    type: 'default',
-    backgroundColor: colors.background.secondary,
+    type: 'success',
     color: colors.white,
+    icon: 'success',
+  });
+}
+
+export function showInfo(message) {
+  showMessage({
+    message,
+    type: 'info',
+    color: colors.white,
+    icon: 'info',
   });
 }

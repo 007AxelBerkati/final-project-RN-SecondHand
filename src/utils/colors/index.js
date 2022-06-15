@@ -23,6 +23,7 @@ const mainColors = {
 export const colors = {
 
   warning: mainColors.red1,
+  success: mainColors.green1,
   primary: 'white',
   secondary: mainColors.orange1,
   background: {
