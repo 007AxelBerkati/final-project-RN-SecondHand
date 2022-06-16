@@ -12,7 +12,7 @@ function CardCategory({
 }) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Icon name={name} size={30} color={colors.background.primary} />
+      <Icon name={name} size={20} color={colors.background.primary} />
       <Text style={styles.text}>{kategori}</Text>
     </TouchableOpacity>
   );

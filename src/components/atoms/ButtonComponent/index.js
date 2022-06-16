@@ -8,7 +8,7 @@ import IconButton from './IconButton';
 import FloatingButton from './FloatingButton';
 
 function ButtonComponent({
-  type, title, onPress, icon, disable, nonButton, iconHeight, iconWidth, label, style,
+  type, title, onPress, icon, disable, nonButton, iconHeight, iconWidth, label, style, styleText,
 }) {
   if (type === 'icon-button') {
     return (
@@ -35,7 +35,7 @@ function ButtonComponent({
 
   return (
     <TouchableOpacity style={{ ...styles.container(type), ...style }} onPress={onPress}>
-      <Text style={styles.text(type)}>{title}</Text>
+      <Text style={{ ...styles.text(type), ...styleText }}>{title}</Text>
     </TouchableOpacity>
   );
 }
