@@ -6,8 +6,6 @@ import {
   View,
   StatusBar,
 } from 'react-native';
-
-import * as yup from 'yup';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../components/atoms/Input';
@@ -18,12 +16,14 @@ import {
 
 import Gap from '../../components/atoms/Gap';
 import { LinkComponent } from '../../components';
+import { loginSchema } from '../../utils/Validation/Validation';
+import { getLogin } from '../../redux/action/authLogin';
 
 function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
   const dataLogin = useSelector((state) => state.dataLogin);
 
-  const onSubmit = () => {
+  const onSubmit = (email, password) => {
     dispatch(getLogin(email, password, navigation));
     if (dataLogin.isSuccess) {
       showSuccess('Login Success');
@@ -31,24 +31,13 @@ function LoginScreen({ navigation }) {
       showSuccess(dataLogin.error);
     }
   };
-  const loginValidationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email('Please enter valid email')
-      .required('Email Address is Required'),
-    password: yup
-      .string()
-      .min(6, ({ min }) => `Password must be at least ${min} characters`)
-      .required('Password is required'),
-  });
-
   return (
     <View style={{ backgroundColor: 'white', height: windowHeight, marginHorizontal: 30 }}>
       <StatusBar barStyle="light-content" backgroundColor={colors.white} />
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={(values) => onSubmit(values)}
-        validationSchema={loginValidationSchema}
+        onSubmit={(values) => onSubmit(values.email, values.password)}
+        validationSchema={loginSchema}
       >
         {({
           handleChange, handleSubmit, errors, isValid, values, handleBlur,
