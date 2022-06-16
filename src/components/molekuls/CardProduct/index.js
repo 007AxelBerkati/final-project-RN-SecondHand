@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.30,
     width: windowWidth * 0.43,
     padding: 8,
+    marginRight: 16,
   },
   image: {
     height: '100%',
