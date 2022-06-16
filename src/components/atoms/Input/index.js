@@ -47,7 +47,10 @@ export default memo(Input);
 const styles = StyleSheet.create({
   input: {
     fontFamily: fonts.Poppins.Regular,
-    fontSize: 16,
+    fontSize: 15,
     color: colors.text.primary,
+    borderRadius: 20,
+    width: 330,
+    alignSelf: 'center',
   },
 });

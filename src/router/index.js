@@ -5,8 +5,13 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  AkunScreen, DaftarJualScreen, HomeScreen, JualScreen, NotifikasiScreen,
-  LoginScreen, RegisterScreen,
+  AkunScreen,
+  DaftarJualScreen,
+  HomeScreen,
+  JualScreen,
+  NotifikasiScreen,
+  LoginScreen,
+  RegisterScreen,
 } from '../pages';
 import { colors } from '../utils';
 
@@ -21,7 +26,6 @@ const MyTheme = {
   },
   fonts: {
     regular: 'Poppins-Regular',
-
   },
 };
 
@@ -45,11 +49,8 @@ function MyTabs() {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <Icon name="home" color={color} size={26} />
-          ),
+          tabBarIcon: ({ color }) => <Icon name="home" color={color} size={26} />,
           headerShown: false,
-
         }}
       />
 
@@ -63,7 +64,6 @@ function MyTabs() {
             <Icon name="notifications" color={color} size={26} />
           ),
           headerShown: false,
-
         }}
       />
 
@@ -76,7 +76,6 @@ function MyTabs() {
             <Icon name="add-circle-outline" color={color} size={26} />
           ),
           headerShown: false,
-
         }}
       />
 
@@ -86,11 +85,8 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Daftar Jual',
           tabBarColor: 'green',
-          tabBarIcon: ({ color }) => (
-            <Icon name="list" color={color} size={26} />
-          ),
+          tabBarIcon: ({ color }) => <Icon name="list" color={color} size={26} />,
           headerShown: false,
-
         }}
       />
       <Tab.Screen
@@ -104,7 +100,6 @@ function MyTabs() {
           headerShown: false,
         }}
       />
-
     </Tab.Navigator>
   );
 }
@@ -113,7 +108,6 @@ function Router() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator initialRouteName="LoginScreen">
-
         <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}
