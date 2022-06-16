@@ -1,14 +1,20 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
-  AkunScreen, DaftarJualScreen, HomeScreen, JualScreen, NotifikasiScreen,
-  LoginScreen, RegisterScreen,
+  AkunScreen,
+  DaftarJualScreen,
+  HomeScreen,
+  JualScreen,
+  NotifikasiScreen,
+  LoginScreen,
+  RegisterScreen,
 } from '../pages';
-import { colors } from '../utils';
+import {colors} from '../utils';
+import ProfileScreen from '../pages/ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -21,7 +27,6 @@ const MyTheme = {
   },
   fonts: {
     regular: 'Poppins-Regular',
-
   },
 };
 
@@ -38,18 +43,14 @@ function MyTabs() {
           marginBottom: 10,
         },
         tabBarActiveTintColor: colors.secondary,
-      })}
-    >
+      })}>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <Icon name="home" color={color} size={26} />
-          ),
+          tabBarIcon: ({color}) => <Icon name="home" color={color} size={26} />,
           headerShown: false,
-
         }}
       />
 
@@ -59,11 +60,10 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Notifikasi',
           tabBarColor: 'red',
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({color}) => (
             <Icon name="notifications" color={color} size={26} />
           ),
           headerShown: false,
-
         }}
       />
 
@@ -72,11 +72,10 @@ function MyTabs() {
         component={JualScreen}
         options={{
           tabBarLabel: 'Jual',
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({color}) => (
             <Icon name="add-circle-outline" color={color} size={26} />
           ),
           headerShown: false,
-
         }}
       />
 
@@ -86,11 +85,8 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Daftar Jual',
           tabBarColor: 'green',
-          tabBarIcon: ({ color }) => (
-            <Icon name="list" color={color} size={26} />
-          ),
+          tabBarIcon: ({color}) => <Icon name="list" color={color} size={26} />,
           headerShown: false,
-
         }}
       />
       <Tab.Screen
@@ -98,13 +94,12 @@ function MyTabs() {
         component={AkunScreen}
         options={{
           tabBarLabel: 'Akun',
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({color}) => (
             <Icon name="person" color={color} size={26} />
           ),
           headerShown: false,
         }}
       />
-
     </Tab.Navigator>
   );
 }
@@ -112,22 +107,26 @@ function MyTabs() {
 function Router() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="LoginScreen">
-
+      <Stack.Navigator initialRouteName="ProfileScreen">
         <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="MainApp"
           component={MyTabs}
-          options={{ headerShown: false }}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ProfileScreen"
+          component={ProfileScreen}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
