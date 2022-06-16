@@ -10,12 +10,25 @@ import {
 
 import * as yup from 'yup';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../components/atoms/Input';
 import Button from '../../components/atoms/Button';
-import { colors, windowHeight } from '../../utils';
+import { colors, showSuccess, windowHeight } from '../../utils';
+
 import Gap from '../../components/atoms/Gap';
 
 function LoginScreen({ navigation }) {
+  const dispatch = useDispatch();
+  const dataLogin = useSelector((state) => state.dataLogin);
+
+  const onSubmit = () => {
+    dispatch(getLogin(email, password, navigation));
+    if (dataLogin.isSuccess) {
+      showSuccess('Login Success');
+    } else {
+      showSuccess(dataLogin.error);
+    }
+  };
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -32,7 +45,7 @@ function LoginScreen({ navigation }) {
       <StatusBar barStyle="light-content" backgroundColor={colors.white} />
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={(values) => (values)}
+        onSubmit={(values) => onSubmit(values)}
         validationSchema={loginValidationSchema}
       >
         {({
