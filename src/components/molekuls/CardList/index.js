@@ -4,6 +4,7 @@ import {
 import React from 'react';
 import { colors, fonts } from '../../../utils';
 import CardListRole from './CardListRole';
+import CardListAccount from './CardListAccount';
 
 function CardList({
   source, name, harga, hargaNego, onPress, date, title, type, kota,
@@ -13,6 +14,13 @@ function CardList({
       <CardListRole source={source} name={name} kota={kota} onPress={onPress} />
     );
   }
+
+  if (type === 'account') {
+    return (
+      <CardListAccount title={title} name={name} onPress={onPress} />
+    );
+  }
+
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
   const hargaNegoConvert = `Rp. ${parseFloat(hargaNego).toLocaleString('id-ID')}`;
 
