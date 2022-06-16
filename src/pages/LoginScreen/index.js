@@ -6,14 +6,14 @@ import {
   TouchableOpacity,
   View,
   StatusBar,
-  Dimensions,
 } from 'react-native';
 
 import * as yup from 'yup';
 import React from 'react';
 import Input from '../../components/atoms/Input';
 import Button from '../../components/atoms/Button';
-import { colors } from '../../utils';
+import { colors, windowHeight } from '../../utils';
+import Gap from '../../components/atoms/Gap';
 
 function LoginScreen({ navigation }) {
   const loginValidationSchema = yup.object().shape({
@@ -26,9 +26,9 @@ function LoginScreen({ navigation }) {
       .min(6, ({ min }) => `Password must be at least ${min} characters`)
       .required('Password is required'),
   });
-  const windowHeight = Dimensions.get('window').height;
+
   return (
-    <View style={{ backgroundColor: 'white', height: windowHeight }}>
+    <View style={{ backgroundColor: 'white', height: windowHeight, marginHorizontal: 30 }}>
       <StatusBar barStyle="light-content" backgroundColor={colors.white} />
       <Formik
         initialValues={{ email: '', password: '' }}
@@ -42,11 +42,11 @@ function LoginScreen({ navigation }) {
             <Text
               style={{
                 marginTop: 90,
-                alignSelf: 'center',
+                alignSelf: 'flex-start',
                 marginBottom: 70,
                 fontWeight: 'bold',
-                color: colors.green,
-                fontSize: 18,
+                color: colors.text.primary,
+                fontSize: 30,
               }}
             >
               Masuk
@@ -55,9 +55,11 @@ function LoginScreen({ navigation }) {
               placeHolder="Email"
               onChangeText={handleChange('email')}
               value={values.email}
+              label="Email"
               onBlur={handleBlur('email')}
             />
             {errors.email && <Text style={styles.error}>{errors.email}</Text>}
+            <Gap height={30} />
             <Input
               onChangeText={handleChange('password')}
               value={values.password}
@@ -67,18 +69,19 @@ function LoginScreen({ navigation }) {
             {errors.password && (
             <Text style={styles.error}>{errors.password}</Text>
             )}
+            <Gap height={30} />
             <Button
               title="Login"
               onPress={handleSubmit}
               disabled={!isValid}
             />
-            <Text style={{ color: colors.text.primary }}>Belum Punya Akun ?</Text>
-            <TouchableOpacity
-              style={styles.RegisterText}
-              onPress={() => navigation.navigate('RegisterScreen')}
-            >
-              <Text> Daftar Disini </Text>
-            </TouchableOpacity>
+            <Gap height={290} />
+            <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+              <Text style={{ color: colors.text.primary }}>Belum Punya Akun ?</Text>
+              <TouchableOpacity style={styles.RegisterText} onPress={() => navigation.navigate()}>
+                <Text> Daftar Disini </Text>
+              </TouchableOpacity>
+            </View>
           </SafeAreaView>
         )}
       </Formik>
