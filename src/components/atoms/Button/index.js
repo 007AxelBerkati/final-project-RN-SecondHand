@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   text: {
-    color: colors.text.primary,
-    fontFamily: fonts.Poppins.Regular,
+    color: colors.text.secondary,
+    fontFamily: fonts.Poppins.SemiBold,
     margin: 4,
     paddingVertical: 3,
     textAlign: 'center',

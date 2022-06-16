@@ -11,12 +11,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../components/atoms/Input';
 import Button from '../../components/atoms/Button';
 import {
-  colors, fonts, showSuccess, windowHeight,
+  colors, fonts, loginSchema, showSuccess, windowHeight,
 } from '../../utils';
 
 import Gap from '../../components/atoms/Gap';
 import { LinkComponent } from '../../components';
-import { loginSchema } from '../../utils/Validation/Validation';
+
 import { getLogin } from '../../redux/action/authLogin';
 
 function LoginScreen({ navigation }) {

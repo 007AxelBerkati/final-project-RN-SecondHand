@@ -48,7 +48,7 @@ export const colors = {
     primary: mainColors.black1,
     secondary: 'white',
     subtitle: mainColors.grey1,
-    tertiary: mainColors.yellow1,
+    tertiary: mainColors.orange1,
   },
 
   disable: {
