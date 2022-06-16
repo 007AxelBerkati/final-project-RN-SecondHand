@@ -3,7 +3,6 @@ import {
   SafeAreaView,
   Text,
   StyleSheet,
-  TouchableOpacity,
   View,
   StatusBar,
 } from 'react-native';
@@ -13,9 +12,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../components/atoms/Input';
 import Button from '../../components/atoms/Button';
-import { colors, showSuccess, windowHeight } from '../../utils';
+import {
+  colors, fonts, showSuccess, windowHeight,
+} from '../../utils';
 
 import Gap from '../../components/atoms/Gap';
+import { LinkComponent } from '../../components';
 
 function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -58,7 +60,7 @@ function LoginScreen({ navigation }) {
                 alignSelf: 'flex-start',
                 marginBottom: 70,
                 fontWeight: 'bold',
-                color: colors.text.primary,
+                color: colors.text.secondary,
                 fontSize: 30,
               }}
             >
@@ -70,6 +72,7 @@ function LoginScreen({ navigation }) {
               value={values.email}
               label="Email"
               onBlur={handleBlur('email')}
+              leftIcon="email"
             />
             {errors.email && <Text style={styles.error}>{errors.email}</Text>}
             <Gap height={30} />
@@ -78,6 +81,8 @@ function LoginScreen({ navigation }) {
               value={values.password}
               label="Password"
               onBlur={handleBlur('password')}
+              secureTextEntry
+              leftIcon="key"
             />
             {errors.password && (
             <Text style={styles.error}>{errors.password}</Text>
@@ -88,12 +93,15 @@ function LoginScreen({ navigation }) {
               onPress={handleSubmit}
               disabled={!isValid}
             />
-            <Gap height={290} />
+            <Gap height={250} />
             <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-              <Text style={{ color: colors.text.primary }}>Belum Punya Akun ?</Text>
-              <TouchableOpacity style={styles.RegisterText} onPress={() => navigation.navigate()}>
-                <Text> Daftar Disini </Text>
-              </TouchableOpacity>
+              <Text style={{ color: colors.text.primary }}>Belum Punya Akun ? </Text>
+              <LinkComponent
+                title="Daftar disini"
+                color={colors.text.secondary}
+                onPress={() => navigation.navigate()}
+                size={13}
+              />
             </View>
           </SafeAreaView>
         )}
@@ -111,8 +119,7 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
   RegisterText: {
-    alignSelf: 'center',
-    color: colors.secondary,
-    fontWeight: 'bold',
+    color: colors.text.secondary,
+    fontFamily: fonts.Poppins.Bold,
   },
 });
