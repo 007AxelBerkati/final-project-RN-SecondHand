@@ -1,14 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import React from 'react';
-import { IconButton } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/Feather';
 import { colors, fonts, windowWidth } from '../../../utils';
 
 function Headers({ onPress, title, type }) {
+  if (type === 'back-title') {
+    return (
+      <TouchableOpacity style={styles.container} onPress={onPress}>
+        <Icon name="arrow-left" size={24} color={colors.background.black} />
+        <Text style={styles.titleBack}>{title}</Text>
+      </TouchableOpacity>
+    );
+  }
+
   if (type === 'back') {
     return (
-      <View style={styles.container}>
-        <IconButton icon="arrow-left" size={20} color={colors.background.black} onPress={onPress} style={styles.icon} />
-        <Text style={styles.titleBack}>{title}</Text>
+      <View style={styles.container} onPress={onPress}>
+        <Icon name="arrow-left" size={24} color={colors.background.black} />
       </View>
     );
   }
@@ -34,7 +44,6 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: 50,
     alignItems: 'center',
-
   },
 
   titleBack: {
@@ -45,11 +54,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 16,
     zIndex: 1,
-  },
-
-  icon: {
-    position: 'absolute',
-    zIndex: 2,
   },
 
 });

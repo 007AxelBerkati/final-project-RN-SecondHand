@@ -8,7 +8,7 @@ const mainColors = {
   grey5: '#B1B7C2',
   dark1: '#112340',
   dark2: '#495A75',
-  // red1: '#E06379',
+  red1: '#E06379',
   // blue1: '#2F80ED',
   // blue2: '#0066CB',
   green1: '#2AC63A',

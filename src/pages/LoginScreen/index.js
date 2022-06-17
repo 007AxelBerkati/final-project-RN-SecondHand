@@ -5,110 +5,122 @@ import {
   StyleSheet,
   View,
   StatusBar,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Input from '../../components/atoms/Input';
-import Button from '../../components/atoms/Button';
 import {
-  colors, fonts, loginSchema, showSuccess, windowHeight,
+  Gap, Input, ButtonComponent, Headers, LinkComponent,
+} from '../../components';
+import {
+  colors, fonts, loginSchema, windowHeight,
 } from '../../utils';
 
-import Gap from '../../components/atoms/Gap';
-import { LinkComponent } from '../../components';
-
-import { getLogin } from '../../redux/action/authLogin';
+import { getLogin } from '../../redux';
 
 function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
   const dataLogin = useSelector((state) => state.dataLogin);
+  const stateGlobal = useSelector((state) => state.dataGlobal);
 
   const onSubmit = (email, password) => {
-    dispatch(getLogin(email, password, navigation));
-    if (dataLogin.isSuccess) {
-      showSuccess('Login Success');
-    } else {
-      showSuccess(dataLogin.error);
-    }
+    dispatch(getLogin(email, password, navigation, dataLogin));
   };
   return (
-    <View style={{ backgroundColor: 'white', height: windowHeight, marginHorizontal: 30 }}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.white} />
-      <Formik
-        initialValues={{ email: '', password: '' }}
-        onSubmit={(values) => onSubmit(values.email, values.password)}
-        validationSchema={loginSchema}
-      >
-        {({
-          handleChange, handleSubmit, errors, isValid, values, handleBlur,
-        }) => (
-          <SafeAreaView>
-            <Text
-              style={{
-                marginTop: 90,
-                alignSelf: 'flex-start',
-                marginBottom: 70,
-                fontWeight: 'bold',
-                color: colors.text.secondary,
-                fontSize: 30,
-              }}
-            >
-              Masuk
-            </Text>
-            <Input
-              placeHolder="Email"
-              onChangeText={handleChange('email')}
-              value={values.email}
-              label="Email"
-              onBlur={handleBlur('email')}
-              leftIcon="email"
-            />
-            {errors.email && <Text style={styles.error}>{errors.email}</Text>}
-            <Gap height={30} />
-            <Input
-              onChangeText={handleChange('password')}
-              value={values.password}
-              label="Password"
-              onBlur={handleBlur('password')}
-              secureTextEntry
-              leftIcon="key"
-            />
-            {errors.password && (
-            <Text style={styles.error}>{errors.password}</Text>
-            )}
-            <Gap height={30} />
-            <Button
-              title="Login"
-              onPress={handleSubmit}
-              disabled={!isValid}
-            />
-            <Gap height={250} />
-            <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-              <Text style={{ color: colors.text.primary }}>Belum Punya Akun ? </Text>
-              <LinkComponent
-                title="Daftar disini"
-                color={colors.text.secondary}
-                onPress={() => navigation.navigate()}
-                size={13}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={{ flex: 1, margin: 16 }}>
+        <StatusBar barStyle="light-content" backgroundColor={colors.white} />
+        <Headers type="back" />
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          onSubmit={(values) => onSubmit(values.email, values.password)}
+          validationSchema={loginSchema}
+        >
+          {({
+            handleChange, handleSubmit, errors, isValid, values, handleBlur, touched, dirty,
+          }) => (
+            <SafeAreaView>
+              <Text
+                style={{
+                  marginTop: windowHeight * 0.05,
+                  alignSelf: 'flex-start',
+                  fontFamily: fonts.Poppins.Bold,
+                  color: colors.text.tertiary,
+                  fontSize: 30,
+                }}
+              >
+                Masuk
+              </Text>
+              <Gap height={windowHeight * 0.05} />
+              <Input
+                placeHolder="Email"
+                onChangeText={handleChange('email')}
+                value={values.email}
+                label="Email"
+                onBlur={handleBlur('email')}
+                leftIcon="email"
               />
-            </View>
-          </SafeAreaView>
-        )}
-      </Formik>
-    </View>
+              {errors.email && touched.email
+              && <Text style={styles.errorText}>{errors.email}</Text>}
+              <Gap height={16} />
+              <Input
+                onChangeText={handleChange('password')}
+                value={values.password}
+                label="Password"
+                onBlur={handleBlur('password')}
+                secureTextEntry
+                leftIcon="key"
+              />
+              {errors.password
+              && touched.password && <Text style={styles.errorText}>{errors.password}</Text>}
+              <Gap height={24} />
+              <ButtonComponent
+                title="Login"
+                onPress={handleSubmit}
+                disabled={!isValid}
+                disable={!(dirty && isValid) || stateGlobal.isLoading}
+              />
+            </SafeAreaView>
+          )}
+        </Formik>
+        <Gap height={windowHeight * 0.30} />
+        <View style={styles.goRegisterWrapper}>
+          <Text style={styles.registerTitle}>
+            Don&lsquo;t have an account?
+            {' '}
+          </Text>
+          <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={14} onPress={() => navigation.replace('RegisterScreen')} />
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+
   );
 }
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  error: {
-    fontSize: 13,
-    color: 'red',
-    marginLeft: 50,
+  errorText: {
+    fontFamily: fonts.Poppins.Medium,
+    color: colors.warning,
+    fontSize: 12,
   },
   RegisterText: {
     color: colors.text.secondary,
     fontFamily: fonts.Poppins.Bold,
+  },
+
+  goRegisterWrapper: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+
+  },
+
+  registerTitle: {
+    fontFamily: fonts.Poppins.Medium,
+    fontSize: 14,
+    color: colors.text.black,
   },
 });

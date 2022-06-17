@@ -1,4 +1,3 @@
-import { ActivityIndicator } from 'react-native';
 import CodePush from 'react-native-code-push';
 import FlashMessage from 'react-native-flash-message';
 import { Provider, useSelector } from 'react-redux';
@@ -8,6 +7,7 @@ import React from 'react';
 import Router from '@router';
 
 import { Persistore, Store } from './redux';
+import { Loading } from './components';
 
 const CodePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
@@ -25,7 +25,7 @@ function MainApp() {
       {/* <StatusBar barStyle="dark-content" backgroundColor={colors.background.secondary} /> */}
       <Router />
       <FlashMessage position="top" />
-      {stateGlobal.isLoading && <ActivityIndicator />}
+      {stateGlobal.isLoading && <Loading />}
     </>
   );
 }

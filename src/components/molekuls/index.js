@@ -2,7 +2,8 @@ import CardCategory from './CardCategory';
 import CardProduct from './CardProduct';
 import Headers from './Headers';
 import CardList from './CardList';
+import Loading from './Loading';
 
 export {
-  CardCategory, CardProduct, Headers, CardList,
+  CardCategory, CardProduct, Headers, CardList, Loading,
 };

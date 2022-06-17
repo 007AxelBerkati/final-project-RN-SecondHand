@@ -8,7 +8,7 @@ export const globalReducer = (state = initialState, action = {}) => {
   if (action.type === SET_LOADING) {
     return {
       ...state,
-      isLoading: action.value,
+      isLoading: action.loading,
     };
   }
   return state;
