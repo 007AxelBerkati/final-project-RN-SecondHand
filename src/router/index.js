@@ -107,7 +107,7 @@ function MyTabs() {
 function Router() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="LoginScreen">
+      <Stack.Navigator initialRouteName="MainApp">
         <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}

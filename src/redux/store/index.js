@@ -9,7 +9,8 @@ import {
 
 const persistConfig = {
   key: 'root',
-  //   blacklist: ['dataPokemon, dataGlobal, dataPokemonDetail'],
+  // blacklist: ['dataPokemon, dataGlobal, dataPokemonDetail'],
+  blacklist: ['dataGlobal'],
   storage: AsyncStorage,
 };
 
