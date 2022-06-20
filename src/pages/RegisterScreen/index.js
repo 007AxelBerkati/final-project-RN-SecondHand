@@ -42,7 +42,7 @@ function RegisterScreen({ navigation }) {
             <SafeAreaView>
               <Text
                 style={{
-                  marginTop: 90,
+                  marginTop: windowHeight * 0.05,
                   alignSelf: 'flex-start',
                   marginBottom: 70,
                   fontWeight: 'bold',
