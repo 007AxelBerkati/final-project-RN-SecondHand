@@ -9,8 +9,7 @@
         "airbnb",
         "airbnb/hooks",
         "plugin:import/errors",
-        "plugin:import/warnings",
-        "eslint:recommended"
+        "plugin:import/warnings"
        
         
     ],
@@ -43,6 +42,6 @@
          "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
          "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
          "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
-         
+        
     }
 }

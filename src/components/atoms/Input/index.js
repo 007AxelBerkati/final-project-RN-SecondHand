@@ -31,9 +31,9 @@ function Input({
         right={
           secureTextEntry ? (
             <TextInput.Icon
-              name={passwordVisible ? 'eye' : 'eye-off'}
+              name={passwordVisible ? 'eye-off' : 'eye'}
               onPress={() => setPasswordVisible(!passwordVisible)}
-              color={passwordVisible ? colors.background.black : colors.warning}
+              color={passwordVisible ? colors.warning : colors.background.black}
             />
           ) : null
         }
@@ -47,7 +47,7 @@ export default memo(Input);
 const styles = StyleSheet.create({
   input: {
     fontFamily: fonts.Poppins.Regular,
-    fontSize: 16,
+    fontSize: 15,
     color: colors.text.primary,
   },
 });

@@ -5,16 +5,11 @@ import {
 import { colors, fonts } from '../../../utils';
 
 import IconButton from './IconButton';
-import IconOnly from './IconOnly';
 import FloatingButton from './FloatingButton';
 
 function ButtonComponent({
-  type, title, onPress, icon, disable, nonButton, iconHeight, iconWidth, label, style,
+  type, title, onPress, icon, disable, nonButton, iconHeight, iconWidth, label, style, styleText,
 }) {
-  if (type === 'icon-only') {
-    return <IconOnly icon={icon} onPress={onPress} />;
-  }
-
   if (type === 'icon-button') {
     return (
       <IconButton
@@ -40,7 +35,7 @@ function ButtonComponent({
 
   return (
     <TouchableOpacity style={{ ...styles.container(type), ...style }} onPress={onPress}>
-      <Text style={styles.text(type)}>{title}</Text>
+      <Text style={{ ...styles.text(type), ...styleText }}>{title}</Text>
     </TouchableOpacity>
   );
 }

@@ -1,9 +1,5 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import Icon from 'react-native-vector-icons/Feather';
-import {colors, fonts, windowWidth} from '../../../utils';
 
-function Headers({onPress, title, type}) {
+function Headers({ onPress, title, type }) {
   if (type === 'back-title') {
     return (
       <TouchableOpacity style={styles.container} onPress={onPress}>

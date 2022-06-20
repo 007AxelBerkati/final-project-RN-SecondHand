@@ -1,16 +1,18 @@
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Image, StyleSheet, TouchableOpacity, View,
+} from 'react-native';
 import React from 'react';
-import {windowHeight, windowWidth} from '../../../utils';
-import {IconRemovePhoto} from '../../../assets';
+import { windowHeight, windowWidth } from '../../../utils';
+import { IconRemovePhoto } from '../../../assets';
 
-function Profile({isRemove, source, onPress}) {
+function Profile({ isRemove, source, onPress }) {
   return (
     <View style={styles.photoSection}>
       {!isRemove && (
-        <View style={styles.photo}>
-          <Image source={source} style={styles.avatar} />
-          {isRemove && <IconRemovePhoto style={styles.removePhoto} />}
-        </View>
+      <View style={styles.photo}>
+        <Image source={source} style={styles.avatar} />
+        {isRemove && <IconRemovePhoto style={styles.removePhoto} />}
+      </View>
       )}
       {isRemove && (
         <TouchableOpacity style={styles.photo} onPress={onPress}>

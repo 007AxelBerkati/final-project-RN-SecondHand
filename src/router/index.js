@@ -49,7 +49,7 @@ function MyTabs() {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({color}) => <Icon name="home" color={color} size={26} />,
+          tabBarIcon: ({ color }) => <Icon name="home" color={color} size={26} />,
           headerShown: false,
         }}
       />
@@ -85,7 +85,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Daftar Jual',
           tabBarColor: 'green',
-          tabBarIcon: ({color}) => <Icon name="list" color={color} size={26} />,
+          tabBarIcon: ({ color }) => <Icon name="list" color={color} size={26} />,
           headerShown: false,
         }}
       />
@@ -107,7 +107,7 @@ function MyTabs() {
 function Router() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="ProfileScreen">
+      <Stack.Navigator initialRouteName="MainApp">
         <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}
