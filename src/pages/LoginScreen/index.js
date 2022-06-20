@@ -87,8 +87,7 @@ function LoginScreen({ navigation }) {
         <Gap height={windowHeight * 0.30} />
         <View style={styles.goRegisterWrapper}>
           <Text style={styles.registerTitle}>
-            Don&lsquo;t have an account?
-            {' '}
+            Belum Punya Akun?
           </Text>
           <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={14} onPress={() => navigation.replace('RegisterScreen')} />
         </View>
