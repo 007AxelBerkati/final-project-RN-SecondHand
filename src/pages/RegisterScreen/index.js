@@ -111,7 +111,7 @@ function RegisterScreen({ navigation }) {
                 <LinkComponent
                   title="Masuk disini"
                   color={colors.text.tertiary}
-                  onPress={() => navigation.navigate()}
+                  onPress={() => navigation.navigate('LoginScreen')}
                   size={13}
                 />
               </View>
