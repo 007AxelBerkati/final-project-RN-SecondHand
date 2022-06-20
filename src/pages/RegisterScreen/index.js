@@ -1,12 +1,13 @@
+/* eslint-disable camelcase */
 import {
   SafeAreaView, StyleSheet, Text, View, StatusBar, ScrollView,
 } from 'react-native';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 
 import {
-  colors, showSuccess, signupSchema, windowHeight,
+  colors, fonts, signupSchema, windowHeight,
 } from '../../utils';
 import {
   Button, Gap, Input, LinkComponent,
@@ -15,15 +16,13 @@ import { getRegister } from '../../redux/action/authRegister';
 
 function RegisterScreen({ navigation }) {
   const dispatch = useDispatch();
-  const dataRegister = useSelector((state) => state.dataRegister);
+  // const dataRegister = useSelector((state) => state.dataRegister);
 
-  const onSubmit = (fullname, email, password, address, phonenumber) => {
-    dispatch(getRegister(fullname, email, password, address, phonenumber, navigation));
-    if (dataRegister.isSuccess) {
-      showSuccess('Register Success');
-    } else {
-      showSuccess(dataRegister.error);
-    }
+  // eslint-disable-next-line camelcase
+  const onSubmit = (full_name, email, password, phone_number, address, image, city) => {
+    dispatch(getRegister({
+      full_name, email, password, phone_number, address, image, city,
+    }, navigation));
   };
   return (
     <View style={{ backgroundColor: 'white', height: windowHeight, marginHorizontal: 30 }}>
@@ -31,14 +30,14 @@ function RegisterScreen({ navigation }) {
         <StatusBar barStyle="light-content" backgroundColor={colors.white} />
         <Formik
           initialValues={{
-            email: '', password: '', fullname: '', address: '', phonenumber: '',
+            full_name: '', email: '', password: '', phone_number: '', address: '', image: null, city: '',
           }}
         // eslint-disable-next-line max-len
-          onSubmit={(values) => onSubmit(values.fullname, values.email, values.password, values.address, values.phonenumber)}
+          onSubmit={(values) => onSubmit(values.full_name, values.email, values.password, values.phone_number, values.address)}
           validationSchema={signupSchema}
         >
           {({
-            handleChange, handleSubmit, errors, isValid, values, handleBlur,
+            handleChange, handleSubmit, errors, isValid, values, handleBlur, touched, dirty,
           }) => (
             <SafeAreaView>
               <Text
@@ -53,30 +52,9 @@ function RegisterScreen({ navigation }) {
               >
                 Daftar
               </Text>
-              <Input leftIcon="account-circle" label="Fullname" onChangeText={handleChange('fullname')} value={values.fullname} onBlur={handleBlur('fullname')} />
-              {errors.fullname && <Text style={styles.error}>{errors.fullname}</Text>}
-              <Gap height={10} />
-              <Input
-                onChangeText={handleChange('address')}
-                value={values.address}
-                label="Address"
-                onBlur={handleBlur('address')}
-                leftIcon="map-marker"
-              />
-              {errors.address && (
-              <Text style={styles.error}>{errors.address}</Text>
-              )}
-              <Gap height={10} />
-              <Input
-                onChangeText={handleChange('phonenumber')}
-                value={values.phonenumber}
-                label="Phone Number"
-                onBlur={handleBlur('phonenumber')}
-                leftIcon="phone"
-              />
-              {errors.address && (
-              <Text style={styles.error}>{errors.address}</Text>
-              )}
+              <Input leftIcon="account-circle" label="Fullname" onChangeText={handleChange('full_name')} value={values.full_name} onBlur={handleBlur('full_name')} />
+              {errors.full_name && touched.full_name
+              && <Text style={styles.errorText}>{errors.full_name}</Text>}
               <Gap height={10} />
               <Input
                 placeHolder="Email"
@@ -86,7 +64,8 @@ function RegisterScreen({ navigation }) {
                 onBlur={handleBlur('email')}
                 leftIcon="email"
               />
-              {errors.email && <Text style={styles.error}>{errors.email}</Text>}
+              {errors.email && touched.email
+              && <Text style={styles.errorText}>{errors.email}</Text>}
               <Gap height={10} />
               <Input
                 onChangeText={handleChange('password')}
@@ -96,14 +75,34 @@ function RegisterScreen({ navigation }) {
                 secureTextEntry
                 leftIcon="key"
               />
-              {errors.password && (
-              <Text style={styles.error}>{errors.password}</Text>
-              )}
+              {errors.password && touched.password
+              && <Text style={styles.errorText}>{errors.password}</Text>}
               <Gap height={10} />
+              <Input
+                onChangeText={handleChange('address')}
+                value={values.address}
+                label="Address"
+                onBlur={handleBlur('address')}
+                leftIcon="map-marker"
+              />
+              {errors.address && touched.address
+              && <Text style={styles.errorText}>{errors.address}</Text>}
+              <Gap height={10} />
+              <Input
+                onChangeText={handleChange('phone_number')}
+                value={values.phone_number}
+                label="Phone Number"
+                onBlur={handleBlur('phone_number')}
+                leftIcon="phone"
+              />
+              {errors.phone_number && touched.phone_number
+              && <Text style={styles.errorText}>{errors.phone_number}</Text>}
+              <Gap height={10} />
+
               <Button
                 title="Daftar"
                 onPress={handleSubmit}
-                disabled={!isValid}
+                disable={!(dirty && isValid)}
               />
               <Gap height={70} />
               <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
@@ -131,5 +130,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
 
+  },
+  errorText: {
+    fontFamily: fonts.Poppins.Medium,
+    color: colors.warning,
+    fontSize: 12,
   },
 });
