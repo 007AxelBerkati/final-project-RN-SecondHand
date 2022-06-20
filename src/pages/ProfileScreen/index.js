@@ -17,8 +17,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Profile from '../../components/molekuls/Profile';
 import {ILNullPhoto} from '../../assets';
 import Headers from '../../components/molekuls/Headers';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 function ProfileScreen({navigation}) {
+  const [photo, setPhoto] = useState(ILNullPhoto);
   const getImage = () => {
     launchImageLibrary(
       {
@@ -162,7 +164,7 @@ function ProfileScreen({navigation}) {
             />
 
             <View style={styles.Button}>
-              <Button title="Simpan" color="red" />
+              <Button title="Simpan" color="#FF8303" />
             </View>
           </View>
         )}
@@ -177,6 +179,7 @@ const styles = StyleSheet.create({
   pages: {
     flex: 1,
     backgroundColor: 'white',
+    margin: 16,
   },
   borderText: {
     marginLeft: windowWidth * 0.3,
@@ -215,7 +218,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   dropdown1BtnStyle: {
-    width: windowWidth * 0.9,
+    width: windowWidth * 0.82,
     height: 50,
     backgroundColor: '#F0F0F0',
     borderRadius: 4,
