@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable camelcase */
 import {
   SafeAreaView, StyleSheet, Text, View, StatusBar, ScrollView,
@@ -106,7 +107,7 @@ function RegisterScreen({ navigation }) {
               />
               <Gap height={70} />
               <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-                <Text style={{ color: colors.text.primary }}>Sudah Punya Akun ? </Text>
+                <Text style={{ color: colors.text.primary, fontFamily: fonts.Poppins.Regular, fontSize: 14 }}>Sudah Punya Akun ? </Text>
                 <LinkComponent
                   title="Masuk disini"
                   color={colors.text.tertiary}
