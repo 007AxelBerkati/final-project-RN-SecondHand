@@ -20,6 +20,16 @@ export const signupSchema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
+  address: Yup.string()
+    .min(4, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  phonenumber: Yup.number()
+    .typeError("That doesn't look like a phone number")
+    .positive("A phone number can't start with a minus")
+    .integer("A phone number can't include a decimal point")
+    .min(12)
+    .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup
     .string()
