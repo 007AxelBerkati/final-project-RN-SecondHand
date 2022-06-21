@@ -16,7 +16,7 @@ instance.interceptors.request.use(
     const { access_token } = store.dataLogin.data;
     if (access_token) {
       // eslint-disable-next-line no-param-reassign
-      config.headers.Authorization = access_token;
+      config.headers.access_token = access_token;
     }
     return config;
   },

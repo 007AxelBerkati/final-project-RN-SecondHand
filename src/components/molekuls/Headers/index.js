@@ -17,9 +17,9 @@ function Headers({ onPress, title, type }) {
 
   if (type === 'back') {
     return (
-      <View style={styles.container} onPress={onPress}>
+      <TouchableOpacity style={styles.container} onPress={onPress}>
         <Icon name="arrow-left" size={24} color={colors.background.black} />
-      </View>
+      </TouchableOpacity>
     );
   }
   return (

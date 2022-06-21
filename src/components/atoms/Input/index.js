@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { memo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
@@ -11,6 +12,8 @@ function Input({
   cannotEdited,
   secureTextEntry,
   leftIcon,
+  ...props
+
 }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   return (
@@ -37,6 +40,7 @@ function Input({
             />
           ) : null
         }
+        {...props}
       />
     </View>
   );
