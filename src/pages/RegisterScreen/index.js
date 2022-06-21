@@ -1,42 +1,53 @@
-/* eslint-disable max-len */
+/* eslint-disable no-undef */
 /* eslint-disable camelcase */
 import {
-  SafeAreaView, StyleSheet, Text, View, StatusBar, ScrollView, TouchableWithoutFeedback, Keyboard,
+  SafeAreaView, StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard, ScrollView,
 } from 'react-native';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
-
+import SelectDropdown from 'react-native-select-dropdown';
+// import FormData from 'form-data';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
   colors, fonts, signupSchema, windowHeight,
 } from '../../utils';
 import {
-  ButtonComponent, Gap, Input, LinkComponent,
+  ButtonComponent, Gap, Headers, Input, LinkComponent,
 } from '../../components';
-import { getRegister } from '../../redux/action/authRegister';
+import { getRegister } from '../../redux';
+import { kota } from '../../assets';
 
 function RegisterScreen({ navigation }) {
   const dispatch = useDispatch();
   const stateGlobal = useSelector((state) => state.dataGlobal);
-  // const dataRegister = useSelector((state) => state.dataRegister);
 
-  // eslint-disable-next-line camelcase
-  const onSubmit = (full_name, email, password, phone_number, address, image, city) => {
-    dispatch(getRegister({
-      full_name, email, password, phone_number, address, image, city,
-    }, navigation));
+  const onSubmit = (data) => {
+    // const formData = new FormData();
+    // formData.append('full_name', data.full_name);
+    // formData.append('email', data.email);
+    // formData.append('password', data.password);
+    // formData.append('phone_number', parseInt(data.phone_number, 10));
+    // formData.append('address', data.address);
+    // formData.append('image', {
+    //   uri: data.image,
+    //   type: 'jpg/png',
+    // });
+    // formData.append('city', data.city);
+    // console.log('Data response form : ', formData);
+
+    dispatch(getRegister({ ...data, phone_number: parseInt(data.phone_number, 10) }, navigation));
   };
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={{ flex: 1, margin: 16 }}>
-        <ScrollView showsVerticalScrollIndicator>
-          <StatusBar barStyle="light-content" backgroundColor={colors.white} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Headers type="back" onPress={() => navigation.goBack()} />
           <Formik
             initialValues={{
               full_name: '', email: '', password: '', phone_number: '', address: '', image: null, city: '',
             }}
-        // eslint-disable-next-line max-len
-            onSubmit={(values) => onSubmit(values.full_name, values.email, values.password, values.phone_number, values.address, values.image, values.city)}
+            onSubmit={(values) => onSubmit(values)}
             validationSchema={signupSchema}
           >
             {({
@@ -47,10 +58,9 @@ function RegisterScreen({ navigation }) {
                   style={{
                     marginTop: windowHeight * 0.05,
                     alignSelf: 'flex-start',
-                    marginBottom: 70,
-                    fontWeight: 'bold',
                     color: colors.text.tertiary,
                     fontSize: 30,
+                    fontFamily: fonts.Poppins.Bold,
                   }}
                 >
                   Daftar
@@ -97,19 +107,63 @@ function RegisterScreen({ navigation }) {
                   label="Phone Number"
                   onBlur={handleBlur('phone_number')}
                   leftIcon="phone"
+                  keyboardType="numeric"
                 />
                 {errors.phone_number && touched.phone_number
               && <Text style={styles.errorText}>{errors.phone_number}</Text>}
                 <Gap height={10} />
+                <SelectDropdown
+                  data={kota}
+                  onSelect={(selectedItem) => {
+                  // eslint-disable-next-line no-param-reassign
+                    values.city = selectedItem;
+                  }}
+                  defaultButtonText="Pilih Kota"
+                  buttonTextAfterSelection={(selectedItem) => selectedItem}
+                  rowTextForSelection={(item) => item}
+                  buttonStyle={styles.dropdown1BtnStyle}
+                  buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                  renderDropdownIcon={(isOpened) => (
+                    <FontAwesome
+                      name={isOpened ? 'chevron-up' : 'chevron-down'}
+                      color="#444"
+                      size={18}
+                    />
+                  )}
+                  dropdownIconPosition="right"
+                  dropdownStyle={styles.dropdown1DropdownStyle}
+                  rowStyle={styles.dropdown1RowStyle}
+                  rowTextStyle={styles.dropdown1RowTxtStyle}
+                  selectedRowStyle={styles.dropdown1SelectedRowStyle}
+                  search
+                  searchInputStyle={styles.dropdown1searchInputStyleStyle}
+                  searchPlaceHolder="Search here"
+                  searchPlaceHolderColor="darkgrey"
+                  renderSearchInputLeftIcon={() => (
+                    <FontAwesome name="search" color="#444" size={18} />
+                  )}
+                />
+                {errors.city && touched.city
+              && <Text style={styles.errorText}>{errors.city}</Text>}
+                <Gap height={20} />
 
                 <ButtonComponent
                   title="Daftar"
                   onPress={handleSubmit}
                   disable={!(dirty && isValid) || stateGlobal.isLoading}
                 />
-                <Gap height={70} />
+                <Gap height={20} />
                 <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-                  <Text style={{ color: colors.text.primary, fontFamily: fonts.Poppins.Regular, fontSize: 14 }}>Sudah Punya Akun ? </Text>
+                  <Text style={{
+                    color: colors.text.primary,
+                    fontFamily: fonts.Poppins.Regular,
+                    fontSize: 14,
+                  }}
+                  >
+                    Sudah Punya Akun ?
+                    {' '}
+
+                  </Text>
                   <LinkComponent
                     title="Masuk disini"
                     color={colors.text.tertiary}
@@ -121,7 +175,6 @@ function RegisterScreen({ navigation }) {
             )}
           </Formik>
         </ScrollView>
-
       </View>
     </TouchableWithoutFeedback>
 
@@ -140,5 +193,44 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Poppins.Medium,
     color: colors.warning,
     fontSize: 12,
+  },
+
+  kota: {
+    borderWidth: 1,
+    borderRadius: 12,
+    marginTop: 15,
+  },
+  dropdown1BtnStyle: {
+    width: null,
+    height: 50,
+    backgroundColor: '#F0F0F0',
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#B0B0B0',
+    marginTop: 6,
+  },
+  dropdown1BtnTxtStyle: {
+    color: '#444',
+    textAlign: 'left',
+  },
+  dropdown1DropdownStyle: {
+    backgroundColor: '#EFEFEF',
+  },
+  dropdown1RowStyle: {
+    backgroundColor: '#EFEFEF',
+    borderBottomColor: '#C5C5C5',
+  },
+  dropdown1RowTxtStyle: {
+    color: '#444',
+    textAlign: 'left',
+  },
+  dropdown1SelectedRowStyle: {
+    backgroundColor: 'rgba(0,0,0,0.1)',
+  },
+  dropdown1searchInputStyleStyle: {
+    backgroundColor: '#EFEFEF',
+    borderRadius: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#444',
   },
 });

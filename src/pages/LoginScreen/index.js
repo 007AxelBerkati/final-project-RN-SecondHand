@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   View,
-  StatusBar,
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
@@ -30,7 +29,6 @@ function LoginScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={{ flex: 1, margin: 16 }}>
-        <StatusBar barStyle="light-content" backgroundColor={colors.white} />
         <Headers type="back" />
         <Formik
           initialValues={{ email: '', password: '' }}
@@ -89,7 +87,7 @@ function LoginScreen({ navigation }) {
           <Text style={styles.registerTitle}>
             Belum Punya Akun?
           </Text>
-          <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={14} onPress={() => navigation.replace('RegisterScreen')} />
+          <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={14} onPress={() => navigation.navigate('RegisterScreen')} />
         </View>
       </View>
     </TouchableWithoutFeedback>
