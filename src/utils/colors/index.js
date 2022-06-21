@@ -6,6 +6,8 @@ const mainColors = {
   grey3: '#E9E9E9',
   grey4: '#EDEEF0',
   grey5: '#B1B7C2',
+  grey6: '#B0B0B0',
+  grey7: '#F0F0F0',
   dark1: '#112340',
   dark2: '#495A75',
   red1: '#E06379',
@@ -30,6 +32,7 @@ export const colors = {
     primary: 'white',
     secondary: mainColors.orange1,
     black: mainColors.black1,
+    grey: mainColors.grey7,
   },
   button: {
     primary: {
@@ -59,5 +62,8 @@ export const colors = {
   lineTextInput: mainColors.orange1,
   loadingBackground: mainColors.black2,
   outlineInput: mainColors.grey2,
-  border: mainColors.grey3,
+  border: {
+    primary: mainColors.grey3,
+    secondary: mainColors.grey6,
+  },
 };

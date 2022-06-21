@@ -1,16 +1,16 @@
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import SelectDropdown from 'react-native-select-dropdown';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { fonts, showError } from '../../utils';
+import {
+  showError, updateProfileSchema, fonts, colors,
+} from '../../utils';
 import { windowHeight, windowWidth } from '../../utils/dimensions';
 import Input from '../../components/atoms/Input';
 import Profile from '../../components/molekuls/Profile';
 import { ILNullPhoto } from '../../assets';
 import Headers from '../../components/molekuls/Headers';
-import { Gap } from '../../components/atoms';
+import { ButtonComponent, Gap, Select } from '../../components/atoms';
 
 function ProfileScreen({ navigation }) {
   const [photo, setPhoto] = useState(ILNullPhoto);
@@ -89,74 +89,60 @@ function ProfileScreen({ navigation }) {
         <Profile source={photo} isRemove photo={photo} onPress={getImage} />
       </View>
       <Formik
-        initialValues={{ nama: '', alamat: '', handphone: '' }}
+        initialValues={{
+          fullname: '', kota: '', alamat: '', nomortelepon: '',
+        }}
         onSubmit={(values) => console.log(values)}
+        // eslint-disable-next-line max-len
+        // onSubmit={(values) => onSubmit(values.fullname, values.kota, values.alamat, values.nomortelepon)}
+        validationSchema={updateProfileSchema}
       >
         {({
-          handleChange, handleBlur, values,
+          handleChange, handleSubmit, errors, values, handleBlur, touched,
         }) => (
           <View style={{ paddingHorizontal: 5, margin: 15 }}>
             <Input
-              leftIcon="account"
+              leftIcon="account-circle"
               label="Nama"
-              onChangeText={handleChange('nama')}
-              value={values.nama}
-              onBlur={handleBlur('nama')}
+              onChangeText={handleChange('fullname')}
+              value={values.fullname}
+              onBlur={handleBlur('fullname')}
             />
-            <Gap height={10} />
+            {errors.fullname && touched.fullname
+              && <Text style={styles.errorText}>{errors.fullname}</Text>}
+            <Gap height={15} />
 
-            <SelectDropdown
+            <Select
               data={kota}
-              // defaultValueByIndex={1}
-              // defaultValue={'Egypt'}
-              onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
+              onSelect={(selectedItem) => {
+                console.log(selectedItem);
               }}
-              defaultButtonText="Pilih Kota"
-              buttonTextAfterSelection={(selectedItem) => selectedItem}
-              rowTextForSelection={(item) => item}
-              buttonStyle={styles.dropdown1BtnStyle}
-              buttonTextStyle={styles.dropdown1BtnTxtStyle}
-              renderDropdownIcon={(isOpened) => (
-                <FontAwesome
-                  name={isOpened ? 'chevron-up' : 'chevron-down'}
-                  color="#444"
-                  size={18}
-                />
-              )}
-              dropdownIconPosition="right"
-              dropdownStyle={styles.dropdown1DropdownStyle}
-              rowStyle={styles.dropdown1RowStyle}
-              rowTextStyle={styles.dropdown1RowTxtStyle}
-              selectedRowStyle={styles.dropdown1SelectedRowStyle}
-              search
-              searchInputStyle={styles.dropdown1searchInputStyleStyle}
-              searchPlaceHolder="Search here"
-              searchPlaceHolderColor="darkgrey"
-              renderSearchInputLeftIcon={() => (
-                <FontAwesome name="search" color="#444" size={18} />
-              )}
             />
-            <Gap height={10} />
+            {errors.kota && touched.kota
+              && <Text style={styles.errorText}>{errors.kota}</Text>}
+            <Gap height={15} />
             <Input
-              leftIcon="home"
+              leftIcon="map-marker"
               label="Alamat"
               onChangeText={handleChange('alamat')}
               value={values.alamat}
               onBlur={handleBlur('alamat')}
             />
-            <Gap height={10} />
+            {errors.alamat && touched.alamat
+              && <Text style={styles.errorText}>{errors.alamat}</Text>}
+            <Gap height={15} />
             <Input
-              leftIcon="cellphone"
-              label="No. Handphone"
-              onChangeText={handleChange('handphone')}
-              value={values.handphone}
-              onBlur={handleBlur('handphone')}
+              leftIcon="phone"
+              label="Nomor Telepon"
+              onChangeText={handleChange('nomortelepon')}
+              value={values.nomortelepon}
+              onBlur={handleBlur('nomortelepon')}
             />
-            <Gap height={10} />
-            <View style={styles.Button}>
-              <Button title="Simpan" titleColor="black" color="#FF8303" />
-            </View>
+            {errors.nomortelepon && touched.nomortelepon
+              && <Text style={styles.errorText}>{errors.nomortelepon}</Text>}
+            <Gap height={80} />
+            <ButtonComponent title="Simpan" onPress={handleSubmit} />
+
           </View>
         )}
       </Formik>
@@ -172,32 +158,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     margin: 16,
   },
-  borderText: {
-    marginLeft: windowWidth * 0.3,
-    marginTop: windowHeight * -0.06,
-  },
-  text1: {
-    color: '#112340',
-    fontSize: 16,
-    marginTop: 10,
-    fontFamily: fonts.Poppins.SemiBold,
-  },
-  icon1: {
-    marginRight: 64,
-  },
-  name: {
-    marginTop: windowHeight * 0.3,
-  },
   input1: {
     borderWidth: 1,
     height: 50,
     width: windowWidth * 0.93,
     borderRadius: 12,
-  },
-  Button: {
-    width: 250,
-    marginLeft: windowWidth * 0.10,
-    marginTop: windowHeight * 0.13,
   },
 
   text: {
@@ -208,40 +173,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginTop: 15,
   },
-  dropdown1BtnStyle: {
-    width: windowWidth * 0.82,
-    height: 50,
-    backgroundColor: '#F0F0F0',
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#B0B0B0',
-    marginTop: 6,
-  },
-  dropdown1BtnTxtStyle: {
-    color: '#444',
-    textAlign: 'left',
-  },
-  dropdown1DropdownStyle: {
-    backgroundColor: '#EFEFEF',
-  },
-  dropdown1RowStyle: {
-    backgroundColor: '#EFEFEF',
-    borderBottomColor: '#C5C5C5',
-  },
-  dropdown1RowTxtStyle: {
-    color: '#444',
-    textAlign: 'left',
-  },
-  dropdown1SelectedRowStyle: {
-    backgroundColor: 'rgba(0,0,0,0.1)',
-  },
-  dropdown1searchInputStyleStyle: {
-    backgroundColor: '#EFEFEF',
-    borderRadius: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#444',
-  },
   photo: {
     marginTop: windowHeight * 0.04,
+  },
+  errorText: {
+    fontFamily: fonts.Poppins.Medium,
+    color: colors.warning,
+    fontSize: 12,
   },
 });
