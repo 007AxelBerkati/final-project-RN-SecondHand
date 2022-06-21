@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { GET_API_BUYER } from '../../config';
-import { GET_PRODUCT_FAIL, GET_PRODUCT_LOADING, GET_PRODUCT_SUCCESS } from '../types';
+import { getBuyerProduct } from '../../services';
+import { GET_PRODUCT_FAIL, GET_PRODUCT_SUCCESS } from '../types';
+import { setLoading } from './global';
 
 export const getProductSuccess = (data) => ({
   type: GET_PRODUCT_SUCCESS,
@@ -13,19 +13,13 @@ export const getProductFail = (error) => ({
 }
 );
 
-export const getProductLoading = (loading) => ({
-  type: GET_PRODUCT_LOADING,
-  payload: loading,
-}
-);
-
 export const getProduct = () => async (dispatch) => {
-  dispatch(getProductLoading(true));
-  await axios.get(`${GET_API_BUYER}/product`)
-    .then((response) => {
-      dispatch(getProductSuccess(response.data));
-    })
-    .catch((error) => {
-      dispatch(getProductFail(error.response.data));
-    });
+  dispatch(setLoading(true));
+  await getBuyerProduct().then((response) => {
+    dispatch(getProductSuccess(response.data));
+    dispatch(setLoading(false));
+  }).catch((error) => {
+    dispatch(getProductFail(error.response.data.message));
+    dispatch(setLoading(false));
+  });
 };
