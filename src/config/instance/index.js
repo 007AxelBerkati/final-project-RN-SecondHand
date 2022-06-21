@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
-// eslint-disable-next-line import/no-cycle
-import { Store } from '../../redux';
+import { Store } from '../../redux/store';
 
 const headers = {};
 
