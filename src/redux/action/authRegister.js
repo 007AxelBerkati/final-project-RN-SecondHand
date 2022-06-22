@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 import { GET_API_AUTH } from '../../config';
 import { GET_REGISTER_FAIL, GET_REGISTER_SUCCESS } from '../types';
