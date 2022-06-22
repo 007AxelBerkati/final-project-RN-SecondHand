@@ -1,7 +1,7 @@
 import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { colors, fonts } from '../../../utils';
 
@@ -31,7 +31,7 @@ function Headers({ onPress, title, type }) {
   );
 }
 
-export default Headers;
+export default memo(Headers);
 
 const styles = StyleSheet.create({
   title: {

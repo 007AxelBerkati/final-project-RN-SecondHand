@@ -17,15 +17,23 @@ function HomeScreen() {
   const dataProduct = useSelector((state) => state.dataHome.data);
   const dataCategory = useSelector((state) => state.dataHome.category);
   const [active, setActive] = useState('');
+  const [btnAllActive, setBtnAllActive] = useState(true);
 
   useEffect(() => {
-    dispatch(getProduct());
+    dispatch(getProduct(''));
     dispatch(getCategoryProduct());
   }, []);
 
   const getProductByCategory = (categoryId) => {
     setActive(categoryId);
+    setBtnAllActive(false);
     dispatch(getProduct(`?category_id=${categoryId}`));
+  };
+
+  const getAllProduct = () => {
+    setBtnAllActive(true);
+    setActive('');
+    dispatch(getProduct(''));
   };
 
   const onChangeSearch = (query) => setSearchQuery(query);
@@ -51,15 +59,13 @@ function HomeScreen() {
         />
         <View style={styles.content}>
           <Text style={styles.titleCategory}>Telusuri Kategori</Text>
-          <FlatList
-            data={dataCategory}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <CardCategory name="search" active={active === item.id} kategori={item.name} onPress={() => getProductByCategory(item.id)} />
-            )}
-          />
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <CardCategory name="search" active={btnAllActive} kategori="Semua" onPress={() => getAllProduct('')} />
+            {dataCategory.map((item) => (
+              <CardCategory key={item.id} name="search" active={active === item.id} kategori={item.name} onPress={() => getProductByCategory(item.id)} />
+            ))}
+
+          </ScrollView>
           <FlatList
             data={dataProduct}
             numColumns={2}
