@@ -8,5 +8,5 @@ export const updateBuyerOrder = (productId, bidPrice) => instance.put('/buyer/or
 export const deleteBuyerOrder = (id) => instance.delete(`/buyer/order/${id}`);
 
 // buyer/product
-export const getBuyerProduct = () => instance.get('/buyer/product');
+export const getBuyerProduct = (params) => instance.get(`/buyer/product${params}`);
 export const detailBuyerProduct = (id) => instance.get(`/buyer/product/${id}`);

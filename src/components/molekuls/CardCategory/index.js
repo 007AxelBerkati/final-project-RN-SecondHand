@@ -8,12 +8,17 @@ import {
 } from '../../../utils';
 
 function CardCategory({
-  onPress, name, kategori,
+  onPress, name, kategori, active,
 }) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Icon name={name} size={20} color={colors.background.primary} />
-      <Text style={styles.text}>{kategori}</Text>
+    <TouchableOpacity onPress={onPress} style={styles.container(active)}>
+      <Icon
+        name={name}
+        size={20}
+        color={active ? colors.background.primary
+          : colors.background.black}
+      />
+      <Text style={styles.text(active)}>{kategori}</Text>
     </TouchableOpacity>
   );
 }
@@ -21,21 +26,23 @@ function CardCategory({
 export default CardCategory;
 
 const styles = StyleSheet.create({
-  container: {
+  container: (active) => ({
     paddingHorizontal: 16,
     paddingVertical: 12,
     height: windowHeight * 0.07,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    backgroundColor: colors.background.secondary,
+    backgroundColor: active ? colors.background.secondary : colors.background.tertiary,
     borderRadius: 12,
     marginHorizontal: 5,
-  },
+    borderWidth: 1,
+    borderColor: active ? colors.background.primary : colors.background.tertiary,
+  }),
 
-  text: {
+  text: (active) => ({
     fontFamily: fonts.Poppins.Regular,
-    color: colors.text.secondary,
-  },
+    color: active ? colors.text.secondary : colors.text.primary,
+  }),
 
 });

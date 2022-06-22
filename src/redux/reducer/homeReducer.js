@@ -1,9 +1,12 @@
-import { GET_PRODUCT_FAIL, GET_PRODUCT_SUCCESS } from '../types';
+import {
+  GET_CATEGORY_FAIL, GET_CATEGORY_SUCCESS, GET_PRODUCT_FAIL, GET_PRODUCT_SUCCESS,
+} from '../types';
 
 const initialStateHome = {
   isSuccess: false,
   data: [],
   error: '',
+  category: [],
 };
 
 export const homeReducer = (state = initialStateHome, action = {}) => {
@@ -20,6 +23,21 @@ export const homeReducer = (state = initialStateHome, action = {}) => {
         isSuccess: false,
         error: action.payload,
       };
+
+    case GET_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        isSuccess: true,
+        category: action.payload,
+      };
+
+    case GET_CATEGORY_FAIL:
+      return {
+        ...state,
+        isSuccess: false,
+        error: action.payload,
+      };
+
     default:
       return state;
   }
