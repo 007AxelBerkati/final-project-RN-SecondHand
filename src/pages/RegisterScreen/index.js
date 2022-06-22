@@ -18,13 +18,13 @@ import { getRegister } from '../../redux/action/authRegister';
 function RegisterScreen({ navigation }) {
   const dispatch = useDispatch();
   const stateGlobal = useSelector((state) => state.dataGlobal);
-  // const dataRegister = useSelector((state) => state.dataRegister);
+  const dataRegister = useSelector((state) => state.dataRegister);
 
   // eslint-disable-next-line camelcase
   const onSubmit = (full_name, email, password, phone_number, address, image, city) => {
     dispatch(getRegister({
-      full_name, email, password, phone_number, address, image, city,
-    }, navigation));
+      full_name, email, password, phone_number, address, image: null, city,
+    }, navigation, dataRegister));
   };
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
