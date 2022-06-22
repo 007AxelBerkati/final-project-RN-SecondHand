@@ -8,10 +8,12 @@ import { colors, fonts } from '../../../utils';
 function Headers({ onPress, title, type }) {
   if (type === 'back-title') {
     return (
-      <TouchableOpacity style={styles.container} onPress={onPress}>
-        <Icon name="arrow-left" size={24} color={colors.background.black} style={{ position: 'absolute', left: 0 }} />
+      <View style={styles.container}>
+        <TouchableOpacity onPress={onPress} style={{ position: 'absolute', left: 0 }}>
+          <Icon name="arrow-left" size={24} color={colors.background.black} />
+        </TouchableOpacity>
         <Text style={styles.titleBack}>{title}</Text>
-      </TouchableOpacity>
+      </View>
     );
   }
 
