@@ -14,6 +14,7 @@ import {
   RegisterScreen,
 } from '../pages';
 import { colors } from '../utils';
+import ProfileScreen from '../pages/ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -107,7 +108,7 @@ function MyTabs() {
 function Router() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="MainApp">
+      <Stack.Navigator initialRouteName="ProfileScreen">
         <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}
@@ -121,6 +122,11 @@ function Router() {
         <Stack.Screen
           name="MainApp"
           component={MyTabs}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ProfileScreen"
+          component={ProfileScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
