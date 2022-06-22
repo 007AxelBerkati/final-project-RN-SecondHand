@@ -17,6 +17,7 @@ import { kota } from '../../assets';
 
 function ProfileScreen({ navigation }) {
   const dispatch = useDispatch();
+  const stateGlobal = useSelector((state) => state.dataGlobal);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
   const [photo, setPhoto] = useState(dataProfile.image_url);
 
@@ -52,9 +53,6 @@ function ProfileScreen({ navigation }) {
       type: 'image/jpeg',
       name: data.image.fileName,
     });
-
-    console.log(formData);
-
     dispatch(putDataProfile(formData, navigation));
   };
 
@@ -79,7 +77,8 @@ function ProfileScreen({ navigation }) {
         validationSchema={updateProfileSchema}
       >
         {({
-          handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue,
+          handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue, isValid,
+          dirty,
         }) => (
           <View>
             <View style={styles.photo}>
@@ -131,7 +130,7 @@ function ProfileScreen({ navigation }) {
             {errors.phone_number && touched.phone_number
               && <Text style={styles.errorText}>{errors.phone_number}</Text>}
             <Gap height={windowHeight * 0.05} />
-            <ButtonComponent title="Simpan" onPress={handleSubmit} />
+            <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(dirty && isValid) || stateGlobal.isLoading} />
           </View>
         )}
       </Formik>

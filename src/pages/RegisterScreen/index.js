@@ -6,16 +6,15 @@ import {
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
-import SelectDropdown from 'react-native-select-dropdown';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FormData from 'form-data';
 import {
   colors, fonts, signupSchema, windowHeight,
 } from '../../utils';
 import {
-  ButtonComponent, Gap, Headers, Input, LinkComponent,
+  ButtonComponent, Gap, Headers, Input, LinkComponent, Select,
 } from '../../components';
 import { getRegister } from '../../redux';
+import { kota } from '../../assets';
 
 function RegisterScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -91,37 +90,12 @@ function RegisterScreen({ navigation }) {
               && <Text style={styles.errorText}>{errors.password}</Text>}
 
                 <Gap height={10} />
-                <SelectDropdown
+                <Select
                   data={kota}
                   onSelect={(selectedItem) => {
-                  // eslint-disable-next-line no-param-reassign
+                    // eslint-disable-next-line no-param-reassign
                     values.city = selectedItem;
                   }}
-                  defaultValue={values.city}
-                  defaultButtonText="Pilih Kota"
-                  buttonTextAfterSelection={(selectedItem) => selectedItem}
-                  rowTextForSelection={(item) => item}
-                  buttonStyle={styles.dropdown1BtnStyle}
-                  buttonTextStyle={styles.dropdown1BtnTxtStyle}
-                  renderDropdownIcon={(isOpened) => (
-                    <FontAwesome
-                      name={isOpened ? 'chevron-up' : 'chevron-down'}
-                      color="#444"
-                      size={18}
-                    />
-                  )}
-                  dropdownIconPosition="right"
-                  dropdownStyle={styles.dropdown1DropdownStyle}
-                  rowStyle={styles.dropdown1RowStyle}
-                  rowTextStyle={styles.dropdown1RowTxtStyle}
-                  selectedRowStyle={styles.dropdown1SelectedRowStyle}
-                  search
-                  searchInputStyle={styles.dropdown1searchInputStyleStyle}
-                  searchPlaceHolder="Search here"
-                  searchPlaceHolderColor="darkgrey"
-                  renderSearchInputLeftIcon={() => (
-                    <FontAwesome name="search" color="#444" size={18} />
-                  )}
                 />
                 {errors.city && touched.city
               && <Text style={styles.errorText}>{errors.city}</Text>}
@@ -196,44 +170,5 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Poppins.Medium,
     color: colors.warning,
     fontSize: 12,
-  },
-
-  kota: {
-    borderWidth: 1,
-    borderRadius: 12,
-    marginTop: 15,
-  },
-  dropdown1BtnStyle: {
-    width: null,
-    height: 50,
-    backgroundColor: '#F0F0F0',
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#B0B0B0',
-    marginTop: 6,
-  },
-  dropdown1BtnTxtStyle: {
-    color: '#444',
-    textAlign: 'left',
-  },
-  dropdown1DropdownStyle: {
-    backgroundColor: '#EFEFEF',
-  },
-  dropdown1RowStyle: {
-    backgroundColor: '#EFEFEF',
-    borderBottomColor: '#C5C5C5',
-  },
-  dropdown1RowTxtStyle: {
-    color: '#444',
-    textAlign: 'left',
-  },
-  dropdown1SelectedRowStyle: {
-    backgroundColor: 'rgba(0,0,0,0.1)',
-  },
-  dropdown1searchInputStyleStyle: {
-    backgroundColor: '#EFEFEF',
-    borderRadius: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#444',
   },
 });
