@@ -24,9 +24,8 @@ export const getRegister = (data, navigation) => async (dispatch) => {
     showSuccess('Register Success');
     navigation.navigate('LoginScreen');
   }).catch((error) => {
-    // dispatch(getRegisterFail(error.response.data.message));
+    dispatch(getRegisterFail(error.response.data.message));
     dispatch(setLoading(false));
     showError(error.response.data.message);
-    showError('Register Fail');
   });
 };

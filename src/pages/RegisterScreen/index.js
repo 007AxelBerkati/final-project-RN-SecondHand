@@ -90,27 +90,7 @@ function RegisterScreen({ navigation }) {
                 />
                 {errors.password && touched.password
               && <Text style={styles.errorText}>{errors.password}</Text>}
-                <Gap height={10} />
-                <Input
-                  onChangeText={handleChange('address')}
-                  value={values.address}
-                  label="Address"
-                  onBlur={handleBlur('address')}
-                  leftIcon="map-marker"
-                />
-                {errors.address && touched.address
-              && <Text style={styles.errorText}>{errors.address}</Text>}
-                <Gap height={10} />
-                <Input
-                  onChangeText={handleChange('phone_number')}
-                  value={values.phone_number}
-                  label="Phone Number"
-                  onBlur={handleBlur('phone_number')}
-                  leftIcon="phone"
-                  keyboardType="numeric"
-                />
-                {errors.phone_number && touched.phone_number
-              && <Text style={styles.errorText}>{errors.phone_number}</Text>}
+
                 <Gap height={10} />
                 <SelectDropdown
                   data={kota}
@@ -118,6 +98,7 @@ function RegisterScreen({ navigation }) {
                   // eslint-disable-next-line no-param-reassign
                     values.city = selectedItem;
                   }}
+                  defaultValue={values.city}
                   defaultButtonText="Pilih Kota"
                   buttonTextAfterSelection={(selectedItem) => selectedItem}
                   rowTextForSelection={(item) => item}
@@ -145,6 +126,29 @@ function RegisterScreen({ navigation }) {
                 />
                 {errors.city && touched.city
               && <Text style={styles.errorText}>{errors.city}</Text>}
+                <Gap height={10} />
+                <Input
+                  onChangeText={handleChange('address')}
+                  value={values.address}
+                  label="Address"
+                  onBlur={handleBlur('address')}
+                  leftIcon="map-marker"
+                />
+                {errors.address && touched.address
+              && <Text style={styles.errorText}>{errors.address}</Text>}
+
+                <Gap height={10} />
+                <Input
+                  onChangeText={handleChange('phone_number')}
+                  value={values.phone_number}
+                  label="Phone Number"
+                  onBlur={handleBlur('phone_number')}
+                  leftIcon="phone"
+                  keyboardType="numeric"
+                />
+                {errors.phone_number && touched.phone_number
+              && <Text style={styles.errorText}>{errors.phone_number}</Text>}
+
                 <Gap height={20} />
 
                 <ButtonComponent
