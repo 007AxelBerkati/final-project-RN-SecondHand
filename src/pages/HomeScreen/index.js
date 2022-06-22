@@ -60,7 +60,7 @@ function HomeScreen() {
         <View style={styles.content}>
           <Text style={styles.titleCategory}>Telusuri Kategori</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <CardCategory name="search" active={btnAllActive} kategori="Semua" onPress={() => getAllProduct('')} />
+            <CardCategory name="search" active={btnAllActive} kategori="Semua" onPress={() => getAllProduct()} />
             {dataCategory.map((item) => (
               <CardCategory key={item.id} name="search" active={active === item.id} kategori={item.name} onPress={() => getProductByCategory(item.id)} />
             ))}
