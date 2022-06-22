@@ -10,10 +10,11 @@ import { getAkun, logout } from '../../redux';
 
 function AkunScreen({ navigation }) {
   const dispatch = useDispatch();
-  const dataUser = useSelector((state) => state.dataAkun.dataAkun);
+  const dataProfile = useSelector((state) => state.dataProfile.profile);
 
   useEffect(() => {
     dispatch(getAkun());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onLogout = () => {
@@ -24,8 +25,8 @@ function AkunScreen({ navigation }) {
   return (
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
-      <Profile source={dataUser.image_url} />
-      <CardList type="account" name="edit" title="Ubah Akun" />
+      <Profile source={{ uri: dataProfile?.image_url }} />
+      <CardList type="account" name="edit" title="Ubah Akun" onPress={() => navigation.navigate('ProfileScreen')} />
       <CardList type="account" name="setting" title="Pengaturan Akun" />
       <CardList type="account" name="logout" title="Keluar" onPress={onLogout} />
       <Text style={styles.version}>

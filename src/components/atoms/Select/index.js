@@ -4,10 +4,11 @@ import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { colors, fonts } from '../../../utils';
 
-function Select({ data, onSelect }) {
+function Select({ data, onSelect, defaultValue }) {
   return (
     <SelectDropdown
       data={data}
+      defaultValue={defaultValue}
       onSelect={onSelect}
       defaultButtonText="Pilih Kota"
       buttonTextAfterSelection={(selectedItem) => selectedItem}

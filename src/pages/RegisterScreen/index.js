@@ -7,8 +7,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import SelectDropdown from 'react-native-select-dropdown';
-// import FormData from 'form-data';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FormData from 'form-data';
 import {
   colors, fonts, signupSchema, windowHeight,
 } from '../../utils';
@@ -16,27 +16,26 @@ import {
   ButtonComponent, Gap, Headers, Input, LinkComponent,
 } from '../../components';
 import { getRegister } from '../../redux';
-import { kota } from '../../assets';
 
 function RegisterScreen({ navigation }) {
   const dispatch = useDispatch();
   const stateGlobal = useSelector((state) => state.dataGlobal);
 
   const onSubmit = (data) => {
-    // const formData = new FormData();
-    // formData.append('full_name', data.full_name);
-    // formData.append('email', data.email);
-    // formData.append('password', data.password);
-    // formData.append('phone_number', parseInt(data.phone_number, 10));
-    // formData.append('address', data.address);
-    // formData.append('image', {
-    //   uri: data.image,
-    //   type: 'jpg/png',
-    // });
-    // formData.append('city', data.city);
-    // console.log('Data response form : ', formData);
+    const formData = new FormData();
 
-    dispatch(getRegister({ ...data, phone_number: parseInt(data.phone_number, 10) }, navigation));
+    formData.append('full_name', data.full_name);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    formData.append('city', data.city);
+    formData.append('address', data.address);
+    formData.append('phone_number', parseInt(data.phone_number, 10));
+    formData.append('image', {
+      uri: data.image,
+      type: 'image/jpeg',
+      name: 'image.jpg',
+    });
+    dispatch(getRegister(formData, navigation));
   };
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -45,7 +44,7 @@ function RegisterScreen({ navigation }) {
           <Headers type="back" onPress={() => navigation.goBack()} />
           <Formik
             initialValues={{
-              full_name: '', email: '', password: '', phone_number: '', address: '', image: null, city: '',
+              full_name: '', email: '', password: '', phone_number: '', address: '', city: '', image: 'https://avatars.services.sap.com/images/naushad124_small.png',
             }}
             onSubmit={(values) => onSubmit(values)}
             validationSchema={signupSchema}

@@ -16,7 +16,6 @@ export const getRegisterFail = (error) => ({
 );
 
 export const getRegister = (data, navigation) => async (dispatch) => {
-  console.log('Response redux register data', data);
   dispatch(setLoading(true));
   await register(data).then((response) => {
     dispatch(getRegisterSuccess(response.data));

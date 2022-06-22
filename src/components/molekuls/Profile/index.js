@@ -16,7 +16,7 @@ function Profile({ isRemove, source, onPress }) {
       )}
       {isRemove && (
         <TouchableOpacity style={styles.photo} onPress={onPress}>
-          <Image source={source !== null ? source : ILNullPhoto} style={styles.avatar} />
+          <Image source={source.uri ? source : ILNullPhoto} style={styles.avatar} />
           {isRemove && <IconRemovePhoto style={styles.removePhoto} />}
         </TouchableOpacity>
       )}

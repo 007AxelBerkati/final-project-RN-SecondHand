@@ -2,79 +2,61 @@ import { StyleSheet, View, Text } from 'react-native';
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import { launchImageLibrary } from 'react-native-image-picker';
+import FormData from 'form-data';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   showError, updateProfileSchema, fonts, colors,
+  windowHeight, windowWidth,
 } from '../../utils';
-import { windowHeight, windowWidth } from '../../utils/dimensions';
-import Input from '../../components/atoms/Input';
-import Profile from '../../components/molekuls/Profile';
-import { ILNullPhoto } from '../../assets';
-import Headers from '../../components/molekuls/Headers';
-import { ButtonComponent, Gap, Select } from '../../components/atoms';
+import {
+  Headers,
+  Input, Profile, ButtonComponent, Gap, Select,
+} from '../../components';
+import { putDataProfile } from '../../redux';
+import { kota } from '../../assets';
 
 function ProfileScreen({ navigation }) {
-  const [photo, setPhoto] = useState(ILNullPhoto);
-  const getImage = () => {
+  const dispatch = useDispatch();
+  const dataProfile = useSelector((state) => state.dataProfile.profile);
+  const [photo, setPhoto] = useState(dataProfile.image_url);
+
+  const getImage = (setFieldValue) => {
     launchImageLibrary(
       {
-        quality: 0.5,
-        maxWidth: 200,
-        maxHeight: 200,
+        quality: 1,
+        maxWidth: windowWidth * 0.3,
+        maxHeight: windowHeight * 0.15,
         includeBase64: true,
       },
       (response) => {
-        // console.log('response : ', response);
         if (response.didCancel || response.error) {
           showError('Sepertinya anda tidak memilih fotonya');
         } else {
           const source = response?.assets[0];
-          // console.log('response GetImage : ', source);
-
           const Uri = { uri: source.uri };
           setPhoto(Uri);
+          setFieldValue('image', source, true);
         }
       },
     );
   };
 
-  const kota = [
-    'Ambon',
-    'Balikpapan',
-    'Banda Aceh',
-    'Bandar Lampung',
-    'Bandung',
-    'Banjar',
-    'Banjarbaru',
-    'Banjarmasin',
-    'Batam',
-    'Batu',
-    'Baubau',
-    'Bekasi',
-    'Bengkulu',
-    'Bima',
-    'Binjai',
-    'Bitung',
-    'Blitar',
-    'Bogor',
-    'Bontang',
-    'Bukittinggi',
-    'Cilegon',
-    'Cimahi',
-    'Cirebon',
-    'Denpasar',
-    'Depok',
-    'Dumai',
-    'Gorontalo',
-    'Gunungsitoli',
-    'Jakarta Barat',
-    'Jakarta Pusat',
-    'Jakarta Selatan',
-    'Jakarta Timur',
-    'Jakarta Utara',
-    'Jambi',
-    'Jayapura',
-    'Kediri',
-  ];
+  const updateProfile = (data) => {
+    const formData = new FormData();
+    formData.append('full_name', data.full_name);
+    formData.append('city', data.city);
+    formData.append('address', data.address);
+    formData.append('phone_number', parseInt(data.phone_number, 10));
+    formData.append('image', {
+      uri: data.image.uri,
+      type: 'image/jpeg',
+      name: data.image.fileName,
+    });
+
+    console.log(formData);
+
+    dispatch(putDataProfile(formData, navigation));
+  };
 
   return (
     <View style={styles.pages}>
@@ -85,64 +67,71 @@ function ProfileScreen({ navigation }) {
           onPress={() => navigation.goBack()}
         />
       </View>
-      <View style={styles.photo}>
-        <Profile source={photo} isRemove photo={photo} onPress={getImage} />
-      </View>
       <Formik
         initialValues={{
-          fullname: '', kota: '', alamat: '', nomortelepon: '',
+          full_name: dataProfile.full_name,
+          city: dataProfile.city,
+          address: dataProfile.address,
+          phone_number: dataProfile.phone_number,
+          image: photo,
         }}
-        onSubmit={(values) => console.log(values)}
-        // eslint-disable-next-line max-len
-        // onSubmit={(values) => onSubmit(values.fullname, values.kota, values.alamat, values.nomortelepon)}
+        onSubmit={(values) => updateProfile(values)}
         validationSchema={updateProfileSchema}
       >
         {({
-          handleChange, handleSubmit, errors, values, handleBlur, touched,
+          handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue,
         }) => (
-          <View style={{ paddingHorizontal: 5, margin: 15 }}>
+          <View>
+            <View style={styles.photo}>
+              <Profile
+                source={values.image}
+                isRemove
+                onPress={() => getImage(setFieldValue)}
+              />
+            </View>
             <Input
               leftIcon="account-circle"
               label="Nama"
-              onChangeText={handleChange('fullname')}
-              value={values.fullname}
-              onBlur={handleBlur('fullname')}
+              onChangeText={handleChange('full_name')}
+              value={values.full_name}
+              onBlur={handleBlur('full_name')}
             />
-            {errors.fullname && touched.fullname
-              && <Text style={styles.errorText}>{errors.fullname}</Text>}
+            {errors.full_name && touched.full_name
+              && <Text style={styles.errorText}>{errors.full_name}</Text>}
             <Gap height={15} />
 
             <Select
               data={kota}
               onSelect={(selectedItem) => {
-                console.log(selectedItem);
+                // eslint-disable-next-line no-param-reassign
+                values.city = selectedItem;
               }}
+              defaultValue={values.city}
             />
-            {errors.kota && touched.kota
-              && <Text style={styles.errorText}>{errors.kota}</Text>}
+            {errors.city && touched.city
+              && <Text style={styles.errorText}>{errors.city}</Text>}
             <Gap height={15} />
             <Input
               leftIcon="map-marker"
               label="Alamat"
-              onChangeText={handleChange('alamat')}
-              value={values.alamat}
-              onBlur={handleBlur('alamat')}
+              onChangeText={handleChange('address')}
+              value={values.address}
+              onBlur={handleBlur('address')}
             />
-            {errors.alamat && touched.alamat
-              && <Text style={styles.errorText}>{errors.alamat}</Text>}
+            {errors.address && touched.address
+              && <Text style={styles.errorText}>{errors.address}</Text>}
             <Gap height={15} />
             <Input
               leftIcon="phone"
               label="Nomor Telepon"
-              onChangeText={handleChange('nomortelepon')}
-              value={values.nomortelepon}
-              onBlur={handleBlur('nomortelepon')}
+              onChangeText={handleChange('phone_number')}
+              value={values.phone_number}
+              onBlur={handleBlur('phone_number')}
             />
-            {errors.nomortelepon && touched.nomortelepon
-              && <Text style={styles.errorText}>{errors.nomortelepon}</Text>}
-            <Gap height={80} />
+            {errors.phone_number && touched.phone_number
+              && <Text style={styles.errorText}>{errors.phone_number}</Text>}
+            <Gap height={windowHeight * 0.05} />
             <ButtonComponent title="Simpan" onPress={handleSubmit} />
-
           </View>
         )}
       </Formik>
@@ -168,7 +157,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
   },
-  kota: {
+  city: {
     borderWidth: 1,
     borderRadius: 12,
     marginTop: 15,
