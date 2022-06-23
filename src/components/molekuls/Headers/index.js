@@ -1,35 +1,37 @@
 import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import { colors, fonts, windowWidth } from '../../../utils';
+import { colors, fonts } from '../../../utils';
 
 function Headers({ onPress, title, type }) {
   if (type === 'back-title') {
     return (
-      <TouchableOpacity style={styles.container} onPress={onPress}>
-        <Icon name="arrow-left" size={24} color={colors.background.black} />
+      <View style={styles.container}>
+        <TouchableOpacity onPress={onPress} style={{ position: 'absolute', left: 0 }}>
+          <Icon name="arrow-left" size={24} color={colors.background.black} />
+        </TouchableOpacity>
         <Text style={styles.titleBack}>{title}</Text>
-      </TouchableOpacity>
+      </View>
     );
   }
 
   if (type === 'back') {
     return (
-      <View style={styles.container} onPress={onPress}>
+      <TouchableOpacity style={styles.container2} onPress={onPress}>
         <Icon name="arrow-left" size={24} color={colors.background.black} />
-      </View>
+      </TouchableOpacity>
     );
   }
   return (
-    <View style={styles.container}>
+    <View style={styles.container2}>
       <Text style={styles.title}>{title}</Text>
     </View>
   );
 }
 
-export default Headers;
+export default memo(Headers);
 
 const styles = StyleSheet.create({
   title: {
@@ -41,7 +43,15 @@ const styles = StyleSheet.create({
 
   container: {
     flexDirection: 'row',
-    width: windowWidth,
+    width: null,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  container2: {
+    flexDirection: 'row',
+    width: null,
     height: 50,
     alignItems: 'center',
   },
@@ -51,9 +61,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.text.primary,
     textAlign: 'center',
-    flex: 1,
-    marginRight: 16,
-    zIndex: 1,
   },
 
 });

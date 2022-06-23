@@ -1,4 +1,4 @@
-import { GET_LOGIN_FAIL, GET_LOGIN_SUCCESS } from '../types';
+import { GET_LOGIN_FAIL, GET_LOGIN_SUCCESS, LOGOUT } from '../types';
 
 const initialLoginState = {
   isLoggedIn: false,
@@ -23,6 +23,16 @@ export const loginReducer = (state = initialLoginState, action = {}) => {
         isSuccess: false,
         error: action.payload,
       };
+
+    case LOGOUT:
+      return {
+        ...state,
+        isLoggedIn: false,
+        isSuccess: false,
+        data: {},
+        error: '',
+      };
+
     default:
       return state;
   }

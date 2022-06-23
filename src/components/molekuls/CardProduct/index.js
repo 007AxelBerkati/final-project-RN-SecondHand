@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.43,
     padding: 8,
     marginRight: 16,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: colors.border.primary,
+    backgroundColor: colors.background.primary,
+    elevation: 4,
   },
   image: {
     height: '100%',

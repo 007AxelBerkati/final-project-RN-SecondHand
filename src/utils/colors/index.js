@@ -33,6 +33,7 @@ export const colors = {
     secondary: mainColors.orange1,
     black: mainColors.black1,
     grey: mainColors.grey7,
+    tertiary: mainColors.orange5,
   },
   button: {
     primary: {
