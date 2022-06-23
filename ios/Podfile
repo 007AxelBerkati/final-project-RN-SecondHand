@@ -21,6 +21,8 @@ target 'final_project_RN' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'TouchID', :path => '../node_modules/react-native-touch-id'
+
   target 'final_project_RNTests' do
     inherit! :complete
     # Pods for testing

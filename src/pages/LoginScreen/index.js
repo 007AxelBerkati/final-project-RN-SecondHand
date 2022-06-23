@@ -6,17 +6,20 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from 'react-native';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import TouchID from 'react-native-touch-id';
 import {
   Gap, Input, ButtonComponent, Headers, LinkComponent,
 } from '../../components';
 import {
-  colors, fonts, loginSchema, windowHeight,
+  colors, fonts, getData, loginSchema,
+  optionalConfigObject, showError, storeData, windowHeight,
 } from '../../utils';
 
-import { getLogin } from '../../redux';
+import { getLogin, setLoading } from '../../redux';
 
 function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -24,8 +27,38 @@ function LoginScreen({ navigation }) {
   const stateGlobal = useSelector((state) => state.dataGlobal);
 
   const onSubmit = (email, password) => {
+    storeData('user', { email, password });
     dispatch(getLogin(email, password, navigation, dataLogin));
   };
+
+  const onFingerprint = () => {
+    TouchID.isSupported(optionalConfigObject).then((biometryType) => {
+      if (biometryType === 'FaceID') {
+        Alert.alert('This device supports FaceID');
+      } else {
+        TouchID.authenticate('To access your account', optionalConfigObject)
+          .then(() => {
+            dispatch(setLoading(true));
+            getData('user').then((user) => {
+              if (user) {
+                const users = {
+                  email: user.email,
+                  password: user.password,
+                };
+                onSubmit(users.email, users.password);
+              } else {
+                dispatch(setLoading(false));
+                showError('Please Login first');
+              }
+            });
+          })
+          .catch((error) => {
+            showError(error.message);
+          });
+      }
+    });
+  };
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={{ flex: 1, margin: 16 }}>
@@ -72,6 +105,13 @@ function LoginScreen({ navigation }) {
               />
               {errors.password
               && touched.password && <Text style={styles.errorText}>{errors.password}</Text>}
+
+              <View style={styles.iconWrapper}>
+                <ButtonComponent
+                  type="icon-button"
+                  onPress={onFingerprint}
+                />
+              </View>
               <Gap height={24} />
               <ButtonComponent
                 title="Login"
@@ -82,10 +122,11 @@ function LoginScreen({ navigation }) {
             </SafeAreaView>
           )}
         </Formik>
-        <Gap height={windowHeight * 0.30} />
+        <Gap height={windowHeight * 0.20} />
         <View style={styles.goRegisterWrapper}>
           <Text style={styles.registerTitle}>
-            Belum Punya Akun?
+            Belum Punya Akun ?
+            {' '}
           </Text>
           <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={14} onPress={() => navigation.navigate('RegisterScreen')} />
         </View>
@@ -119,5 +160,10 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Poppins.Medium,
     fontSize: 14,
     color: colors.text.black,
+  },
+
+  iconWrapper: {
+    marginTop: 16,
+    alignItems: 'center',
   },
 });
