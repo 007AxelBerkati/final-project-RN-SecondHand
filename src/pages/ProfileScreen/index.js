@@ -34,7 +34,7 @@ function ProfileScreen({ navigation }) {
           showError('Sepertinya anda tidak memilih fotonya');
         } else {
           const source = response?.assets[0];
-          const Uri = { uri: source.uri };
+          const Uri = source.uri;
           setPhoto(Uri);
           setFieldValue('image', source, true);
         }
@@ -71,19 +71,18 @@ function ProfileScreen({ navigation }) {
           city: dataProfile.city,
           address: dataProfile.address,
           phone_number: dataProfile.phone_number,
-          image: photo,
+          image: dataProfile.image_url,
         }}
         onSubmit={(values) => updateProfile(values)}
         validationSchema={updateProfileSchema}
       >
         {({
           handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue, isValid,
-          dirty,
         }) => (
           <View>
             <View style={styles.photo}>
               <Profile
-                source={values.image}
+                source={{ uri: photo }}
                 isRemove
                 onPress={() => getImage(setFieldValue)}
               />
@@ -122,7 +121,7 @@ function ProfileScreen({ navigation }) {
             <Gap height={15} />
             <Input
               leftIcon="phone"
-              label="Nomor Telepon"
+              label="Nomor Telepon +62"
               onChangeText={handleChange('phone_number')}
               value={values.phone_number}
               onBlur={handleBlur('phone_number')}
@@ -130,7 +129,7 @@ function ProfileScreen({ navigation }) {
             {errors.phone_number && touched.phone_number
               && <Text style={styles.errorText}>{errors.phone_number}</Text>}
             <Gap height={windowHeight * 0.05} />
-            <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(dirty && isValid) || stateGlobal.isLoading} />
+            <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(isValid) || stateGlobal.isLoading} />
           </View>
         )}
       </Formik>

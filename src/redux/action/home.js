@@ -1,8 +1,8 @@
 import { getBuyerProduct, getCategory } from '../../services';
 import {
-  GET_CATEGORY_FAIL, GET_CATEGORY_SUCCESS, GET_PRODUCT_FAIL, GET_PRODUCT_SUCCESS,
+  GET_CATEGORY_FAIL,
+  GET_CATEGORY_SUCCESS, GET_PRODUCT_FAIL, GET_PRODUCT_LOADING, GET_PRODUCT_SUCCESS,
 } from '../types';
-import { setLoading } from './global';
 
 export const getProductSuccess = (data) => ({
   type: GET_PRODUCT_SUCCESS,
@@ -27,24 +27,25 @@ export const getCategoryFail = (error) => ({
 }
 );
 
+export const getProductLoading = (data) => ({
+  type: GET_PRODUCT_LOADING,
+  payload: data,
+}
+);
+
 export const getProduct = (params) => async (dispatch) => {
-  dispatch(setLoading(true));
+  dispatch(getProductLoading(true));
   await getBuyerProduct(params).then((response) => {
     dispatch(getProductSuccess(response.data));
-    dispatch(setLoading(false));
   }).catch((error) => {
     dispatch(getProductFail(error.response.data.message));
-    dispatch(setLoading(false));
   });
 };
 
 export const getCategoryProduct = () => async (dispatch) => {
-  dispatch(setLoading(true));
   await getCategory().then((response) => {
     dispatch(getCategorySuccess(response.data));
-    dispatch(setLoading(false));
   }).catch((error) => {
     dispatch(getCategoryFail(error.response.data.message));
-    dispatch(setLoading(false));
   });
 };
