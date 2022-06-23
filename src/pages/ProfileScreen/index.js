@@ -34,7 +34,7 @@ function ProfileScreen({ navigation }) {
           showError('Sepertinya anda tidak memilih fotonya');
         } else {
           const source = response?.assets[0];
-          const Uri = { uri: source.uri };
+          const Uri = source.uri;
           setPhoto(Uri);
           setFieldValue('image', source, true);
         }
@@ -71,7 +71,7 @@ function ProfileScreen({ navigation }) {
           city: dataProfile.city,
           address: dataProfile.address,
           phone_number: dataProfile.phone_number,
-          image: photo,
+          image: dataProfile.image_url,
         }}
         onSubmit={(values) => updateProfile(values)}
         validationSchema={updateProfileSchema}
@@ -83,7 +83,7 @@ function ProfileScreen({ navigation }) {
           <View>
             <View style={styles.photo}>
               <Profile
-                source={values.image}
+                source={{ uri: photo }}
                 isRemove
                 onPress={() => getImage(setFieldValue)}
               />
@@ -122,7 +122,7 @@ function ProfileScreen({ navigation }) {
             <Gap height={15} />
             <Input
               leftIcon="phone"
-              label="Nomor Telepon"
+              label="Nomor Telepon +62"
               onChangeText={handleChange('phone_number')}
               value={values.phone_number}
               onBlur={handleBlur('phone_number')}

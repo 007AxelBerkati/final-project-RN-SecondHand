@@ -114,7 +114,7 @@ function RegisterScreen({ navigation }) {
                 <Input
                   onChangeText={handleChange('phone_number')}
                   value={values.phone_number}
-                  label="Phone Number"
+                  label="Phone Number +62"
                   onBlur={handleBlur('phone_number')}
                   leftIcon="phone"
                   keyboardType="numeric"
@@ -154,7 +154,6 @@ function RegisterScreen({ navigation }) {
         </ScrollView>
       </View>
     </TouchableWithoutFeedback>
-
   );
 }
 

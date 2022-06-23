@@ -3,9 +3,10 @@ import FlashMessage from 'react-native-flash-message';
 import { Provider, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Router from '@router';
 
+import { LogBox } from 'react-native';
 import { Persistore, Store } from './redux';
 import { Loading } from './components';
 
@@ -31,6 +32,9 @@ function MainApp() {
 }
 
 function App() {
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  }, []);
   return (
     <Provider store={Store}>
       <PersistGate loading={null} persistor={Persistore}>

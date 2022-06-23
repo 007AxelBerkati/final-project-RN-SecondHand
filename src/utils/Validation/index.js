@@ -54,4 +54,5 @@ export const updateProfileSchema = Yup.object().shape({
     .integer("A phone number can't include a decimal point")
     .min(10)
     .required('Required'),
+  image: Yup.mixed().required('Required'),
 });
