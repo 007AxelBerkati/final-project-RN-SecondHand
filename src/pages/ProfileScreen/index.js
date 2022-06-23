@@ -78,7 +78,6 @@ function ProfileScreen({ navigation }) {
       >
         {({
           handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue, isValid,
-          dirty,
         }) => (
           <View>
             <View style={styles.photo}>
@@ -130,7 +129,7 @@ function ProfileScreen({ navigation }) {
             {errors.phone_number && touched.phone_number
               && <Text style={styles.errorText}>{errors.phone_number}</Text>}
             <Gap height={windowHeight * 0.05} />
-            <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(dirty && isValid) || stateGlobal.isLoading} />
+            <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(isValid) || stateGlobal.isLoading} />
           </View>
         )}
       </Formik>
