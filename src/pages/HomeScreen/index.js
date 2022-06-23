@@ -47,9 +47,9 @@ function HomeScreen() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageSlider
           data={[
-            { img: 'https://play-lh.googleusercontent.com/Lp6uaNjoyjAcLRCgi0fA27h6A1dyaweJaVeu4Q4hDYx1WOSrOUEu_A2cNIz7Zz7YcsI' },
-            { img: 'https://www.silviamigliorinimarketing.it/wp-content/uploads/2020/07/Post-E-facebook-Shops.jpg' },
-            { img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAj4WRHetwPQgeSBpN79dwejXWBSiDKjlbNjAuXLgK1uVeyXb0pKdlb8qjlC_VQb605JU&usqp=CAU' },
+            { img: 'https://img.freepik.com/free-vector/online-shopping-concept-illustration_114360-1084.jpg?w=1060&t=st=1655909482~exp=1655910082~hmac=17398ae027564d6d34625f5b83f8ab39616da2ea74d55677a11eb56ce8eb70bd' },
+            { img: 'https://media.istockphoto.com/photos/male-outfit-set-on-white-background-closeup-top-view-picture-id1176614800?k=20&m=1176614800&s=612x612&w=0&h=uM0CkYhsM12_OYWhnO641tXqD3ZCOx61dyGZClkrv6k=' },
+            { img: 'https://images.unsplash.com/photo-1479064555552-3ef4979f8908?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' },
           ]}
           autoPlay
           timer={5000}
