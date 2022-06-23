@@ -5,7 +5,7 @@ import { colors } from '../../../utils';
 
 function Icons({ label }) {
   if (label === 'BackButton') return <Icon name="arrow-back-circle-outline" size={25} color={colors.background.primary} />;
-  return <Icon name="fingerprint" size={30} />;
+  return <Icon name="fingerprint" size={25} color={colors.background.secondary} />;
 }
 function IconButton({
   onPress, nonButton, iconHeight, iconWidth, label,
