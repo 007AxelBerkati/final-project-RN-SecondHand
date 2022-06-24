@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import { launchImageLibrary } from 'react-native-image-picker';
 import FormData from 'form-data';
 import { useDispatch, useSelector } from 'react-redux';
+import DropDownPicker from 'react-native-dropdown-picker';
 import {
   showError, updateProfileSchema, fonts, colors,
   windowHeight, windowWidth,
@@ -55,6 +56,18 @@ function ProfileScreen({ navigation }) {
     });
     dispatch(putDataProfile(formData, navigation));
   };
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState([]);
+  const [items, setItems] = useState([
+    { label: 'Spain', value: 'spain' },
+    { label: 'Madrid', value: 'madrid', parent: 'spain' },
+    { label: 'Barcelona', value: 'barcelona', parent: 'spain' },
+
+    { label: 'Italy', value: 'italy' },
+    { label: 'Rome', value: 'rome', parent: 'italy' },
+
+    { label: 'Finland', value: 'finland' },
+  ]);
 
   return (
     <View style={styles.pages}>
@@ -98,13 +111,22 @@ function ProfileScreen({ navigation }) {
               && <Text style={styles.errorText}>{errors.full_name}</Text>}
             <Gap height={15} />
 
-            <Select
+            {/* <Select
               data={kota}
               onSelect={(selectedItem) => {
                 // eslint-disable-next-line no-param-reassign
                 values.city = selectedItem;
               }}
               defaultValue={values.city}
+            /> */}
+            <DropDownPicker
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              dropDownContainerStyle={styles.dropdown1DropdownStyle}
             />
             {errors.city && touched.city
               && <Text style={styles.errorText}>{errors.city}</Text>}
@@ -168,4 +190,5 @@ const styles = StyleSheet.create({
     color: colors.warning,
     fontSize: 12,
   },
+
 });
