@@ -1,6 +1,5 @@
 import { getProfile } from '../../services';
-import { GET_AKUN_FAIL, GET_AKUN_SUCCESS } from '../types';
-import { setLoading } from './global';
+import { GET_AKUN_FAIL, GET_AKUN_LOADING, GET_AKUN_SUCCESS } from '../types';
 
 export const getAkunSuccess = (data) => ({
   type: GET_AKUN_SUCCESS,
@@ -13,13 +12,17 @@ export const getAkunFail = (error) => ({
 }
 );
 
+export const getAkunLoading = (loading) => ({
+  type: GET_AKUN_LOADING,
+  payload: loading,
+}
+);
+
 export const getAkun = () => async (dispatch) => {
-  dispatch(setLoading(true));
+  dispatch(getAkunLoading(true));
   await getProfile().then((response) => {
     dispatch(getAkunSuccess(response.data));
-    dispatch(setLoading(false));
   }).catch((error) => {
     dispatch(getAkunFail(error.response.data.message));
-    dispatch(setLoading(false));
   });
 };

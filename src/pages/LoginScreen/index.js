@@ -116,7 +116,6 @@ function LoginScreen({ navigation }) {
               <ButtonComponent
                 title="Login"
                 onPress={handleSubmit}
-                disabled={!isValid}
                 disable={!(dirty && isValid) || stateGlobal.isLoading}
               />
             </SafeAreaView>

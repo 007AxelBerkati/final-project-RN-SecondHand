@@ -18,9 +18,10 @@ function HomeScreen() {
   const dataHome = useSelector((state) => state.dataHome);
   const [active, setActive] = useState('');
   const [btnAllActive, setBtnAllActive] = useState(true);
+  const [category, setCategory] = useState('');
 
   useEffect(() => {
-    dispatch(getProduct(''));
+    dispatch(getProduct(category));
     dispatch(getCategoryProduct());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -28,18 +29,20 @@ function HomeScreen() {
   const getProductByCategory = (categoryId) => {
     setActive(categoryId);
     setBtnAllActive(false);
+    setCategory(`?category_id=${categoryId}`);
     dispatch(getProduct(`?category_id=${categoryId}`));
   };
 
   const getAllProduct = () => {
     setBtnAllActive(true);
     setActive('');
+    setCategory('');
     dispatch(getProduct(''));
   };
 
   const onChangeSearch = (query) => {
     setSearchQuery(query);
-    dispatch(getProduct(`?search=${query}`));
+    dispatch(getProduct(`?search=${query}&&${category}`));
   };
 
   return (
