@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { memo } from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, View,
@@ -9,6 +10,7 @@ import FloatingButton from './FloatingButton';
 
 function ButtonComponent({
   type, title, onPress, icon, disable, nonButton, iconHeight, iconWidth, label, style, styleText,
+  ...props
 }) {
   if (type === 'icon-button') {
     return (
@@ -34,7 +36,7 @@ function ButtonComponent({
   }
 
   return (
-    <TouchableOpacity style={{ ...styles.container(type), ...style }} onPress={onPress}>
+    <TouchableOpacity style={{ ...styles.container(type), ...style }} onPress={onPress} {...props}>
       <Text style={{ ...styles.text(type), ...styleText }}>{title}</Text>
     </TouchableOpacity>
   );

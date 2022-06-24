@@ -74,6 +74,7 @@ function LoginScreen({ navigation }) {
               && touched.password && <Text style={styles.errorText}>{errors.password}</Text>}
               <Gap height={24} />
               <ButtonComponent
+                testID="Login-Button"
                 title="Login"
                 onPress={handleSubmit}
                 disabled={!isValid}
