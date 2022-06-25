@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import React from 'react';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { colors, fonts } from '../../../utils';
+import { colors, fonts, fontSize } from '../../../utils';
 
 function Select({ data, onSelect, defaultValue }) {
   return (
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
     textAlign: 'left',
     fontFamily: fonts.Poppins.Regular,
-    fontSize: 16,
+    fontSize: fontSize.medium,
   },
   dropdown1DropdownStyle: {
     backgroundColor: colors.background.primary,
@@ -67,14 +67,13 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
     fontFamily: fonts.Poppins.Regular,
     textAlign: 'left',
+    fontSize: fontSize.medium,
   },
   dropdown1SelectedRowStyle: {
     backgroundColor: 'rgba(0,0,0,0.1)',
   },
   dropdown1searchInputStyleStyle: {
     backgroundColor: colors.background.primary,
-    borderRadius: 8,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
   },
 });

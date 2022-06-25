@@ -25,8 +25,8 @@ function ProfileScreen({ navigation }) {
     launchImageLibrary(
       {
         quality: 1,
-        maxWidth: windowWidth * 0.3,
-        maxHeight: windowHeight * 0.15,
+        maxWidth: 1000,
+        maxHeight: 1000,
         includeBase64: true,
       },
       (response) => {
@@ -49,9 +49,9 @@ function ProfileScreen({ navigation }) {
     formData.append('address', data.address);
     formData.append('phone_number', parseInt(data.phone_number, 10));
     formData.append('image', {
-      uri: data.image.uri,
+      uri: data.image.uri ? data.image.uri : data.image,
       type: 'image/jpeg',
-      name: data.image.fileName,
+      name: data.image.fileName ? data.image.fileName : 'image.jpg',
     });
     dispatch(putDataProfile(formData, navigation));
   };

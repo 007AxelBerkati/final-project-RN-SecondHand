@@ -3,7 +3,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { colors, fonts } from '../../../utils';
+import { colors, fonts, fontSize } from '../../../utils';
 
 function CardListAccount({ onPress, name, title }) {
   return (
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 
   text: {
     marginLeft: 20,
-    fontSize: 14,
+    fontSize: fontSize.medium,
     fontFamily: fonts.Poppins.Medium,
     color: colors.text.primary,
   },
