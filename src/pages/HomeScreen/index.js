@@ -2,9 +2,10 @@ import {
   ActivityIndicator,
   FlatList,
   ScrollView,
+  StatusBar,
   StyleSheet, Text, View,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useSelector, useDispatch } from 'react-redux';
@@ -40,14 +41,15 @@ function HomeScreen() {
     dispatch(getProduct(''));
   };
 
-  const onChangeSearch = (query) => {
+  const onChangeSearch = useCallback((query) => {
     setSearchQuery(query);
     dispatch(getProduct(`?search=${query}&&${category}`));
-  };
+  }, [dispatch, category]);
 
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <StatusBar barStyle="dark-content" backgroundColor={colors.background.primary} />
         <ImageSlider
           data={[
             { img: 'https://img.freepik.com/free-vector/online-shopping-concept-illustration_114360-1084.jpg?w=1060&t=st=1655909482~exp=1655910082~hmac=17398ae027564d6d34625f5b83f8ab39616da2ea74d55677a11eb56ce8eb70bd' },

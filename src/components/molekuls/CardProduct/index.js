@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   StyleSheet, TouchableOpacity, View, Image, Text,
 } from 'react-native';
@@ -30,7 +30,7 @@ function CardProduct({
   );
 }
 
-export default CardProduct;
+export default memo(CardProduct);
 
 const styles = StyleSheet.create({
   container: {
