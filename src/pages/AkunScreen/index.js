@@ -6,6 +6,7 @@ import {
   ButtonComponent, CardList, Headers, Profile,
 } from '../../components';
 import {
+  borderRadius,
   colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../utils';
 import { version } from '../../../package.json';
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
   },
 
   placeholder: {
-    borderRadius: 14,
+    borderRadius: borderRadius.xlarge,
     width: windowWidth * 0.3,
     height: windowHeight * 0.15,
     alignSelf: 'center',

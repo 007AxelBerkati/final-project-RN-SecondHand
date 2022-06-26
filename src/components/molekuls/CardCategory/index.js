@@ -4,6 +4,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import {
+  borderRadius,
   colors, fonts, windowHeight,
 } from '../../../utils';
 
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     backgroundColor: active ? colors.background.secondary : colors.background.tertiary,
-    borderRadius: 12,
+    borderRadius: borderRadius.large,
     marginHorizontal: 5,
     borderWidth: 1,
     borderColor: active ? colors.background.primary : colors.background.tertiary,

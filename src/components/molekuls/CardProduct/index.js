@@ -3,6 +3,7 @@ import {
   StyleSheet, TouchableOpacity, View, Image, Text,
 } from 'react-native';
 import {
+  borderRadius,
   colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../../utils';
 
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
   image: {
     height: '100%',
     width: '100%',
-    borderRadius: 4,
+    borderRadius: borderRadius.small,
   },
 
   name: {

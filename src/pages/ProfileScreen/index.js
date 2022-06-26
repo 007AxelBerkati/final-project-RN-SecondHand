@@ -6,7 +6,7 @@ import FormData from 'form-data';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   showError, updateProfileSchema, fonts, colors,
-  windowHeight, windowWidth, fontSize,
+  windowHeight, windowWidth, fontSize, borderRadius,
 } from '../../utils';
 import {
   Headers,
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 50,
     width: windowWidth * 0.93,
-    borderRadius: 12,
+    borderRadius: borderRadius.large,
   },
 
   text: {
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   },
   city: {
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: borderRadius.large,
     marginTop: 15,
   },
   photo: {

@@ -2,7 +2,9 @@ import React, { memo } from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
-import { colors, fonts, fontSize } from '../../../utils';
+import {
+  borderRadius, colors, fonts, fontSize,
+} from '../../../utils';
 
 import IconButton from './IconButton';
 import FloatingButton from './FloatingButton';
@@ -47,13 +49,13 @@ const styles = StyleSheet.create({
     backgroundColor:
       type === 'secondary' ? colors.button.secondary.background : colors.button.primary.background,
     paddingVertical: 10,
-    borderRadius: 10,
+    borderRadius: borderRadius.large,
     borderWidth: 1,
     borderColor: type === 'secondary' ? colors.button.secondary.border : colors.button.primary.border,
   }),
   disableBG: {
     paddingVertical: 10,
-    borderRadius: 10,
+    borderRadius: borderRadius.large,
     backgroundColor: colors.disable.background,
   },
   disableText: {

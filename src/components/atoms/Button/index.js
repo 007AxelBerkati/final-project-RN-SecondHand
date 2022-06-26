@@ -2,7 +2,7 @@ import {
   StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import { colors, fonts } from '../../../utils';
+import { borderRadius, colors, fonts } from '../../../utils';
 
 function Button({ title, onPress }) {
   return (
@@ -18,7 +18,7 @@ export default Button;
 
 const styles = StyleSheet.create({
   Wrapper: {
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     marginVertical: 7,
     paddingVertical: 5,
     backgroundColor: colors.button.primary.background,

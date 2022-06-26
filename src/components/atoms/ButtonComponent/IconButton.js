@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
-import { colors } from '../../../utils';
+import { borderRadius, colors } from '../../../utils';
 
 function Icons({ label }) {
   if (label === 'BackButton') return <Icon name="arrow-back-circle-outline" size={25} color={colors.background.primary} />;
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   icon: {
     padding: 16,
     alignSelf: 'center',
-    borderRadius: 8,
+    borderRadius: borderRadius.medium,
   },
   iconNonButton: {
     width: 100,

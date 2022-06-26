@@ -2,7 +2,9 @@ import {
   Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
-import { colors, fonts, fontSize } from '../../../utils';
+import {
+  borderRadius, colors, fonts, fontSize,
+} from '../../../utils';
 import CardListRole from './CardListRole';
 import CardListAccount from './CardListAccount';
 
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     marginRight: 16,
     width: 48,
     height: 48,
-    borderRadius: 12,
+    borderRadius: borderRadius.large,
   },
 
   text: {
