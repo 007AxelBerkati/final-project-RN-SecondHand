@@ -6,7 +6,7 @@ import {
   ButtonComponent, CardList, Headers, Profile,
 } from '../../components';
 import {
-  colors, fonts, windowHeight, windowWidth,
+  colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../utils';
 import { version } from '../../../package.json';
 import { getAkun, logout } from '../../redux';
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 
   version: {
     fontFamily: fonts.Poppins.Regular,
-    fontSize: 12,
+    fontSize: fontSize.small,
     color: colors.text.subtitle,
     marginTop: 16,
     alignSelf: 'center',
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   notLoginText: {
     fontFamily: fonts.Poppins.Medium,
-    fontSize: 14,
+    fontSize: fontSize.medium,
     color: colors.text.primary,
   },
 

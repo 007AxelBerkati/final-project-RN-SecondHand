@@ -3,7 +3,7 @@ import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
-import { colors, fonts } from '../../../utils';
+import { colors, fonts, fontSize } from '../../../utils';
 import { ButtonComponent } from '../../atoms';
 
 function CardListRole({
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    fontSize: 14,
+    fontSize: fontSize.medium,
     fontFamily: fonts.Poppins.Regular,
     color: colors.text.primary,
   },
@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
 
-  buttonTitle: { fontSize: 12 },
+  buttonTitle: { fontSize: fontSize.small },
 
 });

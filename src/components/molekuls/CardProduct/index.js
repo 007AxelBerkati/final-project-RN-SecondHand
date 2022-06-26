@@ -3,7 +3,7 @@ import {
   StyleSheet, TouchableOpacity, View, Image, Text,
 } from 'react-native';
 import {
-  colors, fonts, windowHeight, windowWidth,
+  colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../../utils';
 
 function CardProduct({
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    fontSize: 14,
+    fontSize: fontSize.medium,
     color: colors.text.primary,
     fontFamily: fonts.Poppins.Regular,
   },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   harga: {
     fontFamily: fonts.Poppins.Regular,
     color: colors.text.primary,
-    fontSize: 14,
+    fontSize: fontSize.medium,
   },
   wrapper: {
     flexDirection: 'row', justifyContent: 'space-between',

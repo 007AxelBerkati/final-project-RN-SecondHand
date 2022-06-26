@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 
   text: {
     marginLeft: 20,
-    fontSize: fontSize.medium,
+    fontSize: fontSize.small,
     fontFamily: fonts.Poppins.Medium,
     color: colors.text.primary,
   },

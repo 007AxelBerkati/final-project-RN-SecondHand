@@ -2,7 +2,7 @@ import {
   Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
-import { colors, fonts } from '../../../utils';
+import { colors, fonts, fontSize } from '../../../utils';
 import CardListRole from './CardListRole';
 import CardListAccount from './CardListAccount';
 
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 
   text: {
     marginRight: 16,
-    fontSize: 14,
+    fontSize: fontSize.medium,
     fontFamily: fonts.Poppins.Regular,
     color: colors.text.primary,
   },

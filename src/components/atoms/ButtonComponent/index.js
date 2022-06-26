@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
-import { colors, fonts } from '../../../utils';
+import { colors, fonts, fontSize } from '../../../utils';
 
 import IconButton from './IconButton';
 import FloatingButton from './FloatingButton';
@@ -57,13 +57,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.disable.background,
   },
   disableText: {
-    fontSize: 16,
+    fontSize: fontSize.large,
     fontFamily: fonts.Poppins.Regular,
     color: colors.disable.text,
     textAlign: 'center',
   },
   text: (type) => ({
-    fontSize: 16,
+    fontSize: fontSize.large,
     fontFamily: fonts.Poppins.Regular,
     textAlign: 'center',
     color: type === 'secondary' ? colors.button.secondary.text : colors.button.primary.text,

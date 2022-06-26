@@ -6,7 +6,7 @@ import FormData from 'form-data';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   showError, updateProfileSchema, fonts, colors,
-  windowHeight, windowWidth,
+  windowHeight, windowWidth, fontSize,
 } from '../../utils';
 import {
   Headers,
@@ -166,6 +166,6 @@ const styles = StyleSheet.create({
   errorText: {
     fontFamily: fonts.Poppins.Medium,
     color: colors.warning,
-    fontSize: 12,
+    fontSize: fontSize.small,
   },
 });

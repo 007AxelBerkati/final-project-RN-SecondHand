@@ -2,7 +2,7 @@ import React from 'react';
 import {
   ActivityIndicator, StyleSheet, Text, View,
 } from 'react-native';
-import { colors, fonts } from '../../../utils';
+import { colors, fonts, fontSize } from '../../../utils';
 
 export default function Loading() {
   return (
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: fonts.Poppins.Regular,
-    fontSize: 18,
+    fontSize: fontSize.xlarge,
     color: colors.text.tertiary,
     marginTop: 12,
   },

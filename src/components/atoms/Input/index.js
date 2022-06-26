@@ -2,7 +2,7 @@
 import React, { memo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { colors, fonts } from '../../../utils';
+import { colors, fonts, fontSize } from '../../../utils';
 
 function Input({
   onChangeText,
@@ -51,7 +51,7 @@ export default memo(Input);
 const styles = StyleSheet.create({
   input: {
     fontFamily: fonts.Poppins.Regular,
-    fontSize: 15,
+    fontSize: fontSize.medium,
     color: colors.text.primary,
   },
 });

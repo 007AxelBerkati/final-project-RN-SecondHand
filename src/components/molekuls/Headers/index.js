@@ -3,7 +3,7 @@ import {
 } from 'react-native';
 import React, { memo } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import { colors, fonts } from '../../../utils';
+import { colors, fonts, fontSize } from '../../../utils';
 
 function Headers({ onPress, title, type }) {
   if (type === 'back-title') {
@@ -36,7 +36,7 @@ export default memo(Headers);
 const styles = StyleSheet.create({
   title: {
     fontFamily: fonts.Poppins.Bold,
-    fontSize: 20,
+    fontSize: fontSize.xxlarge,
     color: colors.text.primary,
 
   },
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 
   titleBack: {
     fontFamily: fonts.Poppins.Bold,
-    fontSize: 14,
+    fontSize: fontSize.medium,
     color: colors.text.primary,
     textAlign: 'center',
   },

@@ -15,7 +15,7 @@ import {
   Gap, Input, ButtonComponent, Headers, LinkComponent,
 } from '../../components';
 import {
-  colors, fonts, getData, loginSchema,
+  colors, fonts, fontSize, getData, loginSchema,
   optionalConfigObject, showError, storeData, windowHeight,
 } from '../../utils';
 
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   errorText: {
     fontFamily: fonts.Poppins.Medium,
     color: colors.warning,
-    fontSize: 12,
+    fontSize: fontSize.small,
   },
   RegisterText: {
     color: colors.text.secondary,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
 
   registerTitle: {
     fontFamily: fonts.Poppins.Medium,
-    fontSize: 14,
+    fontSize: fontSize.medium,
     color: colors.text.black,
   },
 

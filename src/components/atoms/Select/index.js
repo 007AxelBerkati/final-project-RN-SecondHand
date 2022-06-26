@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
     textAlign: 'left',
     fontFamily: fonts.Poppins.Regular,
-    fontSize: fontSize.medium,
+    fontSize: fontSize.small,
   },
   dropdown1DropdownStyle: {
     backgroundColor: colors.background.primary,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
     fontFamily: fonts.Poppins.Regular,
     textAlign: 'left',
-    fontSize: fontSize.medium,
+    fontSize: fontSize.small,
   },
   dropdown1SelectedRowStyle: {
     backgroundColor: 'rgba(0,0,0,0.1)',

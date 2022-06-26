@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import FormData from 'form-data';
 import {
-  colors, fonts, signupSchema, windowHeight,
+  colors, fonts, fontSize, signupSchema, windowHeight,
 } from '../../utils';
 import {
   ButtonComponent, Gap, Headers, Input, LinkComponent, Select,
@@ -134,7 +134,7 @@ function RegisterScreen({ navigation }) {
                   <Text style={{
                     color: colors.text.primary,
                     fontFamily: fonts.Poppins.Regular,
-                    fontSize: 14,
+                    fontSize: fontSize.medium,
                   }}
                   >
                     Sudah Punya Akun ?
@@ -168,6 +168,6 @@ const styles = StyleSheet.create({
   errorText: {
     fontFamily: fonts.Poppins.Medium,
     color: colors.warning,
-    fontSize: 12,
+    fontSize: fontSize.small,
   },
 });

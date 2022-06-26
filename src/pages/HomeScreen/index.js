@@ -9,7 +9,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useSelector, useDispatch } from 'react-redux';
-import { colors, fonts } from '../../utils';
+import { colors, fonts, fontSize } from '../../utils';
 import { CardCategory, CardProduct } from '../../components';
 import { getCategoryProduct, getProduct } from '../../redux';
 
@@ -66,7 +66,7 @@ function HomeScreen() {
           onChangeText={onChangeSearch}
           value={searchQuery}
           inputStyle={{
-            fontSize: 14,
+            fontSize: fontSize.medium,
             fontFamily: fonts.Poppins.Regular,
             color: colors.text.subtitle,
           }}
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
 
   titleCategory: {
-    fontSize: 14,
+    fontSize: fontSize.medium,
     fontFamily: fonts.Poppins.Bold,
     color: colors.text.primary,
     marginBottom: 16,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
 
   textEmpty: {
-    fontSize: 14,
+    fontSize: fontSize.medium,
     fontFamily: fonts.Poppins.Regular,
     color: colors.text.subtitle,
     marginTop: 16,
