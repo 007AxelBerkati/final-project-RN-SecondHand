@@ -20,7 +20,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  install-and-test-staging:
+  install-and-test:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
@@ -28,7 +28,7 @@ jobs:
           run: |
             yarn install           
 
-  build-android-staging:
+  build-android:
       needs: install-and-test
       runs-on: ubuntu-latest
       steps: 
