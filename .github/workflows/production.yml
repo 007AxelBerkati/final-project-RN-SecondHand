@@ -1,4 +1,4 @@
-name: Build
+name: Build-production
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
     branches:
       - development
 jobs:
-  install-and-test:
+  install-and-test-production:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
@@ -15,7 +15,7 @@ jobs:
           run: |
             npm install           
 
-  build-android:
+  build-android-production:
       needs: install-and-test
       runs-on: ubuntu-latest
       steps: 

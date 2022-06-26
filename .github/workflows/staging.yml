@@ -1,4 +1,4 @@
-name: Build
+name: Build-staging
 on:
   push:
     branches:
@@ -20,7 +20,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  install-and-test:
+  install-and-test-staging:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
@@ -28,7 +28,7 @@ jobs:
           run: |
             yarn install           
 
-  build-android:
+  build-android-staging:
       needs: install-and-test
       runs-on: ubuntu-latest
       steps: 
