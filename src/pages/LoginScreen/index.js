@@ -15,8 +15,8 @@ import {
   Gap, Input, ButtonComponent, Headers, LinkComponent,
 } from '../../components';
 import {
-  colors, fonts, fontSize, getData, loginSchema,
-  optionalConfigObject, showError, storeData, windowHeight,
+  colors, fonts, fontSize, getDataSecure, loginSchema,
+  optionalConfigObject, showError, storeDataSecure, windowHeight,
 } from '../../utils';
 
 import { getLogin, setLoading } from '../../redux';
@@ -27,7 +27,7 @@ function LoginScreen({ navigation }) {
   const stateGlobal = useSelector((state) => state.dataGlobal);
 
   const onSubmit = (email, password) => {
-    storeData('user', { email, password });
+    storeDataSecure('user', { email, password });
     dispatch(getLogin(email, password, navigation, dataLogin));
   };
 
@@ -39,7 +39,7 @@ function LoginScreen({ navigation }) {
         TouchID.authenticate('To access your account', optionalConfigObject)
           .then(() => {
             dispatch(setLoading(true));
-            getData('user').then((user) => {
+            getDataSecure('user').then((user) => {
               if (user) {
                 const users = {
                   email: user.email,

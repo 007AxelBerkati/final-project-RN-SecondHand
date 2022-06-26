@@ -2,7 +2,7 @@ import {
   Image, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
-import { borderRadius, windowHeight, windowWidth } from '../../../utils';
+import { windowHeight, windowWidth } from '../../../utils';
 import { IconRemovePhoto, ILNullPhoto } from '../../../assets';
 
 function Profile({ isRemove, source, onPress }) {
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   photo: {
     width: windowWidth * 0.3,
     height: windowHeight * 0.15,
-    borderRadius: borderRadius.xlarge,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',

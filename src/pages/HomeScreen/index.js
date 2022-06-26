@@ -10,7 +10,7 @@ import { Searchbar } from 'react-native-paper';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  borderRadius, colors, fonts, fontSize,
+  colors, fonts, fontSize,
 } from '../../utils';
 import { CardCategory, CardProduct } from '../../components';
 import { getCategoryProduct, getProduct } from '../../redux';
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   searchBar: {
     width: null,
     borderWidth: 1,
-    borderRadius: borderRadius.xlarge,
+    borderRadius: 16,
     marginTop: 38,
     marginHorizontal: 16,
     fontFamily: fonts.Poppins.Bold,

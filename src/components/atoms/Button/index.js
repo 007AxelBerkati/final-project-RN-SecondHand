@@ -1,7 +1,7 @@
 import {
   StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import { borderRadius, colors, fonts } from '../../../utils';
 
 function Button({ title, onPress }) {
@@ -14,7 +14,7 @@ function Button({ title, onPress }) {
   );
 }
 
-export default Button;
+export default memo(Button);
 
 const styles = StyleSheet.create({
   Wrapper: {
