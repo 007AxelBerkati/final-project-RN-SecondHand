@@ -1,13 +1,14 @@
-import {
-  ActivityIndicator,
-} from 'react-native';
 import CodePush from 'react-native-code-push';
 import FlashMessage from 'react-native-flash-message';
 import { Provider, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import Router from '@router';
+
+import { LogBox } from 'react-native';
 import { Persistore, Store } from './redux';
+import { Loading } from './components';
 
 const CodePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
@@ -25,12 +26,15 @@ function MainApp() {
       {/* <StatusBar barStyle="dark-content" backgroundColor={colors.background.secondary} /> */}
       <Router />
       <FlashMessage position="top" />
-      {stateGlobal.isLoading && <ActivityIndicator />}
+      {stateGlobal.isLoading && <Loading />}
     </>
   );
 }
 
 function App() {
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  }, []);
   return (
     <Provider store={Store}>
       <PersistGate loading={null} persistor={Persistore}>
@@ -41,5 +45,3 @@ function App() {
 }
 
 export default CodePush(CodePushOptions)(App);
-
-// const styles = StyleSheet.create({});

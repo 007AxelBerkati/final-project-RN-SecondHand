@@ -1,6 +1,7 @@
-import axios from 'axios';
-import { GET_API_AUTH } from '../../config';
-import { GET_LOGIN_FAIL, GET_LOGIN_LOADING, GET_LOGIN_SUCCESS } from '../types';
+import { login } from '../../services';
+import { showError, showSuccess } from '../../utils';
+import { GET_LOGIN_FAIL, GET_LOGIN_SUCCESS, LOGOUT } from '../types';
+import { setLoading } from './global';
 
 export const getLoginSuccess = (data) => ({
   type: GET_LOGIN_SUCCESS,
@@ -12,22 +13,20 @@ export const getLoginFail = (error) => ({
   payload: error,
 });
 
-export const getLoginLoading = (loading) => ({
-  type: GET_LOGIN_LOADING,
-  payload: loading,
+export const logout = () => ({
+  type: LOGOUT,
 });
 
-export const getLogin = (email, password) => async (dispatch) => {
-  dispatch(getLoginLoading(true));
-  await axios.get(`${GET_API_AUTH}/login`, {
-    email, password,
-  })
-    .then((response) => {
-      dispatch(getLoginSuccess(response.data));
-      dispatch(getLoginLoading(false));
-    })
-    .catch((error) => {
-      dispatch(getLoginFail(error.response.data));
-      dispatch(getLoginLoading(false));
-    });
+export const getLogin = (email, password, navigation) => async (dispatch) => {
+  dispatch(setLoading(true));
+  await login(email, password).then((response) => {
+    dispatch(getLoginSuccess(response.data));
+    dispatch(setLoading(false));
+    showSuccess('Login Success');
+    navigation.navigate('MainApp');
+  }).catch((error) => {
+    dispatch(getLoginFail(error.response.data.message));
+    dispatch(setLoading(false));
+    showError(error.response.data.message);
+  });
 };

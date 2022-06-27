@@ -1,33 +1,58 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  AkunScreen, DaftarJualScreen, HomeScreen, JualScreen, NotifikasiScreen,
-  LoginScreen, RegisterScreen,
-} from '@pages';
+  AkunScreen,
+  DaftarJualScreen,
+  HomeScreen,
+  JualScreen,
+  NotifikasiScreen,
+  LoginScreen,
+  RegisterScreen,
+  SplashScreen,
+} from '../pages';
+import { colors } from '../utils';
+import ProfileScreen from '../pages/ProfileScreen';
 
-const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: colors.background.primary,
+  },
+  fonts: {
+    regular: 'Poppins-Regular',
+  },
+};
 
 function MyTabs() {
   return (
     <Tab.Navigator
-      activeColor="#fff"
       initialRouteName="Home"
-
+      screenOptions={() => ({
+        tabBarStyle: {
+          paddingTop: 10,
+          height: 60,
+        },
+        tabBarLabelStyle: {
+          marginBottom: 10,
+        },
+        tabBarActiveTintColor: colors.secondary,
+      })}
     >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          //   tabBarColor:''
-          tabBarIcon: ({ color }) => (
-            <Icon name="home" color={color} size={26} />
-          ),
+          tabBarIcon: ({ color }) => <Icon name="home" color={color} size={26} />,
+          headerShown: false,
         }}
       />
 
@@ -36,9 +61,11 @@ function MyTabs() {
         component={NotifikasiScreen}
         options={{
           tabBarLabel: 'Notifikasi',
+          tabBarColor: 'red',
           tabBarIcon: ({ color }) => (
             <Icon name="notifications" color={color} size={26} />
           ),
+          headerShown: false,
         }}
       />
 
@@ -50,6 +77,7 @@ function MyTabs() {
           tabBarIcon: ({ color }) => (
             <Icon name="add-circle-outline" color={color} size={26} />
           ),
+          headerShown: false,
         }}
       />
 
@@ -58,9 +86,9 @@ function MyTabs() {
         component={DaftarJualScreen}
         options={{
           tabBarLabel: 'Daftar Jual',
-          tabBarIcon: ({ color }) => (
-            <Icon name="list" color={color} size={26} />
-          ),
+          tabBarColor: 'green',
+          tabBarIcon: ({ color }) => <Icon name="list" color={color} size={26} />,
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -71,18 +99,22 @@ function MyTabs() {
           tabBarIcon: ({ color }) => (
             <Icon name="person" color={color} size={26} />
           ),
+          headerShown: false,
         }}
       />
-
     </Tab.Navigator>
   );
 }
 
 function Router() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="MainApp">
-
+    <NavigationContainer theme={MyTheme}>
+      <Stack.Navigator initialRouteName="SplashScreen">
+        <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="RegisterScreen"
           component={RegisterScreen}
@@ -98,6 +130,12 @@ function Router() {
           component={MyTabs}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="ProfileScreen"
+          component={ProfileScreen}
+          options={{ headerShown: false }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

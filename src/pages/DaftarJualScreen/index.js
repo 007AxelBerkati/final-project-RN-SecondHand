@@ -4,7 +4,7 @@ import React from 'react';
 function DaftarJualScreen() {
   return (
     <View style={styles.pages}>
-      <Text>DaftarJualScreen</Text>
+      <Text>DaftarJualScreennn</Text>
     </View>
   );
 }

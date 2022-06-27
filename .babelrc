@@ -13,5 +13,10 @@
         }
       }],
       "react-require"
-    ]
+    ],
+    "env": {
+      "production": {
+        "plugins": ["transform-remove-console"]
+      }
+    }
   }
