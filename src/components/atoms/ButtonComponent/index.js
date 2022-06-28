@@ -10,16 +10,15 @@ import IconButton from './IconButton';
 import FloatingButton from './FloatingButton';
 
 function ButtonComponent({
-  type, title, onPress, icon, disable, nonButton, iconHeight, iconWidth, label, style, styleText,
+  type, title, onPress, icon, disable, nonButton, label, style, styleText,
 }) {
   if (type === 'icon-button') {
     return (
       <IconButton
         onPress={onPress}
         nonButton={nonButton}
-        iconHeight={iconHeight}
-        iconWidth={iconWidth}
         label={label}
+        style={style}
       />
     );
   }
