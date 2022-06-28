@@ -17,6 +17,7 @@ import {
 } from '../pages';
 import { colors } from '../utils';
 import ProfileScreen from '../pages/ProfileScreen';
+import BuyerScreen from '../pages/BuyerScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -110,7 +111,7 @@ function MyTabs() {
 function Router() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="PreviewScreen">
+      <Stack.Navigator initialRouteName="BuyerScreen">
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
@@ -139,6 +140,11 @@ function Router() {
         <Stack.Screen
           name="PreviewScreen"
           component={PreviewScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="BuyerScreen"
+          component={BuyerScreen}
           options={{ headerShown: false }}
         />
 
