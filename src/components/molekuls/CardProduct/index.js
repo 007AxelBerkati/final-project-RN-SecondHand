@@ -11,6 +11,17 @@ function CardProduct({
   onPress, source, name, jenis, harga,
 }) {
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
+
+  if (source === undefined) {
+    return (
+      <View style={styles.cardPreview}>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.jenis}>{jenis}</Text>
+        <Text style={styles.harga}>{hargaConvert}</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress} style={{ height: '65%', width: '100%' }}>
@@ -72,6 +83,14 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flexDirection: 'row', justifyContent: 'space-between',
+  },
+
+  cardPreview: {
+    borderRadius: borderRadius.xlarge,
+    paddingHorizontal: 24,
+    backgroundColor: colors.background.primary,
+    elevation: 4,
+    paddingVertical: 16,
   },
 
 });

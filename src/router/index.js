@@ -13,6 +13,7 @@ import {
   LoginScreen,
   RegisterScreen,
   SplashScreen,
+  PreviewScreen,
 } from '../pages';
 import { colors } from '../utils';
 import ProfileScreen from '../pages/ProfileScreen';
@@ -109,7 +110,7 @@ function MyTabs() {
 function Router() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="SplashScreen">
+      <Stack.Navigator initialRouteName="PreviewScreen">
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
@@ -133,6 +134,11 @@ function Router() {
         <Stack.Screen
           name="ProfileScreen"
           component={ProfileScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PreviewScreen"
+          component={PreviewScreen}
           options={{ headerShown: false }}
         />
 
