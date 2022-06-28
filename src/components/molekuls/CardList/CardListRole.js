@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingBottom: 16,
     padding: 16,
+    elevation: 4,
+    backgroundColor: colors.background.primary,
+    borderRadius: borderRadius.xlarge,
   },
   wrapper: {
     flexDirection: 'row',

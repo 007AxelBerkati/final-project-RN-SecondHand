@@ -55,3 +55,10 @@ export const updateProfileSchema = Yup.object().shape({
     .min(10)
     .required('Required'),
 });
+
+export const TambahDataSchema = Yup.object().shape({
+  namaProduk: Yup.string().required('Silahkan Isi Nama Produk'),
+  hargaProduk: Yup.string().required('Silahkan Isi Harga Produk'),
+  kategori_id: Yup.string().required('Silahkan Pilih Kategori'),
+  deskripsi: Yup.string().required('Silahkan Isi Deskripsi Produk'),
+});
