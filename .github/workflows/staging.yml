@@ -4,10 +4,9 @@ on:
     branches:
       - development
   pull_request:
-    types: [opened, synchronize, reopened]
-    branches-ignore:
-      - master
-    
+    branches: 
+      - development
+      
 jobs:
 
   sonarcloud:
