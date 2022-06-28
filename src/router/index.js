@@ -110,7 +110,7 @@ function MyTabs() {
 function Router() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="PreviewScreen">
+      <Stack.Navigator initialRouteName="MainApp">
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}

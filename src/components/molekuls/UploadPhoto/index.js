@@ -13,7 +13,7 @@ function UploadPhoto({ label }) {
       <Text style={styles.label}>{label}</Text>
       <Gap height={4} />
       <TouchableOpacity style={styles.parent}>
-        <Icon name="plus" size={scale(20)} color={colors.text.primary} />
+        <Icon name="plus" size={scale(20)} color={colors.disable} />
       </TouchableOpacity>
     </View>
   );
