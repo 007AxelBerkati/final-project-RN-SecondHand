@@ -4,9 +4,9 @@ import {
   SafeAreaView, ScrollView, StyleSheet, View,
   StatusBar,
 } from 'react-native';
-import React from 'react';
+import React, {useCallback,useMemo,useRef}from 'react';
 import { ImageSlider } from 'react-native-image-slider-banner';
-
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import {
   ButtonComponent, CardList, CardProduct, Desc, Gap,
 } from '../../components';
@@ -15,39 +15,20 @@ import {
   colors, windowHeight, windowWidth,
 } from '../../utils';
 
-//   export function SheetContent() {
-//       const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-
-//       // variables
-//       const snapPoints = useMemo(() => ['25%', '50%'], []);
-
-//       // callbacks
-//       // const handlePresentModalPress = useCallback(() => {
-//       //   bottomSheetModalRef.current?.present();
-//       // }, []);
-//       const handleSheetChanges = useCallback((index: number) => {
-//         console.log('handleSheetChanges', index);
-//       }, []);
-
-//       // renders
-//       return (
-//         <BottomSheetModalProvider>
-//           <View style={styles.container}>
-//             <BottomSheetModal
-//               ref={bottomSheetModalRef}
-//               index={1}
-//               snapPoints={snapPoints}
-//               onChange={handleSheetChanges}
-//             >
-//               <View style={styles.contentContainer}>
-//                 <Text>Awesome </Text>
-//               </View>
-//             </BottomSheetModal>
-//           </View>
-//         </BottomSheetModalProvider>
-//       );
-//   }
 function BuyerScreen() {
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  // variables
+  const snapPoints = useMemo(() => ['25%', '50%'], []);
+
+  // callbacks
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
   return (
     <SafeAreaView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>
@@ -89,8 +70,22 @@ function BuyerScreen() {
         <Gap height={60} />
       </ScrollView>
       <View style={styles.btnNego}>
-        <ButtonComponent title="Saya Tertarik Dan Ingin Nego" />
+        <ButtonComponent title="Saya Tertarik Dan Ingin Nego" onPress={handlePresentModalPress} />
       </View>
+      <BottomSheetModalProvider>
+      <View style={styles.container}>
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          index={1}
+          snapPoints={snapPoints}
+          onChange={handleSheetChanges}
+        >
+          <View style={styles.contentContainer}>
+            <Text>Awesome 🎉</Text>
+          </View>
+        </BottomSheetModal>
+      </View>
+    </BottomSheetModalProvider>
     </SafeAreaView>
   );
 }
@@ -135,5 +130,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginTop: -40,
   },
-
+  container: {
+    flex: 1,
+    padding: 24,
+    justifyContent: 'center',
+    backgroundColor: 'grey',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
 });
