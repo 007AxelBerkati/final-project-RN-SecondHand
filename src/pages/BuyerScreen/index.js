@@ -1,12 +1,10 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/no-unstable-nested-components */
 import {
   SafeAreaView, ScrollView, StyleSheet, View,
-  StatusBar,
+  StatusBar, Text,
 } from 'react-native';
-import React, {useCallback,useMemo,useRef}from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { ImageSlider } from 'react-native-image-slider-banner';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import BottomSheetModal from '@gorhom/bottom-sheet';
 import {
   ButtonComponent, CardList, CardProduct, Desc, Gap,
 } from '../../components';
@@ -16,8 +14,7 @@ import {
 } from '../../utils';
 
 function BuyerScreen() {
-
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const bottomSheetModalRef = useRef(null);
 
   // variables
   const snapPoints = useMemo(() => ['25%', '50%'], []);
@@ -26,7 +23,7 @@ function BuyerScreen() {
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
-  const handleSheetChanges = useCallback((index: number) => {
+  const handleSheetChanges = useCallback((index) => {
     console.log('handleSheetChanges', index);
   }, []);
   return (
@@ -45,6 +42,7 @@ function BuyerScreen() {
             closeIconColor={colors.background.primary}
             caroselImageStyle={{ height: windowHeight * 0.4 }}
             indicatorContainerStyle={{ bottom: windowHeight * 0.05 }}
+
           />
           <View style={styles.btnBackContainer}>
             <ButtonComponent
@@ -70,22 +68,18 @@ function BuyerScreen() {
         <Gap height={60} />
       </ScrollView>
       <View style={styles.btnNego}>
-        <ButtonComponent title="Saya Tertarik Dan Ingin Nego" onPress={handlePresentModalPress} />
+        <ButtonComponent title="saya tertarik dan ingin nego" onPress={handlePresentModalPress} />
       </View>
-      <BottomSheetModalProvider>
-      <View style={styles.container}>
-        <BottomSheetModal
-          ref={bottomSheetModalRef}
-          index={1}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}
-        >
-          <View style={styles.contentContainer}>
-            <Text>Awesome 🎉</Text>
-          </View>
-        </BottomSheetModal>
-      </View>
-    </BottomSheetModalProvider>
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+      >
+        <View style={styles.contentContainer}>
+          <Text>Awesome 🎉</Text>
+        </View>
+      </BottomSheetModal>
     </SafeAreaView>
   );
 }
@@ -130,14 +124,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginTop: -40,
   },
-  container: {
-    flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-    backgroundColor: 'grey',
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
+
 });

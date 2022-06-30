@@ -6,7 +6,8 @@ import Loading from './Loading';
 import Profile from './Profile';
 import UploadPhoto from './UploadPhoto';
 import Desc from './Desc';
+import BottomSheet from './BottomSheet';
 
 export {
-  CardCategory, CardProduct, Headers, CardList, Loading, Profile, UploadPhoto, Desc,
+  CardCategory, CardProduct, Headers, CardList, Loading, Profile, UploadPhoto, Desc, BottomSheet,
 };
