@@ -3,39 +3,84 @@ import {
 } from 'react-native';
 import React from 'react';
 import { Formik } from 'formik';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { launchImageLibrary } from 'react-native-image-picker';
+import FormData from 'form-data';
 import {
   ButtonComponent, Gap, Headers, Input2, Select2, UploadPhoto,
 } from '../../components';
 import {
-  borderRadius, colors, fonts, fontSize, TambahDataSchema, windowHeight,
+  borderRadius, colors, fonts, fontSize, showError, TambahDataSchema, windowHeight,
 } from '../../utils';
+import { postProduct } from '../../redux';
 
 function JualScreen({ navigation }) {
   const stateGlobal = useSelector((state) => state.dataGlobal);
   const dataCategory = useSelector((state) => state.dataHome);
+  const dataProfile = useSelector((state) => state.dataProfile.profile);
+
+  const dispatch = useDispatch();
+
+  const getImage = (setFieldValue) => {
+    launchImageLibrary(
+      {
+        quality: 1,
+        maxWidth: 1000,
+        maxHeight: 1000,
+        includeBase64: true,
+      },
+      (response) => {
+        if (response.didCancel || response.error) {
+          showError('Sepertinya anda tidak memilih fotonya');
+        } else {
+          const source = response?.assets[0];
+          setFieldValue('image', source, true);
+        }
+      },
+    );
+  };
+
+  const onSubmitPost = (values) => {
+    const formData = new FormData();
+    formData.append('name', values.namaProduk);
+    formData.append('description', values.deskripsi);
+    formData.append('base_price', values.hargaProduk);
+    formData.append('category_ids', values.kategori_id.toString());
+    formData.append('location', values.location);
+    formData.append('image', {
+      uri: values.image.uri ? values.image.uri : values.image,
+      type: 'image/jpeg',
+      name: values.image.fileName ? values.image.fileName : 'image.jpg',
+    });
+
+    dispatch(postProduct(formData));
+  };
 
   return (
     <View style={styles.pages}>
-
       <Headers title="Lengkapi Detail Produk" type="back-title" onPress={() => navigation.goBack()} />
       <Formik
         initialValues={{
           namaProduk: '',
           hargaProduk: '',
           kategori_id: [],
+          location: dataProfile.city,
           deskripsi: '',
+          image: '',
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values, { resetForm }) => {
+          onSubmitPost(values);
+          resetForm();
+        }}
         validationSchema={TambahDataSchema}
       >
         {({
-          handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue, isValid,
+          handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue,
+          isValid, dirty,
         }) => (
           <ScrollView showsVerticalScrollIndicator={false}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
               <View style={{ marginTop: 24 }}>
-
                 <Input2
                   label="Nama Produk"
                   placeholder="Nama Produk"
@@ -87,11 +132,15 @@ function JualScreen({ navigation }) {
                 {errors.deskripsi && touched.deskripsi
               && <Text style={styles.errorText}>{errors.deskripsi}</Text>}
                 <Gap height={16} />
-                <UploadPhoto label="Foto Product" />
+                <UploadPhoto
+                  label="Foto Product"
+                  source={values.image}
+                  onPress={() => getImage(setFieldValue)}
+                />
                 <Gap height={windowHeight * 0.03} />
                 <View style={styles.btnWrapper}>
-                  <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={handleSubmit} disable={!(isValid) || stateGlobal.isLoading} />
-                  <ButtonComponent style={styles.btnTerbitkan} title="Terbitkan" onPress={handleSubmit} disable={!(isValid) || stateGlobal.isLoading} />
+                  <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={() => navigation.navigate('PreviewScreen', { values })} disable={!(isValid && dirty) || stateGlobal.isLoading} />
+                  <ButtonComponent style={styles.btnTerbitkan} title="Terbitkan" onPress={handleSubmit} disable={!(isValid && dirty) || stateGlobal.isLoading} />
                 </View>
               </View>
             </TouchableWithoutFeedback>

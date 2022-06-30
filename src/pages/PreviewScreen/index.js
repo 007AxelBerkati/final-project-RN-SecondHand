@@ -4,15 +4,40 @@ import {
 } from 'react-native';
 import React from 'react';
 import { ImageSlider } from 'react-native-image-slider-banner';
+import { useDispatch, useSelector } from 'react-redux';
+import FormData from 'form-data';
 import {
   ButtonComponent, CardList, CardProduct, Desc, Gap,
 } from '../../components';
-import { keranjang } from '../../assets';
 import {
   colors, windowHeight, windowWidth,
 } from '../../utils';
+import { postProduct } from '../../redux';
 
-function PreviewScreen() {
+function PreviewScreen({ route, navigation }) {
+  const { values } = route.params;
+
+  const dataCategory = useSelector((state) => state.dataHome);
+  const dataProfile = useSelector((state) => state.dataProfile.profile);
+
+  const dispatch = useDispatch();
+
+  const onSubmitPost = (dataValues) => {
+    const formData = new FormData();
+    formData.append('name', dataValues.namaProduk);
+    formData.append('description', dataValues.deskripsi);
+    formData.append('base_price', dataValues.hargaProduk);
+    formData.append('category_ids', dataValues.kategori_id.toString());
+    formData.append('location', dataValues.location);
+    formData.append('image', {
+      uri: dataValues.image.uri ? dataValues.image.uri : dataValues.image,
+      type: 'image/jpeg',
+      name: dataValues.image.fileName ? dataValues.image.fileName : 'image.jpg',
+    });
+
+    dispatch(postProduct(formData));
+  };
+
   return (
     <SafeAreaView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>
@@ -20,9 +45,7 @@ function PreviewScreen() {
         <View style={styles.imageContainer}>
           <ImageSlider
             data={[
-              { img: 'https://img.freepik.com/free-vector/online-shopping-concept-illustration_114360-1084.jpg?w=1060&t=st=1655909482~exp=1655910082~hmac=17398ae027564d6d34625f5b83f8ab39616da2ea74d55677a11eb56ce8eb70bd' },
-              { img: 'https://media.istockphoto.com/photos/male-outfit-set-on-white-background-closeup-top-view-picture-id1176614800?k=20&m=1176614800&s=612x612&w=0&h=uM0CkYhsM12_OYWhnO641tXqD3ZCOx61dyGZClkrv6k=' },
-              { img: 'https://images.unsplash.com/photo-1479064555552-3ef4979f8908?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' },
+              { img: values.image.uri },
             ]}
             autoPlay
             timer={5000}
@@ -35,27 +58,33 @@ function PreviewScreen() {
             <ButtonComponent
               type="icon-button"
               label="BackButton"
+              onPress={() => navigation.goBack()}
             />
           </View>
           <View style={styles.productWrapper}>
-            <CardProduct name="Jam tangan" jenis="Barang Antik" harga="10000" />
+            <CardProduct
+              name={values.namaProduk}
+              jenis={dataCategory.category}
+              idJenis={values.kategory_id}
+              harga={values.hargaProduk}
+            />
           </View>
         </View>
         <View style={styles.card}>
           <CardList
-            source={keranjang}
-            name="Nama Penjual"
-            kota="palangka"
+            source={{ uri: dataProfile.image_url }}
+            name={dataProfile.full_name}
+            kota={dataProfile.city}
             type="role"
           />
         </View>
         <View style={styles.title}>
-          <Desc label="Deskripsi" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+          <Desc label="Deskripsi" desc={values.deskripsi} />
         </View>
         <Gap height={60} />
       </ScrollView>
       <View style={styles.btnNego}>
-        <ButtonComponent title="Terbitkan" />
+        <ButtonComponent title="Terbitkan" onPress={() => onSubmitPost(values)} />
       </View>
     </SafeAreaView>
   );
