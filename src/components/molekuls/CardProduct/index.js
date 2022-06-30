@@ -11,19 +11,14 @@ function CardProduct({
   onPress, source, name, jenis, harga, idJenis,
 }) {
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
-
   if (source === undefined) {
     return (
       <View style={styles.cardPreview}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.jenis}>
-          {
-          jenis.map((item) => (
-            idJenis?.map((val) => (
-              item.id === val && (`${item.name}, `)
-            ))
-          ))
-        }
+          {idJenis?.map((item) => (
+            (item)
+          ))}
         </Text>
         <Text style={styles.harga}>{hargaConvert}</Text>
       </View>
@@ -34,11 +29,18 @@ function CardProduct({
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress} style={{ height: '65%', width: '100%' }}>
         <Image style={styles.image} source={source} />
-        <Text numberOfLines={1} style={styles.name}>
+        <Text
+          numberOfLines={1}
+          style={styles.name}
+        >
           {name}
         </Text>
-        <Text numberOfLines={1} style={styles.jenis}>
-          {jenis}
+        <Text style={styles.jenis} numberOfLines={1}>
+          {
+          jenis.map((item) => (
+            (`${item.name}, `)
+          ))
+        }
         </Text>
         <Text numberOfLines={1} style={styles.harga}>
           {
