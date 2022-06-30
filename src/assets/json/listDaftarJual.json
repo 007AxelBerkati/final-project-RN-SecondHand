@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "category": "Produk",
+            "name": "all-inbox"
+        },
+        {
+            "id": 2,
+            "category": "Diminati",
+            "name": "sentiment-satisfied-alt"
+        },
+        {
+            "id": 3,
+            "category": "Terjual",
+            "name": "attach-money"
+        }
+    ]
+
+}
