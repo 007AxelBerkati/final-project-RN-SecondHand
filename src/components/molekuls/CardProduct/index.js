@@ -8,7 +8,7 @@ import {
 } from '../../../utils';
 
 function CardProduct({
-  onPress, source, name, jenis, harga,
+  onPress, source, name, jenis, harga, idJenis,
 }) {
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
 
@@ -16,7 +16,15 @@ function CardProduct({
     return (
       <View style={styles.cardPreview}>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.jenis}>{jenis}</Text>
+        <Text style={styles.jenis}>
+          {
+          jenis.map((item) => (
+            idJenis?.map((val) => (
+              item.id === val && (`${item.name}, `)
+            ))
+          ))
+        }
+        </Text>
         <Text style={styles.harga}>{hargaConvert}</Text>
       </View>
     );
