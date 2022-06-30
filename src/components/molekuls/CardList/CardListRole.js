@@ -1,6 +1,6 @@
 import {
   Image,
-  StyleSheet, Text, TouchableOpacity, View,
+  StyleSheet, Text, View,
 } from 'react-native';
 import React from 'react';
 import {
@@ -12,7 +12,7 @@ function CardListRole({
   source, onPress, kota, name,
 }) {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <View style={styles.container}>
       <View style={styles.wrapper}>
         <Image source={source} style={styles.image} />
         <View style={styles.desc}>
@@ -25,7 +25,7 @@ function CardListRole({
             ) : null
         }
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingBottom: 16,
     padding: 16,
+    elevation: 4,
+    backgroundColor: colors.background.primary,
+    borderRadius: borderRadius.xlarge,
   },
   wrapper: {
     flexDirection: 'row',

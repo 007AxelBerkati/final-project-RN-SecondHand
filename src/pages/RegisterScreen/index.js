@@ -34,6 +34,7 @@ function RegisterScreen({ navigation }) {
       type: 'image/jpeg',
       name: 'image.jpg',
     });
+
     dispatch(getRegister(formData, navigation));
   };
   return (
