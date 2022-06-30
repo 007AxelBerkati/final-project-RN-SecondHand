@@ -42,10 +42,11 @@ function Select2({
 export default Select2;
 
 const styles = StyleSheet.create({
-  placeholderStyle: {
+  placeholder: {
     fontFamily: fonts.Poppins.Regular,
-    fontSize: fontSize.medium,
+    fontSize: fontSize.small,
     color: colors.text.subtitle,
+
   },
 
   dropdown: {

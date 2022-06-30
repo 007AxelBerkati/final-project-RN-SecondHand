@@ -1,4 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  ScrollView, StyleSheet, Text, View,
+} from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Fade, Placeholder, PlaceholderMedia } from 'rn-placeholder';
@@ -38,10 +40,10 @@ function AkunScreen({ navigation }) {
                 Anda belum login
               </Text>
             </View>
-            <ButtonComponent onPress={() => navigation.replace('LoginScreen')} title="Login" />
+            <ButtonComponent onPress={() => navigation.navigate('LoginScreen')} title="Login" />
           </View>
         ) : (
-          <View>
+          <ScrollView>
             {
         dataProfile.isLoading ? (
           <Placeholder
@@ -62,7 +64,7 @@ function AkunScreen({ navigation }) {
               {' '}
               {version}
             </Text>
-          </View>
+          </ScrollView>
         )
       }
     </View>
