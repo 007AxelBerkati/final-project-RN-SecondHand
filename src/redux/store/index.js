@@ -4,7 +4,8 @@ import reduxLogger from 'redux-logger';
 import { persistReducer, persistStore } from 'redux-persist';
 import ReduxThunk from 'redux-thunk';
 import {
-  globalReducer, loginReducer, registerReducer, homeReducer, profileReducer,
+  globalReducer, loginReducer,
+  registerReducer, homeReducer, profileReducer, jualReducer, daftarJualReducer,
 } from '../reducer';
 
 const persistConfig = {
@@ -20,6 +21,8 @@ const rootReducer = {
   dataRegister: registerReducer,
   dataHome: homeReducer,
   dataProfile: profileReducer,
+  dataJual: jualReducer,
+  dataDaftarJual: daftarJualReducer,
 };
 
 const configPersist = persistReducer(persistConfig, combineReducers(rootReducer));
