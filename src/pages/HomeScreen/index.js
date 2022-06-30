@@ -96,7 +96,7 @@ function HomeScreen() {
                   <CardProduct
                     source={{ uri: item.image_url }}
                     name={item.name}
-                    jenis={item.description}
+                    jenis={item.Categories}
                     harga={item.base_price}
                   />
                 )}

@@ -62,7 +62,7 @@ function LoginScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={{ flex: 1, margin: 16 }}>
-        <Headers type="back" />
+        <Headers type="back" onPress={() => navigation.goBack()} />
         <Formik
           initialValues={{ email: '', password: '' }}
           onSubmit={(values) => onSubmit(values.email, values.password)}
@@ -110,6 +110,7 @@ function LoginScreen({ navigation }) {
                 <ButtonComponent
                   type="icon-button"
                   onPress={onFingerprint}
+                  style={styles.iconButton}
                 />
               </View>
               <Gap height={24} />
@@ -164,5 +165,11 @@ const styles = StyleSheet.create({
   iconWrapper: {
     marginTop: 16,
     alignItems: 'center',
+  },
+
+  iconButton: {
+    width: 54,
+    height: 54,
+    borderRadius: 54 / 5,
   },
 });
