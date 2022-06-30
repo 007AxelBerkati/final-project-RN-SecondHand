@@ -1,4 +1,7 @@
-import { StyleSheet, View, Text } from 'react-native';
+import {
+  StyleSheet, View, Text, TouchableWithoutFeedback, Keyboard,
+  ScrollView,
+} from 'react-native';
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -10,7 +13,7 @@ import {
 } from '../../utils';
 import {
   Headers,
-  Input, Profile, ButtonComponent, Gap, Select,
+  Input2, Profile, ButtonComponent, Gap, Select,
 } from '../../components';
 import { putDataProfile } from '../../redux';
 import { kota } from '../../assets';
@@ -79,58 +82,65 @@ function ProfileScreen({ navigation }) {
         {({
           handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue, isValid,
         }) => (
-          <View>
-            <View style={styles.photo}>
-              <Profile
-                source={{ uri: photo }}
-                isRemove
-                onPress={() => getImage(setFieldValue)}
-              />
-            </View>
-            <Input
-              leftIcon="account-circle"
-              label="Nama"
-              onChangeText={handleChange('full_name')}
-              value={values.full_name}
-              onBlur={handleBlur('full_name')}
-            />
-            {errors.full_name && touched.full_name
-              && <Text style={styles.errorText}>{errors.full_name}</Text>}
-            <Gap height={15} />
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+              <View>
 
-            <Select
-              data={kota}
-              onSelect={(selectedItem) => {
-                // eslint-disable-next-line no-param-reassign
-                values.city = selectedItem;
-              }}
-              defaultValue={values.city}
-            />
-            {errors.city && touched.city
+                <View style={styles.photo}>
+                  <Profile
+                    source={{ uri: photo }}
+                    isRemove
+                    onPress={() => getImage(setFieldValue)}
+                  />
+                </View>
+                <Input2
+                  leftIcon="account-circle"
+                  label="Nama"
+                  onChangeText={handleChange('full_name')}
+                  value={values.full_name}
+                  onBlur={handleBlur('full_name')}
+                />
+                {errors.full_name && touched.full_name
+              && <Text style={styles.errorText}>{errors.full_name}</Text>}
+                <Gap height={15} />
+
+                <Select
+                  data={kota}
+                  onSelect={(selectedItem) => {
+                    // eslint-disable-next-line no-param-reassign
+                    values.city = selectedItem;
+                  }}
+                  defaultValue={values.city}
+                />
+                {errors.city && touched.city
               && <Text style={styles.errorText}>{errors.city}</Text>}
-            <Gap height={15} />
-            <Input
-              leftIcon="map-marker"
-              label="Alamat"
-              onChangeText={handleChange('address')}
-              value={values.address}
-              onBlur={handleBlur('address')}
-            />
-            {errors.address && touched.address
+                <Gap height={15} />
+                <Input2
+                  leftIcon="map-marker"
+                  label="Alamat"
+                  onChangeText={handleChange('address')}
+                  value={values.address}
+                  onBlur={handleBlur('address')}
+                  multiline
+                  numberOfLines={4}
+                />
+                {errors.address && touched.address
               && <Text style={styles.errorText}>{errors.address}</Text>}
-            <Gap height={15} />
-            <Input
-              leftIcon="phone"
-              label="Nomor Telepon +62"
-              onChangeText={handleChange('phone_number')}
-              value={values.phone_number}
-              onBlur={handleBlur('phone_number')}
-            />
-            {errors.phone_number && touched.phone_number
+                <Gap height={15} />
+                <Input2
+                  leftIcon="phone"
+                  label="Nomor Telepon +62"
+                  onChangeText={handleChange('phone_number')}
+                  value={values.phone_number}
+                  onBlur={handleBlur('phone_number')}
+                />
+                {errors.phone_number && touched.phone_number
               && <Text style={styles.errorText}>{errors.phone_number}</Text>}
-            <Gap height={windowHeight * 0.05} />
-            <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(isValid) || stateGlobal.isLoading} />
-          </View>
+                <Gap height={windowHeight * 0.05} />
+                <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(isValid) || stateGlobal.isLoading} />
+              </View>
+            </TouchableWithoutFeedback>
+          </ScrollView>
         )}
       </Formik>
     </View>

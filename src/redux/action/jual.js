@@ -1,5 +1,7 @@
+import { addProduct } from '../../services';
 import { showError, showSuccess } from '../../utils';
 import { ADD_PRODUCT_FAIL, ADD_PRODUCT_LOADING, ADD_PRODUCT_SUCCESS } from '../types';
+import { setLoading } from './global';
 
 export const addProductSuccess = (data) => ({
   type: ADD_PRODUCT_SUCCESS,
@@ -15,13 +17,15 @@ export const addProductLoading = (data) => ({
   payload: data,
 });
 
-export const addProduct = () => async (dispatch) => {
-  dispatch(addProductLoading(true));
-  await addProduct().then((response) => {
+export const postProduct = (data) => async (dispatch) => {
+  dispatch(setLoading(true));
+  await addProduct(data).then((response) => {
     dispatch(addProductSuccess(response.data));
-    showSuccess('Produk berhasil ditambahkan');
+    dispatch(setLoading(false));
+    showSuccess('Add Product Success');
   }).catch((error) => {
     dispatch(addProductFail());
-    showError(error);
+    dispatch(setLoading(false));
+    showError(error.response.data.message);
   });
 };
