@@ -1,10 +1,9 @@
 import {
   SafeAreaView, ScrollView, StyleSheet, View,
-  StatusBar, Text,
+  StatusBar,
 } from 'react-native';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React from 'react';
 import { ImageSlider } from 'react-native-image-slider-banner';
-import BottomSheetModal from '@gorhom/bottom-sheet';
 import {
   ButtonComponent, CardList, CardProduct, Desc, Gap,
 } from '../../components';
@@ -13,19 +12,7 @@ import {
   colors, windowHeight, windowWidth,
 } from '../../utils';
 
-function BuyerScreen() {
-  const bottomSheetModalRef = useRef(null);
-
-  // variables
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
-
-  // callbacks
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
-  const handleSheetChanges = useCallback((index) => {
-    console.log('handleSheetChanges', index);
-  }, []);
+function PreviewScreen() {
   return (
     <SafeAreaView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>
@@ -42,6 +29,7 @@ function BuyerScreen() {
             closeIconColor={colors.background.primary}
             caroselImageStyle={{ height: windowHeight * 0.4 }}
             indicatorContainerStyle={{ bottom: windowHeight * 0.05 }}
+
           />
           <View style={styles.btnBackContainer}>
             <ButtonComponent
@@ -67,23 +55,13 @@ function BuyerScreen() {
         <Gap height={60} />
       </ScrollView>
       <View style={styles.btnNego}>
-        <ButtonComponent title="saya tertarik dan ingin nego" onPress={handlePresentModalPress} />
+        <ButtonComponent title="Saya Tertarik Dan Ingin Menawar" />
       </View>
-      <BottomSheetModal
-        ref={bottomSheetModalRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-      >
-        <View style={styles.contentContainer}>
-          <Text>Awesome 🎉</Text>
-        </View>
-      </BottomSheetModal>
     </SafeAreaView>
   );
 }
 
-export default BuyerScreen;
+export default PreviewScreen;
 
 const styles = StyleSheet.create({
   imageContainer: {
