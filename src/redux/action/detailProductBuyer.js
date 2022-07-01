@@ -1,4 +1,4 @@
-import { detailProduct } from '../../services';
+import { detailBuyerProduct } from '../../services';
 import { showError } from '../../utils';
 import { GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS } from '../types';
 import { setLoading } from './global';
@@ -17,7 +17,7 @@ export const getDetailProductFail = (err) => ({
 
 export const getDetailProduct = (id) => async (dispatch) => {
   dispatch(setLoading(true));
-  await detailProduct(id).then((response) => {
+  await detailBuyerProduct(id).then((response) => {
     dispatch(getDetailProductSuccess(response.data));
     dispatch(setLoading(false));
   }).catch((error) => {
