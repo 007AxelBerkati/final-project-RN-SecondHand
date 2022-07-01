@@ -13,6 +13,7 @@ import {
   LoginScreen,
   RegisterScreen,
   SplashScreen,
+  InfoPenawaranScreen,
   PreviewScreen,
 } from '../pages';
 import { colors } from '../utils';
@@ -103,6 +104,7 @@ function MyTabs() {
           headerShown: false,
         }}
       />
+
     </Tab.Navigator>
   );
 }
@@ -137,8 +139,13 @@ function Router() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="PreviewScreen"
+           name="PreviewScreen"
           component={PreviewScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="InfoPenawaranScreen"
+          component={InfoPenawaranScreen}
           options={{ headerShown: false }}
         />
 
