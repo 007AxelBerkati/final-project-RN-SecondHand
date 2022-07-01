@@ -16,9 +16,8 @@ function Produk({ dataDaftarJual }) {
          }
         {
         dataDaftarJual.map((item) => (
-          <View style={{ marginBottom: 16 }}>
+          <View style={{ marginBottom: 16 }} key={item.id}>
             <CardProduct
-              key={item.id}
               name={item.name}
               jenis={item.Categories}
               source={{ uri: item.image_url }}
