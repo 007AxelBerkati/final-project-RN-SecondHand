@@ -13,6 +13,7 @@ import {
   LoginScreen,
   RegisterScreen,
   SplashScreen,
+  InfoPenawaranScreen,
   PreviewScreen,
   DetailProductSellerScreen,
   UpdateDetailProductScreen,
@@ -106,6 +107,7 @@ function MyTabs() {
           headerShown: false,
         }}
       />
+
     </Tab.Navigator>
   );
 }
@@ -140,7 +142,7 @@ function Router() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="PreviewScreen"
+           name="PreviewScreen"
           component={PreviewScreen}
           options={{ headerShown: false }}
         />
@@ -157,6 +159,11 @@ function Router() {
         <Stack.Screen
           name="DetailProductBuyerScreen"
           component={DetailProductBuyerScreen}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="InfoPenawaranScreen"
+          component={InfoPenawaranScreen}
           options={{ headerShown: false }}
         />
 
