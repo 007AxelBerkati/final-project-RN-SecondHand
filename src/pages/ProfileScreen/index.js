@@ -46,15 +46,16 @@ function ProfileScreen({ navigation }) {
   };
 
   const updateProfile = (data) => {
+    console.log(data.image);
     const formData = new FormData();
     formData.append('full_name', data.full_name);
     formData.append('city', data.city);
     formData.append('address', data.address);
-    formData.append('phone_number', parseInt(data.phone_number, 10));
+    formData.append('phone_number', data.phone_number);
     formData.append('image', {
-      uri: data.image.uri ? data.image.uri : data.image,
+      uri: data.image.uri,
       type: 'image/jpeg',
-      name: data.image.fileName ? data.image.fileName : 'image.jpg',
+      name: data.image.filename,
     });
     dispatch(putDataProfile(formData, navigation));
   };

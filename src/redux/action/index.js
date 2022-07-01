@@ -6,3 +6,6 @@ export * from './profile';
 export * from './global';
 export * from './jual';
 export * from './daftarJual';
+export * from './detailProductSeller';
+export * from './updateDetailProduct';
+export * from './detailProductBuyer';

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { launchImageLibrary } from 'react-native-image-picker';
 import FormData from 'form-data';
 import {
-  ButtonComponent, Gap, Headers, Input2, Select2, UploadPhoto,
+  ButtonComponent, Gap, Headers, Input2, NotLogin, Select2, UploadPhoto,
 } from '../../components';
 import {
   borderRadius, colors, fonts, fontSize, showError, TambahDataSchema, windowHeight,
@@ -18,6 +18,7 @@ function JualScreen({ navigation }) {
   const stateGlobal = useSelector((state) => state.dataGlobal);
   const dataCategory = useSelector((state) => state.dataHome);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
+  const dataLogin = useSelector((state) => state.dataLogin);
 
   const dispatch = useDispatch();
 
@@ -48,9 +49,9 @@ function JualScreen({ navigation }) {
     formData.append('category_ids', values.kategori_id.toString());
     formData.append('location', values.location);
     formData.append('image', {
-      uri: values.image.uri ? values.image.uri : values.image,
+      uri: values.image.uri,
       type: 'image/jpeg',
-      name: values.image.fileName ? values.image.fileName : 'image.jpg',
+      name: values.image.filename,
     });
 
     dispatch(postProduct(formData));
@@ -59,96 +60,102 @@ function JualScreen({ navigation }) {
   return (
     <View style={styles.pages}>
       <Headers title="Lengkapi Detail Produk" type="back-title" onPress={() => navigation.goBack()} />
-      <Formik
-        initialValues={{
-          namaProduk: '',
-          hargaProduk: '',
-          kategori_id: [],
-          location: dataProfile.city,
-          deskripsi: '',
-          image: '',
-        }}
-        onSubmit={(values, { resetForm }) => {
-          onSubmitPost(values);
-          resetForm();
-        }}
-        validationSchema={TambahDataSchema}
-      >
-        {({
-          handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue,
-          isValid, dirty,
-        }) => (
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-              <View style={{ marginTop: 24 }}>
-                <Input2
-                  label="Nama Produk"
-                  placeholder="Nama Produk"
-                  onChangeText={handleChange('namaProduk')}
-                  value={values.namaProduk}
-                  onBlur={handleBlur('namaProduk')}
-                />
-                {errors.namaProduk && touched.namaProduk
+      {
+        !dataLogin.isLoggedIn ? (
+          <NotLogin onPress={() => navigation.navigate('LoginScreen')} />
+        ) : (
+          <Formik
+            initialValues={{
+              namaProduk: '',
+              hargaProduk: '',
+              kategori_id: [],
+              location: dataProfile.city,
+              deskripsi: '',
+              image: '',
+            }}
+            onSubmit={(values, { resetForm }) => {
+              onSubmitPost(values);
+              resetForm();
+            }}
+            validationSchema={TambahDataSchema}
+          >
+            {({
+              handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue,
+              isValid, dirty,
+            }) => (
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                  <View style={{ marginTop: 24 }}>
+                    <Input2
+                      label="Nama Produk"
+                      placeholder="Nama Produk"
+                      onChangeText={handleChange('namaProduk')}
+                      value={values.namaProduk}
+                      onBlur={handleBlur('namaProduk')}
+                    />
+                    {errors.namaProduk && touched.namaProduk
               && <Text style={styles.errorText}>{errors.namaProduk}</Text>}
-                <Gap height={15} />
+                    <Gap height={15} />
 
-                <Input2
-                  label="Harga Produk"
-                  placeholder="Rp. 0,00"
-                  onChangeText={handleChange('hargaProduk')}
-                  value={values.hargaProduk}
-                  onBlur={handleBlur('hargaProduk')}
-                  keyboardType="numeric"
-                />
-                {errors.hargaProduk && touched.hargaProduk
+                    <Input2
+                      label="Harga Produk"
+                      placeholder="Rp. 0,00"
+                      onChangeText={handleChange('hargaProduk')}
+                      value={values.hargaProduk}
+                      onBlur={handleBlur('hargaProduk')}
+                      keyboardType="numeric"
+                    />
+                    {errors.hargaProduk && touched.hargaProduk
               && <Text style={styles.errorText}>{errors.hargaProduk}</Text>}
-                <Gap height={15} />
-                <Select2
-                  data={dataCategory?.category}
-                  setFieldValue={setFieldValue}
-                  value={values.kategori_id}
-                  initialData={values.kategori_id}
-                  schema={{
-                    label: 'name',
-                    value: 'id',
-                  }}
-                  multiple
-                  mode="BADGE"
-                  name="kategori_id"
-                  placeholder="Pilih Kategori"
-                />
-                {errors.kategori_id && touched.kategori_id
+                    <Gap height={15} />
+                    <Select2
+                      data={dataCategory?.category}
+                      setFieldValue={setFieldValue}
+                      value={values.kategori_id}
+                      initialData={values.kategori_id}
+                      schema={{
+                        label: 'name',
+                        value: 'id',
+                      }}
+                      multiple
+                      mode="BADGE"
+                      name="kategori_id"
+                      placeholder="Pilih Kategori"
+                    />
+                    {errors.kategori_id && touched.kategori_id
               && <Text style={styles.errorText}>{errors.kategori_id}</Text>}
-                <Gap height={15} />
-                <Input2
-                  label="Deskripsi"
-                  placeholder="Contoh: Produk ini sangat bagus"
-                  onChangeText={handleChange('deskripsi')}
-                  value={values.deskripsi}
-                  onBlur={handleBlur('deskripsi')}
-                  multiline
-                  numberOfLines={4}
-                />
-                {errors.deskripsi && touched.deskripsi
+                    <Gap height={15} />
+                    <Input2
+                      label="Deskripsi"
+                      placeholder="Contoh: Produk ini sangat bagus"
+                      onChangeText={handleChange('deskripsi')}
+                      value={values.deskripsi}
+                      onBlur={handleBlur('deskripsi')}
+                      multiline
+                      numberOfLines={4}
+                    />
+                    {errors.deskripsi && touched.deskripsi
               && <Text style={styles.errorText}>{errors.deskripsi}</Text>}
-                <Gap height={16} />
-                <UploadPhoto
-                  label="Foto Product"
-                  source={values.image}
-                  onPress={() => getImage(setFieldValue)}
-                />
-                <Gap height={windowHeight * 0.03} />
-                <View style={styles.btnWrapper}>
-                  <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={() => navigation.navigate('PreviewScreen', { values })} disable={!(isValid && dirty) || stateGlobal.isLoading} />
-                  <ButtonComponent style={styles.btnTerbitkan} title="Terbitkan" onPress={handleSubmit} disable={!(isValid && dirty) || stateGlobal.isLoading} />
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-          </ScrollView>
+                    <Gap height={16} />
+                    <UploadPhoto
+                      label="Foto Product"
+                      source={values.image}
+                      onPress={() => getImage(setFieldValue)}
+                    />
+                    <Gap height={windowHeight * 0.03} />
+                    <View style={styles.btnWrapper}>
+                      <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={() => navigation.navigate('PreviewScreen', { values })} disable={!(isValid && dirty) || stateGlobal.isLoading} />
+                      <ButtonComponent style={styles.btnTerbitkan} title="Terbitkan" onPress={handleSubmit} disable={!(isValid && dirty) || stateGlobal.isLoading} />
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
+              </ScrollView>
+            )}
+          </Formik>
 
-        )}
+        )
+      }
 
-      </Formik>
     </View>
 
   );

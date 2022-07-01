@@ -1,4 +1,6 @@
-import { GET_PRODUCT_SELLER_FAIL, GET_PRODUCT_SELLER_LOADING, GET_PRODUCT_SELLER_SUCCESS } from '../types';
+import {
+  GET_PRODUCT_SELLER_FAIL, GET_PRODUCT_SELLER_LOADING, GET_PRODUCT_SELLER_SUCCESS, LOGOUT,
+} from '../types';
 
 const initialDaftarJualState = {
   daftarJual: [],
@@ -29,6 +31,16 @@ export const daftarJualReducer = (state = initialDaftarJualState, action = {}) =
         loading: false,
         isSuccess: false,
       };
+
+    case LOGOUT:
+      return {
+        ...state,
+        daftarJual: [],
+        loading: false,
+        isSuccess: false,
+        error: null,
+      };
+
     default:
       return state;
   }

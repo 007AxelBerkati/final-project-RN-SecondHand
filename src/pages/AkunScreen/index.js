@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Fade, Placeholder, PlaceholderMedia } from 'rn-placeholder';
 import {
-  ButtonComponent, CardList, Headers, Profile,
+  CardList, Headers, NotLogin, Profile,
 } from '../../components';
 import {
   borderRadius,
@@ -34,14 +34,7 @@ function AkunScreen({ navigation }) {
       <Headers title="Akun Saya" />
       {
         !dataLogin.isLoggedIn ? (
-          <View style={{ flex: 1, justifyContent: 'center' }}>
-            <View style={styles.notLogin}>
-              <Text style={styles.notLoginText}>
-                Anda belum login
-              </Text>
-            </View>
-            <ButtonComponent onPress={() => navigation.navigate('LoginScreen')} title="Login" />
-          </View>
+          <NotLogin onPress={() => navigation.navigate('LoginScreen')} />
         ) : (
           <ScrollView>
             {
@@ -98,16 +91,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 24,
   },
-
-  notLogin: {
-    justifyContent: 'center',
-    marginVertical: 24,
-    alignItems: 'center',
-  },
-  notLoginText: {
-    fontFamily: fonts.Poppins.Medium,
-    fontSize: fontSize.medium,
-    color: colors.text.primary,
-  },
-
 });

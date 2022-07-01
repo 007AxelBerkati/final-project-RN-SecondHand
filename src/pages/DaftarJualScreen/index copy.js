@@ -1,25 +1,22 @@
 import {
-  StyleSheet, View,
+  FlatList, StyleSheet, View,
   Image,
   Text,
-  RefreshControl,
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  CardCategory, CardList, Headers,
+  CardCategory, CardList, CardProduct, Headers,
 } from '../../components';
-import { daftarJualKosong, listDaftarJual } from '../../assets';
+import { daftarJualKosong, keranjang, listDaftarJual } from '../../assets';
 import { getAkun, getProductSeller } from '../../redux';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
-import Produk from './Produk';
-import Favorite from './Favorite';
-import Terjual from './Terjual';
 
 function DaftarJualScreen({ navigation }) {
+  const dataDummy = ['ha', 'sdf'];
   const [active, setActive] = useState(1);
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
@@ -46,61 +43,88 @@ function DaftarJualScreen({ navigation }) {
   const dataForRender = () => {
     switch (active) {
       case 1:
-        return <Produk dataDaftarJual={dataDaftarJual} navigation={navigation} />;
+        return dataDaftarJual;
       case 2:
-        return <Favorite />;
-      case 3:
-        return <Terjual />;
+        return dataDummy;
       default:
         return null;
     }
   };
 
-  return (
-    <View style={styles.pages}>
+  const header = () => (
+    <View style={styles.header}>
       <Headers title="Daftar Jual Saya" />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        refreshControl={(
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={() => onRefresh()}
-          />
-        )}
-      >
-
-        {
+      {
         !dataLogin.isLoggedIn || dataDaftarJual.length === 0 ? (
           <View style={styles.notLogin}>
             <Image source={daftarJualKosong} style={styles.image} />
             <Text style={styles.notLoginText}>Daftar Jual Anda Kosong</Text>
           </View>
         ) : (
-          <View style={{ marginHorizontal: 3 }}>
+          <>
+
             <CardList type="role" name={dataProfile.full_name} source={{ uri: dataProfile.image_url }} kota={dataProfile.city} onPress={() => navigation.goBack()} />
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ marginVertical: 24 }}
-            >
+            <ScrollView horizontal style={{ marginVertical: 24 }}>
               {
-              listDaftarJual.data.map((item) => (
-                <View key={item.id}>
-                  <CardCategory
-                    active={active === item.id}
+        listDaftarJual.data.map((item) => (
+          <CardCategory
+            key={item.id}
+            active={active === item.id}
+            name={item.name}
+            kategori={item.category}
+            onPress={() => getDaftarJual(item.id)}
+          />
+        ))
+      }
+            </ScrollView>
+          </>
+
+        )
+
+      }
+
+    </View>
+  );
+  return (
+    <View style={styles.pages}>
+
+      <FlatList
+        ListHeaderComponent={header}
+        data={dataForRender()}
+        onRefresh={onRefresh}
+        refreshing={refreshing}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => {
+          switch (active) {
+            case 1:
+              return (
+                <View>
+                  <CardProduct
                     name={item.name}
-                    kategori={item.category}
-                    onPress={() => getDaftarJual(item.id)}
+                    jenis={item.Categories}
+                    source={{ uri: item.image_url }}
+                    harga={item.base_price}
                   />
                 </View>
-              ))
-            }
-            </ScrollView>
-            {dataForRender()}
-          </View>
-        )
-      }
-      </ScrollView>
+              );
+            case 2:
+              return (
+                <CardList
+                  name="Jam tangan Casio"
+                  title="Penawaran Produk"
+                  source={keranjang}
+                  date="20 april, 14:04"
+                  onPress={() => navigation.goBack()}
+                  harga="200000"
+                  hargaNego="1500000"
+                />
+              );
+            default:
+              return null;
+          }
+        }}
+        keyExtractor={(item) => item.id}
+      />
 
     </View>
   );
@@ -111,7 +135,7 @@ export default DaftarJualScreen;
 const styles = StyleSheet.create({
   pages: {
     flex: 1,
-    marginHorizontal: 13,
+    marginHorizontal: 16,
   },
 
   header: {

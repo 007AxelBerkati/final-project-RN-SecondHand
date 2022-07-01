@@ -15,9 +15,12 @@ import {
   SplashScreen,
   InfoPenawaranScreen,
   PreviewScreen,
+  DetailProductSellerScreen,
+  UpdateDetailProductScreen,
 } from '../pages';
 import { colors } from '../utils';
 import ProfileScreen from '../pages/ProfileScreen';
+import DetailProductBuyerScreen from '../pages/DetailProductBuyerScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -144,6 +147,21 @@ function Router() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="DetailProductSellerScreen"
+          component={DetailProductSellerScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="UpdateDetailProductScreen"
+          component={UpdateDetailProductScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DetailProductBuyerScreen"
+          component={DetailProductBuyerScreen}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
           name="InfoPenawaranScreen"
           component={InfoPenawaranScreen}
           options={{ headerShown: false }}

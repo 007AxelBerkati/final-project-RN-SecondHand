@@ -15,7 +15,7 @@ import {
 import { CardCategory, CardProduct } from '../../components';
 import { getCategoryProduct, getProduct } from '../../redux';
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
   const dataHome = useSelector((state) => state.dataHome);
@@ -75,7 +75,11 @@ function HomeScreen() {
         />
         <View style={styles.content}>
           <Text style={styles.titleCategory}>Telusuri Kategori</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ marginBottom: 20 }}
+          >
             <CardCategory name="search" active={btnAllActive} kategori="Semua" onPress={() => getAllProduct()} />
             {dataHome.category.map((item) => (
               <CardCategory key={item.id} name="search" active={active === item.id} kategori={item.name} onPress={() => getProductByCategory(item.id)} />
@@ -92,12 +96,19 @@ function HomeScreen() {
               <FlatList
                 data={dataHome.data}
                 numColumns={2}
+                columnWrapperStyle={{
+                  flex: 1,
+                  marginHorizontal: 5,
+                  marginBottom: 10,
+                  justifyContent: 'space-between',
+                }}
                 renderItem={({ item }) => (
                   <CardProduct
                     source={{ uri: item.image_url }}
                     name={item.name}
                     jenis={item.Categories}
                     harga={item.base_price}
+                    onPress={() => navigation.navigate('DetailProductBuyerScreen', { id: item.id })}
                   />
                 )}
                 keyExtractor={(item) => item.id}
@@ -150,6 +161,11 @@ const styles = StyleSheet.create({
     color: colors.text.subtitle,
     marginTop: 16,
     textAlign: 'center',
+  },
+
+  listProduct: {
+    justifyContent: 'space-between',
+    marginBottom: 16,
   },
 
 });
