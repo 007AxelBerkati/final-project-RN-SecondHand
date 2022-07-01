@@ -77,7 +77,7 @@ function DaftarJualScreen({ navigation }) {
           </View>
         ) : (
           <View style={{ marginHorizontal: 3 }}>
-            <CardList type="role" name={dataProfile.full_name} source={{ uri: dataProfile.image_url }} kota={dataProfile.city} onPress={() => navigation.goBack()} />
+            <CardList type="role" name={dataProfile.full_name} source={{ uri: dataProfile.image_url }} kota={dataProfile.city} onPress={() => navigation.navigate('ProfileScreen')} />
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -111,12 +111,7 @@ export default DaftarJualScreen;
 const styles = StyleSheet.create({
   pages: {
     flex: 1,
-    marginHorizontal: 13,
-  },
-
-  header: {
-    marginHorizontal: 2,
-    marginTop: 16,
+    margin: 16,
   },
 
   notLogin: {

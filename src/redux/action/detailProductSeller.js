@@ -35,8 +35,8 @@ export const deleteSellerProduct = (id, navigation) => async (dispatch) => {
   await deleteProduct(id).then((response) => {
     dispatch(deleteSellerProductSuccess(response.data));
     showSuccess('Delete product success');
-    navigation.goBack();
     dispatch(setLoading(false));
+    navigation.goBack();
   }).catch((error) => {
     dispatch(deleteSellerProductFail(error.response.data.message));
     showError(error.response.data.message);

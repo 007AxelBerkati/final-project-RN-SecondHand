@@ -16,6 +16,7 @@ import { postProduct } from '../../redux';
 
 function PreviewScreen({ route, navigation }) {
   const { values } = route.params;
+  console.log('values.kategori_id', values.kategori_id);
 
   const dataCategory = useSelector((state) => state.dataHome);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
@@ -35,7 +36,7 @@ function PreviewScreen({ route, navigation }) {
       name: dataValues.image.fileName ? dataValues.image.fileName : 'image.jpg',
     });
 
-    dispatch(postProduct(formData));
+    dispatch(postProduct(formData, navigation));
   };
 
   return (
@@ -65,7 +66,7 @@ function PreviewScreen({ route, navigation }) {
             <CardProduct
               name={values.namaProduk}
               jenis={dataCategory.category}
-              idJenis={values.kategory_id}
+              idJenis={values.kategori_id}
               harga={values.hargaProduk}
             />
           </View>

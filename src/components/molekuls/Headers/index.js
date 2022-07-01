@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Poppins.Bold,
     fontSize: fontSize.xxlarge,
     color: colors.text.primary,
-
   },
 
   container: {

@@ -17,12 +17,13 @@ export const addProductLoading = (data) => ({
   payload: data,
 });
 
-export const postProduct = (data) => async (dispatch) => {
+export const postProduct = (data, navigation) => async (dispatch) => {
   dispatch(setLoading(true));
   await addProduct(data).then((response) => {
     dispatch(addProductSuccess(response.data));
     dispatch(setLoading(false));
     showSuccess('Add Product Success');
+    navigation.replace('Daftar Jual', { screen: 'MainApp' });
   }).catch((error) => {
     dispatch(addProductFail());
     dispatch(setLoading(false));

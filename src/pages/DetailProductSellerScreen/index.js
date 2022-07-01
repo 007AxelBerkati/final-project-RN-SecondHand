@@ -29,7 +29,7 @@ function DetailProductSellerScreen({ route, navigation }) {
   }, [id]);
 
   const onDelete = useCallback(() => {
-    dispatch(deleteSellerProduct(id));
+    dispatch(deleteSellerProduct(id, navigation));
   }, [dispatch, id]);
 
   return (

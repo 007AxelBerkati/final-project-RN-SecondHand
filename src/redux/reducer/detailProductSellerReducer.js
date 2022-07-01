@@ -5,6 +5,7 @@ import {
 
 const initialDetailProductSellerState = {
   detailProductSeller: {},
+  detailSuccessDelete: {},
   isSuccess: false,
   error: null,
 };
@@ -33,7 +34,7 @@ export const detailProductSellerReducer = (
         ...state,
         isSuccess: true,
         error: null,
-        detailProductSeller: {},
+        detailSuccessDelete: action.payload,
       };
 
     case DELETE_PRODUCT_FAIL:

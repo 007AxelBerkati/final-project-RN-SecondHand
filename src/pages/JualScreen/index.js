@@ -49,12 +49,12 @@ function JualScreen({ navigation }) {
     formData.append('category_ids', values.kategori_id.toString());
     formData.append('location', values.location);
     formData.append('image', {
-      uri: values.image.uri,
+      uri: values.image.uri ? values.image.uri : values.image,
       type: 'image/jpeg',
-      name: values.image.filename,
+      name: values.image.fileName ? values.image.fileName : 'image.jpg',
     });
 
-    dispatch(postProduct(formData));
+    dispatch(postProduct(formData, navigation));
   };
 
   return (
