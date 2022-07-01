@@ -5,7 +5,9 @@ import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 import {
   globalReducer, loginReducer,
-  registerReducer, homeReducer, profileReducer, jualReducer, daftarJualReducer,
+  registerReducer, homeReducer,
+  profileReducer, jualReducer, daftarJualReducer,
+  detailProductSellerReducer, updateDetailProductSellerReducer, detailProductBuyerReducer,
 } from '../reducer';
 
 const persistConfig = {
@@ -23,6 +25,9 @@ const rootReducer = {
   dataProfile: profileReducer,
   dataJual: jualReducer,
   dataDaftarJual: daftarJualReducer,
+  dataDetailProductSeller: detailProductSellerReducer,
+  dataUpdateDetailProductSeller: updateDetailProductSellerReducer,
+  dataDetailProductBuyer: detailProductBuyerReducer,
 };
 
 const configPersist = persistReducer(persistConfig, combineReducers(rootReducer));

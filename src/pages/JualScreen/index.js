@@ -49,9 +49,9 @@ function JualScreen({ navigation }) {
     formData.append('category_ids', values.kategori_id.toString());
     formData.append('location', values.location);
     formData.append('image', {
-      uri: values.image.uri ? values.image.uri : values.image,
+      uri: values.image.uri,
       type: 'image/jpeg',
-      name: values.image.fileName ? values.image.fileName : 'image.jpg',
+      name: values.image.filename,
     });
 
     dispatch(postProduct(formData));

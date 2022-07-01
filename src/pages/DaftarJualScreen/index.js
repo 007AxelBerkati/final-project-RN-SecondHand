@@ -46,7 +46,7 @@ function DaftarJualScreen({ navigation }) {
   const dataForRender = () => {
     switch (active) {
       case 1:
-        return <Produk dataDaftarJual={dataDaftarJual} />;
+        return <Produk dataDaftarJual={dataDaftarJual} navigation={navigation} />;
       case 2:
         return <Favorite />;
       case 3:
@@ -59,29 +59,33 @@ function DaftarJualScreen({ navigation }) {
   return (
     <View style={styles.pages}>
       <Headers title="Daftar Jual Saya" />
-      {
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={(
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => onRefresh()}
+          />
+        )}
+      >
+
+        {
         !dataLogin.isLoggedIn || dataDaftarJual.length === 0 ? (
           <View style={styles.notLogin}>
             <Image source={daftarJualKosong} style={styles.image} />
             <Text style={styles.notLoginText}>Daftar Jual Anda Kosong</Text>
           </View>
         ) : (
-          <View>
+          <View style={{ marginHorizontal: 3 }}>
             <CardList type="role" name={dataProfile.full_name} source={{ uri: dataProfile.image_url }} kota={dataProfile.city} onPress={() => navigation.goBack()} />
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              style={{ marginVertical: 24, marginBottom: 20 }}
-              refreshControl={(
-                <RefreshControl
-                  refreshing={refreshing}
-                  onRefresh={() => onRefresh()}
-                />
-              )}
+              style={{ marginVertical: 24 }}
             >
               {
               listDaftarJual.data.map((item) => (
-                <View key={item.id} style={{ marginBottom: 16 }}>
+                <View key={item.id}>
                   <CardCategory
                     active={active === item.id}
                     name={item.name}
@@ -96,6 +100,7 @@ function DaftarJualScreen({ navigation }) {
           </View>
         )
       }
+      </ScrollView>
 
     </View>
   );
@@ -106,7 +111,7 @@ export default DaftarJualScreen;
 const styles = StyleSheet.create({
   pages: {
     flex: 1,
-    marginHorizontal: 16,
+    marginHorizontal: 13,
   },
 
   header: {

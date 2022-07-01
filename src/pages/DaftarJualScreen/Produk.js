@@ -1,20 +1,18 @@
 import {
-  ScrollView, StyleSheet, View,
+  StyleSheet, View,
 } from 'react-native';
 import React from 'react';
-import { CardAddProduct, CardProduct, Gap } from '../../components';
-import { windowHeight } from '../../utils';
+import { CardAddProduct, CardProduct } from '../../components';
 
-function Produk({ dataDaftarJual }) {
+function Produk({ dataDaftarJual, navigation }) {
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.wrapperProduk}>
-        {
+    <View style={styles.wrapperProduk}>
+      {
        dataDaftarJual.length < 5 && (
-         <CardAddProduct />
+         <CardAddProduct onPress={() => navigation.navigate('JualScreen')} />
        )
          }
-        {
+      {
         dataDaftarJual.map((item) => (
           <View style={{ marginBottom: 16 }} key={item.id}>
             <CardProduct
@@ -22,13 +20,12 @@ function Produk({ dataDaftarJual }) {
               jenis={item.Categories}
               source={{ uri: item.image_url }}
               harga={item.base_price}
+              onPress={() => navigation.navigate('DetailProductSellerScreen', { id: item.id })}
             />
           </View>
         ))
       }
-      </View>
-      <Gap height={windowHeight * 0.35} />
-    </ScrollView>
+    </View>
   );
 }
 

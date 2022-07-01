@@ -5,3 +5,6 @@ export * from './homeReducer';
 export * from './profileReducer';
 export * from './jualReducer';
 export * from './daftarJualReducer';
+export * from './detailProductSellerReducer';
+export * from './updateDetailProductSellerReducer';
+export * from './detailProductBuyerReducer';
