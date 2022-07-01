@@ -54,7 +54,7 @@ function JualScreen({ navigation }) {
       name: values.image.fileName ? values.image.fileName : 'image.jpg',
     });
 
-    dispatch(postProduct(formData, navigation));
+    dispatch(postProduct(formData));
   };
 
   return (
