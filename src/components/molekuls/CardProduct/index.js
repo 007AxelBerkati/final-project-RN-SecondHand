@@ -56,12 +56,10 @@ export default memo(CardProduct);
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
     overflow: 'hidden',
     height: windowHeight * 0.30,
     width: windowWidth * 0.43,
     padding: 8,
-    marginRight: 16,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: colors.border.primary,

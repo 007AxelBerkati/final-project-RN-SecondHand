@@ -11,7 +11,7 @@ import {
 const persistConfig = {
   key: 'root',
   // blacklist: ['dataPokemon, dataGlobal, dataPokemonDetail'],
-  blacklist: ['dataGlobal'],
+  blacklist: ['dataGlobal, dataProfile, dataLogin, dataHome, dataJual, dataDaftarJual'],
   storage: AsyncStorage,
 };
 
