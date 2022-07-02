@@ -17,6 +17,7 @@ import {
   PreviewScreen,
   DetailProductSellerScreen,
   UpdateDetailProductScreen,
+  CreateExampleScreen,
 } from '../pages';
 import { colors } from '../utils';
 import ProfileScreen from '../pages/ProfileScreen';
@@ -162,6 +163,11 @@ function Router() {
         <Stack.Screen
           name="InfoPenawaranScreen"
           component={InfoPenawaranScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CreateExampleScreen"
+          component={CreateExampleScreen}
           options={{ headerShown: false }}
         />
 

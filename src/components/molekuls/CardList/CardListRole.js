@@ -50,6 +50,8 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: borderRadius.large,
+    borderWidth: 1,
+    borderColor: colors.border.secondary,
   },
 
   name: {
