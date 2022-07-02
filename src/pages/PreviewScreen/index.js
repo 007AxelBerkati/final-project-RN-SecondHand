@@ -16,7 +16,6 @@ import { postProduct } from '../../redux';
 
 function PreviewScreen({ route, navigation }) {
   const { values } = route.params;
-  console.log('values.kategori_id', values.kategori_id);
 
   const dataCategory = useSelector((state) => state.dataHome);
   const dataProfile = useSelector((state) => state.dataProfile.profile);

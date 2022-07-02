@@ -4,14 +4,13 @@ import {
 import React from 'react';
 import { Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
-import { launchImageLibrary } from 'react-native-image-picker';
 import FormData from 'form-data';
 import {
   ButtonComponent, Gap, Headers, Input2, Select2, UploadPhoto,
 } from '../../components';
 import {
   borderRadius,
-  colors, fonts, fontSize, showError, TambahDataSchema, windowHeight,
+  colors, fonts, fontSize, getImage, TambahDataSchema, windowHeight,
 } from '../../utils';
 import { updateDetailProduct } from '../../redux';
 
@@ -22,25 +21,6 @@ function UpdateDetailProductScreen({ route, navigation }) {
   const dataCategory = useSelector((state) => state.dataHome);
 
   const dispatch = useDispatch();
-
-  const getImage = (setFieldValue) => {
-    launchImageLibrary(
-      {
-        quality: 1,
-        maxWidth: 1000,
-        maxHeight: 1000,
-        includeBase64: true,
-      },
-      (response) => {
-        if (response.didCancel || response.error) {
-          showError('Sepertinya anda tidak memilih fotonya');
-        } else {
-          const source = response?.assets[0];
-          setFieldValue('image', source, true);
-        }
-      },
-    );
-  };
 
   const onSubmitPost = (values) => {
     const formData = new FormData();

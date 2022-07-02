@@ -4,12 +4,11 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { launchImageLibrary } from 'react-native-image-picker';
 import FormData from 'form-data';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  showError, updateProfileSchema, fonts, colors,
-  windowHeight, windowWidth, fontSize, borderRadius,
+  updateProfileSchema, fonts, colors,
+  windowHeight, windowWidth, fontSize, borderRadius, getImage,
 } from '../../utils';
 import {
   Headers,
@@ -24,29 +23,7 @@ function ProfileScreen({ navigation }) {
   const dataProfile = useSelector((state) => state.dataProfile.profile);
   const [photo, setPhoto] = useState(dataProfile.image_url);
 
-  const getImage = (setFieldValue) => {
-    launchImageLibrary(
-      {
-        quality: 1,
-        maxWidth: 1000,
-        maxHeight: 1000,
-        includeBase64: true,
-      },
-      (response) => {
-        if (response.didCancel || response.error) {
-          showError('Sepertinya anda tidak memilih fotonya');
-        } else {
-          const source = response?.assets[0];
-          const Uri = source.uri;
-          setPhoto(Uri);
-          setFieldValue('image', source, true);
-        }
-      },
-    );
-  };
-
   const updateProfile = (data) => {
-    console.log(data.image);
     const formData = new FormData();
     formData.append('full_name', data.full_name);
     formData.append('city', data.city);
@@ -91,7 +68,7 @@ function ProfileScreen({ navigation }) {
                   <Profile
                     source={{ uri: photo }}
                     isRemove
-                    onPress={() => getImage(setFieldValue)}
+                    onPress={() => getImage(setFieldValue, setPhoto)}
                   />
                 </View>
                 <Input2
