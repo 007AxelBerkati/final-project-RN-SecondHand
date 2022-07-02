@@ -11,7 +11,7 @@ import {
   CardCategory, CardList, Headers,
 } from '../../components';
 import { daftarJualKosong, listDaftarJual } from '../../assets';
-import { getAkun, getProductSeller } from '../../redux';
+import { getAkun, getOrderSeller, getProductSeller } from '../../redux';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
@@ -27,6 +27,8 @@ function DaftarJualScreen({ navigation }) {
   const dataDaftarJual = useSelector((state) => state.dataDaftarJual.daftarJual);
   const dataLogin = useSelector((state) => state.dataLogin);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
+  const dataOrder = useSelector((state) => state.dataDaftarJual.productDiminati);
+
   const getDaftarJual = (id) => {
     setActive(id);
   };
@@ -34,12 +36,14 @@ function DaftarJualScreen({ navigation }) {
   useEffect(() => {
     dispatch(getProductSeller());
     dispatch(getAkun());
+    dispatch(getOrderSeller());
   }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     dispatch(getProductSeller());
     dispatch(getAkun());
+    dispatch(getOrderSeller());
     setRefreshing(false);
   }, [dispatch]);
 
@@ -48,7 +52,7 @@ function DaftarJualScreen({ navigation }) {
       case 1:
         return <Produk dataDaftarJual={dataDaftarJual} navigation={navigation} />;
       case 2:
-        return <Favorite />;
+        return <Favorite productDiminati={dataOrder} navigation={navigation} />;
       case 3:
         return <Terjual />;
       default:

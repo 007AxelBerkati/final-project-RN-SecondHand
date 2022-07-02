@@ -2,6 +2,7 @@ import {
   Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
+import moment from 'moment';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
@@ -25,6 +26,7 @@ function CardList({
 
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
   const hargaNegoConvert = `Rp. ${parseFloat(hargaNego).toLocaleString('id-ID')}`;
+  const dateConvert = moment(date).format('DD MMM, hh:mm');
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
@@ -45,7 +47,7 @@ function CardList({
           }
 
         </View>
-        <Text style={styles.date}>{date}</Text>
+        <Text style={styles.date}>{dateConvert}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -69,6 +71,8 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: borderRadius.large,
+    borderWidth: 1,
+    borderColor: colors.border.secondary,
   },
 
   text: {

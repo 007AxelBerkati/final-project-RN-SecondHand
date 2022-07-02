@@ -1,14 +1,26 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
+import { CardList } from '../../components';
 
-function Favorite() {
+function Favorite({ navigation, productDiminati }) {
   return (
-    <View style={styles.page}>
-      <Text>Favorite</Text>
+    <View>
+      {
+        productDiminati.map((item) => (
+          <CardList
+            name={item.Product.name}
+            title="Penawaran Produk"
+            source={{ uri: item.Product.image_url }}
+            date={item.createdAt}
+            harga={item.Product.base_price}
+            hargaNego={item.price}
+            onPress={() => navigation.navigate('InfoPenawaranScreen')}
+          />
+        ))
+
+      }
     </View>
   );
 }
 
 export default Favorite;
-
-const styles = StyleSheet.create({});
