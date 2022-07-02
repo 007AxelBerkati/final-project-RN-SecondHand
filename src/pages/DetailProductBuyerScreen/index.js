@@ -1,7 +1,6 @@
 import {
-  SafeAreaView, ScrollView, StyleSheet, View,
+  ScrollView, StyleSheet, View,
   StatusBar,
-  Text,
 } from 'react-native';
 import React, {
   useCallback, useEffect, useMemo, useRef,
@@ -9,6 +8,7 @@ import React, {
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useDispatch, useSelector } from 'react-redux';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   BackDropComponent,
   ButtonComponent, CardList, CardProduct, Desc, Gap,
@@ -17,6 +17,7 @@ import {
   colors, windowHeight, windowWidth,
 } from '../../utils';
 import { getDetailProduct } from '../../redux';
+import Nego from './Nego';
 
 function DetailProductBuyerScreen({ route, navigation }) {
   const { id } = route.params;
@@ -32,23 +33,19 @@ function DetailProductBuyerScreen({ route, navigation }) {
   const bottomSheetRef = useRef(null);
 
   //   variables
-  const snapPoints = useMemo(() => ['1%', '70%'], []);
+  const snapPoints = useMemo(() => ['1%', '60%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index) => {
     console.log('sheet index', index);
   }, []);
 
-  const handleOpenPress = () => bottomSheetRef.current?.expand();
+  const handleClosePress = () => bottomSheetRef.current?.close();
 
-  const render = () => (
-    <View style={styles.contentContainer}>
-      <Text>Awesome 🎉</Text>
-    </View>
-  );
+  const handleOpenPress = (index) => bottomSheetRef.current?.snapToIndex(index);
 
   return (
-    <SafeAreaView style={styles.pages}>
+    <GestureHandlerRootView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>
 
         <StatusBar backgroundColor="transparent" translucent />
@@ -94,7 +91,7 @@ function DetailProductBuyerScreen({ route, navigation }) {
         <Gap height={60} />
       </ScrollView>
       <View style={styles.btnNego}>
-        <ButtonComponent title="Saya tertarik dan ingin nego" onPress={() => handleOpenPress()} />
+        <ButtonComponent title="Saya tertarik dan ingin nego" onPress={() => handleOpenPress(1)} />
       </View>
       <BottomSheet
         enablePanDownToClose
@@ -107,11 +104,12 @@ function DetailProductBuyerScreen({ route, navigation }) {
         snapPoints={snapPoints}
         backdropComponent={BackDropComponent}
         onChange={handleSheetChanges}
+        onClose={() => handleClosePress()}
       >
-        {render}
+        <Nego />
       </BottomSheet>
 
-    </SafeAreaView>
+    </GestureHandlerRootView>
 
   );
 }
@@ -155,11 +153,6 @@ const styles = StyleSheet.create({
   productWrapper: {
     marginHorizontal: 16,
     marginTop: -40,
-  },
-
-  contentContainer: {
-    flex: 1,
-    alignItems: 'center',
   },
   container: {
     flex: 1,

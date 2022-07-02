@@ -10,12 +10,10 @@ import InfoPenawaranScreen from './InfoPenawaranScreen';
 import PreviewScreen from './PreviewScreen';
 import DetailProductSellerScreen from './DetailProductSellerScreen';
 import UpdateDetailProductScreen from './UpdateDetailProductScreen';
-import CreateExampleScreen from './CreateExampleScreen';
 
 export {
   LoginScreen,
   RegisterScreen, HomeScreen, DaftarJualScreen, AkunScreen, JualScreen, NotifikasiScreen,
   SplashScreen, PreviewScreen,
   DetailProductSellerScreen, UpdateDetailProductScreen, InfoPenawaranScreen,
-  CreateExampleScreen,
 };
