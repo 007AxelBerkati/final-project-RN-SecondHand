@@ -57,7 +57,7 @@ function DetailProductSellerScreen({ route, navigation }) {
           <View style={styles.productWrapper}>
             <CardProduct
               name={dataDetailProduct.name}
-              jenis={dataDetailProduct.Categories}
+              jenis={dataDetailProduct?.Categories}
               harga={dataDetailProduct.base_price}
             />
           </View>

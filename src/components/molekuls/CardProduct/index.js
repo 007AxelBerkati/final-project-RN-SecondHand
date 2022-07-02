@@ -16,9 +16,9 @@ function CardProduct({
       <View style={styles.cardPreview}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.jenis}>
-          {jenis.map((item) => (
+          {jenis?.map((item) => (
             idJenis !== undefined ? (
-              idJenis.map((item1) => (
+              idJenis?.map((item1) => (
                 item.id === item1
                     && (`${item.name}, `)
               ))
