@@ -5,11 +5,7 @@ export const loginSchema = Yup.object().shape({
   password: Yup
     .string()
     .required('Please Enter your password')
-    .trim()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-    ),
+    .trim(),
 });
 
 export const signupSchema = Yup.object().shape({
