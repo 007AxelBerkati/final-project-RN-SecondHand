@@ -39,7 +39,9 @@ export const getImage = (setFieldValue, setPhoto) => {
       } else {
         const source = response?.assets[0];
         const Uri = source.uri;
-        setPhoto(Uri);
+        if (setPhoto !== undefined) {
+          setPhoto(Uri);
+        }
         setFieldValue('image', source, true);
       }
     },

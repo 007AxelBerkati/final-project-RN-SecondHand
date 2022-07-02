@@ -120,7 +120,7 @@ function UpdateDetailProductScreen({ route, navigation }) {
                   label="Foto Product"
                   source={values.image.uri ? { uri: values.image.uri }
                     : { uri: values.image }}
-                  onPress={() => getImage(setFieldValue)}
+                  onPress={() => getImage(setFieldValue, '')}
                 />
                 <Gap height={windowHeight * 0.03} />
                 <View style={styles.btnWrapper}>

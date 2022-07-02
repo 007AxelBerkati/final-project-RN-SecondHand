@@ -45,7 +45,7 @@ function PreviewScreen({ route, navigation }) {
         <View style={styles.imageContainer}>
           <ImageSlider
             data={[
-              { img: values.image.uri },
+              { img: values.image.uri ? values.image.uri : values.image },
             ]}
             autoPlay
             timer={5000}
