@@ -1,4 +1,7 @@
 import {
+  GET_ORDER_SELLER_FAIL,
+  GET_ORDER_SELLER_LOADING,
+  GET_ORDER_SELLER_SUCCESS,
   GET_PRODUCT_SELLER_FAIL, GET_PRODUCT_SELLER_LOADING, GET_PRODUCT_SELLER_SUCCESS, LOGOUT,
 } from '../types';
 
@@ -7,6 +10,7 @@ const initialDaftarJualState = {
   loading: false,
   error: null,
   isSuccess: false,
+  productDiminati: [],
 };
 
 export const daftarJualReducer = (state = initialDaftarJualState, action = {}) => {
@@ -30,6 +34,29 @@ export const daftarJualReducer = (state = initialDaftarJualState, action = {}) =
         error: action.payload,
         loading: false,
         isSuccess: false,
+      };
+
+    case GET_ORDER_SELLER_SUCCESS:
+      return {
+        ...state,
+        productDiminati: action.payload,
+        loading: false,
+        isSuccess: true,
+        error: null,
+      };
+
+    case GET_ORDER_SELLER_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        isSuccess: false,
+      };
+
+    case GET_ORDER_SELLER_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
       };
 
     case LOGOUT:
