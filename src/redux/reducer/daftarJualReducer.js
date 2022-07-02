@@ -2,7 +2,8 @@ import {
   GET_ORDER_SELLER_FAIL,
   GET_ORDER_SELLER_LOADING,
   GET_ORDER_SELLER_SUCCESS,
-  GET_PRODUCT_SELLER_FAIL, GET_PRODUCT_SELLER_LOADING, GET_PRODUCT_SELLER_SUCCESS, LOGOUT,
+  GET_SELLER_PRODUCT_SUCCESS, GET_SELLER_PRODUCT_LOADING,
+  GET_SELLER_PRODUCT_FAIL, LOGOUT, GET_HISTORY_SUCCESS, GET_HISTORY_LOADING, GET_HISTORY_FAIL,
 } from '../types';
 
 const initialDaftarJualState = {
@@ -11,16 +12,17 @@ const initialDaftarJualState = {
   error: null,
   isSuccess: false,
   productDiminati: [],
+  productDijual: [],
 };
 
 export const daftarJualReducer = (state = initialDaftarJualState, action = {}) => {
   switch (action.type) {
-    case GET_PRODUCT_SELLER_LOADING:
+    case GET_SELLER_PRODUCT_LOADING:
       return {
         ...state,
         loading: action.payload,
       };
-    case GET_PRODUCT_SELLER_SUCCESS:
+    case GET_SELLER_PRODUCT_SUCCESS:
       return {
         ...state,
         daftarJual: action.payload,
@@ -28,7 +30,7 @@ export const daftarJualReducer = (state = initialDaftarJualState, action = {}) =
         isSuccess: true,
         error: null,
       };
-    case GET_PRODUCT_SELLER_FAIL:
+    case GET_SELLER_PRODUCT_FAIL:
       return {
         ...state,
         error: action.payload,
@@ -57,6 +59,29 @@ export const daftarJualReducer = (state = initialDaftarJualState, action = {}) =
       return {
         ...state,
         loading: action.payload,
+      };
+
+    case GET_HISTORY_SUCCESS:
+      return {
+        ...state,
+        productDijual: action.payload,
+        loading: false,
+        isSuccess: true,
+        error: null,
+      };
+
+    case GET_HISTORY_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+
+    case GET_HISTORY_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        isSuccess: false,
       };
 
     case LOGOUT:
