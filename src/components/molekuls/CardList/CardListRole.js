@@ -1,8 +1,8 @@
 import {
-  Image,
   StyleSheet, Text, View,
 } from 'react-native';
 import React from 'react';
+import FastImage from 'react-native-fast-image';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
@@ -14,7 +14,7 @@ function CardListRole({
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        <Image source={source} style={styles.image} />
+        <FastImage source={source} style={styles.image} />
         <View style={styles.desc}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.kota}>{kota}</Text>

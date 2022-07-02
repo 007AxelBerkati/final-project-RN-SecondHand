@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  View, TouchableOpacity, StyleSheet, Text, Image,
+  View, TouchableOpacity, StyleSheet, Text,
 } from 'react-native';
 import { moderateScale, scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/AntDesign';
+import FastImage from 'react-native-fast-image';
 import { colors, fonts } from '../../../utils';
 import { Gap } from '../../atoms';
 
@@ -18,7 +19,7 @@ function UploadPhoto({ label, source, onPress }) {
         </TouchableOpacity>
       ) : (
         <TouchableOpacity style={styles.parent2} onPress={onPress}>
-          <Image source={source} style={styles.image} />
+          <FastImage source={source} style={styles.image} />
         </TouchableOpacity>
       )}
 

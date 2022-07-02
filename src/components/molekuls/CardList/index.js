@@ -1,8 +1,9 @@
 import {
-  Image, StyleSheet, Text, TouchableOpacity, View,
+  StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
 import moment from 'moment';
+import FastImage from 'react-native-fast-image';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
@@ -31,7 +32,7 @@ function CardList({
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.wrapper}>
-        <Image source={source} style={styles.image} />
+        <FastImage source={source} style={styles.image} />
         <View>
           <Text style={styles.productNego}>{title}</Text>
           <Text style={styles.text}>{name}</Text>

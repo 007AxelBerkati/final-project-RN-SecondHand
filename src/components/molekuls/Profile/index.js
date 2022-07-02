@@ -1,6 +1,7 @@
 import {
-  Image, StyleSheet, TouchableOpacity, View,
+  StyleSheet, TouchableOpacity, View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import React from 'react';
 import { windowHeight, windowWidth } from '../../../utils';
 import { IconRemovePhoto, ILNullPhoto } from '../../../assets';
@@ -10,13 +11,13 @@ function Profile({ isRemove, source, onPress }) {
     <View style={styles.photoSection}>
       {!isRemove && (
       <View style={styles.photo}>
-        <Image source={source !== null ? source : ILNullPhoto} style={styles.avatar} />
+        <FastImage source={source !== null ? source : ILNullPhoto} style={styles.avatar} />
         {isRemove && <IconRemovePhoto style={styles.removePhoto} />}
       </View>
       )}
       {isRemove && (
         <TouchableOpacity style={styles.photo} onPress={onPress}>
-          <Image source={source || ILNullPhoto} style={styles.avatar} />
+          <FastImage source={source || ILNullPhoto} style={styles.avatar} />
           {isRemove && <IconRemovePhoto style={styles.removePhoto} />}
         </TouchableOpacity>
       )}

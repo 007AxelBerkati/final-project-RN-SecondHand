@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
 import {
-  StyleSheet, TouchableOpacity, View, Image, Text,
+  StyleSheet, TouchableOpacity, View, Text,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {
   borderRadius,
   colors, fonts, fontSize, windowHeight, windowWidth,
@@ -34,7 +35,7 @@ function CardProduct({
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress} style={{ height: '65%', width: '100%' }}>
-        <Image style={styles.image} source={source} />
+        <FastImage style={styles.image} source={source} />
         <Text
           numberOfLines={1}
           style={styles.name}
