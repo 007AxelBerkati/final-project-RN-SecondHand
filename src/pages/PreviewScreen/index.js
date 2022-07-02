@@ -35,7 +35,7 @@ function PreviewScreen({ route, navigation }) {
       name: dataValues.image.fileName ? dataValues.image.fileName : 'image.jpg',
     });
 
-    dispatch(postProduct(formData));
+    dispatch(postProduct(formData, navigation));
   };
 
   return (
@@ -45,7 +45,7 @@ function PreviewScreen({ route, navigation }) {
         <View style={styles.imageContainer}>
           <ImageSlider
             data={[
-              { img: values.image.uri },
+              { img: values.image.uri ? values.image.uri : values.image },
             ]}
             autoPlay
             timer={5000}
@@ -65,7 +65,7 @@ function PreviewScreen({ route, navigation }) {
             <CardProduct
               name={values.namaProduk}
               jenis={dataCategory.category}
-              idJenis={values.kategory_id}
+              idJenis={values.kategori_id}
               harga={values.hargaProduk}
             />
           </View>

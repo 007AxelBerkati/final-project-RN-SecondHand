@@ -18,7 +18,7 @@ export const updateDetailProduct = (id, data, navigation) => async (dispatch) =>
   await updateProduct(id, data).then((response) => {
     dispatch(updateDetailProductSuccess(response.data));
     showSuccess('Update product success');
-    navigation.replace('DaftarJualScreen');
+    navigation.replace('MainApp');
     dispatch(setLoading(false));
   }).catch((error) => {
     dispatch(updateDetailProductFail(error.response.data.message));

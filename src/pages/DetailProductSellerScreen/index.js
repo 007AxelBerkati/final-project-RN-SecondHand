@@ -29,7 +29,7 @@ function DetailProductSellerScreen({ route, navigation }) {
   }, [id]);
 
   const onDelete = useCallback(() => {
-    dispatch(deleteSellerProduct(id));
+    dispatch(deleteSellerProduct(id, navigation));
   }, [dispatch, id]);
 
   return (
@@ -57,7 +57,7 @@ function DetailProductSellerScreen({ route, navigation }) {
           <View style={styles.productWrapper}>
             <CardProduct
               name={dataDetailProduct.name}
-              jenis={dataDetailProduct.Categories}
+              jenis={dataDetailProduct?.Categories}
               harga={dataDetailProduct.base_price}
             />
           </View>

@@ -16,8 +16,14 @@ function CardProduct({
       <View style={styles.cardPreview}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.jenis}>
-          {idJenis?.map((item) => (
-            (item)
+          {jenis?.map((item) => (
+            idJenis !== undefined ? (
+              idJenis?.map((item1) => (
+                item.id === item1
+                    && (`${item.name}, `)
+              ))
+            )
+              : (`${item.name}, `)
           ))}
         </Text>
         <Text style={styles.harga}>{hargaConvert}</Text>

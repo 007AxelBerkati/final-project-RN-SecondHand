@@ -4,13 +4,12 @@ import {
 import React from 'react';
 import { Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
-import { launchImageLibrary } from 'react-native-image-picker';
 import FormData from 'form-data';
 import {
   ButtonComponent, Gap, Headers, Input2, NotLogin, Select2, UploadPhoto,
 } from '../../components';
 import {
-  borderRadius, colors, fonts, fontSize, showError, TambahDataSchema, windowHeight,
+  borderRadius, colors, fonts, fontSize, getImage, TambahDataSchema, windowHeight,
 } from '../../utils';
 import { postProduct } from '../../redux';
 
@@ -22,25 +21,6 @@ function JualScreen({ navigation }) {
 
   const dispatch = useDispatch();
 
-  const getImage = (setFieldValue) => {
-    launchImageLibrary(
-      {
-        quality: 1,
-        maxWidth: 1000,
-        maxHeight: 1000,
-        includeBase64: true,
-      },
-      (response) => {
-        if (response.didCancel || response.error) {
-          showError('Sepertinya anda tidak memilih fotonya');
-        } else {
-          const source = response?.assets[0];
-          setFieldValue('image', source, true);
-        }
-      },
-    );
-  };
-
   const onSubmitPost = (values) => {
     const formData = new FormData();
     formData.append('name', values.namaProduk);
@@ -49,9 +29,9 @@ function JualScreen({ navigation }) {
     formData.append('category_ids', values.kategori_id.toString());
     formData.append('location', values.location);
     formData.append('image', {
-      uri: values.image.uri,
+      uri: values.image.uri ? values.image.uri : values.image,
       type: 'image/jpeg',
-      name: values.image.filename,
+      name: values.image.fileName ? values.image.fileName : 'image.jpg',
     });
 
     dispatch(postProduct(formData));

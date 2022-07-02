@@ -1,4 +1,6 @@
 import analytics from '@react-native-firebase/analytics';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { showError } from '../showMessage';
 
 export const onLogScreenView = async (screenName) => {
   try {
@@ -7,7 +9,7 @@ export const onLogScreenView = async (screenName) => {
       screen_class: screenName,
     });
   } catch (err) {
-    console.log(err);
+    // err
   }
 };
 
@@ -21,4 +23,27 @@ export const optionalConfigObject = {
   fallbackLabel: 'Show Passcode',
   unifiedErrors: false,
   passcodeFallback: false,
+};
+
+export const getImage = (setFieldValue, setPhoto) => {
+  launchImageLibrary(
+    {
+      quality: 1,
+      maxWidth: 1000,
+      maxHeight: 1000,
+      includeBase64: true,
+    },
+    (response) => {
+      if (response.didCancel || response.error) {
+        showError('Sepertinya anda tidak memilih fotonya');
+      } else {
+        const source = response?.assets[0];
+        const Uri = source.uri;
+        if (setPhoto !== undefined) {
+          setPhoto(Uri);
+        }
+        setFieldValue('image', source, true);
+      }
+    },
+  );
 };

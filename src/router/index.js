@@ -66,7 +66,6 @@ function MyTabs() {
         component={NotifikasiScreen}
         options={{
           tabBarLabel: 'Notifikasi',
-          tabBarColor: 'red',
           tabBarIcon: ({ color }) => (
             <Icon name="notifications" color={color} size={26} />
           ),
@@ -87,11 +86,10 @@ function MyTabs() {
       />
 
       <Tab.Screen
-        name="Daftar Jual"
+        name="DaftarJual"
         component={DaftarJualScreen}
         options={{
           tabBarLabel: 'Daftar Jual',
-          tabBarColor: 'green',
           tabBarIcon: ({ color }) => <Icon name="list" color={color} size={26} />,
           headerShown: false,
         }}
@@ -142,7 +140,7 @@ function Router() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-           name="PreviewScreen"
+          name="PreviewScreen"
           component={PreviewScreen}
           options={{ headerShown: false }}
         />
@@ -161,7 +159,7 @@ function Router() {
           component={DetailProductBuyerScreen}
           options={{ headerShown: false }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="InfoPenawaranScreen"
           component={InfoPenawaranScreen}
           options={{ headerShown: false }}

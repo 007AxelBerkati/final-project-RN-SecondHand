@@ -9,7 +9,7 @@ function Produk({ dataDaftarJual, navigation }) {
     <View style={styles.wrapperProduk}>
       {
        dataDaftarJual.length < 5 && (
-         <CardAddProduct onPress={() => navigation.navigate('JualScreen')} />
+         <CardAddProduct onPress={() => navigation.navigate('Jual', { screen: 'MainApp' })} />
        )
          }
       {

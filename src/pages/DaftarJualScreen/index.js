@@ -11,7 +11,9 @@ import {
   CardCategory, CardList, Headers,
 } from '../../components';
 import { daftarJualKosong, listDaftarJual } from '../../assets';
-import { getAkun, getProductSeller } from '../../redux';
+import {
+  getAkun, getOrderSeller, getProductSell, getProductSeller,
+} from '../../redux';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
@@ -27,6 +29,9 @@ function DaftarJualScreen({ navigation }) {
   const dataDaftarJual = useSelector((state) => state.dataDaftarJual.daftarJual);
   const dataLogin = useSelector((state) => state.dataLogin);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
+  const dataOrder = useSelector((state) => state.dataDaftarJual.productDiminati);
+  const dataHistory = useSelector((state) => state.dataDaftarJual.productDijual);
+
   const getDaftarJual = (id) => {
     setActive(id);
   };
@@ -34,12 +39,16 @@ function DaftarJualScreen({ navigation }) {
   useEffect(() => {
     dispatch(getProductSeller());
     dispatch(getAkun());
+    dispatch(getOrderSeller());
+    dispatch(getProductSell());
   }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     dispatch(getProductSeller());
     dispatch(getAkun());
+    dispatch(getOrderSeller());
+    dispatch(getProductSell());
     setRefreshing(false);
   }, [dispatch]);
 
@@ -48,9 +57,9 @@ function DaftarJualScreen({ navigation }) {
       case 1:
         return <Produk dataDaftarJual={dataDaftarJual} navigation={navigation} />;
       case 2:
-        return <Favorite />;
+        return <Favorite productDiminati={dataOrder} navigation={navigation} />;
       case 3:
-        return <Terjual />;
+        return <Terjual dataHistory={dataHistory} navigation={navigation} />;
       default:
         return null;
     }
@@ -77,7 +86,7 @@ function DaftarJualScreen({ navigation }) {
           </View>
         ) : (
           <View style={{ marginHorizontal: 3 }}>
-            <CardList type="role" name={dataProfile.full_name} source={{ uri: dataProfile.image_url }} kota={dataProfile.city} onPress={() => navigation.goBack()} />
+            <CardList type="role" name={dataProfile.full_name} source={{ uri: dataProfile.image_url }} kota={dataProfile.city} onPress={() => navigation.navigate('ProfileScreen')} />
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -111,12 +120,7 @@ export default DaftarJualScreen;
 const styles = StyleSheet.create({
   pages: {
     flex: 1,
-    marginHorizontal: 13,
-  },
-
-  header: {
-    marginHorizontal: 2,
-    marginTop: 16,
+    margin: 16,
   },
 
   notLogin: {

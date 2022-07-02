@@ -14,7 +14,7 @@ import UpdateDetailProductScreen from './UpdateDetailProductScreen';
 export {
   LoginScreen,
   RegisterScreen, HomeScreen, DaftarJualScreen, AkunScreen, JualScreen, NotifikasiScreen,
-
-  SplashScreen, PreviewScreen, DetailProductSellerScreen, UpdateDetailProductScreen, InfoPenawaranScreen
+  SplashScreen, PreviewScreen,
+  DetailProductSellerScreen, UpdateDetailProductScreen, InfoPenawaranScreen,
 
 };
