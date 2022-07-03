@@ -47,3 +47,5 @@ export const getImage = (setFieldValue, setPhoto) => {
     },
   );
 };
+
+export const formatRupiah = (harga) => `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;

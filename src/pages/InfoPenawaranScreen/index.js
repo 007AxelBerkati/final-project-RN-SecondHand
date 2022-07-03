@@ -1,36 +1,85 @@
 import {
   StyleSheet, Text, View,
+  StatusBar,
 } from 'react-native';
-import React from 'react';
-import { Headers, CardList, ButtonComponent } from '../../components';
+import React, {
+  useCallback, useEffect, useMemo, useRef,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
+import BottomSheet from '@gorhom/bottom-sheet';
+import {
+  Headers, CardList, ButtonComponent, BackDropComponent,
+} from '../../components';
 import {
   fonts, colors, borderRadius, fontSize,
 } from '../../utils';
 import { keranjang } from '../../assets';
+import { getSelerOrderId } from '../../redux';
+import Accept from './Accept';
 
-function InfoPenawaranScreen({ navigation }) {
+function InfoPenawaranScreen({ navigation, route }) {
+  const { id } = route.params;
+
+  const dispatch = useDispatch();
+
+  const dataInfoPenawaran = useSelector((state) => state.dataInfoPenawaran.infoPenawaran);
+
+  useEffect(() => {
+    dispatch(getSelerOrderId(id));
+  }, []);
+
+  const bottomSheetRef = useRef(null);
+
+  // handle bottom sheet
+  const snapPoints = useMemo(() => ['1%', '60%'], []);
+  const handleSheetChanges = useCallback((index) => {
+    console.log('sheet index', index);
+  }, []);
+  const handleClosePress = () => bottomSheetRef.current?.close();
+  const handleOpenPress = (index) => bottomSheetRef.current?.snapToIndex(index);
+
   return (
-    <View style={{ margin: 16, flex: 1 }}>
-      <Headers type="back-title" onPress={() => navigation.goBack()} title="Info Penawar" />
-      <View>
-        <CardList
-          type="role"
-          source={keranjang}
-          style={styles.bgProduk}
-          name="Gama"
-          kota="Bengkulu"
-        />
-      </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ScrollView style={{ margin: 16 }}>
+        <StatusBar backgroundColor="transparent" translucent />
+        <Headers type="back-title" onPress={() => navigation.goBack()} title="Info Penawar" />
+        <View style={{ marginHorizontal: 3 }}>
+          <CardList
+            type="role"
+            source={keranjang}
+            style={styles.bgProduk}
+            name={dataInfoPenawaran?.User?.full_name}
+            kota={dataInfoPenawaran?.User?.city}
+          />
+        </View>
 
-      <Text style={styles.Detail}>Daftar Produkmu yang Ditawar</Text>
+        <Text style={styles.Detail}>Daftar Produkmu yang Ditawar</Text>
 
-      <CardList source={keranjang} title="penawaran produk" date="29 Juni 2022" name="Jam tangan Casio" harga="250000" hargaNego="200000" />
+        <CardList source={{ uri: dataInfoPenawaran?.image_product }} title="penawaran produk" date={dataInfoPenawaran?.updatedAt} name={dataInfoPenawaran?.product_name} harga={dataInfoPenawaran?.base_price} hargaNego={dataInfoPenawaran?.price} />
 
-      <View style={styles.btnWrapper}>
-        <ButtonComponent style={styles.btnPreview} type="secondary" title="Tolak" />
-        <ButtonComponent style={styles.btnTerbitkan} title="Terima" />
-      </View>
-    </View>
+        <View style={styles.btnWrapper}>
+          <ButtonComponent style={styles.btnTolak} type="secondary" title="Tolak" />
+          <ButtonComponent style={styles.btnTerima} title="Terima" onPress={() => handleOpenPress(1)} />
+        </View>
+      </ScrollView>
+      <BottomSheet
+        enablePanDownToClose
+        enableContentPanningGesture
+        enableHandlePanningGesture
+        animateOnMount
+        enableOverDrag
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        backdropComponent={BackDropComponent}
+        onChange={handleSheetChanges}
+        onClose={() => handleClosePress()}
+      >
+        <Accept dataInfoPenawaran={dataInfoPenawaran} />
+      </BottomSheet>
+    </GestureHandlerRootView>
+
   );
 }
 
@@ -52,9 +101,9 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 
-  btnPreview: {
+  btnTolak: {
     width: '48%',
     borderRadius: borderRadius.xlarge,
   },
-  btnTerbitkan: { width: '48%' },
+  btnTerima: { width: '48%' },
 });
