@@ -23,13 +23,14 @@ function Favorite({ navigation, productDiminati }) {
           {
         productDiminati.map((item) => (
           <CardList
+            key={item.id}
             name={item.Product.name}
             title="Penawaran Produk"
             source={{ uri: item.Product.image_url }}
             date={item.createdAt}
             harga={item.Product.base_price}
             hargaNego={item.price}
-            onPress={() => navigation.navigate('InfoPenawaranScreen')}
+            onPress={() => navigation.navigate('InfoPenawaranScreen', { id: item.id })}
           />
         ))
 

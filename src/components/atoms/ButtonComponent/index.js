@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
@@ -37,6 +38,12 @@ function ButtonComponent({
   return (
     <TouchableOpacity style={{ ...styles.container(type), ...style }} onPress={onPress}>
       <Text style={{ ...styles.text(type), ...styleText }}>{title}</Text>
+      {
+        icon && (
+          <Icon name={icon} size={24} color={colors.background.primary} style={styles.icon} />
+        )
+
+      }
     </TouchableOpacity>
   );
 }
@@ -69,4 +76,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: type === 'secondary' ? colors.button.secondary.text : colors.button.primary.text,
   }),
+
+  icon: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
+  },
 });

@@ -34,21 +34,29 @@ function DaftarJualScreen({ navigation }) {
 
   const getDaftarJual = (id) => {
     setActive(id);
+    switch (id) {
+      case 1:
+        dispatch(getProductSeller());
+        break;
+      case 2:
+        dispatch(getProductSell());
+        break;
+      case 3:
+        dispatch(getOrderSeller());
+        break;
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
-    dispatch(getProductSeller());
     dispatch(getAkun());
-    dispatch(getOrderSeller());
-    dispatch(getProductSell());
+    dispatch(getProductSeller());
   }, []);
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = useCallback(async (id) => {
     setRefreshing(true);
-    dispatch(getProductSeller());
-    dispatch(getAkun());
-    dispatch(getOrderSeller());
-    dispatch(getProductSell());
+    getDaftarJual(id);
     setRefreshing(false);
   }, [dispatch]);
 
@@ -73,7 +81,7 @@ function DaftarJualScreen({ navigation }) {
         refreshControl={(
           <RefreshControl
             refreshing={refreshing}
-            onRefresh={() => onRefresh()}
+            onRefresh={() => onRefresh(active)}
           />
         )}
       >
