@@ -14,7 +14,7 @@ import {
   RegisterScreen,
   SplashScreen,
   PreviewScreen,
-  BuyerScreen,
+  DetailProductScreen,
 } from '../pages';
 import { colors } from '../utils';
 import ProfileScreen from '../pages/ProfileScreen';
@@ -111,7 +111,7 @@ function MyTabs() {
 function Router() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="BuyerScreen">
+      <Stack.Navigator initialRouteName="DetailProductScreen">
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
@@ -143,8 +143,8 @@ function Router() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="BuyerScreen"
-          component={BuyerScreen}
+          name="DetailProductScreen"
+          component={DetailProductScreen}
           options={{ headerShown: false }}
         />
 

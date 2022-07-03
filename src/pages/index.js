@@ -7,10 +7,10 @@ import JualScreen from './JualScreen';
 import NotifikasiScreen from './NotifikasiScreen';
 import SplashScreen from './SplashScreen';
 import PreviewScreen from './PreviewScreen';
-import BuyerScreen from './BuyerScreen';
+import DetailProductScreen from './DetailProductScreen';
 
 export {
   LoginScreen,
   RegisterScreen, HomeScreen, DaftarJualScreen, AkunScreen, JualScreen, NotifikasiScreen,
-  SplashScreen, PreviewScreen, BuyerScreen,
+  SplashScreen, PreviewScreen, DetailProductScreen,
 };
