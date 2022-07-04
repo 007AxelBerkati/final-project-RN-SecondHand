@@ -10,6 +10,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useSelector, useDispatch } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
@@ -82,11 +83,8 @@ function HomeScreen({ navigation }) {
           />
       )}
       >
-        <StatusBar backgroundColor="transparent" translucent />
+        <StatusBar backgroundColor="transparent" translucent barStyle={useIsFocused() ? 'light-content' : null} />
 
-        {
-          console.log('list of banner', listOfBanner)
-        }
         <ImageSlider
           data={listOfBanner}
           autoPlay

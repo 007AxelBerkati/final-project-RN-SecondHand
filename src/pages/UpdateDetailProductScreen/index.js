@@ -144,7 +144,6 @@ const styles = StyleSheet.create({
   pages: {
     flex: 1,
     margin: 16,
-    marginTop: 46,
   },
 
   errorText: {

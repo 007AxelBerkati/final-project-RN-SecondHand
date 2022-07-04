@@ -12,7 +12,7 @@ import {
   Headers, CardList, ButtonComponent, BackDropComponent,
 } from '../../components';
 import {
-  fonts, colors, borderRadius, fontSize, windowHeight,
+  fonts, colors, borderRadius, fontSize,
 } from '../../utils';
 import { keranjang } from '../../assets';
 import { getSelerOrderId, patchOrderSeller } from '../../redux';
@@ -52,7 +52,7 @@ function InfoPenawaranScreen({ navigation, route }) {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ScrollView style={{ margin: 16, marginTop: windowHeight * 0.06 }}>
+      <ScrollView style={{ margin: 16 }}>
         <StatusBar backgroundColor="transparent" translucent />
         <Headers type="back-title" onPress={() => navigation.goBack()} title="Info Penawar" />
         <View style={{ marginHorizontal: 3 }}>

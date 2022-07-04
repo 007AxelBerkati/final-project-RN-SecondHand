@@ -58,7 +58,7 @@ function DaftarJualScreen({ navigation }) {
     setRefreshing(true);
     getDaftarJual(id);
     setRefreshing(false);
-  }, [dispatch]);
+  }, []);
 
   const dataForRender = () => {
     switch (active) {
