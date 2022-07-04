@@ -15,7 +15,7 @@ import {
 import { CardCategory, CardProduct } from '../../components';
 import { getCategoryProduct, getProduct } from '../../redux';
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
   const dataHome = useSelector((state) => state.dataHome);
@@ -98,6 +98,8 @@ function HomeScreen() {
                     name={item.name}
                     jenis={item.Categories}
                     harga={item.base_price}
+                    onPress={() => navigation.navigate('DetailProductScreen', { id: item.id })}
+
                   />
                 )}
                 keyExtractor={(item) => item.id}

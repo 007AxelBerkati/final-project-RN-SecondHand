@@ -111,7 +111,7 @@ function MyTabs() {
 function Router() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName="DetailProductScreen">
+      <Stack.Navigator initialRouteName="SplashScreen">
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}

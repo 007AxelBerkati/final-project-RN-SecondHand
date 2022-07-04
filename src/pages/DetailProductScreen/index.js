@@ -23,7 +23,7 @@ import { getDetailProduct } from '../../redux/action/detailProductBuyer';
 import Nego from './Nego';
 
 function DetailProductScreen({ route, navigation }) {
-  const id = route.params;
+  const { id } = route.params;
 
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
 
