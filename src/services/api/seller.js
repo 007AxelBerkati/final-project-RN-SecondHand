@@ -32,5 +32,5 @@ export const deleteProduct = (id) => instance.delete(`/seller/product/${id}`);
 // seller/order
 export const getSellerOrder = () => instance.get('/seller/order');
 export const detailSellerOrder = (id) => instance.get(`/seller/order/${id}`);
-export const updateSellerOrder = (id, status) => instance.patch(`/seller/order/${id}`, { status });
+export const updateSellerOrder = (id, status) => instance.patch(`/seller/order/${id}`, status);
 export const getSellerOrderProduct = (id) => instance.get(`/seller/order/product/${id}`);
