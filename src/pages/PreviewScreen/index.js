@@ -52,6 +52,7 @@ function PreviewScreen({ route, navigation }) {
             closeIconColor={colors.background.primary}
             caroselImageStyle={{ height: windowHeight * 0.4 }}
             indicatorContainerStyle={{ bottom: windowHeight * 0.05 }}
+            activeIndicatorStyle={{ backgroundColor: colors.background.secondary }}
 
           />
           <View style={styles.btnBackContainer}>

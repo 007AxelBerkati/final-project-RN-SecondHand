@@ -6,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import React, { useEffect } from 'react';
 import Router from '@router';
 
-import { LogBox } from 'react-native';
+import { LogBox, StatusBar } from 'react-native';
 import { Persistore, Store } from './redux';
 import { Loading } from './components';
 
@@ -23,7 +23,7 @@ function MainApp() {
 
   return (
     <>
-      {/* <StatusBar barStyle="dark-content" backgroundColor={colors.background.secondary} /> */}
+      <StatusBar barStyle="dark-content" />
       <Router />
       <FlashMessage position="top" />
       {stateGlobal.isLoading && <Loading />}
