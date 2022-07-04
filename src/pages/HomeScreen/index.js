@@ -1,6 +1,7 @@
 import {
   ActivityIndicator,
   FlatList,
+  RefreshControl,
   ScrollView,
   StatusBar,
   StyleSheet, Text, View,
@@ -10,31 +11,44 @@ import { Searchbar } from 'react-native-paper';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  colors, fonts, fontSize,
+  colors, fonts, fontSize, windowHeight,
 } from '../../utils';
 import { CardCategory, CardProduct } from '../../components';
-import { getCategoryProduct, getProduct } from '../../redux';
+import { getBannerSeller, getCategoryProduct, getProduct } from '../../redux';
 
 function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
-  const dataHome = useSelector((state) => state.dataHome);
   const [active, setActive] = useState('');
   const [btnAllActive, setBtnAllActive] = useState(true);
   const [category, setCategory] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
+  const [listOfBanner, setListOfBanner] = useState([]);
+
+  const dataHome = useSelector((state) => state.dataHome);
 
   useEffect(() => {
     dispatch(getProduct(category));
     dispatch(getCategoryProduct());
+    getListOfBanner();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getProductByCategory = (categoryId) => {
+  const getProductByCategory = useCallback((categoryId) => {
     setActive(categoryId);
     setBtnAllActive(false);
     setCategory(`?category_id=${categoryId}`);
     dispatch(getProduct(`?category_id=${categoryId}`));
-  };
+  }, []);
+
+  const getListOfBanner = useCallback(() => {
+    dispatch(getBannerSeller());
+
+    const list = dataHome?.banner?.map((item) => ({
+      img: item.image_url,
+    }));
+    setListOfBanner(list);
+  }, []);
 
   const getAllProduct = () => {
     setBtnAllActive(true);
@@ -48,20 +62,40 @@ function HomeScreen({ navigation }) {
     dispatch(getProduct(`?search=${query}&&${category}`));
   }, [dispatch, category]);
 
+  const onRefresh = useCallback(
+    () => {
+      setRefreshing(true);
+      dispatch(getProduct(category));
+      setRefreshing(false);
+    },
+    [dispatch, category],
+  );
+
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.background.primary} />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={(
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => onRefresh()}
+          />
+      )}
+      >
+        <StatusBar backgroundColor="transparent" translucent />
+
+        {
+          console.log('list of banner', listOfBanner)
+        }
         <ImageSlider
-          data={[
-            { img: 'https://img.freepik.com/free-vector/online-shopping-concept-illustration_114360-1084.jpg?w=1060&t=st=1655909482~exp=1655910082~hmac=17398ae027564d6d34625f5b83f8ab39616da2ea74d55677a11eb56ce8eb70bd' },
-            { img: 'https://media.istockphoto.com/photos/male-outfit-set-on-white-background-closeup-top-view-picture-id1176614800?k=20&m=1176614800&s=612x612&w=0&h=uM0CkYhsM12_OYWhnO641tXqD3ZCOx61dyGZClkrv6k=' },
-            { img: 'https://images.unsplash.com/photo-1479064555552-3ef4979f8908?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' },
-          ]}
+          data={listOfBanner}
           autoPlay
           timer={5000}
-          closeIconColor={colors.background.primary}
+          closeIconColor={colors.background.secondary}
+          caroselImageStyle={{ height: windowHeight * 0.3 }}
+          activeIndicatorStyle={{ backgroundColor: colors.background.secondary }}
         />
+
         <Searchbar
           style={styles.searchBar}
           placeholder="Cari di Second chance"
@@ -131,7 +165,7 @@ const styles = StyleSheet.create({
     width: null,
     borderWidth: 1,
     borderRadius: 16,
-    marginTop: 38,
+    marginTop: windowHeight * 0.05,
     marginHorizontal: 16,
     fontFamily: fonts.Poppins.Bold,
     backgroundColor: colors.background.primary,
