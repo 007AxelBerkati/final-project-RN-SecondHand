@@ -44,7 +44,7 @@ function CardProduct({
         </Text>
         <Text style={styles.jenis} numberOfLines={1}>
           {
-          jenis.map((item) => (
+          jenis?.map((item) => (
             (`${item.name}, `)
           ))
         }

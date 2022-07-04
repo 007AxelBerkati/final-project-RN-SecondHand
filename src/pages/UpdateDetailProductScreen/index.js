@@ -47,7 +47,7 @@ function UpdateDetailProductScreen({ route, navigation }) {
         initialValues={{
           namaProduk: dataDetail.name,
           hargaProduk: dataDetail.base_price.toString(),
-          kategori_id: dataDetail.Categories.map((item) => item.id),
+          kategori_id: dataDetail.Categories?.map((item) => item.id),
           location: dataDetail.location,
           deskripsi: dataDetail.description,
           image: dataDetail.image_url,
