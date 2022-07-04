@@ -23,7 +23,7 @@ function MainApp() {
 
   return (
     <>
-      {/* <StatusBar barStyle="dark-content" backgroundColor={colors.background.secondary} /> */}
+      <StatusBar barStyle="dark-content" backgroundColor={colors.background.secondary} />
       <Router />
       <FlashMessage position="top" />
       {stateGlobal.isLoading && <Loading />}

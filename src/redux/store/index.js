@@ -5,13 +5,18 @@ import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 import {
   globalReducer, loginReducer,
-  registerReducer, homeReducer, profileReducer, jualReducer, daftarJualReducer,
+  registerReducer, homeReducer,
+  profileReducer, jualReducer, daftarJualReducer,
+
 } from '../reducer';
+import { detailProductBuyerReducer } from '../reducer/detailProductBuyerReducer';
+import { detailProductSellerReducer } from '../reducer/detailProductSellerReducer';
+import { updateDetailProductSellerReducer } from '../reducer/updateDetailProductSeller';
 
 const persistConfig = {
   key: 'root',
   // blacklist: ['dataPokemon, dataGlobal, dataPokemonDetail'],
-  blacklist: ['dataGlobal'],
+  blacklist: ['dataGlobal, dataProfile, dataLogin, dataHome, dataJual, dataDaftarJual'],
   storage: AsyncStorage,
 };
 
@@ -23,6 +28,9 @@ const rootReducer = {
   dataProfile: profileReducer,
   dataJual: jualReducer,
   dataDaftarJual: daftarJualReducer,
+  dataDetailProductSeller: detailProductSellerReducer,
+  dataUpdateDetailProductSeller: updateDetailProductSellerReducer,
+  dataDetailProductBuyer: detailProductBuyerReducer,
 };
 
 const configPersist = persistReducer(persistConfig, combineReducers(rootReducer));
