@@ -1,5 +1,5 @@
 import {
-  StyleSheet, View, Image,
+  StyleSheet, View, Image, StatusBar,
 } from 'react-native';
 import React, { useEffect } from 'react';
 import { Logo } from '../../assets';
@@ -16,6 +16,7 @@ function SplashScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="transparent" translucent />
       <Image source={Logo} style={styles.Logo} />
     </View>
   );
