@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
-import { addBuyerOrder, detailBuyerProduct } from '../../services';
+import { addBuyerOrder, detailBuyerProduct, getBuyerOrder } from '../../services';
 import { showError } from '../../utils';
 import {
+  BID_PRODUCT_FAILED,
+  BID_PRODUCT_SUCCESS,
   GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS, GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS,
 } from '../types';
 import { setLoading } from './global';
@@ -28,6 +30,15 @@ export const failedGetBidProduct = (err) => ({
   payload: err,
 });
 
+export const successBid = (payload) => ({
+  type: BID_PRODUCT_SUCCESS,
+  payload,
+});
+
+export const failedBid = () => ({
+  type: BID_PRODUCT_FAILED,
+});
+
 export const getDetailProduct = (id) => async (dispatch) => {
   dispatch(setLoading(true));
   await detailBuyerProduct(id).then((response) => {
@@ -42,12 +53,24 @@ export const getDetailProduct = (id) => async (dispatch) => {
 
 export const getAllBidProduct = (accessToken) => async (dispatch) => {
   dispatch(setLoading(true));
-  await addBuyerOrder(accessToken).then((values) => {
+  await getBuyerOrder(accessToken).then((values) => {
     dispatch(successGetBidProduct(values.data));
     dispatch(setLoading(false));
   }).catch((error) => {
     dispatch(failedGetBidProduct(error));
     showError(error.values.data.message);
+    dispatch(setLoading(false));
+  });
+};
+
+export const bidProduct = (payload, accessToken, navigation) => async (dispatch) => {
+  dispatch(setLoading(true));
+  await addBuyerOrder(payload, accessToken).then((response) => {
+    dispatch(successBid(response.data));
+    dispatch(setLoading(false));
+    navigation.navigate('Notification');
+  }).catch((err) => {
+    dispatch(failedBid(err));
     dispatch(setLoading(false));
   });
 };
