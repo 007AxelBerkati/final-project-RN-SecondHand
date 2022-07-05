@@ -30,9 +30,9 @@ function ProfileScreen({ navigation }) {
     formData.append('address', data.address);
     formData.append('phone_number', data.phone_number);
     formData.append('image', {
-      uri: data.image.uri,
+      uri: data.image.uri ? data.image.uri : data.image,
       type: 'image/jpeg',
-      name: data.image.filename,
+      name: data.image.fileName ? data.image.fileName : 'image.jpeg',
     });
     dispatch(putDataProfile(formData, navigation));
   };
