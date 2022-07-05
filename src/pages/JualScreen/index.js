@@ -65,7 +65,7 @@ function JualScreen({ navigation }) {
             }) => (
               <ScrollView showsVerticalScrollIndicator={false}>
                 <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                  <View style={{ marginTop: 24 }}>
+                  <View style={{ marginTop: windowHeight * 0.02 }}>
                     <Input2
                       label="Nama Produk"
                       placeholder="Nama Produk"
@@ -75,8 +75,7 @@ function JualScreen({ navigation }) {
                     />
                     {errors.namaProduk && touched.namaProduk
               && <Text style={styles.errorText}>{errors.namaProduk}</Text>}
-                    <Gap height={15} />
-
+                    <Gap height={windowHeight * 0.01} />
                     <Input2
                       label="Harga Produk"
                       placeholder="Rp. 0,00"
@@ -87,7 +86,8 @@ function JualScreen({ navigation }) {
                     />
                     {errors.hargaProduk && touched.hargaProduk
               && <Text style={styles.errorText}>{errors.hargaProduk}</Text>}
-                    <Gap height={15} />
+                    <Gap height={windowHeight * 0.01} />
+
                     <Select2
                       data={dataCategory?.category}
                       setFieldValue={setFieldValue}
@@ -104,7 +104,8 @@ function JualScreen({ navigation }) {
                     />
                     {errors.kategori_id && touched.kategori_id
               && <Text style={styles.errorText}>{errors.kategori_id}</Text>}
-                    <Gap height={15} />
+                    <Gap height={windowHeight * 0.01} />
+
                     <Input2
                       label="Deskripsi"
                       placeholder="Contoh: Produk ini sangat bagus"
@@ -116,13 +117,14 @@ function JualScreen({ navigation }) {
                     />
                     {errors.deskripsi && touched.deskripsi
               && <Text style={styles.errorText}>{errors.deskripsi}</Text>}
-                    <Gap height={16} />
+                    <Gap height={windowHeight * 0.01} />
+
                     <UploadPhoto
                       label="Foto Product"
                       source={values.image}
                       onPress={() => getImage(setFieldValue)}
                     />
-                    <Gap height={windowHeight * 0.03} />
+                    <Gap height={windowHeight * 0.02} />
                     <View style={styles.btnWrapper}>
                       <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={() => navigation.navigate('PreviewScreen', { values })} disable={!(isValid && dirty) || stateGlobal.isLoading} />
                       <ButtonComponent style={styles.btnTerbitkan} title="Terbitkan" onPress={handleSubmit} disable={!(isValid && dirty) || stateGlobal.isLoading} />

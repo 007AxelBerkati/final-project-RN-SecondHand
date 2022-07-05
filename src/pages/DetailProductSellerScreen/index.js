@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   card: {
     marginHorizontal: 16,
     marginBottom: 30,
-    marginTop: -24,
+    marginTop: windowHeight * -0.02,
   },
 
   pages: {
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
 
   productWrapper: {
     marginHorizontal: 16,
-    marginTop: -40,
+    marginTop: windowHeight * -0.07,
   },
 
   btnWrapper: {

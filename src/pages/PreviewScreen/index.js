@@ -112,24 +112,21 @@ const styles = StyleSheet.create({
   card: {
     marginHorizontal: 16,
     marginBottom: 30,
-    marginTop: -24,
+    marginTop: windowHeight * -0.02,
   },
 
   pages: {
     flex: 1,
     backgroundColor: colors.background.primary,
   },
-
   btnNego: {
     padding: 16,
     position: 'absolute',
     width: '100%',
     bottom: 1,
   },
-
   productWrapper: {
     marginHorizontal: 16,
-    marginTop: -40,
+    marginTop: windowHeight * -0.07,
   },
-
 });
