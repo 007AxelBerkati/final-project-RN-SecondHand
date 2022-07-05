@@ -141,7 +141,7 @@ function HomeScreen({ navigation }) {
                     name={item.name}
                     jenis={item.Categories}
                     harga={item.base_price}
-                    onPress={() => navigation.navigate('DetailProductBuyerScreen', { id: item.id })}
+                    onPress={() => navigation.navigate('DetailProductScreen', { id: item.id })}
                   />
                 )}
                 keyExtractor={(item) => item.id}
