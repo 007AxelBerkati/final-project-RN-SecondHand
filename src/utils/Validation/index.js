@@ -77,3 +77,8 @@ export const TambahDataSchema = Yup.object().shape({
   //   .trim()
   //   .required('photoProductRequired'),
 });
+
+export const bidPriceSchema = Yup.object().shape({
+  bid_price: Yup.number()
+    .typeError('you must specify a number'),
+});
