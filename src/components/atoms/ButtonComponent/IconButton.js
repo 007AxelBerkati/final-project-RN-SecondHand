@@ -1,6 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
+import propTypes from 'prop-types';
 import { borderRadius, colors } from '../../../utils';
 
 function Icons({ label }) {
@@ -55,3 +56,15 @@ const styles = StyleSheet.create({
   },
 
 });
+
+IconButton.propTypes = {
+  onPress: propTypes.func.isRequired,
+  nonButton: propTypes.bool,
+  label: propTypes.string.isRequired,
+  style: propTypes.shape({}),
+};
+
+IconButton.defaultProps = {
+  nonButton: false,
+  style: {},
+};

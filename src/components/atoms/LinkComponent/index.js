@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import propTypes from 'prop-types';
 import { fonts } from '../../../utils';
 
 function LinkComponent({
@@ -23,3 +24,17 @@ const styles = StyleSheet.create({
   }),
 
 });
+
+LinkComponent.propTypes = {
+  title: propTypes.string.isRequired,
+  size: propTypes.number.isRequired,
+  align: propTypes.string.isRequired,
+  onPress: propTypes.func.isRequired,
+  color: propTypes.string.isRequired,
+  disable: propTypes.bool.isRequired,
+  style: propTypes.shape({}),
+};
+
+LinkComponent.defaultProps = {
+  style: {},
+};

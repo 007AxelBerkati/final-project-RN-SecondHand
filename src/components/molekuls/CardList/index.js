@@ -4,6 +4,7 @@ import {
 import React from 'react';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
+import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
@@ -98,3 +99,25 @@ const styles = StyleSheet.create({
   },
 
 });
+
+CardList.propTypes = {
+  name: propTypes.string,
+  harga: propTypes.number,
+  hargaNego: propTypes.number,
+  onPress: propTypes.func,
+  date: propTypes.string,
+  title: propTypes.string,
+  type: propTypes.string,
+  kota: propTypes.string,
+};
+
+CardList.defaultProps = {
+  hargaNego: undefined,
+  kota: undefined,
+  onPress: undefined,
+  type: '',
+  title: undefined,
+  name: undefined,
+  harga: undefined,
+  date: undefined,
+};

@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import propTypes from 'prop-types';
 import { ButtonComponent } from '../../atoms';
 import { colors, fonts, fontSize } from '../../../utils';
 
@@ -30,3 +31,7 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
   },
 });
+
+NotLogin.propTypes = {
+  onPress: propTypes.func.isRequired,
+};

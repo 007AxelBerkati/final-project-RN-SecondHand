@@ -3,6 +3,7 @@ import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
@@ -83,3 +84,25 @@ const styles = StyleSheet.create({
     top: 10,
   },
 });
+
+ButtonComponent.propTypes = {
+  type: propTypes.string,
+  title: propTypes.string.isRequired,
+  onPress: propTypes.func.isRequired,
+  icon: propTypes.string,
+  disable: propTypes.bool,
+  nonButton: propTypes.bool,
+  label: propTypes.string,
+  style: propTypes.shape({}),
+  styleText: propTypes.shape({}),
+};
+
+ButtonComponent.defaultProps = {
+  type: 'primary',
+  icon: null,
+  disable: false,
+  nonButton: false,
+  label: null,
+  style: {},
+  styleText: {},
+};

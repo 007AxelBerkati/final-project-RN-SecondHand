@@ -3,6 +3,7 @@ import {
   StyleSheet, TouchableOpacity, View, Text,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import propTypes from 'prop-types';
 import {
   borderRadius,
   colors, fonts, fontSize, windowHeight, windowWidth,
@@ -109,3 +110,17 @@ const styles = StyleSheet.create({
   },
 
 });
+
+CardProduct.propTypes = {
+  onPress: propTypes.func.isRequired,
+  name: propTypes.string,
+  jenis: propTypes.arrayOf(propTypes.oneOfType([propTypes.object])),
+  harga: propTypes.number,
+  idJenis: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string])),
+};
+CardProduct.defaultProps = {
+  idJenis: undefined,
+  jenis: undefined,
+  harga: undefined,
+  name: undefined,
+};

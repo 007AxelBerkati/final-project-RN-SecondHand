@@ -3,6 +3,7 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import React from 'react';
+import propTypes from 'prop-types';
 import { windowHeight, windowWidth } from '../../../utils';
 import { IconRemovePhoto, ILNullPhoto } from '../../../assets';
 
@@ -52,3 +53,15 @@ const styles = StyleSheet.create({
     bottom: 8,
   },
 });
+
+Profile.propTypes = {
+  isRemove: propTypes.bool,
+  source: propTypes.shape({ uri: propTypes.string.isRequired }),
+  onPress: propTypes.func,
+};
+
+Profile.defaultProps = {
+  isRemove: false,
+  source: null,
+  onPress: () => {},
+};

@@ -3,6 +3,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
+import propTypes from 'prop-types';
 import { colors, fonts, fontSize } from '../../../utils';
 
 function CardListAccount({ onPress, name, title }) {
@@ -32,3 +33,13 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
   },
 });
+
+CardListAccount.propTypes = {
+  onPress: propTypes.func,
+  name: propTypes.string.isRequired,
+  title: propTypes.string.isRequired,
+};
+
+CardListAccount.defaultProps = {
+  onPress: () => {},
+};

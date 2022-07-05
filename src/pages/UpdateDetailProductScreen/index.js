@@ -26,7 +26,7 @@ function UpdateDetailProductScreen({ route, navigation }) {
     const formData = new FormData();
     formData.append('name', values.namaProduk);
     formData.append('description', values.deskripsi);
-    formData.append('base_price', values.hargaProduk);
+    formData.append('base_price', parseFloat(values.hargaProduk));
     formData.append('category_ids', values.kategori_id.toString());
     formData.append('location', values.location);
     formData.append('image', {

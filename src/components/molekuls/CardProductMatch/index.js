@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import FastImage from 'react-native-fast-image';
+import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize, formatRupiah,
 } from '../../../utils';
@@ -76,3 +77,15 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
   },
 });
+
+CardProductMatch.propTypes = {
+  source: propTypes.shape({ root: propTypes.string.isRequired }).isRequired,
+  name: propTypes.string.isRequired,
+  harga: propTypes.number.isRequired,
+  hargaNego: propTypes.number.isRequired,
+  city: propTypes.string,
+};
+
+CardProductMatch.defaultProps = {
+  city: undefined,
+};

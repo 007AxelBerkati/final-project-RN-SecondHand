@@ -5,6 +5,7 @@ import {
 import { moderateScale, scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/AntDesign';
 import FastImage from 'react-native-fast-image';
+import propTypes from 'prop-types';
 import { colors, fonts } from '../../../utils';
 import { Gap } from '../../atoms';
 
@@ -58,3 +59,9 @@ const styles = StyleSheet.create({
 });
 
 export default UploadPhoto;
+
+UploadPhoto.propTypes = {
+  label: propTypes.string.isRequired,
+  source: propTypes.string.isRequired,
+  onPress: propTypes.func.isRequired,
+};
