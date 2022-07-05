@@ -33,7 +33,7 @@ function Nego() {
       />
       <Text style={{ fontFamily: fonts.Poppins.SemiBold }}>Harga Tawar</Text>
       <Input2
-      label={}
+        label="Rp 0.0"
       />
     </View>
   );
