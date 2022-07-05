@@ -9,6 +9,7 @@ function Input2({
   value,
   label,
   onBlur,
+  placeholder,
   cannotEdited,
   ...props
 
@@ -20,6 +21,7 @@ function Input2({
         value={value}
         label={label}
         onBlur={onBlur}
+        placeholder={placeholder}
         mode="outlined"
         activeOutlineColor={colors.lineTextInput}
         outlineColor={
