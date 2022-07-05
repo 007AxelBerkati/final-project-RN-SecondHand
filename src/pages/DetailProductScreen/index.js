@@ -31,6 +31,7 @@ function DetailProductScreen({ route, navigation }) {
 
   useEffect(() => {
     dispatch(getDetailProduct(id));
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

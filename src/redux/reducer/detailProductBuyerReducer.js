@@ -1,10 +1,13 @@
 import {
+  BID_PRODUCT_FAILED,
+  BID_PRODUCT_SUCCESS,
   GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS, GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS,
 } from '../types';
 
 const initialDetailBuyerState = {
   detailBuyer: {},
   allBidProduct: [],
+  bidPrice: 0,
   isSuccess: false,
   error: null,
 };
@@ -26,6 +29,16 @@ export const detailProductBuyerReducer = (
         ...state,
         isSuccess: false,
         error: action.payload,
+      };
+    case BID_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        bidPrice: action.payload,
+        isBid: true,
+      };
+    case BID_PRODUCT_FAILED:
+      return {
+        ...state,
       };
     default:
       return state;

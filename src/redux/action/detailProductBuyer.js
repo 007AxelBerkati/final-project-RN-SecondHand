@@ -51,9 +51,9 @@ export const getDetailProduct = (id) => async (dispatch) => {
   });
 };
 
-export const getAllBidProduct = (accessToken) => async (dispatch) => {
+export const getAllBidProduct = () => async (dispatch) => {
   dispatch(setLoading(true));
-  await getBuyerOrder(accessToken).then((values) => {
+  await getBuyerOrder().then((values) => {
     dispatch(successGetBidProduct(values.data));
     dispatch(setLoading(false));
   }).catch((error) => {
@@ -63,9 +63,9 @@ export const getAllBidProduct = (accessToken) => async (dispatch) => {
   });
 };
 
-export const bidProduct = (payload, accessToken, navigation) => async (dispatch) => {
+export const bidProduct = (payload, navigation) => async (dispatch) => {
   dispatch(setLoading(true));
-  await addBuyerOrder(payload, accessToken).then((response) => {
+  await addBuyerOrder(payload).then((response) => {
     dispatch(successBid(response.data));
     dispatch(setLoading(false));
     navigation.navigate('Notification');
