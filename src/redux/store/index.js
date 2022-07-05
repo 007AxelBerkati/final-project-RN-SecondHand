@@ -9,7 +9,7 @@ import {
   profileReducer, jualReducer, daftarJualReducer,
 
 } from '../reducer';
-import { detailProductBuyerReducer } from '../reducer/detailProductBuyerReducer';
+import { AllBidReducer, detailProductBuyerReducer } from '../reducer/detailProductBuyerReducer';
 import { detailProductSellerReducer } from '../reducer/detailProductSellerReducer';
 import { updateDetailProductSellerReducer } from '../reducer/updateDetailProductSeller';
 
@@ -31,6 +31,7 @@ const rootReducer = {
   dataDetailProductSeller: detailProductSellerReducer,
   dataUpdateDetailProductSeller: updateDetailProductSellerReducer,
   dataDetailProductBuyer: detailProductBuyerReducer,
+  dataAllBid: AllBidReducer,
 };
 
 const configPersist = persistReducer(persistConfig, combineReducers(rootReducer));
