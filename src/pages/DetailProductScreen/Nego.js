@@ -27,12 +27,14 @@ function Nego() {
       </Text>
       <Gap height={windowHeight * 0.02} />
       <CardList
-        source={dataDetailProductBuyer?.image_url}
+        source={{ uri: dataDetailProductBuyer?.image_url }}
         name={dataDetailProductBuyer?.name}
         harga={dataDetailProductBuyer?.base_price}
       />
       <Text style={{ fontFamily: fonts.Poppins.SemiBold }}>Harga Tawar</Text>
-      <Input2 />
+      <Input2
+      label={}
+      />
     </View>
   );
 }

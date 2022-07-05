@@ -62,13 +62,19 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flexDirection: 'row',
+    backgroundColor: colors.background.primary,
+    shadowColor: colors.background.grey,
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 
   image: {
-    marginRight: 16,
-    width: 48,
-    height: 48,
-    borderRadius: borderRadius.large,
+    margin: 11,
+    width: 50,
+    height: 50,
+    borderRadius: borderRadius.small,
+
   },
 
   text: {
