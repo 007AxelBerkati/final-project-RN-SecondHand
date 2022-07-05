@@ -50,10 +50,11 @@ function Nego({ navigation }) {
           <Gap height={windowHeight * 0.02} />
           <Text style={{ fontFamily: fonts.Poppins.SemiBold }}>Harga Tawar</Text>
           <Input
-            placeHolder="Masukkan Tawaranmu"
+            placeHolder="Rp 0.0"
             onChangeText={handleChange('bid_price')}
             value={values.bid_price}
             onBlur={handleBlur('bid_price')}
+            label="Masukkan Tawaranmu"
           />
           {errors.bid_price && touched.bid_price
             && <Text style={styles.errorText}>{errors.bid_price}</Text>}

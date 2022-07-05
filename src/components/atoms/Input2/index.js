@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { colors, fonts, fontSize } from '../../../utils';
 
-function Input({
+function Input2({
   onChangeText,
   value,
   label,
@@ -32,7 +32,7 @@ function Input({
   );
 }
 
-export default memo(Input);
+export default memo(Input2);
 
 const styles = StyleSheet.create({
   input: {

@@ -15,4 +15,5 @@ export const borderRadius = {
   medium: moderateScale(8),
   large: moderateScale(12),
   xlarge: moderateScale(16),
+  xxlarge: moderateScale(30),
 };
