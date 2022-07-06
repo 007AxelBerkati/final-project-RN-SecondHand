@@ -1,16 +1,14 @@
 import {
   StyleSheet, View,
-  Image,
-  Text,
   RefreshControl,
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  CardCategory, CardList, Headers,
+  CardCategory, CardList, Headers, NotLogin,
 } from '../../components';
-import { daftarJualKosong, listDaftarJual } from '../../assets';
+import { listDaftarJual } from '../../assets';
 import {
   getAkun, getOrderSeller, getProductSell, getProductSeller,
 } from '../../redux';
@@ -76,31 +74,27 @@ function DaftarJualScreen({ navigation }) {
   return (
     <View style={styles.pages}>
       <Headers title="Daftar Jual Saya" />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        refreshControl={(
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={() => onRefresh(active)}
-          />
-        )}
-      >
-
-        {
-        !dataLogin.isLoggedIn || dataDaftarJual.length === 0 ? (
-          <View style={styles.notLogin}>
-            <Image source={daftarJualKosong} style={styles.image} />
-            <Text style={styles.notLoginText}>Daftar Jual Anda Kosong</Text>
-          </View>
+      {
+        !dataLogin.isLoggedIn ? (
+          <NotLogin onPress={() => navigation.navigate('LoginScreen')} />
         ) : (
-          <View style={{ marginHorizontal: 3 }}>
-            <CardList type="role" name={dataProfile.full_name} source={{ uri: dataProfile.image_url }} kota={dataProfile.city} onPress={() => navigation.navigate('ProfileScreen')} />
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ marginVertical: 24 }}
-            >
-              {
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            refreshControl={(
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => onRefresh(active)}
+              />
+        )}
+          >
+            <View style={{ marginHorizontal: 3 }}>
+              <CardList type="role" name={dataProfile.full_name} source={{ uri: dataProfile.image_url }} kota={dataProfile.city} onPress={() => navigation.navigate('ProfileScreen')} />
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={{ marginVertical: 24 }}
+              >
+                {
               listDaftarJual.data.map((item) => (
                 <View key={item.id}>
                   <CardCategory
@@ -112,12 +106,12 @@ function DaftarJualScreen({ navigation }) {
                 </View>
               ))
             }
-            </ScrollView>
-            {dataForRender()}
-          </View>
+              </ScrollView>
+              {dataForRender()}
+            </View>
+          </ScrollView>
         )
       }
-      </ScrollView>
 
     </View>
   );

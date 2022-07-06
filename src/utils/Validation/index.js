@@ -68,8 +68,8 @@ export const TambahDataSchema = Yup.object().shape({
     .min(1, 'Kategori minimal satu')
     .required('Silahkan Isi Kategori Produk'),
   deskripsi: Yup.string().required('Silahkan Isi Deskripsi Produk'),
-  // image: Yup
-  //   .string()
-  //   .trim()
-  //   .required('photoProductRequired'),
+  image: Yup
+    .string()
+    .trim()
+    .required('photoProductRequired'),
 });

@@ -52,15 +52,14 @@ function UpdateDetailProductScreen({ route, navigation }) {
           deskripsi: dataDetail.description,
           image: dataDetail.image_url,
         }}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={(values) => {
           onSubmitPost(values);
-          resetForm();
         }}
         validationSchema={TambahDataSchema}
       >
         {({
           handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue,
-          isValid, dirty,
+          isValid,
         }) => (
           <ScrollView showsVerticalScrollIndicator={false}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -124,8 +123,8 @@ function UpdateDetailProductScreen({ route, navigation }) {
                 />
                 <Gap height={windowHeight * 0.03} />
                 <View style={styles.btnWrapper}>
-                  <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={() => navigation.navigate('PreviewScreen', { values })} disable={!(isValid && dirty) || stateGlobal.isLoading} />
-                  <ButtonComponent style={styles.btnTerbitkan} title="Terbitkan" onPress={handleSubmit} disable={!(isValid && dirty) || stateGlobal.isLoading} />
+                  <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={() => navigation.navigate('PreviewScreen', { values })} disable={!isValid || stateGlobal.isLoading} />
+                  <ButtonComponent style={styles.btnTerbitkan} title="Terbitkan" onPress={handleSubmit} disable={!isValid || stateGlobal.isLoading} />
                 </View>
               </View>
             </TouchableWithoutFeedback>
