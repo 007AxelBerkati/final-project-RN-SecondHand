@@ -22,7 +22,7 @@ function CardProduct({
             idJenis !== undefined ? (
               idJenis?.map((item1) => (
                 item.id === item1
-                    && (`${item.name}, `)
+                && (`${item.name}, `)
               ))
             )
               : (`${item.name}, `)
@@ -40,8 +40,6 @@ function CardProduct({
           style={styles.image}
           source={{
             uri: source,
-            priority: FastImage.priority.normal,
-            cache: FastImage.cacheControl.cacheOnly,
           }}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -53,10 +51,10 @@ function CardProduct({
         </Text>
         <Text style={styles.jenis} numberOfLines={1}>
           {
-          jenis?.map((item) => (
-            (`${item.name}, `)
-          ))
-        }
+            jenis?.map((item) => (
+              (`${item.name}, `)
+            ))
+          }
         </Text>
         <Text numberOfLines={1} style={styles.harga}>
           {
