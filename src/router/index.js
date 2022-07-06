@@ -17,6 +17,8 @@ import {
   PreviewScreen,
   DetailProductSellerScreen,
   UpdateDetailProductScreen,
+  PengaturanScreen,
+  ForgotPasswordScreen,
 } from '../pages';
 import { colors } from '../utils';
 import ProfileScreen from '../pages/ProfileScreen';
@@ -162,6 +164,16 @@ function Router() {
         <Stack.Screen
           name="InfoPenawaranScreen"
           component={InfoPenawaranScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PengaturanScreen"
+          component={PengaturanScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
 
