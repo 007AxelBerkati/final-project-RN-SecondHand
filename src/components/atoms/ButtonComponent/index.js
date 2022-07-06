@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 
 ButtonComponent.propTypes = {
   type: propTypes.string,
-  title: propTypes.string.isRequired,
+  title: propTypes.string,
   onPress: propTypes.func.isRequired,
   icon: propTypes.string,
   disable: propTypes.bool,
@@ -98,6 +98,7 @@ ButtonComponent.propTypes = {
 };
 
 ButtonComponent.defaultProps = {
+  title: undefined,
   type: 'primary',
   icon: null,
   disable: false,

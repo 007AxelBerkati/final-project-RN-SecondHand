@@ -72,9 +72,24 @@ function HomeScreen({ navigation }) {
     [dispatch, category],
   );
 
+  const getItemLayout = (data, index) => (
+    { length: 200, offset: 200 * index, index }
+  );
+
+  const renderItem = useCallback(({ item }) => (
+    <CardProduct
+      source={item.image_url}
+      name={item.name}
+      jenis={item.Categories}
+      harga={item.base_price}
+      onPress={() => navigation.navigate('DetailProductBuyerScreen', { id: item.id })}
+    />
+  ), [navigation]);
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
+        nestedScrollEnabled
         showsVerticalScrollIndicator={false}
         refreshControl={(
           <RefreshControl
@@ -128,21 +143,18 @@ function HomeScreen({ navigation }) {
               <FlatList
                 data={dataHome.data}
                 numColumns={2}
+                maxToRenderPerBatch={5}
+                initialNumToRender={5}
+                removeClippedSubviews
+                getItemLayout={getItemLayout}
+                windowSize={10}
                 columnWrapperStyle={{
                   flex: 1,
                   marginHorizontal: 5,
                   marginBottom: 10,
                   justifyContent: 'space-between',
                 }}
-                renderItem={({ item }) => (
-                  <CardProduct
-                    source={{ uri: item.image_url }}
-                    name={item.name}
-                    jenis={item.Categories}
-                    harga={item.base_price}
-                    onPress={() => navigation.navigate('DetailProductBuyerScreen', { id: item.id })}
-                  />
-                )}
+                renderItem={renderItem}
                 keyExtractor={(item) => item.id}
               />
             )

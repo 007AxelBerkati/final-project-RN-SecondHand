@@ -59,12 +59,12 @@ const styles = StyleSheet.create({
 
 Profile.propTypes = {
   isRemove: propTypes.bool,
-  source: propTypes.shape({ uri: propTypes.string.isRequired }),
+  source: propTypes.shape({ uri: propTypes.string }),
   onPress: propTypes.func,
 };
 
 Profile.defaultProps = {
   isRemove: false,
   source: null,
-  onPress: () => {},
+  onPress: undefined,
 };

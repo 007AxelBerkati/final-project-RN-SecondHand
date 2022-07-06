@@ -36,7 +36,15 @@ function CardProduct({
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress} style={{ height: '65%', width: '100%' }}>
-        <FastImage style={styles.image} source={source} />
+        <FastImage
+          style={styles.image}
+          source={{
+            uri: source,
+            priority: FastImage.priority.normal,
+            cache: FastImage.cacheControl.cacheOnly,
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
         <Text
           numberOfLines={1}
           style={styles.name}
@@ -112,10 +120,10 @@ const styles = StyleSheet.create({
 });
 
 CardProduct.propTypes = {
-  onPress: propTypes.func.isRequired,
+  onPress: propTypes.func,
   name: propTypes.string,
   jenis: propTypes.arrayOf(propTypes.oneOfType([propTypes.object])),
-  harga: propTypes.number,
+  harga: propTypes.number || propTypes.string,
   idJenis: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string])),
 };
 CardProduct.defaultProps = {
@@ -123,4 +131,5 @@ CardProduct.defaultProps = {
   jenis: undefined,
   harga: undefined,
   name: undefined,
+  onPress: undefined,
 };

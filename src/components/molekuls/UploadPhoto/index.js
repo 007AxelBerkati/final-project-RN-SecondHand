@@ -61,7 +61,13 @@ const styles = StyleSheet.create({
 export default UploadPhoto;
 
 UploadPhoto.propTypes = {
-  label: propTypes.string.isRequired,
-  source: propTypes.string.isRequired,
-  onPress: propTypes.func.isRequired,
+  label: propTypes.string,
+  source: propTypes.shape({ }) || propTypes.string,
+  onPress: propTypes.func,
+};
+
+UploadPhoto.defaultProps = {
+  label: undefined,
+  source: undefined,
+  onPress: undefined,
 };

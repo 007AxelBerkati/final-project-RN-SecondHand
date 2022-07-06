@@ -70,12 +70,13 @@ const styles = StyleSheet.create({
 });
 
 Headers.propTypes = {
-  onPress: propTypes.func.isRequired,
+  onPress: propTypes.func,
   title: propTypes.string,
   type: propTypes.string,
 };
 
 Headers.defaultProps = {
-  title: '',
-  type: '',
+  onPress: undefined,
+  title: undefined,
+  type: undefined,
 };

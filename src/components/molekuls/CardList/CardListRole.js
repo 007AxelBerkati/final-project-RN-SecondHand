@@ -81,8 +81,15 @@ const styles = StyleSheet.create({
 });
 
 CardListRole.propTypes = {
-  source: propTypes.number.isRequired,
-  onPress: propTypes.func.isRequired,
-  kota: propTypes.string.isRequired,
-  name: propTypes.string.isRequired,
+  source: propTypes.shape({}) || propTypes.string,
+  onPress: propTypes.func,
+  kota: propTypes.string,
+  name: propTypes.string,
+};
+
+CardListRole.defaultProps = {
+  source: undefined,
+  onPress: undefined,
+  kota: undefined,
+  name: undefined,
 };

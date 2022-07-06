@@ -41,5 +41,5 @@ CardListAccount.propTypes = {
 };
 
 CardListAccount.defaultProps = {
-  onPress: () => {},
+  onPress: undefined,
 };

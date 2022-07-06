@@ -115,7 +115,7 @@ CardList.defaultProps = {
   hargaNego: undefined,
   kota: undefined,
   onPress: undefined,
-  type: '',
+  type: undefined,
   title: undefined,
   name: undefined,
   harga: undefined,

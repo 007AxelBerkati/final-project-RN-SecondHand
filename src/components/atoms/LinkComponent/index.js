@@ -27,14 +27,19 @@ const styles = StyleSheet.create({
 
 LinkComponent.propTypes = {
   title: propTypes.string.isRequired,
-  size: propTypes.number.isRequired,
-  align: propTypes.string.isRequired,
-  onPress: propTypes.func.isRequired,
-  color: propTypes.string.isRequired,
-  disable: propTypes.bool.isRequired,
+  size: propTypes.number,
+  align: propTypes.string,
+  onPress: propTypes.func,
+  color: propTypes.string,
+  disable: propTypes.bool,
   style: propTypes.shape({}),
 };
 
 LinkComponent.defaultProps = {
   style: {},
+  size: undefined,
+  align: undefined,
+  onPress: undefined,
+  color: undefined,
+  disable: false,
 };
