@@ -73,3 +73,18 @@ export const TambahDataSchema = Yup.object().shape({
     .trim()
     .required('photoProductRequired'),
 });
+
+export const gantiPassSchema = Yup.object().shape({
+  current_password: Yup
+    .string()
+    .required('Please Enter your password')
+    .trim(),
+  new_password: Yup
+    .string()
+    .required('Please Enter your password')
+    .trim(),
+  confirm_password: Yup
+    .string()
+    .required('Please Enter your password')
+    .trim(),
+});
