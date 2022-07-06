@@ -58,13 +58,15 @@ const styles = StyleSheet.create({
 });
 
 IconButton.propTypes = {
-  onPress: propTypes.func.isRequired,
+  onPress: propTypes.func,
   nonButton: propTypes.bool,
-  label: propTypes.string.isRequired,
+  label: propTypes.string,
   style: propTypes.shape({}),
 };
 
 IconButton.defaultProps = {
   nonButton: false,
   style: {},
+  label: undefined,
+  onPress: undefined,
 };
