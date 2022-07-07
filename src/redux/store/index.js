@@ -8,7 +8,7 @@ import {
   registerReducer, homeReducer,
   profileReducer, jualReducer, daftarJualReducer,
   detailProductSellerReducer, updateDetailProductSellerReducer,
-  detailProductBuyerReducer, infoPenawaranReducer, notifikasiReducer,gantiPassReducer
+  detailProductBuyerReducer, infoPenawaranReducer, notifikasiReducer, gantiPassReducer,
 } from '../reducer';
 
 const persistConfig = {

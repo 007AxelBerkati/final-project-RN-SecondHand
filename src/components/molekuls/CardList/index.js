@@ -10,9 +10,10 @@ import {
 } from '../../../utils';
 import CardListRole from './CardListRole';
 import CardListAccount from './CardListAccount';
+import CardListNotif from './CardListNotif';
 
 function CardList({
-  source, name, harga, hargaNego, onPress, date, title, type, kota,
+  source, name, harga, hargaNego, onPress, date, title, type, kota, status,
 }) {
   if (type === 'role') {
     return (
@@ -26,6 +27,19 @@ function CardList({
     );
   }
 
+  if (type === 'notif') {
+    return (
+      <CardListNotif
+        name={name}
+        onPress={onPress}
+        harga={harga}
+        hargaNego={hargaNego}
+        date={date}
+        status={status}
+        source={source}
+      />
+    );
+  }
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
   const hargaNegoConvert = `Rp. ${parseFloat(hargaNego).toLocaleString('id-ID')}`;
   const dateConvert = moment(date).format('DD MMM, hh:mm');

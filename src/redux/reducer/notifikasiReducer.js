@@ -5,7 +5,7 @@ import {
   GET_NOTIFIKASI_ID_SUCCESS,
   GET_NOTIFIKASI_ID_FAIL,
   GET_NOTIFIKASI_ID_LOADING,
-} from '../types/notifikasi';
+} from '../types';
 
 const initialNotifikasiState = {
   notifikasi: [],
@@ -26,12 +26,14 @@ export const notifikasiReducer = (
         notifikasi: action.payload,
         isSuccess: true,
         error: null,
+        loading: false,
       };
     case GET_NOTIFIKASI_FAIL:
       return {
         ...state,
         isSuccess: false,
         error: action.payload,
+        loading: false,
       };
     case GET_NOTIFIKASI_LOADING:
       return {
