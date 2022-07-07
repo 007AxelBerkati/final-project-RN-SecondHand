@@ -9,3 +9,4 @@ export * from './detailProductSellerReducer';
 export * from './updateDetailProductSellerReducer';
 export * from './detailProductBuyerReducer';
 export * from './infoPenawaranReducer';
+export * from './notifikasiReducer';
