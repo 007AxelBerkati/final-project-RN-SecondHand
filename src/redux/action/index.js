@@ -12,4 +12,3 @@ export * from './detailProductBuyer';
 export * from './infoPenawaran';
 export * from './notifikasi';
 export * from './gantiPass';
-

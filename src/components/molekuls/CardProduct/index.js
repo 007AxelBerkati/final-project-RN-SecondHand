@@ -40,6 +40,8 @@ function CardProduct({
           style={styles.image}
           source={{
             uri: source,
+            priority: FastImage.priority.low,
+            cache: FastImage.cacheControl.immutable,
           }}
           resizeMode={FastImage.resizeMode.contain}
         />

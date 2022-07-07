@@ -8,10 +8,11 @@ import {
 } from '../types/notifikasi';
 
 const initialNotifikasiState = {
-  notifikasi: {},
+  notifikasi: [],
   isSuccess: false,
   error: null,
   loading: false,
+  notifById: {},
 };
 
 export const notifikasiReducer = (
@@ -40,7 +41,7 @@ export const notifikasiReducer = (
     case GET_NOTIFIKASI_ID_SUCCESS:
       return {
         ...state,
-        notifikasi: action.payload,
+        notifById: action.payload,
         isSuccess: true,
         error: null,
       };
