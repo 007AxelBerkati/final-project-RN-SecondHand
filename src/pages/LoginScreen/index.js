@@ -8,7 +8,7 @@ import {
   Keyboard,
   Alert,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TouchID from 'react-native-touch-id';
 import {
@@ -19,12 +19,16 @@ import {
   optionalConfigObject, showError, storeDataSecure, windowHeight,
 } from '../../utils';
 
-import { getLogin, setLoading } from '../../redux';
+import { getLogin, getNotifikasi, setLoading } from '../../redux';
 
 function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
   const dataLogin = useSelector((state) => state.dataLogin);
   const stateGlobal = useSelector((state) => state.dataGlobal);
+
+  useEffect(() => {
+    getNotifikasi();
+  }, []);
 
   const onSubmit = (email, password) => {
     storeDataSecure('user', { email, password });
@@ -93,7 +97,7 @@ function LoginScreen({ navigation }) {
                 leftIcon="email"
               />
               {errors.email && touched.email
-              && <Text style={styles.errorText}>{errors.email}</Text>}
+                && <Text style={styles.errorText}>{errors.email}</Text>}
               <Gap height={16} />
               <Input
                 onChangeText={handleChange('password')}
@@ -104,7 +108,7 @@ function LoginScreen({ navigation }) {
                 leftIcon="key"
               />
               {errors.password
-              && touched.password && <Text style={styles.errorText}>{errors.password}</Text>}
+                && touched.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
               <View style={styles.iconWrapper}>
                 <ButtonComponent

@@ -1,4 +1,5 @@
 import analytics from '@react-native-firebase/analytics';
+import moment from 'moment';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { showError } from '../showMessage';
 
@@ -49,3 +50,5 @@ export const getImage = (setFieldValue, setPhoto) => {
 };
 
 export const formatRupiah = (harga) => `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
+
+export const dateConvert = (date) => moment(date).format('DD MMM, hh:mm');

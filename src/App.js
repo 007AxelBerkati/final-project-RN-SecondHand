@@ -1,13 +1,15 @@
 import CodePush from 'react-native-code-push';
 import FlashMessage from 'react-native-flash-message';
-import { Provider, useSelector } from 'react-redux';
+import { Provider, useSelector, useDispatch } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import React, { useEffect } from 'react';
 import Router from '@router';
 
 import { LogBox, StatusBar } from 'react-native';
-import { Persistore, Store } from './redux';
+import {
+  getNotifikasi, Persistore, Store,
+} from './redux';
 import { Loading } from './components';
 
 const CodePushOptions = {
@@ -20,6 +22,10 @@ const CodePushOptions = {
 
 function MainApp() {
   const stateGlobal = useSelector((state) => state.dataGlobal);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getNotifikasi());
+  }, []);
 
   return (
     <>

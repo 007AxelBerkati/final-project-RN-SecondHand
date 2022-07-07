@@ -1,4 +1,4 @@
-import { getNotif, detailNotif } from '../../services/api/notifikasi';
+import { getNotif, detailNotif } from '../../services';
 import {
   GET_NOTIFIKASI_SUCCESS,
   GET_NOTIFIKASI_FAIL,
@@ -6,7 +6,7 @@ import {
   GET_NOTIFIKASI_ID_SUCCESS,
   GET_NOTIFIKASI_ID_FAIL,
   GET_NOTIFIKASI_ID_LOADING,
-} from '../types/notifikasi';
+} from '../types';
 import { showError } from '../../utils';
 import { setLoading } from './global';
 
@@ -25,9 +25,23 @@ export const getNotifikasiLoading = (data) => ({
   payload: data,
 });
 
+export const read = (data) => ({
+  type: 'READ',
+  payload: data,
+});
+
 export const getNotifikasi = () => async (dispatch) => {
+  dispatch(getNotifikasiLoading(true));
   await getNotif().then((response) => {
-    dispatch(getNotifikasiSuccess(response.data));
+    const checkNotif = () => {
+      for (let i = 0; i < response.data.length; i = +1) {
+        if (response.data[i].read === false) {
+          return false;
+        }
+      }
+      return true;
+    };
+    dispatch(getNotifikasiSuccess(response.data, checkNotif()));
   }).catch((error) => {
     dispatch(getNotifikasiFail(error.response.data.message));
   });
