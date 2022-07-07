@@ -34,6 +34,7 @@ function NotifikasiScreen() {
         harga={item.base_price}
         hargaNego={item.bid_price}
         name={item.product_name}
+        read={item.read}
       />
     )
   );

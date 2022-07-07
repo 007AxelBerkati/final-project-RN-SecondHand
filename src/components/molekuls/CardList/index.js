@@ -13,7 +13,7 @@ import CardListAccount from './CardListAccount';
 import CardListNotif from './CardListNotif';
 
 function CardList({
-  source, name, harga, hargaNego, onPress, date, title, type, kota, status,
+  source, name, harga, hargaNego, onPress, date, title, type, kota, status, read,
 }) {
   if (type === 'role') {
     return (
@@ -37,6 +37,7 @@ function CardList({
         date={date}
         status={status}
         source={source}
+        read={read}
       />
     );
   }

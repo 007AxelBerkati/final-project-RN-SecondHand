@@ -4,12 +4,13 @@ import {
 import React from 'react';
 import FastImage from 'react-native-fast-image';
 import propTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   borderRadius, colors, dateConvert, fonts, fontSize, formatRupiah,
 } from '../../../utils';
 
 function CardListNotif({
-  source, name, harga, hargaNego, onPress, date, status,
+  source, name, harga, hargaNego, onPress, date, status, read,
 }) {
   const titleNotif = () => {
     switch (status) {
@@ -66,7 +67,9 @@ function CardListNotif({
           }
         </View>
         <Text style={styles.date}>{dateConvert(date)}</Text>
-
+        {
+          read === false && (<Icon name="ellipse" color="red" size={10} />)
+        }
       </View>
     </TouchableOpacity>
   );

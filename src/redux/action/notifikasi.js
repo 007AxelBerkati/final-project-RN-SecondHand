@@ -25,10 +25,23 @@ export const getNotifikasiLoading = (data) => ({
   payload: data,
 });
 
+export const read = (data) => ({
+  type: 'READ',
+  payload: data,
+});
+
 export const getNotifikasi = () => async (dispatch) => {
   dispatch(getNotifikasiLoading(true));
   await getNotif().then((response) => {
-    dispatch(getNotifikasiSuccess(response.data));
+    const checkNotif = () => {
+      for (let i = 0; i < response.data.length; i = +1) {
+        if (response.data[i].read === false) {
+          return false;
+        }
+      }
+      return true;
+    };
+    dispatch(getNotifikasiSuccess(response.data, checkNotif()));
   }).catch((error) => {
     dispatch(getNotifikasiFail(error.response.data.message));
   });

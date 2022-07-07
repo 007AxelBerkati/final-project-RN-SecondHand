@@ -13,6 +13,7 @@ const initialNotifikasiState = {
   error: null,
   loading: false,
   notifById: {},
+  read: true,
 };
 
 export const notifikasiReducer = (
@@ -27,6 +28,7 @@ export const notifikasiReducer = (
         isSuccess: true,
         error: null,
         loading: false,
+        read: action.read,
       };
     case GET_NOTIFIKASI_FAIL:
       return {
