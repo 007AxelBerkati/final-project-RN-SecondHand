@@ -10,9 +10,10 @@ import {
 import { showError } from '../../utils';
 import { setLoading } from './global';
 
-export const getNotifikasiSuccess = (data) => ({
+export const getNotifikasiSuccess = (data, read) => ({
   type: GET_NOTIFIKASI_SUCCESS,
   payload: data,
+  read,
 });
 
 export const getNotifikasiFail = (error) => ({
