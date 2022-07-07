@@ -3,6 +3,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import FastImage from 'react-native-fast-image';
+import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
@@ -78,3 +79,17 @@ const styles = StyleSheet.create({
   buttonTitle: { fontSize: fontSize.small },
 
 });
+
+CardListRole.propTypes = {
+  source: propTypes.shape({}) || propTypes.string,
+  onPress: propTypes.func,
+  kota: propTypes.string,
+  name: propTypes.string,
+};
+
+CardListRole.defaultProps = {
+  source: undefined,
+  onPress: undefined,
+  kota: undefined,
+  name: undefined,
+};

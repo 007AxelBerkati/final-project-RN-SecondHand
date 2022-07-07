@@ -3,6 +3,7 @@ import {
 } from 'react-native';
 import React, { memo } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import propTypes from 'prop-types';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../../utils';
@@ -67,3 +68,15 @@ const styles = StyleSheet.create({
   },
 
 });
+
+Headers.propTypes = {
+  onPress: propTypes.func,
+  title: propTypes.string,
+  type: propTypes.string,
+};
+
+Headers.defaultProps = {
+  onPress: undefined,
+  title: undefined,
+  type: undefined,
+};

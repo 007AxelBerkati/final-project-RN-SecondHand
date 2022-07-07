@@ -68,8 +68,23 @@ export const TambahDataSchema = Yup.object().shape({
     .min(1, 'Kategori minimal satu')
     .required('Silahkan Isi Kategori Produk'),
   deskripsi: Yup.string().required('Silahkan Isi Deskripsi Produk'),
-  // image: Yup
-  //   .string()
-  //   .trim()
-  //   .required('photoProductRequired'),
+  image: Yup
+    .string()
+    .trim()
+    .required('photoProductRequired'),
+});
+
+export const gantiPassSchema = Yup.object().shape({
+  current_password: Yup
+    .string()
+    .required('Please Enter your password')
+    .trim(),
+  new_password: Yup
+    .string()
+    .required('Please Enter your password')
+    .trim(),
+  confirm_password: Yup
+    .string()
+    .required('Please Enter your password')
+    .trim(),
 });

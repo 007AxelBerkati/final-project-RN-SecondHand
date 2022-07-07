@@ -18,7 +18,7 @@ function Produk({ dataDaftarJual, navigation }) {
             <CardProduct
               name={item.name}
               jenis={item.Categories}
-              source={{ uri: item.image_url }}
+              source={item.image_url}
               harga={item.base_price}
               onPress={() => navigation.navigate('DetailProductSellerScreen', { id: item.id })}
             />

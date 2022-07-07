@@ -21,7 +21,7 @@ function AkunScreen({ navigation }) {
 
   useEffect(() => {
     dispatch(getAkun());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onLogout = () => {
@@ -38,19 +38,19 @@ function AkunScreen({ navigation }) {
         ) : (
           <ScrollView>
             {
-        dataProfile.isLoading ? (
-          <Placeholder
-            Animation={Fade}
-            style={styles.photoSection}
-          >
-            <PlaceholderMedia style={styles.placeholder} />
-          </Placeholder>
-        ) : (
-          <Profile source={{ uri: dataProfile.profile?.image_url }} />
-        )
-      }
+              dataProfile.isLoading ? (
+                <Placeholder
+                  Animation={Fade}
+                  style={styles.photoSection}
+                >
+                  <PlaceholderMedia style={styles.placeholder} />
+                </Placeholder>
+              ) : (
+                <Profile source={{ uri: dataProfile.profile?.image_url }} />
+              )
+            }
             <CardList type="account" name="edit" title="Ubah Akun" onPress={() => navigation.navigate('ProfileScreen')} />
-            <CardList type="account" name="setting" title="Pengaturan Akun" />
+            <CardList type="account" name="setting" title="Pengaturan Akun" onPress={() => navigation.navigate('PengaturanScreen')} />
             <CardList type="account" name="logout" title="Keluar" onPress={onLogout} />
             <Text style={styles.version}>
               Version
@@ -59,6 +59,7 @@ function AkunScreen({ navigation }) {
             </Text>
           </ScrollView>
         )
+
       }
     </View>
   );

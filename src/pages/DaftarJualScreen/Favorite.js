@@ -1,9 +1,9 @@
 import {
-  Image, StyleSheet, Text, View,
+  StyleSheet, Text, View,
 } from 'react-native';
 import React from 'react';
 import { CardList } from '../../components';
-import { daftarJualKosong } from '../../assets';
+import { IconSellNull } from '../../assets';
 import {
   colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../utils';
@@ -14,7 +14,7 @@ function Favorite({ navigation, productDiminati }) {
       {
       productDiminati.length === 0 ? (
         <View style={styles.empty}>
-          <Image source={daftarJualKosong} style={styles.image} />
+          <IconSellNull style={styles.image} />
           <Text style={styles.emptyText}>Belum ada produkmu yang diminati nih, </Text>
           <Text style={styles.emptyText}>Sabar ya rejeki ngga kemana kok </Text>
         </View>

@@ -1,10 +1,10 @@
 import {
-  StyleSheet, View, Image, StatusBar,
+  StyleSheet, View, Image, StatusBar, Text,
 } from 'react-native';
 import React, { useEffect } from 'react';
-import { Logo } from '../../assets';
+import { IconLogo } from '../../assets';
 import {
-  colors, windowHeight, windowWidth,
+  colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../utils';
 
 function SplashScreen({ navigation }) {
@@ -17,7 +17,8 @@ function SplashScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="transparent" translucent />
-      <Image source={Logo} style={styles.Logo} />
+      <Image source={IconLogo} style={styles.Logo} />
+      <Text style={styles.nickname}>Kelompok 3 RN-3</Text>
     </View>
   );
 }
@@ -29,10 +30,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.background.secondary,
+    backgroundColor: colors.background.primary,
   },
   Logo: {
-    width: windowWidth * 0.5,
-    height: windowHeight * 0.35,
+    width: windowWidth * 0.35,
+    height: windowHeight * 0.20,
+  },
+
+  nickname: {
+    fontSize: fontSize.medium,
+    color: colors.text.tertiary,
+    fontFamily: fonts.Poppins.Medium,
+    position: 'absolute',
+    bottom: 19,
   },
 });

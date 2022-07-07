@@ -120,7 +120,6 @@ function InfoPenawaranScreen({ navigation, route }) {
         snapPoints={dataInfoPenawaran?.status === 'pending' ? snapPointsAccept : snapPointsStatus}
         backdropComponent={BackDropComponent}
         onChange={handleSheetChanges}
-        onClose={() => handleClosePress()}
       >
         {
           dataInfoPenawaran?.status === 'pending' ? (

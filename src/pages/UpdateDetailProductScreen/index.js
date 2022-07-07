@@ -26,7 +26,7 @@ function UpdateDetailProductScreen({ route, navigation }) {
     const formData = new FormData();
     formData.append('name', values.namaProduk);
     formData.append('description', values.deskripsi);
-    formData.append('base_price', values.hargaProduk);
+    formData.append('base_price', parseFloat(values.hargaProduk));
     formData.append('category_ids', values.kategori_id.toString());
     formData.append('location', values.location);
     formData.append('image', {
@@ -52,15 +52,14 @@ function UpdateDetailProductScreen({ route, navigation }) {
           deskripsi: dataDetail.description,
           image: dataDetail.image_url,
         }}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={(values) => {
           onSubmitPost(values);
-          resetForm();
         }}
         validationSchema={TambahDataSchema}
       >
         {({
           handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue,
-          isValid, dirty,
+          isValid,
         }) => (
           <ScrollView showsVerticalScrollIndicator={false}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -124,8 +123,8 @@ function UpdateDetailProductScreen({ route, navigation }) {
                 />
                 <Gap height={windowHeight * 0.03} />
                 <View style={styles.btnWrapper}>
-                  <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={() => navigation.navigate('PreviewScreen', { values })} disable={!(isValid && dirty) || stateGlobal.isLoading} />
-                  <ButtonComponent style={styles.btnTerbitkan} title="Terbitkan" onPress={handleSubmit} disable={!(isValid && dirty) || stateGlobal.isLoading} />
+                  <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={() => navigation.navigate('PreviewScreen', { values })} disable={!isValid || stateGlobal.isLoading} />
+                  <ButtonComponent style={styles.btnTerbitkan} title="Terbitkan" onPress={handleSubmit} disable={!isValid || stateGlobal.isLoading} />
                 </View>
               </View>
             </TouchableWithoutFeedback>

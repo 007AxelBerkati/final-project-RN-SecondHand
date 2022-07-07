@@ -122,13 +122,13 @@ function LoginScreen({ navigation }) {
             </SafeAreaView>
           )}
         </Formik>
-        <Gap height={windowHeight * 0.20} />
+        <Gap height={windowHeight * 0.1} />
         <View style={styles.goRegisterWrapper}>
           <Text style={styles.registerTitle}>
             Belum Punya Akun ?
             {' '}
           </Text>
-          <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={14} onPress={() => navigation.navigate('RegisterScreen')} />
+          <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={fontSize.medium} onPress={() => navigation.navigate('RegisterScreen')} />
         </View>
       </View>
     </TouchableWithoutFeedback>

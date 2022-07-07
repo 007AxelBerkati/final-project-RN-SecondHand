@@ -55,7 +55,7 @@ function RegisterScreen({ navigation }) {
               <SafeAreaView>
                 <Text
                   style={{
-                    marginTop: windowHeight * 0.05,
+                    marginTop: windowHeight * 0.02,
                     alignSelf: 'flex-start',
                     color: colors.text.tertiary,
                     fontSize: 30,
@@ -146,7 +146,7 @@ function RegisterScreen({ navigation }) {
                     title="Masuk disini"
                     color={colors.text.tertiary}
                     onPress={() => navigation.navigate('LoginScreen')}
-                    size={13}
+                    size={fontSize.medium}
                   />
                 </View>
               </SafeAreaView>

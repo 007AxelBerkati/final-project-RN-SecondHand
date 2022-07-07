@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import propTypes from 'prop-types';
 import { colors, fonts, fontSize } from '../../../utils';
 
 function Desc({ label, desc }) {
@@ -34,3 +35,13 @@ const styles = StyleSheet.create({
     fontSize: fontSize.Regular,
   },
 });
+
+Desc.propTypes = {
+  label: propTypes.string,
+  desc: propTypes.string,
+};
+
+Desc.defaultProps = {
+  label: undefined,
+  desc: undefined,
+};
