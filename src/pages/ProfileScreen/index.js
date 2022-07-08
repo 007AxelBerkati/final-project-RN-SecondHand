@@ -4,12 +4,11 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { launchImageLibrary } from 'react-native-image-picker';
 import FormData from 'form-data';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  showError, updateProfileSchema, fonts, colors,
-  windowHeight, windowWidth, fontSize, borderRadius,
+  updateProfileSchema, fonts, colors,
+  windowHeight, windowWidth, fontSize, borderRadius, getImage,
 } from '../../utils';
 import {
   Headers,
@@ -24,37 +23,16 @@ function ProfileScreen({ navigation }) {
   const dataProfile = useSelector((state) => state.dataProfile.profile);
   const [photo, setPhoto] = useState(dataProfile.image_url);
 
-  const getImage = (setFieldValue) => {
-    launchImageLibrary(
-      {
-        quality: 1,
-        maxWidth: 1000,
-        maxHeight: 1000,
-        includeBase64: true,
-      },
-      (response) => {
-        if (response.didCancel || response.error) {
-          showError('Sepertinya anda tidak memilih fotonya');
-        } else {
-          const source = response?.assets[0];
-          const Uri = source.uri;
-          setPhoto(Uri);
-          setFieldValue('image', source, true);
-        }
-      },
-    );
-  };
-
   const updateProfile = (data) => {
     const formData = new FormData();
     formData.append('full_name', data.full_name);
     formData.append('city', data.city);
     formData.append('address', data.address);
-    formData.append('phone_number', parseInt(data.phone_number, 10));
+    formData.append('phone_number', data.phone_number);
     formData.append('image', {
       uri: data.image.uri ? data.image.uri : data.image,
       type: 'image/jpeg',
-      name: data.image.fileName ? data.image.fileName : 'image.jpg',
+      name: data.image.fileName ? data.image.fileName : 'image.jpeg',
     });
     dispatch(putDataProfile(formData, navigation));
   };
@@ -85,12 +63,11 @@ function ProfileScreen({ navigation }) {
           <ScrollView showsVerticalScrollIndicator={false}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
               <View>
-
                 <View style={styles.photo}>
                   <Profile
                     source={{ uri: photo }}
                     isRemove
-                    onPress={() => getImage(setFieldValue)}
+                    onPress={() => getImage(setFieldValue, setPhoto)}
                   />
                 </View>
                 <Input2
@@ -102,8 +79,7 @@ function ProfileScreen({ navigation }) {
                 />
                 {errors.full_name && touched.full_name
               && <Text style={styles.errorText}>{errors.full_name}</Text>}
-                <Gap height={15} />
-
+                <Gap height={windowHeight * 0.01} />
                 <Select
                   data={kota}
                   onSelect={(selectedItem) => {
@@ -114,7 +90,7 @@ function ProfileScreen({ navigation }) {
                 />
                 {errors.city && touched.city
               && <Text style={styles.errorText}>{errors.city}</Text>}
-                <Gap height={15} />
+                <Gap height={windowHeight * 0.01} />
                 <Input2
                   leftIcon="map-marker"
                   label="Alamat"
@@ -126,7 +102,7 @@ function ProfileScreen({ navigation }) {
                 />
                 {errors.address && touched.address
               && <Text style={styles.errorText}>{errors.address}</Text>}
-                <Gap height={15} />
+                <Gap height={windowHeight * 0.01} />
                 <Input2
                   leftIcon="phone"
                   label="Nomor Telepon +62"
@@ -136,7 +112,8 @@ function ProfileScreen({ navigation }) {
                 />
                 {errors.phone_number && touched.phone_number
               && <Text style={styles.errorText}>{errors.phone_number}</Text>}
-                <Gap height={windowHeight * 0.05} />
+                <Gap height={windowHeight * 0.02} />
+
                 <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(isValid) || stateGlobal.isLoading} />
               </View>
             </TouchableWithoutFeedback>

@@ -5,6 +5,8 @@ import { TextInput } from 'react-native-paper';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
+import propTypes from 'prop-types';
+import { colors, fonts, fontSize } from '../../../utils';
 
 function Input({
   onChangeText,
@@ -60,3 +62,18 @@ const styles = StyleSheet.create({
 
   },
 });
+
+Input.propTypes = {
+  onChangeText: propTypes.func.isRequired,
+  value: propTypes.string.isRequired,
+  label: propTypes.string.isRequired,
+  onBlur: propTypes.func.isRequired,
+  cannotEdited: propTypes.bool,
+  secureTextEntry: propTypes.bool,
+  leftIcon: propTypes.string.isRequired,
+};
+
+Input.defaultProps = {
+  cannotEdited: false,
+  secureTextEntry: false,
+};

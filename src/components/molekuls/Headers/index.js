@@ -3,7 +3,10 @@ import {
 } from 'react-native';
 import React, { memo } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import { colors, fonts, fontSize } from '../../../utils';
+import propTypes from 'prop-types';
+import {
+  colors, fonts, fontSize, windowHeight,
+} from '../../../utils';
 
 function Headers({ onPress, title, type }) {
   if (type === 'back-title') {
@@ -38,7 +41,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Poppins.Bold,
     fontSize: fontSize.xxlarge,
     color: colors.text.primary,
-
   },
 
   container: {
@@ -47,6 +49,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: windowHeight * 0.03,
   },
 
   container2: {
@@ -54,6 +57,7 @@ const styles = StyleSheet.create({
     width: null,
     height: 50,
     alignItems: 'center',
+    marginTop: windowHeight * 0.03,
   },
 
   titleBack: {
@@ -64,3 +68,15 @@ const styles = StyleSheet.create({
   },
 
 });
+
+Headers.propTypes = {
+  onPress: propTypes.func,
+  title: propTypes.string,
+  type: propTypes.string,
+};
+
+Headers.defaultProps = {
+  onPress: undefined,
+  title: undefined,
+  type: undefined,
+};

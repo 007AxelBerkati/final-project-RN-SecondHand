@@ -25,13 +25,7 @@ export const loginReducer = (state = initialLoginState, action = {}) => {
       };
 
     case LOGOUT:
-      return {
-        ...state,
-        isLoggedIn: false,
-        isSuccess: false,
-        data: {},
-        error: '',
-      };
+      return initialLoginState;
 
     default:
       return state;

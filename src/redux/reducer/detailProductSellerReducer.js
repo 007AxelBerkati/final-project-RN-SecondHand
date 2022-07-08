@@ -1,6 +1,7 @@
 import {
+
   // eslint-disable-next-line max-len
-  DELETE_PRODUCT_FAIL, DELETE_PRODUCT_SUCCESS, GET_PRODUCT_SELLER_ID_FAIL, GET_PRODUCT_SELLER_ID_SUCCESS,
+  DELETE_PRODUCT_FAIL, DELETE_PRODUCT_SUCCESS, GET_PRODUCT_SELLER_ID_FAIL, GET_PRODUCT_SELLER_ID_SUCCESS, LOGOUT
 
 } from '../types';
 
@@ -44,6 +45,8 @@ export const detailProductSellerReducer = (
         isSuccess: false,
         error: action.payload,
       };
+    case LOGOUT:
+      return initialDetailProductSellerState;
 
     default:
       return state;

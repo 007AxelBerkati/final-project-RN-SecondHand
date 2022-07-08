@@ -3,7 +3,9 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useSelector } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View } from 'react-native';
 import {
   AkunScreen,
   DaftarJualScreen,
@@ -13,11 +15,17 @@ import {
   LoginScreen,
   RegisterScreen,
   SplashScreen,
+  InfoPenawaranScreen,
   PreviewScreen,
   DetailProductScreen,
+  DetailProductSellerScreen,
+  UpdateDetailProductScreen,
+  PengaturanScreen,
+  ForgotPasswordScreen,
 } from '../pages';
-import { colors } from '../utils';
+import { colors, fonts } from '../utils';
 import ProfileScreen from '../pages/ProfileScreen';
+import DetailProductBuyerScreen from '../pages/DetailProductBuyerScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -34,6 +42,7 @@ const MyTheme = {
 };
 
 function MyTabs() {
+  const read = useSelector((state) => state.dataNotifikasi.read);
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -44,6 +53,7 @@ function MyTabs() {
         },
         tabBarLabelStyle: {
           marginBottom: 10,
+          fontFamily: fonts.Poppins.Regular,
         },
         tabBarActiveTintColor: colors.secondary,
       })}
@@ -53,7 +63,7 @@ function MyTabs() {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => <Icon name="home" color={color} size={26} />,
+          tabBarIcon: ({ color }) => <Icon name="home-outline" color={color} size={22} />,
           headerShown: false,
         }}
       />
@@ -63,9 +73,13 @@ function MyTabs() {
         component={NotifikasiScreen}
         options={{
           tabBarLabel: 'Notifikasi',
-          tabBarColor: 'red',
           tabBarIcon: ({ color }) => (
-            <Icon name="notifications" color={color} size={26} />
+            <View>
+              <Icon name="notifications-outline" color={color} size={22} />
+              {!read && (
+                <Icon name="ellipse" color="red" size={10} style={{ position: 'absolute', right: 0 }} />
+              )}
+            </View>
           ),
           headerShown: false,
         }}
@@ -77,19 +91,18 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Jual',
           tabBarIcon: ({ color }) => (
-            <Icon name="add-circle-outline" color={color} size={26} />
+            <Icon name="add-circle-outline" color={color} size={22} />
           ),
           headerShown: false,
         }}
       />
 
       <Tab.Screen
-        name="Daftar Jual"
+        name="DaftarJual"
         component={DaftarJualScreen}
         options={{
           tabBarLabel: 'Daftar Jual',
-          tabBarColor: 'green',
-          tabBarIcon: ({ color }) => <Icon name="list" color={color} size={26} />,
+          tabBarIcon: ({ color }) => <Icon name="list" color={color} size={22} />,
           headerShown: false,
         }}
       />
@@ -99,7 +112,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Akun',
           tabBarIcon: ({ color }) => (
-            <Icon name="person" color={color} size={26} />
+            <Icon name="person-outline" color={color} size={22} />
           ),
           headerShown: false,
         }}
@@ -108,7 +121,7 @@ function MyTabs() {
   );
 }
 
-function Router() {
+function Router({ notif }) {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator initialRouteName="SplashScreen">
@@ -131,6 +144,7 @@ function Router() {
           name="MainApp"
           component={MyTabs}
           options={{ headerShown: false }}
+          initialParams={{ notif }}
         />
         <Stack.Screen
           name="ProfileScreen"
@@ -143,8 +157,38 @@ function Router() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="DetailProductSellerScreen"
+          component={DetailProductSellerScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="DetailProductScreen"
           component={DetailProductScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="UpdateDetailProductScreen"
+          component={UpdateDetailProductScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DetailProductBuyerScreen"
+          component={DetailProductBuyerScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="InfoPenawaranScreen"
+          component={InfoPenawaranScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PengaturanScreen"
+          component={PengaturanScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen}
           options={{ headerShown: false }}
         />
 

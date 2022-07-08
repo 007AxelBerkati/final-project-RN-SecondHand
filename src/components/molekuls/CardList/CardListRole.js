@@ -1,8 +1,9 @@
 import {
-  Image,
   StyleSheet, Text, View,
 } from 'react-native';
 import React from 'react';
+import FastImage from 'react-native-fast-image';
+import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
@@ -14,7 +15,7 @@ function CardListRole({
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        <Image source={source} style={styles.image} />
+        <FastImage source={source} style={styles.image} />
         <View style={styles.desc}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.kota}>{kota}</Text>
@@ -78,3 +79,17 @@ const styles = StyleSheet.create({
   buttonTitle: { fontSize: fontSize.small },
 
 });
+
+CardListRole.propTypes = {
+  source: propTypes.shape({}) || propTypes.string,
+  onPress: propTypes.func,
+  kota: propTypes.string,
+  name: propTypes.string,
+};
+
+CardListRole.defaultProps = {
+  source: undefined,
+  onPress: undefined,
+  kota: undefined,
+  name: undefined,
+};

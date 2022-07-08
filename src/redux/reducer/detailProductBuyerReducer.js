@@ -1,3 +1,4 @@
+
 import {
   BID_PRODUCT_FAILED,
   BID_PRODUCT_SUCCESS,
@@ -8,9 +9,7 @@ const initialDetailBuyerState = {
   detailBuyer: {},
   allBidProduct: [],
   bidPrice: 0,
-  isSuccess: false,
-  error: null,
-};
+}
 
 export const detailProductBuyerReducer = (
   state = initialDetailBuyerState,
@@ -56,6 +55,8 @@ export const AllBidReducer = (state = initialDetailBuyerState, action = {}) => {
       return {
         ...state,
       };
+    case LOGOUT:
+      return initialDetailBuyerState;
     default:
       return state;
   }

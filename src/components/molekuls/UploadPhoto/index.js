@@ -1,9 +1,11 @@
 import React from 'react';
 import {
-  View, TouchableOpacity, StyleSheet, Text, Image,
+  View, TouchableOpacity, StyleSheet, Text,
 } from 'react-native';
 import { moderateScale, scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/AntDesign';
+import FastImage from 'react-native-fast-image';
+import propTypes from 'prop-types';
 import { colors, fonts } from '../../../utils';
 import { Gap } from '../../atoms';
 
@@ -18,7 +20,7 @@ function UploadPhoto({ label, source, onPress }) {
         </TouchableOpacity>
       ) : (
         <TouchableOpacity style={styles.parent2} onPress={onPress}>
-          <Image source={source} style={styles.image} />
+          <FastImage source={source} style={styles.image} />
         </TouchableOpacity>
       )}
 
@@ -46,6 +48,8 @@ const styles = StyleSheet.create({
     width: moderateScale(96),
     height: moderateScale(96),
     borderRadius: 12,
+    borderWidth: 1,
+    borderColor: colors.border.secondary,
     overflow: 'hidden',
   },
   image: {
@@ -55,3 +59,15 @@ const styles = StyleSheet.create({
 });
 
 export default UploadPhoto;
+
+UploadPhoto.propTypes = {
+  label: propTypes.string,
+  source: propTypes.shape({ }) || propTypes.string,
+  onPress: propTypes.func,
+};
+
+UploadPhoto.defaultProps = {
+  label: undefined,
+  source: undefined,
+  onPress: undefined,
+};

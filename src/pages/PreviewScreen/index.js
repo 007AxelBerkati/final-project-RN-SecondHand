@@ -35,7 +35,7 @@ function PreviewScreen({ route, navigation }) {
       name: dataValues.image.fileName ? dataValues.image.fileName : 'image.jpg',
     });
 
-    dispatch(postProduct(formData));
+    dispatch(postProduct(formData, navigation));
   };
 
   return (
@@ -45,13 +45,14 @@ function PreviewScreen({ route, navigation }) {
         <View style={styles.imageContainer}>
           <ImageSlider
             data={[
-              { img: values.image.uri },
+              { img: values.image.uri ? values.image.uri : values.image },
             ]}
             autoPlay
             timer={5000}
             closeIconColor={colors.background.primary}
             caroselImageStyle={{ height: windowHeight * 0.4 }}
             indicatorContainerStyle={{ bottom: windowHeight * 0.05 }}
+            activeIndicatorStyle={{ backgroundColor: colors.background.secondary }}
 
           />
           <View style={styles.btnBackContainer}>
@@ -65,7 +66,7 @@ function PreviewScreen({ route, navigation }) {
             <CardProduct
               name={values.namaProduk}
               jenis={dataCategory.category}
-              idJenis={values.kategory_id}
+              idJenis={values.kategori_id}
               harga={values.hargaProduk}
             />
           </View>
@@ -111,24 +112,21 @@ const styles = StyleSheet.create({
   card: {
     marginHorizontal: 16,
     marginBottom: 30,
-    marginTop: -24,
+    marginTop: windowHeight * -0.02,
   },
 
   pages: {
     flex: 1,
     backgroundColor: colors.background.primary,
   },
-
   btnNego: {
     padding: 16,
     position: 'absolute',
     width: '100%',
     bottom: 1,
   },
-
   productWrapper: {
     marginHorizontal: 16,
-    marginTop: -40,
+    marginTop: windowHeight * -0.07,
   },
-
 });
