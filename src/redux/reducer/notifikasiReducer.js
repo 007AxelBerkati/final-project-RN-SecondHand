@@ -5,6 +5,7 @@ import {
   GET_NOTIFIKASI_ID_SUCCESS,
   GET_NOTIFIKASI_ID_FAIL,
   GET_NOTIFIKASI_ID_LOADING,
+  LOGOUT,
 } from '../types';
 
 const initialNotifikasiState = {
@@ -61,6 +62,8 @@ export const notifikasiReducer = (
         loading: action.payload,
       };
 
+    case LOGOUT:
+      return initialNotifikasiState;
     default:
       return state;
   }

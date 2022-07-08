@@ -8,36 +8,38 @@ import {
 } from '../../utils';
 import { CardList } from '../../components';
 
-function Terjual({ navigation, dataHistory }) {
+function Terjual({ navigation, dataTerjual }) {
   return (
     <View style={styles.page}>
       {
-      dataHistory?.length === 0 ? (
-        <View style={styles.empty}>
-          <IconSellNull style={styles.image} />
-          <Text style={styles.emptyText}>Belum ada produkmu yang terjual nih, </Text>
-          <Text style={styles.emptyText}>Sabar ya rejeki ngga kemana kok </Text>
-        </View>
-      ) : (
-        <View>
-          {
-        dataHistory?.map((item) => (
-          <CardList
-            key={item.id}
-            name={item.product_name}
-            title={item.category}
-            source={{ uri: item.image_url }}
-            date={item.transaction_date}
-            harga={item.price}
-            onPress={() => navigation.navigate('InfoPenawaranScreen')}
-          />
-        ))
+        dataTerjual?.length === 0 ? (
+          <View style={styles.empty}>
+            <IconSellNull style={styles.image} />
+            <Text style={styles.emptyText}>Belum ada produkmu yang terjual nih, </Text>
+            <Text style={styles.emptyText}>Sabar ya rejeki ngga kemana kok </Text>
+          </View>
+        ) : (
+          <View>
+            {
+              dataTerjual?.map((item) => (
+                item?.status === 'sold' && (
+                  <CardList
+                    key={item.id}
+                    name={item.product_name}
+                    title={item.category}
+                    source={{ uri: item.image_url }}
+                    date={item.transaction_date}
+                    harga={item.price}
+                    onPress={() => navigation.navigate('InfoPenawaranScreen')}
+                  />
+                )
+              ))
+
+            }
+          </View>
+        )
 
       }
-        </View>
-      )
-
-    }
 
     </View>
   );

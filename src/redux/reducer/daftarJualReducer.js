@@ -85,13 +85,7 @@ export const daftarJualReducer = (state = initialDaftarJualState, action = {}) =
       };
 
     case LOGOUT:
-      return {
-        ...state,
-        daftarJual: [],
-        loading: false,
-        isSuccess: false,
-        error: null,
-      };
+      return initialDaftarJualState;
 
     default:
       return state;

@@ -1,4 +1,4 @@
-import { PUT_PASSWORD_FAIL, PUT_PASSWORD_SUCCESS } from '../types';
+import { LOGOUT, PUT_PASSWORD_FAIL, PUT_PASSWORD_SUCCESS } from '../types';
 
 const initialUpdatePassState = {
   isSuccess: false,
@@ -19,6 +19,8 @@ export const gantiPassReducer = (state = initialUpdatePassState, action = {}) =>
         isSuccess: false,
         error: action.payload,
       };
+    case LOGOUT:
+      return initialUpdatePassState;
     default:
       return state;
   }

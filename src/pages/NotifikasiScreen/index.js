@@ -3,11 +3,14 @@ import {
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CardList, EmptySkeletonNotif, Headers } from '../../components';
+import {
+  CardList, EmptySkeletonNotif, Headers, NotLogin,
+} from '../../components';
 import { getNotifikasi } from '../../redux';
 
 function NotifikasiScreen() {
   const [refreshing, setRefreshing] = useState(false);
+  const dataLogin = useSelector((state) => state.dataLogin);
 
   const dispatch = useDispatch();
   const dataNotif = useSelector((state) => state.dataNotifikasi);
@@ -42,17 +45,22 @@ function NotifikasiScreen() {
   return (
     <View style={styles.pages}>
       <Headers title="Notifikasi" />
-      <FlatList
-        data={dataNotif.notifikasi}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        maxToRenderPerBatch={5}
-        initialNumToRender={5}
-        removeClippedSubviews
-        refreshing={refreshing}
-        onRefresh={() => onRefresh()}
-      />
+      {!dataLogin.isLoggedIn ? (
+        <NotLogin />
+      ) : (
+        <FlatList
+          data={dataNotif.notifikasi}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          maxToRenderPerBatch={5}
+          initialNumToRender={5}
+          removeClippedSubviews
+          refreshing={refreshing}
+          onRefresh={() => onRefresh()}
+        />
+      )}
+
     </View>
   );
 }

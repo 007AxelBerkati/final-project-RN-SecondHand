@@ -1,5 +1,6 @@
 import {
   GET_ORDER_SELLER_ID_FAIL, GET_ORDER_SELLER_ID_LOADING, GET_ORDER_SELLER_ID_SUCCESS,
+  LOGOUT,
   PATCH_ORDER_SELLER_FAIL, PATCH_ORDER_SELLER_LOADING, PATCH_ORDER_SELLER_SUCCESS,
 } from '../types';
 
@@ -54,6 +55,9 @@ export const infoPenawaranReducer = (state = initialInfoPenawaranState, action =
         isSuccess: false,
         error: action.payload,
       };
+
+    case LOGOUT:
+      return initialInfoPenawaranState;
 
     default:
       return state;

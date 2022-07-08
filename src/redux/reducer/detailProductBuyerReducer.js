@@ -1,4 +1,4 @@
-import { GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS } from '../types';
+import { GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS, LOGOUT } from '../types';
 
 const initialDetailBuyerState = {
   detailBuyer: {},
@@ -24,6 +24,9 @@ export const detailProductBuyerReducer = (
         isSuccess: false,
         error: action.payload,
       };
+
+    case LOGOUT:
+      return initialDetailBuyerState;
     default:
       return state;
   }

@@ -46,12 +46,7 @@ export const profileReducer = (state = initialStateUpdateProfile, action = {}) =
       };
 
     case LOGOUT:
-      return {
-        ...state,
-        isSuccess: false,
-        error: '',
-        isLoading: false,
-      };
+      return initialStateUpdateProfile;
 
     default:
       return state;

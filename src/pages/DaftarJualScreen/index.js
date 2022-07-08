@@ -10,7 +10,7 @@ import {
 } from '../../components';
 import { listDaftarJual } from '../../assets';
 import {
-  getAkun, getOrderSeller, getProductSell, getProductSeller,
+  getAkun, getOrderSeller, getProductSeller,
 } from '../../redux';
 import {
   colors, fonts, fontSize, windowHeight,
@@ -28,7 +28,6 @@ function DaftarJualScreen({ navigation }) {
   const dataLogin = useSelector((state) => state.dataLogin);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
   const dataOrder = useSelector((state) => state.dataDaftarJual.productDiminati);
-  const dataHistory = useSelector((state) => state.dataDaftarJual.productDijual);
 
   const getDaftarJual = (id) => {
     setActive(id);
@@ -37,7 +36,7 @@ function DaftarJualScreen({ navigation }) {
         dispatch(getProductSeller());
         break;
       case 2:
-        dispatch(getProductSell());
+        dispatch(getOrderSeller());
         break;
       case 3:
         dispatch(getOrderSeller());
@@ -65,7 +64,7 @@ function DaftarJualScreen({ navigation }) {
       case 2:
         return <Favorite productDiminati={dataOrder} navigation={navigation} />;
       case 3:
-        return <Terjual dataHistory={dataHistory} navigation={navigation} />;
+        return <Terjual dataTerjual={dataOrder} navigation={navigation} />;
       default:
         return null;
     }
@@ -85,7 +84,7 @@ function DaftarJualScreen({ navigation }) {
                 refreshing={refreshing}
                 onRefresh={() => onRefresh(active)}
               />
-        )}
+            )}
           >
             <View style={{ marginHorizontal: 3 }}>
               <CardList type="role" name={dataProfile.full_name} source={{ uri: dataProfile.image_url }} kota={dataProfile.city} onPress={() => navigation.navigate('ProfileScreen')} />
@@ -95,17 +94,17 @@ function DaftarJualScreen({ navigation }) {
                 style={{ marginVertical: 24 }}
               >
                 {
-              listDaftarJual.data.map((item) => (
-                <View key={item.id}>
-                  <CardCategory
-                    active={active === item.id}
-                    name={item.name}
-                    kategori={item.category}
-                    onPress={() => getDaftarJual(item.id)}
-                  />
-                </View>
-              ))
-            }
+                  listDaftarJual.data.map((item) => (
+                    <View key={item.id}>
+                      <CardCategory
+                        active={active === item.id}
+                        name={item.name}
+                        kategori={item.category}
+                        onPress={() => getDaftarJual(item.id)}
+                      />
+                    </View>
+                  ))
+                }
               </ScrollView>
               {dataForRender()}
             </View>
