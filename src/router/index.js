@@ -17,6 +17,7 @@ import {
   SplashScreen,
   InfoPenawaranScreen,
   PreviewScreen,
+  DetailProductScreen,
   DetailProductSellerScreen,
   UpdateDetailProductScreen,
   PengaturanScreen,
@@ -158,6 +159,11 @@ function Router({ notif }) {
         <Stack.Screen
           name="DetailProductSellerScreen"
           component={DetailProductSellerScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DetailProductScreen"
+          component={DetailProductScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

@@ -88,3 +88,8 @@ export const gantiPassSchema = Yup.object().shape({
     .required('Please Enter your password')
     .trim(),
 });
+
+export const bidPriceSchema = Yup.object().shape({
+  bid_price: Yup.number()
+    .typeError('you must specify a number'),
+});

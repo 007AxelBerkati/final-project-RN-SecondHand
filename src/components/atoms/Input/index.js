@@ -2,6 +2,9 @@
 import React, { memo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import {
+  borderRadius, colors, fonts, fontSize,
+} from '../../../utils';
 import propTypes from 'prop-types';
 import { colors, fonts, fontSize } from '../../../utils';
 
@@ -9,6 +12,7 @@ function Input({
   onChangeText,
   value,
   label,
+  placeholder,
   onBlur,
   cannotEdited,
   secureTextEntry,
@@ -18,12 +22,13 @@ function Input({
 }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   return (
-    <View>
+    <View style={{ borderRadius: borderRadius.xxlarge }}>
       <TextInput
         onChangeText={onChangeText}
         value={value}
         label={label}
         onBlur={onBlur}
+        placeholder={placeholder}
         mode="outlined"
         activeOutlineColor={colors.lineTextInput}
         outlineColor={
@@ -54,6 +59,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Poppins.Regular,
     fontSize: fontSize.medium,
     color: colors.text.primary,
+
   },
 });
 

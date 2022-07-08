@@ -5,11 +5,12 @@ import { TextInput } from 'react-native-paper';
 import propTypes from 'prop-types';
 import { colors, fonts, fontSize } from '../../../utils';
 
-function Input({
+function Input2({
   onChangeText,
   value,
   label,
   onBlur,
+  placeholder,
   cannotEdited,
   ...props
 
@@ -21,6 +22,7 @@ function Input({
         value={value}
         label={label}
         onBlur={onBlur}
+        placeholder={placeholder}
         mode="outlined"
         activeOutlineColor={colors.lineTextInput}
         outlineColor={
@@ -33,7 +35,7 @@ function Input({
   );
 }
 
-export default memo(Input);
+export default memo(Input2);
 
 const styles = StyleSheet.create({
   input: {

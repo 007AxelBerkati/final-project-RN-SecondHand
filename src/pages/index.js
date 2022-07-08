@@ -8,6 +8,7 @@ import NotifikasiScreen from './NotifikasiScreen';
 import SplashScreen from './SplashScreen';
 import InfoPenawaranScreen from './InfoPenawaranScreen';
 import PreviewScreen from './PreviewScreen';
+import DetailProductScreen from './DetailProductScreen';
 import DetailProductSellerScreen from './DetailProductSellerScreen';
 import UpdateDetailProductScreen from './UpdateDetailProductScreen';
 import PengaturanScreen from './PengaturanScreen';
@@ -16,7 +17,6 @@ import ForgotPasswordScreen from './ForgotPasswordScreen';
 export {
   LoginScreen,
   RegisterScreen, HomeScreen, DaftarJualScreen, AkunScreen, JualScreen, NotifikasiScreen,
-  SplashScreen, PreviewScreen,
-  DetailProductSellerScreen, UpdateDetailProductScreen, InfoPenawaranScreen,
+  SplashScreen, PreviewScreen, DetailProductScreen, DetailProductSellerScreen, UpdateDetailProductScreen, InfoPenawaranScreen,
   PengaturanScreen, ForgotPasswordScreen,
 };

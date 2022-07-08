@@ -54,8 +54,6 @@ export const getCategoryProduct = () => async (dispatch) => {
   });
 };
 
-// END GET CATEGORY
-
 // GET BANNER
 export const getBannerSuccess = (data) => ({
   type: GET_BANNER_SELLER_SUCCESS,
@@ -83,4 +81,4 @@ export const getBannerSeller = () => async (dispatch) => {
     dispatch(getBannerFail(error.response.data.message));
   });
 };
-// END GET BANNER
+
