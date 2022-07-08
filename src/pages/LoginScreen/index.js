@@ -8,7 +8,7 @@ import {
   Keyboard,
   Alert,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TouchID from 'react-native-touch-id';
 import {
@@ -26,13 +26,10 @@ function LoginScreen({ navigation }) {
   const dataLogin = useSelector((state) => state.dataLogin);
   const stateGlobal = useSelector((state) => state.dataGlobal);
 
-  useEffect(() => {
-    getNotifikasi();
-  }, []);
-
   const onSubmit = (email, password) => {
     storeDataSecure('user', { email, password });
     dispatch(getLogin(email, password, navigation, dataLogin));
+    dispatch(getNotifikasi());
   };
 
   const onFingerprint = () => {

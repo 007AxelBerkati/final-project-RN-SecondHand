@@ -10,7 +10,7 @@ import {
 } from '../../components';
 import { listDaftarJual } from '../../assets';
 import {
-  getAkun, getOrderSeller, getProductSeller,
+  getAkun, getOrderSeller, getProductSell, getProductSeller,
 } from '../../redux';
 import {
   colors, fonts, fontSize, windowHeight,
@@ -39,7 +39,7 @@ function DaftarJualScreen({ navigation }) {
         dispatch(getOrderSeller());
         break;
       case 3:
-        dispatch(getOrderSeller());
+        dispatch(getProductSell());
         break;
       default:
         break;
@@ -64,7 +64,7 @@ function DaftarJualScreen({ navigation }) {
       case 2:
         return <Favorite productDiminati={dataOrder} navigation={navigation} />;
       case 3:
-        return <Terjual dataTerjual={dataOrder} navigation={navigation} />;
+        return <Terjual dataHistory={dataOrder} navigation={navigation} />;
       default:
         return null;
     }
