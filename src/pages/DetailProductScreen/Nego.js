@@ -13,6 +13,7 @@ import {
   ButtonComponent,
   CardList, Gap, Input2,
 } from '../../components';
+// eslint-disable-next-line import/namespace
 import { bidProduct } from '../../redux/action/detailProductBuyer';
 
 function Nego({ navigation }) {

@@ -10,9 +10,7 @@ import {
   detailProductSellerReducer, updateDetailProductSellerReducer,
   detailProductBuyerReducer, infoPenawaranReducer, notifikasiReducer, gantiPassReducer,
 } from '../reducer';
-import { AllBidReducer, detailProductBuyerReducer } from '../reducer/detailProductBuyerReducer';
-import { detailProductSellerReducer } from '../reducer/detailProductSellerReducer';
-import { updateDetailProductSellerReducer } from '../reducer/updateDetailProductSeller';
+import { AllBidReducer } from '../reducer/detailProductBuyerReducer';
 
 const persistConfig = {
   key: 'root',
