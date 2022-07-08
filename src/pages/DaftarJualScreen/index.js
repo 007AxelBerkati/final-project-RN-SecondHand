@@ -28,6 +28,7 @@ function DaftarJualScreen({ navigation }) {
   const dataLogin = useSelector((state) => state.dataLogin);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
   const dataOrder = useSelector((state) => state.dataDaftarJual.productDiminati);
+  const dataHistory = useSelector((state) => state.dataDaftarJual.productDijual);
 
   const getDaftarJual = (id) => {
     setActive(id);
@@ -64,7 +65,7 @@ function DaftarJualScreen({ navigation }) {
       case 2:
         return <Favorite productDiminati={dataOrder} navigation={navigation} />;
       case 3:
-        return <Terjual dataHistory={dataOrder} navigation={navigation} />;
+        return <Terjual dataHistory={dataHistory} navigation={navigation} />;
       default:
         return null;
     }

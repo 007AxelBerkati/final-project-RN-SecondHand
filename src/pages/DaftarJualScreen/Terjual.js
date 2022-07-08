@@ -22,17 +22,18 @@ function Terjual({ navigation, dataHistory }) {
           <View>
             {
               dataHistory?.map((item) => (
-                <CardList
-                  key={item.id}
-                  name={item.product_name}
-                  title={item.category}
-                  source={{ uri: item.image_url }}
-                  date={item.transaction_date}
-                  harga={item.price}
-                  onPress={() => navigation.navigate('InfoPenawaranScreen')}
-                />
+                item?.category === 'sold' && (
+                  <CardList
+                    key={item.id}
+                    name={item.product_name}
+                    title={item.category}
+                    source={{ uri: item.image_url }}
+                    date={item.transaction_date}
+                    harga={item.price}
+                    onPress={() => navigation.navigate('InfoPenawaranScreen')}
+                  />
+                )
               ))
-
             }
           </View>
         )
