@@ -2,11 +2,10 @@
 import React, { memo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
-import propTypes from 'prop-types';
-import { colors, fonts, fontSize } from '../../../utils';
 
 function Input({
   onChangeText,

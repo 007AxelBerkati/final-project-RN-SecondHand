@@ -1,15 +1,15 @@
-
 import {
   BID_PRODUCT_FAILED,
   BID_PRODUCT_SUCCESS,
-  GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS, GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS,
+  GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS,
+  GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS, LOGOUT,
 } from '../types';
 
 const initialDetailBuyerState = {
   detailBuyer: {},
   allBidProduct: [],
   bidPrice: 0,
-}
+};
 
 export const detailProductBuyerReducer = (
   state = initialDetailBuyerState,
@@ -39,13 +39,6 @@ export const detailProductBuyerReducer = (
       return {
         ...state,
       };
-    default:
-      return state;
-  }
-};
-
-export const AllBidReducer = (state = initialDetailBuyerState, action = {}) => {
-  switch (action.type) {
     case GET_ALL_BID_SUCCESS:
       return {
         ...state,

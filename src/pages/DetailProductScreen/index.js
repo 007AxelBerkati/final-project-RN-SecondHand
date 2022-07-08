@@ -16,7 +16,6 @@ import {
 import {
   colors, windowHeight, windowWidth,
 } from '../../utils';
-import {} from '../../redux';
 
 import BackDropComponent from '../../components/molekuls/BackDropSomponent';
 import { getDetailProduct } from '../../redux/action/detailProductBuyer';
@@ -32,7 +31,7 @@ function DetailProductScreen({ route, navigation }) {
   useEffect(() => {
     dispatch(getDetailProduct(id));
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const bottomSheetRef = useRef(null);

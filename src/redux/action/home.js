@@ -81,4 +81,3 @@ export const getBannerSeller = () => async (dispatch) => {
     dispatch(getBannerFail(error.response.data.message));
   });
 };
-

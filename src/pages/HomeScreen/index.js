@@ -26,8 +26,6 @@ function HomeScreen({ navigation }) {
   const [btnAllActive, setBtnAllActive] = useState(true);
   const [category, setCategory] = useState('');
   const [refreshing, setRefreshing] = useState(false);
-  const [listOfBanner, setListOfBanner] = useState([]);
-
 
   const dataHome = useSelector((state) => state.dataHome);
 
@@ -75,7 +73,7 @@ function HomeScreen({ navigation }) {
       name={item.name}
       jenis={item.Categories}
       harga={item.base_price}
-      onPress={() => navigation.navigate('DetailProductBuyerScreen', { id: item.id })}
+      onPress={() => navigation.navigate('DetailProductScreen', { id: item.id })}
     />
   ), [navigation]);
 
@@ -89,19 +87,6 @@ function HomeScreen({ navigation }) {
             refreshing={refreshing}
             onRefresh={() => onRefresh()}
           />
-      )}
-      >
-        <StatusBar backgroundColor="transparent" translucent barStyle={useIsFocused() ? 'light-content' : null} />
-
-        <ImageSlider
-          data={listOfBanner}
-          autoPlay
-          timer={5000}
-          closeIconColor={colors.background.secondary}
-          caroselImageStyle={{ height: windowHeight * 0.3 }}
-          activeIndicatorStyle={{ backgroundColor: colors.background.secondary }}
-        />
-
         )}
       >
         <StatusBar backgroundColor="transparent" translucent barStyle={useIsFocused() ? 'light-content' : null} />
@@ -164,7 +149,6 @@ function HomeScreen({ navigation }) {
                   marginBottom: 10,
                   justifyContent: 'space-between',
                 }}
-              
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
               />

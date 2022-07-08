@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
 });
 
-Input.propTypes = {
+Input2.propTypes = {
   onChangeText: propTypes.func.isRequired,
   value: propTypes.string.isRequired,
   label: propTypes.string.isRequired,
@@ -56,7 +56,7 @@ Input.propTypes = {
   leftIcon: propTypes.string,
 };
 
-Input.defaultProps = {
+Input2.defaultProps = {
   cannotEdited: false,
   secureTextEntry: false,
   leftIcon: undefined,
