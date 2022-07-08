@@ -1,7 +1,9 @@
 import React, { memo } from 'react';
 import {
-  StyleSheet, TouchableOpacity, View, Image, Text,
+  StyleSheet, TouchableOpacity, View, Text,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import propTypes from 'prop-types';
 import {
   borderRadius,
   colors, fonts, fontSize, windowHeight, windowWidth,
@@ -16,8 +18,14 @@ function CardProduct({
       <View style={styles.cardPreview}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.jenis}>
-          {idJenis?.map((item) => (
-            (item)
+          {jenis?.map((item) => (
+            idJenis !== undefined ? (
+              idJenis?.map((item1) => (
+                item.id === item1
+                && (`${item.name}, `)
+              ))
+            )
+              : (`${item.name}, `)
           ))}
         </Text>
         <Text style={styles.harga}>{hargaConvert}</Text>
@@ -28,7 +36,15 @@ function CardProduct({
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress} style={{ height: '65%', width: '100%' }}>
-        <Image style={styles.image} source={source} />
+        <FastImage
+          style={styles.image}
+          source={{
+            uri: source,
+            priority: FastImage.priority.low,
+            cache: FastImage.cacheControl.immutable,
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
         <Text
           numberOfLines={1}
           style={styles.name}
@@ -37,10 +53,10 @@ function CardProduct({
         </Text>
         <Text style={styles.jenis} numberOfLines={1}>
           {
-          jenis.map((item) => (
-            (`${item.name}, `)
-          ))
-        }
+            jenis?.map((item) => (
+              (`${item.name}, `)
+            ))
+          }
         </Text>
         <Text numberOfLines={1} style={styles.harga}>
           {
@@ -56,12 +72,10 @@ export default memo(CardProduct);
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
     overflow: 'hidden',
     height: windowHeight * 0.30,
     width: windowWidth * 0.43,
     padding: 8,
-    marginRight: 16,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: colors.border.primary,
@@ -104,3 +118,18 @@ const styles = StyleSheet.create({
   },
 
 });
+
+CardProduct.propTypes = {
+  onPress: propTypes.func,
+  name: propTypes.string,
+  jenis: propTypes.arrayOf(propTypes.oneOfType([propTypes.object])),
+  harga: propTypes.number || propTypes.string,
+  idJenis: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string])),
+};
+CardProduct.defaultProps = {
+  idJenis: undefined,
+  jenis: undefined,
+  harga: undefined,
+  name: undefined,
+  onPress: undefined,
+};

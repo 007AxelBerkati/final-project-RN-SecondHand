@@ -19,7 +19,7 @@ import {
   optionalConfigObject, showError, storeDataSecure, windowHeight,
 } from '../../utils';
 
-import { getLogin, setLoading } from '../../redux';
+import { getLogin, getNotifikasi, setLoading } from '../../redux';
 
 function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -29,6 +29,7 @@ function LoginScreen({ navigation }) {
   const onSubmit = (email, password) => {
     storeDataSecure('user', { email, password });
     dispatch(getLogin(email, password, navigation, dataLogin));
+    dispatch(getNotifikasi());
   };
 
   const onFingerprint = () => {
@@ -93,7 +94,7 @@ function LoginScreen({ navigation }) {
                 leftIcon="email"
               />
               {errors.email && touched.email
-              && <Text style={styles.errorText}>{errors.email}</Text>}
+                && <Text style={styles.errorText}>{errors.email}</Text>}
               <Gap height={16} />
               <Input
                 onChangeText={handleChange('password')}
@@ -104,7 +105,7 @@ function LoginScreen({ navigation }) {
                 leftIcon="key"
               />
               {errors.password
-              && touched.password && <Text style={styles.errorText}>{errors.password}</Text>}
+                && touched.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
               <View style={styles.iconWrapper}>
                 <ButtonComponent
@@ -122,13 +123,13 @@ function LoginScreen({ navigation }) {
             </SafeAreaView>
           )}
         </Formik>
-        <Gap height={windowHeight * 0.20} />
+        <Gap height={windowHeight * 0.1} />
         <View style={styles.goRegisterWrapper}>
           <Text style={styles.registerTitle}>
             Belum Punya Akun ?
             {' '}
           </Text>
-          <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={14} onPress={() => navigation.navigate('RegisterScreen')} />
+          <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={fontSize.medium} onPress={() => navigation.navigate('RegisterScreen')} />
         </View>
       </View>
     </TouchableWithoutFeedback>

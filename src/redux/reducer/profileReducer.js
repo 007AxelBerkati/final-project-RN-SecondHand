@@ -1,5 +1,6 @@
 import {
-  UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAIL, GET_AKUN_SUCCESS, GET_AKUN_FAIL, GET_AKUN_LOADING,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_FAIL, GET_AKUN_SUCCESS, GET_AKUN_FAIL, GET_AKUN_LOADING, LOGOUT,
 } from '../types';
 
 const initialStateUpdateProfile = {
@@ -43,6 +44,10 @@ export const profileReducer = (state = initialStateUpdateProfile, action = {}) =
         ...state,
         isLoading: action.payload,
       };
+
+    case LOGOUT:
+      return initialStateUpdateProfile;
+
     default:
       return state;
   }

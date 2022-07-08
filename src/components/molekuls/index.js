@@ -7,7 +7,13 @@ import Profile from './Profile';
 import UploadPhoto from './UploadPhoto';
 import Desc from './Desc';
 import CardAddProduct from './CardAddProduct';
+import NotLogin from './NotLogin';
+import BackDropComponent from './BackDropComponent';
+import CardProductMatch from './CardProductMatch';
+import EmptySkeletonNotif from './EmptySkeletonNotif';
 
 export {
-  CardCategory, CardProduct, Headers, CardList, Loading, Profile, UploadPhoto, Desc, CardAddProduct,
+  CardCategory, CardProduct,
+  Headers, CardList, Loading, Profile, UploadPhoto, Desc, CardAddProduct,
+  NotLogin, BackDropComponent, CardProductMatch, EmptySkeletonNotif,
 };

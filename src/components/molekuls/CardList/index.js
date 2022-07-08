@@ -1,15 +1,19 @@
 import {
-  Image, StyleSheet, Text, TouchableOpacity, View,
+  StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
+import moment from 'moment';
+import FastImage from 'react-native-fast-image';
+import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
 import CardListRole from './CardListRole';
 import CardListAccount from './CardListAccount';
+import CardListNotif from './CardListNotif';
 
 function CardList({
-  source, name, harga, hargaNego, onPress, date, title, type, kota,
+  source, name, harga, hargaNego, onPress, date, title, type, kota, status, read,
 }) {
   if (type === 'role') {
     return (
@@ -23,13 +27,28 @@ function CardList({
     );
   }
 
+  if (type === 'notif') {
+    return (
+      <CardListNotif
+        name={name}
+        onPress={onPress}
+        harga={harga}
+        hargaNego={hargaNego}
+        date={date}
+        status={status}
+        source={source}
+        read={read}
+      />
+    );
+  }
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
   const hargaNegoConvert = `Rp. ${parseFloat(hargaNego).toLocaleString('id-ID')}`;
+  const dateConvert = moment(date).format('DD MMM, hh:mm');
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.wrapper}>
-        <Image source={source} style={styles.image} />
+        <FastImage source={source} style={styles.image} />
         <View>
           <Text style={styles.productNego}>{title}</Text>
           <Text style={styles.text}>{name}</Text>
@@ -45,7 +64,7 @@ function CardList({
           }
 
         </View>
-        <Text style={styles.date}>{date}</Text>
+        <Text style={styles.date}>{dateConvert}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -70,11 +89,12 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    margin: 11,
-    width: 50,
-    height: 50,
-    borderRadius: borderRadius.small,
-
+    marginRight: 16,
+    width: 48,
+    height: 48,
+    borderRadius: borderRadius.large,
+    borderWidth: 1,
+    borderColor: colors.border.secondary,
   },
 
   text: {
@@ -99,3 +119,25 @@ const styles = StyleSheet.create({
   },
 
 });
+
+CardList.propTypes = {
+  name: propTypes.string,
+  harga: propTypes.number,
+  hargaNego: propTypes.number,
+  onPress: propTypes.func,
+  date: propTypes.string,
+  title: propTypes.string,
+  type: propTypes.string,
+  kota: propTypes.string,
+};
+
+CardList.defaultProps = {
+  hargaNego: undefined,
+  kota: undefined,
+  onPress: undefined,
+  type: undefined,
+  title: undefined,
+  name: undefined,
+  harga: undefined,
+  date: undefined,
+};

@@ -5,11 +5,7 @@ export const loginSchema = Yup.object().shape({
   password: Yup
     .string()
     .required('Please Enter your password')
-    .trim()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-    ),
+    .trim(),
 });
 
 export const signupSchema = Yup.object().shape({
@@ -72,10 +68,25 @@ export const TambahDataSchema = Yup.object().shape({
     .min(1, 'Kategori minimal satu')
     .required('Silahkan Isi Kategori Produk'),
   deskripsi: Yup.string().required('Silahkan Isi Deskripsi Produk'),
-  // image: Yup
-  //   .string()
-  //   .trim()
-  //   .required('photoProductRequired'),
+  image: Yup
+    .string()
+    .trim()
+    .required('photoProductRequired'),
+});
+
+export const gantiPassSchema = Yup.object().shape({
+  current_password: Yup
+    .string()
+    .required('Please Enter your password')
+    .trim(),
+  new_password: Yup
+    .string()
+    .required('Please Enter your password')
+    .trim(),
+  confirm_password: Yup
+    .string()
+    .required('Please Enter your password')
+    .trim(),
 });
 
 export const bidPriceSchema = Yup.object().shape({

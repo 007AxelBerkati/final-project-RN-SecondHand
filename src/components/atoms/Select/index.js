@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import React from 'react';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import propTypes from 'prop-types';
 import { colors, fonts, fontSize } from '../../../utils';
 
 function Select({ data, onSelect, defaultValue }) {
@@ -77,3 +78,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
 });
+
+Select.propTypes = {
+  data: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string])).isRequired,
+  onSelect: propTypes.func.isRequired,
+  defaultValue: propTypes.string,
+};
+
+Select.defaultProps = {
+  defaultValue: '',
+};

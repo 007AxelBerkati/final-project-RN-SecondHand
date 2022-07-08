@@ -2,6 +2,8 @@ import React, { memo } from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
@@ -37,6 +39,12 @@ function ButtonComponent({
   return (
     <TouchableOpacity style={{ ...styles.container(type), ...style }} onPress={onPress}>
       <Text style={{ ...styles.text(type), ...styleText }}>{title}</Text>
+      {
+        icon && (
+          <Icon name={icon} size={24} color={colors.background.primary} style={styles.icon} />
+        )
+
+      }
     </TouchableOpacity>
   );
 }
@@ -69,4 +77,33 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: type === 'secondary' ? colors.button.secondary.text : colors.button.primary.text,
   }),
+
+  icon: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
+  },
 });
+
+ButtonComponent.propTypes = {
+  type: propTypes.string,
+  title: propTypes.string,
+  onPress: propTypes.func.isRequired,
+  icon: propTypes.string,
+  disable: propTypes.bool,
+  nonButton: propTypes.bool,
+  label: propTypes.string,
+  style: propTypes.shape({}),
+  styleText: propTypes.shape({}),
+};
+
+ButtonComponent.defaultProps = {
+  title: undefined,
+  type: 'primary',
+  icon: null,
+  disable: false,
+  nonButton: false,
+  label: null,
+  style: {},
+  styleText: {},
+};

@@ -2,6 +2,7 @@
 import React, { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import propTypes from 'prop-types';
 import { colors, fonts, fontSize } from '../../../utils';
 
 function Input2({
@@ -44,3 +45,19 @@ const styles = StyleSheet.create({
 
   },
 });
+
+Input.propTypes = {
+  onChangeText: propTypes.func.isRequired,
+  value: propTypes.string.isRequired,
+  label: propTypes.string.isRequired,
+  onBlur: propTypes.func.isRequired,
+  cannotEdited: propTypes.bool,
+  secureTextEntry: propTypes.bool,
+  leftIcon: propTypes.string,
+};
+
+Input.defaultProps = {
+  cannotEdited: false,
+  secureTextEntry: false,
+  leftIcon: undefined,
+};

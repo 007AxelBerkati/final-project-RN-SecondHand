@@ -9,9 +9,10 @@ import {
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Searchbar } from 'react-native-paper';
-import { ImageSlider } from 'react-native-image-slider-banner';
 import { useSelector, useDispatch } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
+import PagerView from 'react-native-pager-view';
+import FastImage from 'react-native-fast-image';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
@@ -27,13 +28,14 @@ function HomeScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [listOfBanner, setListOfBanner] = useState([]);
 
+
   const dataHome = useSelector((state) => state.dataHome);
 
   useEffect(() => {
     dispatch(getProduct(category));
     dispatch(getCategoryProduct());
-    getListOfBanner();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(getBannerSeller());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getProductByCategory = useCallback((categoryId) => {
@@ -41,15 +43,6 @@ function HomeScreen({ navigation }) {
     setBtnAllActive(false);
     setCategory(`?category_id=${categoryId}`);
     dispatch(getProduct(`?category_id=${categoryId}`));
-  }, []);
-
-  const getListOfBanner = useCallback(() => {
-    dispatch(getBannerSeller());
-
-    const list = dataHome?.banner?.map((item) => ({
-      img: item.image_url,
-    }));
-    setListOfBanner(list);
   }, []);
 
   const getAllProduct = () => {
@@ -72,10 +65,24 @@ function HomeScreen({ navigation }) {
     },
     [dispatch, category],
   );
+  const getItemLayout = (data, index) => (
+    { length: 200, offset: 200 * index, index }
+  );
+
+  const renderItem = useCallback(({ item }) => (
+    <CardProduct
+      source={item.image_url}
+      name={item.name}
+      jenis={item.Categories}
+      harga={item.base_price}
+      onPress={() => navigation.navigate('DetailProductBuyerScreen', { id: item.id })}
+    />
+  ), [navigation]);
 
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
+        nestedScrollEnabled
         showsVerticalScrollIndicator={false}
         refreshControl={(
           <RefreshControl
@@ -95,6 +102,23 @@ function HomeScreen({ navigation }) {
           activeIndicatorStyle={{ backgroundColor: colors.background.secondary }}
         />
 
+        )}
+      >
+        <StatusBar backgroundColor="transparent" translucent barStyle={useIsFocused() ? 'light-content' : null} />
+        <PagerView style={{ height: windowHeight * 0.4 }} showPageIndicator initialPage={0}>
+          {
+            dataHome?.banner?.map((item) => (
+              <View
+                key={item.id}
+              >
+                <FastImage
+                  source={{ uri: item.image_url }}
+                  style={{ height: '100%', width: '100%' }}
+                />
+              </View>
+            ))
+          }
+        </PagerView>
         <Searchbar
           style={styles.searchBar}
           placeholder="Cari di Second chance"
@@ -129,21 +153,19 @@ function HomeScreen({ navigation }) {
               <FlatList
                 data={dataHome.data}
                 numColumns={2}
+                maxToRenderPerBatch={5}
+                initialNumToRender={5}
+                removeClippedSubviews
+                getItemLayout={getItemLayout}
+                windowSize={10}
                 columnWrapperStyle={{
                   flex: 1,
                   marginHorizontal: 5,
                   marginBottom: 10,
                   justifyContent: 'space-between',
                 }}
-                renderItem={({ item }) => (
-                  <CardProduct
-                    source={{ uri: item.image_url }}
-                    name={item.name}
-                    jenis={item.Categories}
-                    harga={item.base_price}
-                    onPress={() => navigation.navigate('DetailProductScreen', { id: item.id })}
-                  />
-                )}
+              
+                renderItem={renderItem}
                 keyExtractor={(item) => item.id}
               />
             )
@@ -164,7 +186,7 @@ const styles = StyleSheet.create({
     width: null,
     borderWidth: 1,
     borderRadius: 16,
-    marginTop: windowHeight * 0.05,
+    marginTop: windowHeight * 0.1,
     marginHorizontal: 16,
     fontFamily: fonts.Poppins.Bold,
     backgroundColor: colors.background.primary,

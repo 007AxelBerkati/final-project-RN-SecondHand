@@ -18,18 +18,6 @@ export const getProductFail = (error) => ({
 }
 );
 
-export const getCategorySuccess = (data) => ({
-  type: GET_CATEGORY_SUCCESS,
-  payload: data,
-}
-);
-
-export const getCategoryFail = (error) => ({
-  type: GET_CATEGORY_FAIL,
-  payload: error,
-}
-);
-
 export const getProductLoading = (data) => ({
   type: GET_PRODUCT_LOADING,
   payload: data,
@@ -44,6 +32,19 @@ export const getProduct = (params) => async (dispatch) => {
     dispatch(getProductFail(error.response.data.message));
   });
 };
+
+// GET CATEGORY
+export const getCategorySuccess = (data) => ({
+  type: GET_CATEGORY_SUCCESS,
+  payload: data,
+}
+);
+
+export const getCategoryFail = (error) => ({
+  type: GET_CATEGORY_FAIL,
+  payload: error,
+}
+);
 
 export const getCategoryProduct = () => async (dispatch) => {
   await getCategory().then((response) => {
@@ -80,3 +81,4 @@ export const getBannerSeller = () => async (dispatch) => {
     dispatch(getBannerFail(error.response.data.message));
   });
 };
+

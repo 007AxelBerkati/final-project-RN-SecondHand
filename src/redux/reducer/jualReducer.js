@@ -1,4 +1,6 @@
-import { ADD_PRODUCT_FAIL, ADD_PRODUCT_LOADING, ADD_PRODUCT_SUCCESS } from '../types';
+import {
+  ADD_PRODUCT_FAIL, ADD_PRODUCT_LOADING, ADD_PRODUCT_SUCCESS, LOGOUT,
+} from '../types';
 
 const initialJualState = {
   jual: [],
@@ -28,6 +30,9 @@ export const jualReducer = (state = initialJualState, action = {}) => {
         isLoading: false,
         isSuccess: false,
       };
+
+    case LOGOUT:
+      return initialJualState;
 
     default:
       return state;

@@ -13,6 +13,7 @@ const initialStateHome = {
   category: [],
   banner: [],
   isLoading: false,
+  banner: [],
 };
 
 export const homeReducer = (state = initialStateHome, action = {}) => {
@@ -51,6 +52,26 @@ export const homeReducer = (state = initialStateHome, action = {}) => {
         isSuccess: false,
         error: action.payload,
       };
+    case GET_BANNER_SELLER_SUCCESS:
+      return {
+        ...state,
+        isSuccess: true,
+        banner: action.payload,
+      };
+
+    case GET_BANNER_SELLER_FAIL:
+      return {
+        ...state,
+        isSuccess: false,
+        error: action.payload,
+      };
+
+    case GET_BANNER_SELLER_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+
     case GET_BANNER_SELLER_SUCCESS:
       return {
         ...state,

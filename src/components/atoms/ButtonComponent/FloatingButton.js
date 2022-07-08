@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
+import propTypes from 'prop-types';
 import { colors } from '../../../utils';
 
 function FloatingButton({ onPress, icon }) {
@@ -24,3 +25,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background.secondary,
   },
 });
+
+FloatingButton.propTypes = {
+  onPress: propTypes.func.isRequired,
+  icon: propTypes.string.isRequired,
+};

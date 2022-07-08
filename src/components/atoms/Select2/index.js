@@ -1,6 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
+import propTypes from 'prop-types';
 import { colors, fonts, fontSize } from '../../../utils';
 
 function Select2({
@@ -59,3 +60,19 @@ const styles = StyleSheet.create({
   },
 
 });
+
+Select2.propTypes = {
+  data: propTypes.arrayOf(propTypes.oneOfType([propTypes.object])).isRequired,
+  setFieldValue: propTypes.func.isRequired,
+  initialData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object,
+    propTypes.number, propTypes.string])),
+  placeholder: propTypes.string.isRequired,
+  multiple: propTypes.bool.isRequired,
+  schema: propTypes.shape({}).isRequired,
+  mode: propTypes.string.isRequired,
+  name: propTypes.string.isRequired,
+};
+
+Select2.defaultProps = {
+  initialData: [],
+};

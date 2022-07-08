@@ -4,6 +4,7 @@ import {
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { scale } from 'react-native-size-matters';
+import propTypes from 'prop-types';
 import {
   colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../../utils';
@@ -29,7 +30,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
   },
 
   label: {
@@ -40,3 +40,7 @@ const styles = StyleSheet.create({
   },
 
 });
+
+CardAddProduct.propTypes = {
+  onPress: propTypes.func.isRequired,
+};

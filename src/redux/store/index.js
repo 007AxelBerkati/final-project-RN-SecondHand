@@ -7,7 +7,8 @@ import {
   globalReducer, loginReducer,
   registerReducer, homeReducer,
   profileReducer, jualReducer, daftarJualReducer,
-
+  detailProductSellerReducer, updateDetailProductSellerReducer,
+  detailProductBuyerReducer, infoPenawaranReducer, notifikasiReducer, gantiPassReducer,
 } from '../reducer';
 import { AllBidReducer, detailProductBuyerReducer } from '../reducer/detailProductBuyerReducer';
 import { detailProductSellerReducer } from '../reducer/detailProductSellerReducer';
@@ -32,6 +33,9 @@ const rootReducer = {
   dataUpdateDetailProductSeller: updateDetailProductSellerReducer,
   dataDetailProductBuyer: detailProductBuyerReducer,
   dataAllBid: AllBidReducer,
+  dataInfoPenawaran: infoPenawaranReducer,
+  dataNotifikasi: notifikasiReducer,
+  dataGantiPass: gantiPassReducer,
 };
 
 const configPersist = persistReducer(persistConfig, combineReducers(rootReducer));
