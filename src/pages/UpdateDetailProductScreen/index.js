@@ -72,9 +72,8 @@ function UpdateDetailProductScreen({ route, navigation }) {
                   onBlur={handleBlur('namaProduk')}
                 />
                 {errors.namaProduk && touched.namaProduk
-                && <Text style={styles.errorText}>{errors.namaProduk}</Text>}
+                  && <Text style={styles.errorText}>{errors.namaProduk}</Text>}
                 <Gap height={15} />
-
                 <Input2
                   label="Harga Produk"
                   placeholder="Rp. 0,00"
@@ -84,7 +83,7 @@ function UpdateDetailProductScreen({ route, navigation }) {
                   keyboardType="numeric"
                 />
                 {errors.hargaProduk && touched.hargaProduk
-                && <Text style={styles.errorText}>{errors.hargaProduk}</Text>}
+                  && <Text style={styles.errorText}>{errors.hargaProduk}</Text>}
                 <Gap height={15} />
                 <Select2
                   data={dataCategory?.category}
@@ -101,7 +100,7 @@ function UpdateDetailProductScreen({ route, navigation }) {
                   placeholder="Pilih Kategori"
                 />
                 {errors.kategori_id && touched.kategori_id
-                && <Text style={styles.errorText}>{errors.kategori_id}</Text>}
+                  && <Text style={styles.errorText}>{errors.kategori_id}</Text>}
                 <Gap height={15} />
                 <Input2
                   label="Deskripsi"
@@ -113,7 +112,7 @@ function UpdateDetailProductScreen({ route, navigation }) {
                   numberOfLines={4}
                 />
                 {errors.deskripsi && touched.deskripsi
-                && <Text style={styles.errorText}>{errors.deskripsi}</Text>}
+                  && <Text style={styles.errorText}>{errors.deskripsi}</Text>}
                 <Gap height={16} />
                 <UploadPhoto
                   label="Foto Product"

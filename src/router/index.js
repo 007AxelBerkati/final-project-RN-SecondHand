@@ -25,7 +25,6 @@ import {
 } from '../pages';
 import { colors, fonts } from '../utils';
 import ProfileScreen from '../pages/ProfileScreen';
-import DetailProductBuyerScreen from '../pages/DetailProductBuyerScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -169,11 +168,6 @@ function Router({ notif }) {
         <Stack.Screen
           name="UpdateDetailProductScreen"
           component={UpdateDetailProductScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="DetailProductBuyerScreen"
-          component={DetailProductBuyerScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

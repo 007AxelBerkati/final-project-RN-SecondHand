@@ -74,7 +74,7 @@ function JualScreen({ navigation }) {
                       onBlur={handleBlur('namaProduk')}
                     />
                     {errors.namaProduk && touched.namaProduk
-              && <Text style={styles.errorText}>{errors.namaProduk}</Text>}
+                      && <Text style={styles.errorText}>{errors.namaProduk}</Text>}
                     <Gap height={windowHeight * 0.01} />
                     <Input2
                       label="Harga Produk"
@@ -85,7 +85,7 @@ function JualScreen({ navigation }) {
                       keyboardType="numeric"
                     />
                     {errors.hargaProduk && touched.hargaProduk
-              && <Text style={styles.errorText}>{errors.hargaProduk}</Text>}
+                      && <Text style={styles.errorText}>{errors.hargaProduk}</Text>}
                     <Gap height={windowHeight * 0.01} />
 
                     <Select2
@@ -103,7 +103,7 @@ function JualScreen({ navigation }) {
                       placeholder="Pilih Kategori"
                     />
                     {errors.kategori_id && touched.kategori_id
-              && <Text style={styles.errorText}>{errors.kategori_id}</Text>}
+                      && <Text style={styles.errorText}>{errors.kategori_id}</Text>}
                     <Gap height={windowHeight * 0.01} />
 
                     <Input2
@@ -116,13 +116,13 @@ function JualScreen({ navigation }) {
                       numberOfLines={4}
                     />
                     {errors.deskripsi && touched.deskripsi
-              && <Text style={styles.errorText}>{errors.deskripsi}</Text>}
+                      && <Text style={styles.errorText}>{errors.deskripsi}</Text>}
                     <Gap height={windowHeight * 0.01} />
 
                     <UploadPhoto
                       label="Foto Product"
                       source={values.image}
-                      onPress={() => getImage(setFieldValue)}
+                      onPress={() => getImage(setFieldValue, '')}
                     />
                     <Gap height={windowHeight * 0.02} />
                     <View style={styles.btnWrapper}>

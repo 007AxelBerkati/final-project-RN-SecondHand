@@ -17,6 +17,7 @@ import ForgotPasswordScreen from './ForgotPasswordScreen';
 export {
   LoginScreen,
   RegisterScreen, HomeScreen, DaftarJualScreen, AkunScreen, JualScreen, NotifikasiScreen,
-  SplashScreen, PreviewScreen, DetailProductScreen, DetailProductSellerScreen, UpdateDetailProductScreen, InfoPenawaranScreen,
+  SplashScreen, PreviewScreen, DetailProductScreen,
+  DetailProductSellerScreen, UpdateDetailProductScreen, InfoPenawaranScreen,
   PengaturanScreen, ForgotPasswordScreen,
 };
