@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { addBuyerOrder, detailBuyerProduct, getBuyerOrder } from '../../services';
-import { showError } from '../../utils';
+import { showError, showSuccess } from '../../utils';
 import {
   BID_PRODUCT_FAILED,
   BID_PRODUCT_SUCCESS,
@@ -68,9 +68,11 @@ export const bidProduct = (payload, navigation) => async (dispatch) => {
   await addBuyerOrder(payload).then((response) => {
     dispatch(successBid(response.data));
     dispatch(setLoading(false));
-    navigation.navigate('Notification');
+    showSuccess('Add bid product success');
+    navigation.navigate('NotificationScreen');
   }).catch((err) => {
     dispatch(failedBid(err));
     dispatch(setLoading(false));
+    showError(err.response.data.message);
   });
 };

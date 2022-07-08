@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
-
   ButtonComponent, CardList, CardProduct, Desc, Gap,
 } from '../../components';
 import {
