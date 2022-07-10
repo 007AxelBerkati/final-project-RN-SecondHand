@@ -59,6 +59,17 @@ function DetailProductScreen({ route, navigation }) {
   const handleOpenPress = (index) => bottomSheetRef.current?.snapToIndex(index);
   const handleClosePress = () => bottomSheetRef.current?.close();
 
+  const checkTitleButton = useCallback(() => {
+    if (dataDetailProductBuyer?.status === 'sold') {
+      return 'Barang Telah Terjual';
+    } if (isAlreadyBid) {
+      return 'Menunggu Respon Penjual';
+    } if (!isAlreadyBid) {
+      return 'Saya Tertarik dan Ingin Nego';
+    }
+    return 'Saya Tertarik dan Ingin Nego';
+  }, [dataDetailProductBuyer?.status]);
+
   return (
     <GestureHandlerRootView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>
@@ -107,9 +118,9 @@ function DetailProductScreen({ route, navigation }) {
       </ScrollView>
       <View style={styles.btnNego}>
         <ButtonComponent
-          title={isAlreadyBid ? 'Menunggu Respon Penjual' : 'Saya Tertarik dan Ingin Nego'}
+          title={checkTitleButton()}
           onPress={() => handleOpenPress(1)}
-          disable={isAlreadyBid}
+          disable={isAlreadyBid || dataDetailProductBuyer?.status === 'sold'}
         />
       </View>
       <BottomSheet
