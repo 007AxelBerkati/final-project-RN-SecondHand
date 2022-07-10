@@ -6,6 +6,9 @@ import {
   GET_NOTIFIKASI_ID_FAIL,
   GET_NOTIFIKASI_ID_LOADING,
   LOGOUT,
+  PATCH_NOTIFIKASI_SUCCESS,
+  PATCH_NOTIFIKASI_FAIL,
+  PATCH_NOTIFIKASI_LOADING,
 } from '../types';
 
 const initialNotifikasiState = {
@@ -57,6 +60,27 @@ export const notifikasiReducer = (
         error: action.payload,
       };
     case GET_NOTIFIKASI_ID_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+    case PATCH_NOTIFIKASI_SUCCESS:
+      return {
+        ...state,
+        isSuccess: true,
+        error: null,
+        loading: false,
+      };
+
+    case PATCH_NOTIFIKASI_FAIL:
+      return {
+        ...state,
+        isSuccess: false,
+        error: action.payload,
+        loading: false,
+      };
+
+    case PATCH_NOTIFIKASI_LOADING:
       return {
         ...state,
         loading: action.payload,

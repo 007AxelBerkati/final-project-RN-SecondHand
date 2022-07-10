@@ -23,9 +23,9 @@ const CodePushOptions = {
 function MainApp() {
   const stateGlobal = useSelector((state) => state.dataGlobal);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getNotifikasi());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getNotifikasi());
+  // }, []);
 
   return (
     <>

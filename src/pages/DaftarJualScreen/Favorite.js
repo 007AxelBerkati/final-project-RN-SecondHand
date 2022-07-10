@@ -2,7 +2,7 @@ import {
   FlatList,
   StyleSheet, Text, View,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CardList, EmptySkeletonNotif } from '../../components';
 import { IconSellNull } from '../../assets';
 import {

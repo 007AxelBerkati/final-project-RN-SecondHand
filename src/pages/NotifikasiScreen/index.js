@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   CardList, EmptySkeletonNotif, Headers, NotLogin,
 } from '../../components';
-import { getNotifikasi } from '../../redux';
+import { getNotifikasi, patchNotifikasi } from '../../redux';
 import { IconSellNull } from '../../assets';
 
 function NotifikasiScreen() {
@@ -24,6 +24,10 @@ function NotifikasiScreen() {
     setRefreshing(true);
     dispatch(getNotifikasi());
     setRefreshing(false);
+  };
+
+  const onClick = (id) => {
+    dispatch(patchNotifikasi(id));
   };
 
   const emptyComponent = () => (
@@ -47,6 +51,7 @@ function NotifikasiScreen() {
         hargaNego={item.bid_price}
         name={item.product_name}
         read={item.read}
+        onPress={() => onClick(item.id)}
       />
     )
   );
