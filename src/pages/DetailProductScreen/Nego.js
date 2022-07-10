@@ -15,15 +15,18 @@ import {
 } from '../../components';
 import { bidProduct } from '../../redux';
 
-function Nego({ navigation }) {
+function Nego({ handleCloseSheet }) {
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
   const dispatch = useDispatch();
 
   const submitBid = (bid) => {
+    console.log(bid);
     const data = {
+      product_id: dataDetailProductBuyer.id,
       bid_price: bid,
     };
-    dispatch(bidProduct(data, navigation));
+    dispatch(bidProduct(data));
+    handleCloseSheet();
   };
 
   return (

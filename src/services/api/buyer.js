@@ -3,7 +3,7 @@ import { instance } from '../../config';
 // buyer/order
 export const getBuyerOrder = () => instance.get('/buyer/order');
 export const detailBuyerOrder = (id) => instance.get(`/buyer/order/${id}`);
-export const addBuyerOrder = (productId, bidPrice) => instance.post('/buyer/order/', { productId, bidPrice });
+export const addBuyerOrder = (payload) => instance.post('/buyer/order/', payload);
 export const updateBuyerOrder = (productId, bidPrice) => instance.put('/buyer/order/', { productId, bidPrice });
 export const deleteBuyerOrder = (id) => instance.delete(`/buyer/order/${id}`);
 

@@ -3,7 +3,7 @@ import {
   StatusBar,
 } from 'react-native';
 import React, {
-  useCallback, useEffect, useMemo, useRef,
+  useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,19 +17,37 @@ import {
   colors, windowHeight, windowWidth,
 } from '../../utils';
 
-import { getDetailProduct } from '../../redux';
+import { getAllBidProduct, getDetailProduct } from '../../redux';
 import Nego from './Nego';
 
 function DetailProductScreen({ route, navigation }) {
   const { id } = route.params;
+  const dispatch = useDispatch();
 
+  const [isAlreadyBid, setisAlreadyBid] = useState(false);
+
+  const dataLogin = useSelector((state) => state.dataLogin);
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
 
-  const dispatch = useDispatch();
+  const dataDetailBid = useSelector((state) => state.dataDetailProductBuyer.allBidProduct);
+
+  const checkStatusBid = useCallback(() => {
+    const bid = [];
+    // eslint-disable-next-line array-callback-return
+    dataDetailBid?.map((item) => {
+      if (item.product_id === id && item?.status === 'pending') {
+        bid.push(item);
+      }
+    });
+    return bid?.length ? setisAlreadyBid(true) : setisAlreadyBid(false);
+  }, [dataDetailBid, id]);
 
   useEffect(() => {
     dispatch(getDetailProduct(id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (dataLogin.isLoggedIn) {
+      dispatch(getAllBidProduct());
+    }
+    checkStatusBid();
   }, []);
 
   const bottomSheetRef = useRef(null);
@@ -38,8 +56,8 @@ function DetailProductScreen({ route, navigation }) {
     // eslint-disable-next-line no-console
     console.log('sheet index', index);
   }, []);
-  const handleClosePress = () => bottomSheetRef.current?.close();
   const handleOpenPress = (index) => bottomSheetRef.current?.snapToIndex(index);
+  const handleClosePress = () => bottomSheetRef.current?.close();
 
   return (
     <GestureHandlerRootView style={styles.pages}>
@@ -88,7 +106,11 @@ function DetailProductScreen({ route, navigation }) {
         <Gap height={60} />
       </ScrollView>
       <View style={styles.btnNego}>
-        <ButtonComponent title="Saya tertarik dan ingin nego" onPress={() => handleOpenPress(1)} />
+        <ButtonComponent
+          title={isAlreadyBid ? 'Menunggu Respon Penjual' : 'Saya Tertarik dan Ingin Nego'}
+          onPress={() => handleOpenPress(1)}
+          disable={isAlreadyBid}
+        />
       </View>
       <BottomSheet
         enablePanDownToClose
@@ -102,7 +124,7 @@ function DetailProductScreen({ route, navigation }) {
         backdropComponent={BackDropComponent}
         onChange={handleSheetChanges}
       >
-        <Nego />
+        <Nego handleCloseSheet={handleClosePress} />
       </BottomSheet>
 
     </GestureHandlerRootView>
