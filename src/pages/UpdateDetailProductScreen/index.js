@@ -10,7 +10,7 @@ import {
 } from '../../components';
 import {
   borderRadius,
-  colors, fonts, fontSize, getImage, TambahDataSchema, windowHeight,
+  colors, fonts, fontSize, getImage, UpdateDataSchema, windowHeight,
 } from '../../utils';
 import { updateDetailProduct } from '../../redux';
 
@@ -55,7 +55,7 @@ function UpdateDetailProductScreen({ route, navigation }) {
         onSubmit={(values) => {
           onSubmitPost(values);
         }}
-        validationSchema={TambahDataSchema}
+        validationSchema={UpdateDataSchema}
       >
         {({
           handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue,
@@ -122,7 +122,7 @@ function UpdateDetailProductScreen({ route, navigation }) {
                 />
                 <Gap height={windowHeight * 0.03} />
                 <View style={styles.btnWrapper}>
-                  <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={() => navigation.navigate('PreviewScreen', { values })} disable={!isValid || stateGlobal.isLoading} />
+                  <ButtonComponent style={styles.btnPreview} type="secondary" title="Preview" onPress={() => navigation.navigate('PreviewScreen', { valuesDetail: values, id: dataDetail.id })} disable={!isValid || stateGlobal.isLoading} />
                   <ButtonComponent style={styles.btnTerbitkan} title="Terbitkan" onPress={handleSubmit} disable={!isValid || stateGlobal.isLoading} />
                 </View>
               </View>
@@ -130,9 +130,7 @@ function UpdateDetailProductScreen({ route, navigation }) {
           </ScrollView>
         )}
       </Formik>
-
     </View>
-
   );
 }
 

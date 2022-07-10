@@ -2,7 +2,7 @@ import {
   SafeAreaView, ScrollView, StyleSheet, View,
   StatusBar,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useDispatch, useSelector } from 'react-redux';
 import FormData from 'form-data';
@@ -12,10 +12,24 @@ import {
 import {
   colors, windowHeight, windowWidth,
 } from '../../utils';
-import { postProduct } from '../../redux';
+import { postProduct, updateDetailProduct } from '../../redux';
 
 function PreviewScreen({ route, navigation }) {
   const { values } = route.params;
+  const { valuesDetail } = route.params;
+  const { id } = route.params;
+
+  const [dataDetail, setDataDetail] = useState({});
+
+  useEffect(() => {
+    if (values) {
+      setDataDetail(values);
+    } else if (
+      valuesDetail
+    ) {
+      setDataDetail(valuesDetail);
+    }
+  }, []);
 
   const dataCategory = useSelector((state) => state.dataHome);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
@@ -35,57 +49,61 @@ function PreviewScreen({ route, navigation }) {
       name: dataValues.image.fileName ? dataValues.image.fileName : 'image.jpg',
     });
 
-    dispatch(postProduct(formData, navigation));
+    if (values) {
+      dispatch(postProduct(formData, navigation));
+    } else if (valuesDetail) {
+      dispatch(updateDetailProduct(id, formData, navigation));
+    }
   };
 
   return (
     <SafeAreaView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>
         <StatusBar backgroundColor="transparent" translucent />
-        <View style={styles.imageContainer}>
-          <ImageSlider
-            data={[
-              { img: values.image.uri ? values.image.uri : values.image },
-            ]}
-            autoPlay
-            timer={5000}
-            closeIconColor={colors.background.primary}
-            caroselImageStyle={{ height: windowHeight * 0.4 }}
-            indicatorContainerStyle={{ bottom: windowHeight * 0.05 }}
-            activeIndicatorStyle={{ backgroundColor: colors.background.secondary }}
-
+        <ImageSlider
+          data={[
+            { img: dataDetail?.image?.uri ? dataDetail.image.uri : dataDetail.image },
+          ]}
+          autoPlay
+          timer={5000}
+          closeIconColor={colors.background.primary}
+          caroselImageStyle={{ height: windowHeight * 0.4 }}
+          indicatorContainerStyle={{ bottom: windowHeight * 0.05 }}
+          activeIndicatorStyle={{ backgroundColor: colors.background.secondary }}
+        />
+        <View style={styles.btnBackContainer}>
+          <ButtonComponent
+            type="icon-button"
+            label="BackButton"
+            onPress={() => navigation.goBack()}
           />
-          <View style={styles.btnBackContainer}>
-            <ButtonComponent
-              type="icon-button"
-              label="BackButton"
-              onPress={() => navigation.goBack()}
-            />
-          </View>
+        </View>
+        <View style={{ marginTop: windowHeight * -0.07 }}>
           <View style={styles.productWrapper}>
             <CardProduct
-              name={values.namaProduk}
+              name={dataDetail.namaProduk}
               jenis={dataCategory.category}
-              idJenis={values.kategori_id}
-              harga={values.hargaProduk}
+              idJenis={dataDetail.kategori_id}
+              harga={dataDetail.hargaProduk}
             />
           </View>
-        </View>
-        <View style={styles.card}>
-          <CardList
-            source={{ uri: dataProfile.image_url }}
-            name={dataProfile.full_name}
-            kota={dataProfile.city}
-            type="role"
-          />
-        </View>
-        <View style={styles.title}>
-          <Desc label="Deskripsi" desc={values.deskripsi} />
+
+          <View style={styles.card}>
+            <CardList
+              source={{ uri: dataProfile.image_url }}
+              name={dataProfile.full_name}
+              kota={dataProfile.city}
+              type="role"
+            />
+          </View>
+          <View style={styles.title}>
+            <Desc label="Deskripsi" desc={dataDetail.deskripsi} />
+          </View>
         </View>
         <Gap height={60} />
       </ScrollView>
       <View style={styles.btnNego}>
-        <ButtonComponent title="Terbitkan" onPress={() => onSubmitPost(values)} />
+        <ButtonComponent title={values ? 'Terbitkan' : 'Update produk'} onPress={() => onSubmitPost(dataDetail)} />
       </View>
     </SafeAreaView>
   );
@@ -112,7 +130,6 @@ const styles = StyleSheet.create({
   card: {
     marginHorizontal: 16,
     marginBottom: 30,
-    marginTop: windowHeight * -0.02,
   },
 
   pages: {
@@ -127,6 +144,5 @@ const styles = StyleSheet.create({
   },
   productWrapper: {
     marginHorizontal: 16,
-    marginTop: windowHeight * -0.07,
   },
 });

@@ -68,7 +68,20 @@ export const TambahDataSchema = Yup.object().shape({
     .min(1, 'Kategori minimal satu')
     .required('Silahkan Isi Kategori Produk'),
   deskripsi: Yup.string().required('Silahkan Isi Deskripsi Produk'),
-  image: Yup.string().required('Silahkan Isi Gambar Produk') || Yup.object().required('Silahkan Isi Gambar Produk'),
+  image: Yup.object().required('Silahkan Isi Gambar Produk'),
+});
+export const UpdateDataSchema = Yup.object().shape({
+  namaProduk: Yup.string()
+    .trim()
+    .required('Silahkan Isi Nama Produk'),
+  hargaProduk: Yup.string()
+    .trim()
+    .required('Silahkan Isi Harga Produk'),
+  kategori_id: Yup
+    .array()
+    .min(1, 'Kategori minimal satu')
+    .required('Silahkan Isi Kategori Produk'),
+  deskripsi: Yup.string().required('Silahkan Isi Deskripsi Produk'),
 });
 
 export const gantiPassSchema = Yup.object().shape({
