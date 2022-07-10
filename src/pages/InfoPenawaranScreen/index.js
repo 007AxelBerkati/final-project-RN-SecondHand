@@ -88,10 +88,9 @@ function InfoPenawaranScreen({ navigation, route }) {
         }
         {
           dataInfoPenawaran?.status === 'accepted' && (
-
             <View style={styles.btnWrapper}>
               <ButtonComponent style={styles.btnTolak} type="secondary" title="Status" onPress={() => handleOpenPress(1)} />
-              <ButtonComponent style={styles.btnTerima} title="Hubungi" onPress={() => onAccept(dataInfoPenawaran?.id)} icon="whatsapp" />
+              <ButtonComponent style={styles.btnTerima} title="Hubungi" onPress={() => { }} icon="whatsapp" />
             </View>
           )
         }

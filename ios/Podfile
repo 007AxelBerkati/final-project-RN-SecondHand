@@ -23,6 +23,8 @@ target 'final_project_RN' do
 
   pod 'TouchID', :path => '../node_modules/react-native-touch-id'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'final_project_RNTests' do
     inherit! :complete
     # Pods for testing

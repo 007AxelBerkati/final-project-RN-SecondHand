@@ -13,7 +13,7 @@ import {
   ButtonComponent,
   CardList, Gap, Input2,
 } from '../../components';
-import { bidProduct } from '../../redux/action/detailProductBuyer';
+import { bidProduct } from '../../redux';
 
 function Nego({ navigation }) {
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
@@ -60,7 +60,7 @@ function Nego({ navigation }) {
               onBlur={handleBlur('bid_price')}
             />
             {errors.bid_price && touched.bid_price
-            && <Text style={styles.errorText}>{errors.bid_price}</Text>}
+              && <Text style={styles.errorText}>{errors.bid_price}</Text>}
             <Gap height={windowHeight * 0.03} />
             <ButtonComponent
               title="Kirim"
