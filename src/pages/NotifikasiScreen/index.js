@@ -1,5 +1,5 @@
 import {
-  StyleSheet, View, FlatList,
+  StyleSheet, View, FlatList, Text,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import {
   CardList, EmptySkeletonNotif, Headers, NotLogin,
 } from '../../components';
 import { getNotifikasi } from '../../redux';
+import { IconSellNull } from '../../assets';
 
 function NotifikasiScreen() {
   const [refreshing, setRefreshing] = useState(false);
@@ -24,6 +25,14 @@ function NotifikasiScreen() {
     dispatch(getNotifikasi());
     setRefreshing(false);
   };
+
+  const emptyComponent = () => (
+    <View style={styles.empty}>
+      <IconSellNull style={styles.image} />
+      <Text style={styles.emptyText}>Belum ada produkmu yang terjual nih, </Text>
+      <Text style={styles.emptyText}>Sabar ya rejeki ngga kemana kok </Text>
+    </View>
+  );
 
   const renderItem = ({ item }) => (
     dataNotif.loading ? (
@@ -51,6 +60,7 @@ function NotifikasiScreen() {
         <FlatList
           data={dataNotif.notifikasi}
           renderItem={renderItem}
+          ListEmptyComponent={emptyComponent}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           maxToRenderPerBatch={5}

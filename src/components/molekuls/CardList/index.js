@@ -52,7 +52,7 @@ function CardList({
         <View>
           <Text style={styles.productNego}>{title}</Text>
           <Text style={styles.text}>{name}</Text>
-          <Text style={styles.text}>{hargaConvert}</Text>
+          <Text style={styles.textLineMiddle}>{hargaConvert}</Text>
           {
             hargaNego !== undefined ? (
               <Text style={styles.text}>
@@ -116,6 +116,14 @@ const styles = StyleSheet.create({
     color: colors.text.subtitle,
     marginLeft: 'auto',
     marginRight: 8,
+  },
+
+  textLineMiddle: {
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid',
+    fontFamily: fonts.Poppins.Regular,
+    fontSize: fontSize.medium,
+    color: colors.text.primary,
   },
 
 });

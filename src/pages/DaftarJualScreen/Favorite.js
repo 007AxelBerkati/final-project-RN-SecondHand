@@ -1,44 +1,50 @@
 import {
+  FlatList,
   StyleSheet, Text, View,
 } from 'react-native';
-import React from 'react';
-import { CardList } from '../../components';
+import React, { useEffect } from 'react';
+import { CardList, EmptySkeletonNotif } from '../../components';
 import { IconSellNull } from '../../assets';
 import {
   colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../utils';
 
 function Favorite({ navigation, productDiminati }) {
-  return (
-    <View>
-      {
-      productDiminati.length === 0 ? (
-        <View style={styles.empty}>
-          <IconSellNull style={styles.image} />
-          <Text style={styles.emptyText}>Belum ada produkmu yang diminati nih, </Text>
-          <Text style={styles.emptyText}>Sabar ya rejeki ngga kemana kok </Text>
-        </View>
-      ) : (
-        <View>
-          {
-        productDiminati.map((item) => (
-          <CardList
-            key={item.id}
-            name={item.Product.name}
-            title="Penawaran Produk"
-            source={{ uri: item.Product.image_url }}
-            date={item.createdAt}
-            harga={item.Product.base_price}
-            hargaNego={item.price}
-            onPress={() => navigation.navigate('InfoPenawaranScreen', { id: item.id })}
-          />
-        ))
+  const emptyComponent = () => (
+    <View style={styles.empty}>
+      <IconSellNull style={styles.image} />
+      <Text style={styles.emptyText}>Belum ada produkmu yang diminati nih, </Text>
+      <Text style={styles.emptyText}>Sabar ya rejeki ngga kemana kok </Text>
+    </View>
+  );
 
-      }
-        </View>
+  const renderItem = ({ item }) => (
+    productDiminati.loading ? (
+      <EmptySkeletonNotif />
+    )
+      : (
+        <CardList
+          key={item.id}
+          name={item.Product.name}
+          title="Penawaran Produk"
+          source={{ uri: item.Product.image_url }}
+          date={item.createdAt}
+          harga={item.Product.base_price}
+          hargaNego={item.price}
+          onPress={() => navigation.navigate('InfoPenawaranScreen', { id: item.id })}
+        />
       )
 
-    }
+  );
+
+  return (
+    <View>
+      <FlatList
+        data={productDiminati?.productDiminati}
+        ListEmptyComponent={emptyComponent}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+      />
 
     </View>
   );
