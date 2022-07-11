@@ -32,6 +32,7 @@ function RegisterScreen({ navigation }) {
     formData.append('image', {
       uri: data.image,
       type: 'image/jpeg',
+
     });
 
     dispatch(getRegister(formData, navigation));

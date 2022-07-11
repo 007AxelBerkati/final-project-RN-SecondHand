@@ -8,7 +8,9 @@ import {
 } from '../../components';
 import { getNotifikasi, patchNotifikasi } from '../../redux';
 import { IconSellNull } from '../../assets';
-import { sortDate } from '../../utils';
+import {
+  colors, fonts, fontSize, sortDate, windowHeight, windowWidth,
+} from '../../utils';
 
 function NotifikasiScreen() {
   const [refreshing, setRefreshing] = useState(false);
@@ -34,8 +36,7 @@ function NotifikasiScreen() {
   const emptyComponent = () => (
     <View style={styles.empty}>
       <IconSellNull style={styles.image} />
-      <Text style={styles.emptyText}>Belum ada produkmu yang terjual nih, </Text>
-      <Text style={styles.emptyText}>Sabar ya rejeki ngga kemana kok </Text>
+      <Text style={styles.emptyText}>Notifikasi Anda Masih Kosong </Text>
     </View>
   );
 
@@ -87,5 +88,24 @@ const styles = StyleSheet.create({
   pages: {
     flex: 1,
     margin: 16,
+  },
+  emptyText: {
+    fontSize: fontSize.medium,
+    color: colors.text.subtitle,
+    fontFamily: fonts.Poppins.Regular,
+  },
+  empty: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 16,
+
+  },
+
+  image: {
+    width: windowWidth * 0.8,
+    height: windowHeight * 0.5,
+    resizeMode: 'contain',
+
   },
 });
