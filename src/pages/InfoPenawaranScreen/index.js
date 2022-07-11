@@ -92,9 +92,8 @@ function InfoPenawaranScreen({ navigation, route }) {
             </View>
           )
         }
-
-        {
-          dataInfoPenawaran?.status === ('declined' || 'accepted') && (
+        {/* {
+          dataInfoPenawaran?.status === ('accepted' || 'declined') && (
             <CardList
               source={{ uri: dataInfoPenawaran?.image_product }}
               title={dataInfoPenawaran?.status === 'accepted' ? 'Berhasil Terjual' : 'Penawaran Anda Ditolak'}
@@ -104,7 +103,7 @@ function InfoPenawaranScreen({ navigation, route }) {
               hargaNego={dataInfoPenawaran?.price}
             />
           )
-        }
+        } */}
       </ScrollView>
       <BottomSheet
         enablePanDownToClose
