@@ -6,7 +6,7 @@ import React from 'react';
 import { CardList, EmptySkeletonNotif } from '../../components';
 import { IconSellNull } from '../../assets';
 import {
-  colors, fonts, fontSize, windowHeight, windowWidth,
+  colors, fonts, fontSize, sortDate, windowHeight, windowWidth,
 } from '../../utils';
 
 function Favorite({ navigation, productDiminati }) {
@@ -40,7 +40,7 @@ function Favorite({ navigation, productDiminati }) {
   return (
     <View>
       <FlatList
-        data={productDiminati?.productDiminati}
+        data={productDiminati?.productDiminati.sort(sortDate)}
         ListEmptyComponent={emptyComponent}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}

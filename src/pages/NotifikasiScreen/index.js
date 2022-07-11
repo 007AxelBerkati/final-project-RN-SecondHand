@@ -8,6 +8,7 @@ import {
 } from '../../components';
 import { getNotifikasi, patchNotifikasi } from '../../redux';
 import { IconSellNull } from '../../assets';
+import { sortDate } from '../../utils';
 
 function NotifikasiScreen() {
   const [refreshing, setRefreshing] = useState(false);
@@ -63,7 +64,7 @@ function NotifikasiScreen() {
         <NotLogin />
       ) : (
         <FlatList
-          data={dataNotif.notifikasi}
+          data={dataNotif.notifikasi.sort(sortDate)}
           renderItem={renderItem}
           ListEmptyComponent={emptyComponent}
           keyExtractor={(item) => item.id}

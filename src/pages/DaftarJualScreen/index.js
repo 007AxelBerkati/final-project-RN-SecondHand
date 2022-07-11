@@ -59,7 +59,12 @@ function DaftarJualScreen({ navigation }) {
   const dataForRender = () => {
     switch (active) {
       case 1:
-        return <Produk dataDaftarJual={dataDaftarJual?.daftarJual} navigation={navigation} />;
+        return (
+          <Produk
+            dataDaftarJual={dataDaftarJual?.daftarJual}
+            navigation={navigation}
+          />
+        );
       case 2:
         return (
           <Favorite

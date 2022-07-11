@@ -5,7 +5,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { IconSellNull } from '../../assets';
 import {
-  colors, fonts, fontSize, windowHeight, windowWidth,
+  colors, fonts, fontSize, sortDate, windowHeight, windowWidth,
 } from '../../utils';
 import { CardList, EmptySkeletonNotif } from '../../components';
 
@@ -51,7 +51,7 @@ function Terjual({ navigation, dataTerjual }) {
   return (
     <View style={styles.page}>
       <FlatList
-        data={data}
+        data={data.sort(sortDate)}
         ListEmptyComponent={emptyComponent}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
