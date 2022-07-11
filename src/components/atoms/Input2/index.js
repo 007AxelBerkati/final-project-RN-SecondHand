@@ -30,6 +30,7 @@ function Input2({
         }
         style={{ ...styles.input, ...props.style }}
         {...props}
+        ke
       />
     </View>
   );

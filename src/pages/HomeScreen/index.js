@@ -58,6 +58,8 @@ function HomeScreen({ navigation }) {
     />
   ), [navigation]);
 
+  const emptyContent = () => <Text style={styles.textEmpty}>Tidak ada produk</Text>;
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -113,28 +115,28 @@ function HomeScreen({ navigation }) {
             // eslint-disable-next-line no-nested-ternary
             dataHome.isLoading ? (
               <ActivityIndicator size="small" color={colors.background.secondary} />
-            ) : (dataHome.data.length === 0 ? (
-              <Text style={styles.textEmpty}>Tidak ada produk</Text>
-            ) : (
-              <FlatList
-                data={dataHome.data}
-                numColumns={2}
-                maxToRenderPerBatch={5}
-                initialNumToRender={5}
-                removeClippedSubviews
-                getItemLayout={getItemLayout}
-                windowSize={10}
-                columnWrapperStyle={{
-                  flex: 1,
-                  marginHorizontal: 5,
-                  marginBottom: 10,
-                  justifyContent: 'space-between',
-                }}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-              />
             )
-            )
+              : (
+                <FlatList
+                  data={dataHome.data}
+                  numColumns={2}
+                  maxToRenderPerBatch={5}
+                  initialNumToRender={5}
+                  removeClippedSubviews
+                  ListEmptyComponent={emptyContent}
+                  getItemLayout={getItemLayout}
+                  windowSize={10}
+                  columnWrapperStyle={{
+                    flex: 1,
+                    marginHorizontal: 5,
+                    marginBottom: 10,
+                    justifyContent: 'space-between',
+                  }}
+                  renderItem={renderItem}
+                  keyExtractor={(item) => item.id}
+                />
+              )
+
           }
 
         </View>

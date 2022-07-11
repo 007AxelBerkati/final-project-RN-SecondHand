@@ -8,10 +8,10 @@ function Produk({ dataDaftarJual, navigation }) {
   return (
     <View style={styles.wrapperProduk}>
       {
-       dataDaftarJual.length < 5 && (
-         <CardAddProduct onPress={() => navigation.navigate('Jual', { screen: 'MainApp' })} />
-       )
-         }
+        dataDaftarJual.length < 5 && (
+          <CardAddProduct onPress={() => navigation.navigate('Jual', { screen: 'MainApp' })} />
+        )
+      }
       {
         dataDaftarJual.map((item) => (
           <View style={{ marginBottom: 16 }} key={item.id}>

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import {
   bidPriceSchema,
-  colors, fonts, windowHeight, windowWidth,
+  colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../utils';
 import {
   ButtonComponent,
@@ -20,7 +20,6 @@ function Nego({ handleCloseSheet }) {
   const dispatch = useDispatch();
 
   const submitBid = (bid) => {
-    console.log(bid);
     const data = {
       product_id: dataDetailProductBuyer.id,
       bid_price: bid,
@@ -61,6 +60,7 @@ function Nego({ handleCloseSheet }) {
               onChangeText={handleChange('bid_price')}
               value={values.bid_price}
               onBlur={handleBlur('bid_price')}
+              KeyboardType="numeric"
             />
             {errors.bid_price && touched.bid_price
               && <Text style={styles.errorText}>{errors.bid_price}</Text>}
@@ -86,5 +86,10 @@ const styles = StyleSheet.create({
     marginHorizontal: windowWidth * 0.09,
     marginVertical: windowHeight * 0.03,
 
+  },
+  errorText: {
+    fontFamily: fonts.Poppins.Medium,
+    color: colors.warning,
+    fontSize: fontSize.small,
   },
 });

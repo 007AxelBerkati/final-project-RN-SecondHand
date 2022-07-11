@@ -101,5 +101,6 @@ export const gantiPassSchema = Yup.object().shape({
 
 export const bidPriceSchema = Yup.object().shape({
   bid_price: Yup.number()
-    .typeError('you must specify a number'),
+    .typeError('Isi dalam bentuk angka')
+    .required('Silahkan Isi Harga Bid'),
 });
