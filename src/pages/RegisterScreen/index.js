@@ -32,7 +32,6 @@ function RegisterScreen({ navigation }) {
     formData.append('image', {
       uri: data.image,
       type: 'image/jpeg',
-      name: 'image.jpg',
     });
 
     dispatch(getRegister(formData, navigation));
@@ -66,7 +65,7 @@ function RegisterScreen({ navigation }) {
                 </Text>
                 <Input leftIcon="account-circle" label="Fullname" onChangeText={handleChange('full_name')} value={values.full_name} onBlur={handleBlur('full_name')} />
                 {errors.full_name && touched.full_name
-              && <Text style={styles.errorText}>{errors.full_name}</Text>}
+                  && <Text style={styles.errorText}>{errors.full_name}</Text>}
                 <Gap height={10} />
                 <Input
                   placeHolder="Email"
@@ -77,7 +76,7 @@ function RegisterScreen({ navigation }) {
                   leftIcon="email"
                 />
                 {errors.email && touched.email
-              && <Text style={styles.errorText}>{errors.email}</Text>}
+                  && <Text style={styles.errorText}>{errors.email}</Text>}
                 <Gap height={10} />
                 <Input
                   onChangeText={handleChange('password')}
@@ -88,7 +87,7 @@ function RegisterScreen({ navigation }) {
                   leftIcon="key"
                 />
                 {errors.password && touched.password
-              && <Text style={styles.errorText}>{errors.password}</Text>}
+                  && <Text style={styles.errorText}>{errors.password}</Text>}
 
                 <Gap height={10} />
                 <Select
@@ -99,7 +98,7 @@ function RegisterScreen({ navigation }) {
                   }}
                 />
                 {errors.city && touched.city
-              && <Text style={styles.errorText}>{errors.city}</Text>}
+                  && <Text style={styles.errorText}>{errors.city}</Text>}
                 <Gap height={10} />
                 <Input
                   onChangeText={handleChange('address')}
@@ -109,7 +108,7 @@ function RegisterScreen({ navigation }) {
                   leftIcon="map-marker"
                 />
                 {errors.address && touched.address
-              && <Text style={styles.errorText}>{errors.address}</Text>}
+                  && <Text style={styles.errorText}>{errors.address}</Text>}
 
                 <Gap height={10} />
                 <Input
@@ -121,7 +120,7 @@ function RegisterScreen({ navigation }) {
                   keyboardType="numeric"
                 />
                 {errors.phone_number && touched.phone_number
-              && <Text style={styles.errorText}>{errors.phone_number}</Text>}
+                  && <Text style={styles.errorText}>{errors.phone_number}</Text>}
 
                 <Gap height={20} />
 
