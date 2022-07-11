@@ -12,16 +12,16 @@ import {
 } from '../../utils';
 import {
   Headers,
-  Input2, Profile, ButtonComponent, Gap, Select,
+  Input2, Profile, ButtonComponent, Gap, Select2,
 } from '../../components';
 import { putDataProfile } from '../../redux';
-import { kota } from '../../assets';
+import { kabupaten } from '../../assets';
 
 function ProfileScreen({ navigation }) {
   const dispatch = useDispatch();
   const stateGlobal = useSelector((state) => state.dataGlobal);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
-  const [photo, setPhoto] = useState(dataProfile.image_url);
+  const [photo, setPhoto] = useState(dataProfile.image_url ? dataProfile.image_url : 'https://avatars.services.sap.com/images/naushad124_small.png');
 
   const updateProfile = (data) => {
     const formData = new FormData();
@@ -52,7 +52,7 @@ function ProfileScreen({ navigation }) {
           city: dataProfile.city,
           address: dataProfile.address,
           phone_number: dataProfile.phone_number,
-          image: dataProfile.image_url,
+          image: dataProfile.image_url !== null ? dataProfile.image_url : 'https://avatars.services.sap.com/images/naushad124_small.png',
         }}
         onSubmit={(values) => updateProfile(values)}
         validationSchema={updateProfileSchema}
@@ -78,18 +78,22 @@ function ProfileScreen({ navigation }) {
                   onBlur={handleBlur('full_name')}
                 />
                 {errors.full_name && touched.full_name
-              && <Text style={styles.errorText}>{errors.full_name}</Text>}
+                  && <Text style={styles.errorText}>{errors.full_name}</Text>}
                 <Gap height={windowHeight * 0.01} />
-                <Select
-                  data={kota}
-                  onSelect={(selectedItem) => {
-                    // eslint-disable-next-line no-param-reassign
-                    values.city = selectedItem;
+                <Select2
+                  data={kabupaten}
+                  setFieldValue={setFieldValue}
+                  value={values.city}
+                  initialData={values.city}
+                  schema={{
+                    label: 'name',
+                    value: 'name',
                   }}
-                  defaultValue={values.city}
+                  name="city"
+                  placeholder="Pilih Kota"
                 />
                 {errors.city && touched.city
-              && <Text style={styles.errorText}>{errors.city}</Text>}
+                  && <Text style={styles.errorText}>{errors.city}</Text>}
                 <Gap height={windowHeight * 0.01} />
                 <Input2
                   leftIcon="map-marker"
@@ -101,7 +105,7 @@ function ProfileScreen({ navigation }) {
                   numberOfLines={4}
                 />
                 {errors.address && touched.address
-              && <Text style={styles.errorText}>{errors.address}</Text>}
+                  && <Text style={styles.errorText}>{errors.address}</Text>}
                 <Gap height={windowHeight * 0.01} />
                 <Input2
                   leftIcon="phone"
@@ -111,9 +115,8 @@ function ProfileScreen({ navigation }) {
                   onBlur={handleBlur('phone_number')}
                 />
                 {errors.phone_number && touched.phone_number
-              && <Text style={styles.errorText}>{errors.phone_number}</Text>}
+                  && <Text style={styles.errorText}>{errors.phone_number}</Text>}
                 <Gap height={windowHeight * 0.02} />
-
                 <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(isValid) || stateGlobal.isLoading} />
               </View>
             </TouchableWithoutFeedback>

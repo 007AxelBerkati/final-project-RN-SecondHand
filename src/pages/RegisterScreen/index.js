@@ -11,10 +11,10 @@ import {
   colors, fonts, fontSize, signupSchema, windowHeight,
 } from '../../utils';
 import {
-  ButtonComponent, Gap, Headers, Input, LinkComponent, Select,
+  ButtonComponent, Gap, Headers, Input, LinkComponent, Select2,
 } from '../../components';
 import { getRegister } from '../../redux';
-import { kota } from '../../assets';
+import { kabupaten } from '../../assets';
 
 function RegisterScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -29,12 +29,6 @@ function RegisterScreen({ navigation }) {
     formData.append('city', data.city);
     formData.append('address', data.address);
     formData.append('phone_number', parseInt(data.phone_number, 10));
-    formData.append('image', {
-      uri: data.image,
-      type: 'image/jpeg',
-
-    });
-
     dispatch(getRegister(formData, navigation));
   };
   return (
@@ -51,6 +45,7 @@ function RegisterScreen({ navigation }) {
           >
             {({
               handleChange, handleSubmit, errors, isValid, values, handleBlur, touched, dirty,
+              setFieldValue,
             }) => (
               <SafeAreaView>
                 <Text
@@ -91,12 +86,17 @@ function RegisterScreen({ navigation }) {
                   && <Text style={styles.errorText}>{errors.password}</Text>}
 
                 <Gap height={10} />
-                <Select
-                  data={kota}
-                  onSelect={(selectedItem) => {
-                    // eslint-disable-next-line no-param-reassign
-                    values.city = selectedItem;
+                <Select2
+                  data={kabupaten}
+                  setFieldValue={setFieldValue}
+                  value={values.city}
+                  initialData={values.city}
+                  schema={{
+                    label: 'name',
+                    value: 'name',
                   }}
+                  name="city"
+                  placeholder="Pilih Kabupaten/Kota"
                 />
                 {errors.city && touched.city
                   && <Text style={styles.errorText}>{errors.city}</Text>}

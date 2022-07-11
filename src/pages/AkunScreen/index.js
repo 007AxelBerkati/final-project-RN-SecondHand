@@ -46,7 +46,7 @@ function AkunScreen({ navigation }) {
                   <PlaceholderMedia style={styles.placeholder} />
                 </Placeholder>
               ) : (
-                <Profile source={{ uri: dataProfile.profile?.image_url }} />
+                <Profile source={dataProfile.profile?.image_url !== null ? { uri: dataProfile.profile?.image_url } : { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' }} />
               )
             }
             <CardList type="account" name="edit" title="Ubah Akun" onPress={() => navigation.navigate('ProfileScreen')} />

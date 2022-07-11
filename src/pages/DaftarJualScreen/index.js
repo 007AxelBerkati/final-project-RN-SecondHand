@@ -96,7 +96,7 @@ function DaftarJualScreen({ navigation }) {
             )}
           >
             <View style={{ marginHorizontal: 3 }}>
-              <CardList type="role" name={dataProfile.full_name} source={{ uri: dataProfile.image_url }} kota={dataProfile.city} onPress={() => navigation.navigate('ProfileScreen')} />
+              <CardList type="role" name={dataProfile.full_name} source={dataProfile.image_url !== null ? { uri: dataProfile.image_url } : { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' }} kota={dataProfile.city} onPress={() => navigation.navigate('ProfileScreen')} />
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}

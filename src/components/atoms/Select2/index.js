@@ -65,7 +65,7 @@ Select2.propTypes = {
   data: propTypes.arrayOf(propTypes.oneOfType([propTypes.object])).isRequired,
   setFieldValue: propTypes.func.isRequired,
   initialData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object,
-    propTypes.number, propTypes.string])),
+  propTypes.number, propTypes.string])),
   placeholder: propTypes.string.isRequired,
   multiple: propTypes.bool.isRequired,
   schema: propTypes.shape({}).isRequired,
