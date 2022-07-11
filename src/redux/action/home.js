@@ -25,11 +25,15 @@ export const getProductLoading = (data) => ({
 );
 
 export const getProduct = (params) => async (dispatch) => {
+  console.log('Tes', params?.search);
   dispatch(getProductLoading(true));
-  await getBuyerProduct(params).then((response) => {
+  // await getBuyerProduct(`?search=${params?.search}
+  // &category_id=${params?.category_id}&status=${params?.status}
+  // &page=${params?.page}&per_page=${params?.per_page}`).then((response) => {
+  await getBuyerProduct(`?search=${params?.search}&category_id=${params?.category_id}&status=${params?.status}`).then((response) => {
     dispatch(getProductSuccess(response.data));
   }).catch((error) => {
-    dispatch(getProductFail(error.response.data.message));
+    dispatch(getProductFail(error));
   });
 };
 
