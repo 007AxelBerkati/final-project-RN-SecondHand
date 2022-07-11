@@ -15,7 +15,7 @@ import {
 } from '../../components';
 import { bidProduct } from '../../redux';
 
-function Nego({ handleCloseSheet }) {
+function Nego({ handleCloseSheet, setisAlreadyBid }) {
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
   const dispatch = useDispatch();
 
@@ -25,6 +25,7 @@ function Nego({ handleCloseSheet }) {
       bid_price: bid,
     };
     dispatch(bidProduct(data));
+    setisAlreadyBid(true);
     handleCloseSheet();
   };
 

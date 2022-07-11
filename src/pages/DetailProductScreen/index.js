@@ -29,25 +29,14 @@ function DetailProductScreen({ route, navigation }) {
   const dataLogin = useSelector((state) => state.dataLogin);
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
 
-  const dataDetailBid = useSelector((state) => state.dataDetailProductBuyer.allBidProduct);
-
-  const checkStatusBid = useCallback(() => {
-    const bid = [];
-    // eslint-disable-next-line array-callback-return
-    dataDetailBid?.map((item) => {
-      if (item.product_id === id && item?.status === 'pending') {
-        bid.push(item);
-      }
-    });
-    return bid?.length ? setisAlreadyBid(true) : setisAlreadyBid(false);
-  }, [dataDetailBid, id]);
+  const dataDetailBid = useSelector((state) => state.dataDetailProductBuyer.allBidProduct
+    .filter((item) => item.product_id === id));
 
   useEffect(() => {
     dispatch(getDetailProduct(id));
     if (dataLogin.isLoggedIn) {
       dispatch(getAllBidProduct());
     }
-    checkStatusBid();
   }, []);
 
   const bottomSheetRef = useRef(null);
@@ -58,17 +47,6 @@ function DetailProductScreen({ route, navigation }) {
   }, []);
   const handleOpenPress = (index) => bottomSheetRef.current?.snapToIndex(index);
   const handleClosePress = () => bottomSheetRef.current?.close();
-
-  const checkTitleButton = useCallback(() => {
-    if (dataDetailProductBuyer?.status === 'sold') {
-      return 'Barang Telah Terjual';
-    } if (isAlreadyBid) {
-      return 'Menunggu Respon Penjual';
-    } if (!isAlreadyBid) {
-      return 'Saya Tertarik dan Ingin Nego';
-    }
-    return 'Saya Tertarik dan Ingin Nego';
-  }, [dataDetailProductBuyer?.status]);
 
   return (
     <GestureHandlerRootView style={styles.pages}>
@@ -118,9 +96,9 @@ function DetailProductScreen({ route, navigation }) {
       </ScrollView>
       <View style={styles.btnNego}>
         <ButtonComponent
-          title={checkTitleButton()}
+          title={dataDetailBid[0]?.status || isAlreadyBid ? 'Menunggu Respon Penjual' : 'Saya Tertarik dan Ingin Nego'}
           onPress={() => handleOpenPress(1)}
-          disable={isAlreadyBid || dataDetailProductBuyer?.status === 'sold'}
+          disable={dataDetailBid[0]?.status || isAlreadyBid}
         />
       </View>
       <BottomSheet
@@ -135,7 +113,7 @@ function DetailProductScreen({ route, navigation }) {
         backdropComponent={BackDropComponent}
         onChange={handleSheetChanges}
       >
-        <Nego handleCloseSheet={handleClosePress} />
+        <Nego handleCloseSheet={handleClosePress} setisAlreadyBid={setisAlreadyBid} />
       </BottomSheet>
 
     </GestureHandlerRootView>

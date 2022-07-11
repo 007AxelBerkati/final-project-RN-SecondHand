@@ -67,22 +67,20 @@ function InfoPenawaranScreen({ navigation, route }) {
 
         <Text style={styles.Detail}>Daftar Produkmu yang Ditawar</Text>
 
+        <CardList
+          source={{ uri: dataInfoPenawaran?.image_product }}
+          title="penawaran produk"
+          date={dataInfoPenawaran?.updatedAt}
+          name={dataInfoPenawaran?.product_name}
+          harga={dataInfoPenawaran?.base_price}
+          hargaNego={dataInfoPenawaran?.price}
+        />
         {
           dataInfoPenawaran?.status === 'pending' && (
-            <>
-              <CardList
-                source={{ uri: dataInfoPenawaran?.image_product }}
-                title="penawaran produk"
-                date={dataInfoPenawaran?.updatedAt}
-                name={dataInfoPenawaran?.product_name}
-                harga={dataInfoPenawaran?.base_price}
-                hargaNego={dataInfoPenawaran?.price}
-              />
-              <View style={styles.btnWrapper}>
-                <ButtonComponent style={styles.btnTolak} type="secondary" title="Tolak" onPress={() => onReject(dataInfoPenawaran?.id)} />
-                <ButtonComponent style={styles.btnTerima} title="Terima" onPress={() => onAccept(dataInfoPenawaran?.id)} />
-              </View>
-            </>
+            <View style={styles.btnWrapper}>
+              <ButtonComponent style={styles.btnTolak} type="secondary" title="Tolak" onPress={() => onReject(dataInfoPenawaran?.id)} />
+              <ButtonComponent style={styles.btnTerima} title="Terima" onPress={() => onAccept(dataInfoPenawaran?.id)} />
+            </View>
 
           )
         }
@@ -96,7 +94,7 @@ function InfoPenawaranScreen({ navigation, route }) {
         }
 
         {
-          dataInfoPenawaran?.status === (('declined') || ('accepted')) && (
+          dataInfoPenawaran?.status === ('declined' || 'accepted') && (
             <CardList
               source={{ uri: dataInfoPenawaran?.image_product }}
               title={dataInfoPenawaran?.status === 'accepted' ? 'Berhasil Terjual' : 'Penawaran Anda Ditolak'}

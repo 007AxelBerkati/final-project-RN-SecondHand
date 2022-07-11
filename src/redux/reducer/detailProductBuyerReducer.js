@@ -8,7 +8,6 @@ import {
 const initialDetailBuyerState = {
   detailBuyer: {},
   allBidProduct: [],
-  bidPrice: 0,
 };
 
 export const detailProductBuyerReducer = (
