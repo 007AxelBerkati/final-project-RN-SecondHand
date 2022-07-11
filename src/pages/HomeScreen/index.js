@@ -22,47 +22,28 @@ import { getBannerSeller, getCategoryProduct, getProduct } from '../../redux';
 function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
-  const [active, setActive] = useState('');
-  const [btnAllActive, setBtnAllActive] = useState(true);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
-
   const dataHome = useSelector((state) => state.dataHome);
 
   useEffect(() => {
-    dispatch(getProduct(category));
+    dispatch(getProduct({
+      search: searchQuery,
+      category_id: category !== 0 ? category : '',
+      status: 'available',
+      // page: '',
+      // per_page: '',
+    }));
     dispatch(getCategoryProduct());
     dispatch(getBannerSeller());
+    setRefreshing(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const getProductByCategory = useCallback((categoryId) => {
-    setActive(categoryId);
-    setBtnAllActive(false);
-    setCategory(`?category_id=${categoryId}`);
-    dispatch(getProduct(`?category_id=${categoryId}`));
-  }, []);
-
-  const getAllProduct = () => {
-    setBtnAllActive(true);
-    setActive('');
-    setCategory('');
-    dispatch(getProduct(''));
-  };
+  }, [category, searchQuery, refreshing]);
 
   const onChangeSearch = useCallback((query) => {
     setSearchQuery(query);
-    dispatch(getProduct(`?search=${query}&&${category}`));
-  }, [dispatch, category]);
+  }, [dispatch]);
 
-  const onRefresh = useCallback(
-    () => {
-      setRefreshing(true);
-      dispatch(getProduct(category));
-      setRefreshing(false);
-    },
-    [dispatch, category],
-  );
   const getItemLayout = (data, index) => (
     { length: 200, offset: 200 * index, index }
   );
@@ -85,7 +66,7 @@ function HomeScreen({ navigation }) {
         refreshControl={(
           <RefreshControl
             refreshing={refreshing}
-            onRefresh={() => onRefresh()}
+            onRefresh={() => setRefreshing(true)}
           />
         )}
       >
@@ -122,9 +103,9 @@ function HomeScreen({ navigation }) {
             showsHorizontalScrollIndicator={false}
             style={{ marginBottom: 20 }}
           >
-            <CardCategory name="search" active={btnAllActive} kategori="Semua" onPress={() => getAllProduct()} />
+            <CardCategory name="search" active={category === 0} kategori="Semua" onPress={() => setCategory(0)} />
             {dataHome?.category?.map((item) => (
-              <CardCategory key={item.id} name="search" active={active === item.id} kategori={item.name} onPress={() => getProductByCategory(item.id)} />
+              <CardCategory key={item.id} name="search" active={category === item?.id} kategori={item.name} onPress={() => setCategory(item?.id)} />
             ))}
 
           </ScrollView>

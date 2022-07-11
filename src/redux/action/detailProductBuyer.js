@@ -69,7 +69,7 @@ export const bidProduct = (payload) => async (dispatch) => {
     dispatch(setLoading(false));
     showSuccess('Success menawar produk');
   }).catch((err) => {
-    dispatch(failedBid(err));
+    dispatch(failedBid());
     dispatch(setLoading(false));
     showError(err.response.data.message);
   });
