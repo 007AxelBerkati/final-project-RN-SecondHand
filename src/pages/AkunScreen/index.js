@@ -51,7 +51,9 @@ function AkunScreen({ navigation }) {
             }
             <CardList type="account" name="edit" title="Ubah Akun" onPress={() => navigation.navigate('ProfileScreen')} />
             <CardList type="account" name="setting" title="Pengaturan Akun" onPress={() => navigation.navigate('PengaturanScreen')} />
+            <CardList type="account" name="book" title="Daftar Simpan" onPress={() => navigation.navigate('DaftarSimpanScreen')} />
             <CardList type="account" name="logout" title="Keluar" onPress={onLogout} />
+
             <Text style={styles.version}>
               Version
               {' '}

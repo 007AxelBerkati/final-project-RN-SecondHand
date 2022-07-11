@@ -19,6 +19,7 @@ import {
   UpdateDetailProductScreen,
   PengaturanScreen,
   ForgotPasswordScreen,
+  DaftarSimpanScreen,
 } from '../pages';
 import { colors } from '../utils';
 import ProfileScreen from '../pages/ProfileScreen';
@@ -41,7 +42,7 @@ const MyTheme = {
 function MyTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="DaftarSimpanScreen"
       screenOptions={() => ({
         tabBarStyle: {
           paddingTop: 10,
@@ -174,6 +175,11 @@ function Router() {
         <Stack.Screen
           name="ForgotPasswordScreen"
           component={ForgotPasswordScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DaftarSimpanScreen"
+          component={DaftarSimpanScreen}
           options={{ headerShown: false }}
         />
 

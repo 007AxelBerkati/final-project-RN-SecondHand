@@ -12,11 +12,12 @@ import DetailProductSellerScreen from './DetailProductSellerScreen';
 import UpdateDetailProductScreen from './UpdateDetailProductScreen';
 import PengaturanScreen from './PengaturanScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
+import DaftarSimpanScreen from './DaftarSimpanScreen';
 
 export {
   LoginScreen,
   RegisterScreen, HomeScreen, DaftarJualScreen, AkunScreen, JualScreen, NotifikasiScreen,
   SplashScreen, PreviewScreen,
   DetailProductSellerScreen, UpdateDetailProductScreen, InfoPenawaranScreen,
-  PengaturanScreen, ForgotPasswordScreen,
+  PengaturanScreen, ForgotPasswordScreen, DaftarSimpanScreen,
 };

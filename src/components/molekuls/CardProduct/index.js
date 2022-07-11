@@ -4,13 +4,14 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import propTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   borderRadius,
   colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../../utils';
 
 function CardProduct({
-  onPress, source, name, jenis, harga, idJenis,
+  onPress, source, name, jenis, harga, idJenis, icon,
 }) {
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
   if (source === undefined) {
@@ -56,11 +57,18 @@ function CardProduct({
             ))
           }
         </Text>
-        <Text numberOfLines={1} style={styles.harga}>
-          {
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text numberOfLines={1} style={styles.harga}>
+            {
             hargaConvert
           }
-        </Text>
+          </Text>
+          {
+            icon !== undefined && (<Icon name={icon} size={24} color={colors.background.black} />)
+          }
+
+        </View>
+
       </TouchableOpacity>
     </View>
   );
