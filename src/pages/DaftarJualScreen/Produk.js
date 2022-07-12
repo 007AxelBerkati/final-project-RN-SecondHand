@@ -9,7 +9,9 @@ function Produk({ dataDaftarJual, navigation }) {
     <View style={styles.wrapperProduk}>
       {
         dataDaftarJual?.loading ? (
-          <EmptySkeletonProduct />
+          <View style={{ marginBottom: 5 }}>
+            <EmptySkeletonProduct />
+          </View>
         ) : (
           <>
             {
