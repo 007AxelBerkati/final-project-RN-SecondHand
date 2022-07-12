@@ -1,18 +1,18 @@
-import {
-  StyleSheet, View, FlatList, Text,
-} from 'react-native';
 import React, { useEffect, useState } from 'react';
+import {
+  Alert, FlatList, StyleSheet, Text, View,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { IconSellNull } from '../../assets';
 import {
   CardList, EmptySkeletonNotif, Headers, NotLogin,
 } from '../../components';
-import { getNotifikasi, patchNotifikasi } from '../../redux';
-import { IconSellNull } from '../../assets';
+import { getNotifikasi } from '../../redux';
 import {
-  colors, fonts, fontSize, sortDate, windowHeight, windowWidth,
+  colors, fonts, fontSize, showInfo, sortDate, windowHeight, windowWidth,
 } from '../../utils';
 
-function NotifikasiScreen() {
+function NotifikasiScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const dataLogin = useSelector((state) => state.dataLogin);
 
@@ -29,8 +29,55 @@ function NotifikasiScreen() {
     setRefreshing(false);
   };
 
-  const onClick = (id) => {
-    dispatch(patchNotifikasi(id));
+  const onClick = (id, status, productId, orderId, product) => {
+    switch (status) {
+      case 'accepted':
+        // dispatch(patchNotifikasi(id, 'read'));
+        showInfo('Penawaranmu telah diterima, silahkan tunggu konfirmasi dari penjual');
+        // dispatch(patchNotifikasi(id));
+        break;
+      case 'declined':
+        Alert.alert('Tawar Lagi?', 'Apakah anda menawar lagi?', [
+          { text: 'Tidak', style: 'cancel' },
+          {
+            text: 'Ya',
+            onPress: () => {
+              if (product !== null) {
+                navigation.navigate('DetailProductScreen', { id: productId });
+              } else {
+                Alert.alert('Barang tidak ditemukan', 'Barang yang ingin anda tawarkan tidak ditemukan, mungkin telah dihapus');
+              }
+            },
+          },
+        ]);
+        break;
+      case 'bid':
+        if (product !== null) {
+          navigation.navigate('InfoPenawaranScreen', { id: orderId });
+        } else {
+          Alert.alert('Produk Terhapus', 'Produk ini telah dihapus oleh penjual');
+        }
+        break;
+      case 'create':
+        Alert.alert(
+          'Tambah Produk',
+          'Apakah anda ingin menambah produk lain yang ingin dijual?',
+          [
+            { text: 'Tidak', style: 'cancel' },
+            {
+              text: 'Ya',
+              onPress: () => {
+                navigation.navigate('Jual', { screen: 'MainApp' });
+              },
+            },
+          ],
+          { cancelable: false },
+        );
+        break;
+
+      default:
+        break;
+    }
   };
 
   const emptyComponent = () => (
@@ -45,7 +92,7 @@ function NotifikasiScreen() {
       <EmptySkeletonNotif />
     ) : (
       <CardList
-        source={{ uri: item.image_url }}
+        source={{ uri: item.image_url ? item.image_url : 'https://avatars.services.sap.com/images/naushad124_small.png' }}
         status={item.status}
         type="notif"
         date={item.createdAt}
@@ -53,7 +100,13 @@ function NotifikasiScreen() {
         hargaNego={item.bid_price}
         name={item.product_name}
         read={item.read}
-        onPress={() => onClick(item.id)}
+        onPress={() => onClick(
+          item.id,
+          item.status,
+          item?.Product?.id,
+          item?.order_id,
+          item?.Product,
+        )}
       />
     )
   );

@@ -16,7 +16,7 @@ const CodePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
   mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
   updateDialog: {
-    title: 'a new update is available!',
+    appendReleaseDescription: true,
   },
 };
 

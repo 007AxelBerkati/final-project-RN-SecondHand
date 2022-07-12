@@ -14,14 +14,14 @@ function CardListNotif({
 }) {
   const titleNotif = () => {
     switch (status) {
-      case 'Terjual':
+      case 'accepted':
         return 'Barang Berhasil Terjual';
       case 'create':
         return 'Berhasil di terbitkan';
       case 'bid':
         return 'Penawaran Produk';
-      case 'accepted':
-        return 'Penawaran Diterima';
+      case 'declined':
+        return 'Penawaran Ditolak';
       case 'Dibatalkan':
         return 'Penawaran Ditolak';
       default:
