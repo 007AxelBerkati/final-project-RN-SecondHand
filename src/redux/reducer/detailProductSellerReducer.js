@@ -1,7 +1,7 @@
 import {
 
   // eslint-disable-next-line max-len
-  DELETE_PRODUCT_FAIL, DELETE_PRODUCT_SUCCESS, GET_PRODUCT_SELLER_ID_FAIL, GET_PRODUCT_SELLER_ID_SUCCESS, LOGOUT,
+  DELETE_PRODUCT_FAIL, DELETE_PRODUCT_SUCCESS, GET_PRODUCT_SELLER_ID_FAIL, GET_PRODUCT_SELLER_ID_LOADING, GET_PRODUCT_SELLER_ID_SUCCESS, LOGOUT,
 
 } from '../types';
 
@@ -23,12 +23,19 @@ export const detailProductSellerReducer = (
         detailProductSeller: action.payload,
         isSuccess: true,
         error: null,
+        isLoading: false,
       };
     case GET_PRODUCT_SELLER_ID_FAIL:
       return {
         ...state,
         isSuccess: false,
         error: action.payload,
+        isLoading: false,
+      };
+    case GET_PRODUCT_SELLER_ID_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
       };
 
     case DELETE_PRODUCT_SUCCESS:

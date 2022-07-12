@@ -6,7 +6,7 @@ import {
 import {
   BID_PRODUCT_FAILED,
   BID_PRODUCT_SUCCESS,
-  GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS, GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS,
+  GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS, GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_LOADING, GET_DETAIL_PRODUCT_SUCCESS,
 } from '../types';
 import { setLoading } from './global';
 
@@ -19,6 +19,12 @@ export const getDetailProductSuccess = (data) => ({
 export const getDetailProductFail = (err) => ({
   type: GET_DETAIL_PRODUCT_FAIL,
   payload: err,
+}
+);
+
+export const getDetailProductLoading = (data) => ({
+  type: GET_DETAIL_PRODUCT_LOADING,
+  payload: data,
 }
 );
 
@@ -41,26 +47,21 @@ export const failedBid = () => ({
   type: BID_PRODUCT_FAILED,
 });
 export const getDetailProduct = (id) => async (dispatch) => {
-  dispatch(setLoading(true));
+  dispatch(getDetailProductLoading(true));
   await detailBuyerProduct(id).then((response) => {
     dispatch(getDetailProductSuccess(response.data));
-    dispatch(setLoading(false));
   }).catch((error) => {
     dispatch(getDetailProductFail(error));
     showError(error.response.data.message);
-    dispatch(setLoading(false));
   });
 };
 
 export const getAllBidProduct = () => async (dispatch) => {
-  dispatch(setLoading(true));
   await getBuyerOrder().then((values) => {
     dispatch(successGetBidProduct(values.data));
-    dispatch(setLoading(false));
   }).catch((error) => {
     dispatch(failedGetBidProduct(error));
     showError(error.values.data.message);
-    dispatch(setLoading(false));
   });
 };
 

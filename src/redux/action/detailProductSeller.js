@@ -2,7 +2,8 @@ import { deleteProduct, detailProduct } from '../../services';
 import { showError, showSuccess } from '../../utils';
 import {
   GET_PRODUCT_SELLER_ID_SUCCESS,
-  GET_PRODUCT_SELLER_ID_FAIL, DELETE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAIL,
+  GET_PRODUCT_SELLER_ID_FAIL, DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAIL, GET_PRODUCT_SELLER_ID_LOADING,
 } from '../types';
 import { setLoading } from './global';
 
@@ -15,6 +16,12 @@ export const getSellerProductIdSuccess = (data) => ({
 export const getSellerProductIdFail = (err) => ({
   type: GET_PRODUCT_SELLER_ID_FAIL,
   payload: err,
+}
+);
+
+export const getSellerProductIdLoading = (data) => ({
+  type: GET_PRODUCT_SELLER_ID_LOADING,
+  payload: data,
 }
 );
 
@@ -45,13 +52,11 @@ export const deleteSellerProduct = (id, navigation) => async (dispatch) => {
 };
 
 export const getSellerProductId = (id) => async (dispatch) => {
-  dispatch(setLoading(true));
+  dispatch(getSellerProductIdLoading(true));
   await detailProduct(id).then((response) => {
     dispatch(getSellerProductIdSuccess(response.data));
-    dispatch(setLoading(false));
   }).catch((error) => {
     dispatch(getSellerProductIdFail(error));
     showError(error.response.data.message);
-    dispatch(setLoading(false));
   });
 };

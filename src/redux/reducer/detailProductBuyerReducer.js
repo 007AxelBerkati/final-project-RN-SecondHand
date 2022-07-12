@@ -2,12 +2,13 @@ import {
   BID_PRODUCT_FAILED,
   BID_PRODUCT_SUCCESS,
   GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS,
-  GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS, LOGOUT,
+  GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_LOADING, GET_DETAIL_PRODUCT_SUCCESS, LOGOUT,
 } from '../types';
 
 const initialDetailBuyerState = {
   detailBuyer: {},
   allBidProduct: [],
+  isLoading: false,
 };
 
 export const detailProductBuyerReducer = (
@@ -21,13 +22,22 @@ export const detailProductBuyerReducer = (
         detailBuyer: action.payload,
         isSuccess: true,
         error: null,
+        isLoading: false,
       };
     case GET_DETAIL_PRODUCT_FAIL:
       return {
         ...state,
         isSuccess: false,
         error: action.payload,
+        isLoading: false,
       };
+
+    case GET_DETAIL_PRODUCT_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+
     case BID_PRODUCT_SUCCESS:
       return {
         ...state,
