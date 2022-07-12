@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 // import { useSelector } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 import {
   AkunScreen,
   DaftarJualScreen,
@@ -42,7 +43,7 @@ const MyTheme = {
 };
 
 function MyTabs() {
-  // const read = useSelector((state) => state.dataNotifikasi.read);
+  const read = useSelector((state) => state.dataNotifikasi.read);
   return (
     <Tab.Navigator
       initialRouteName="DaftarSimpanScreen"
@@ -76,14 +77,14 @@ function MyTabs() {
           tabBarIcon: ({ color }) => (
             <View>
               <Icon name="notifications-outline" color={color} size={22} />
-              {/* {!read && (
+              {!read && (
                 <Icon
                   name="ellipse"
                   color="red"
                   size={10}
                   style={{ position: 'absolute', right: 0 }}
                 />
-              )} */}
+              )}
             </View>
           ),
           headerShown: false,
