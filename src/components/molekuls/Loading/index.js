@@ -4,7 +4,15 @@ import {
 } from 'react-native';
 import { colors, fonts, fontSize } from '../../../utils';
 
-export default function Loading() {
+export default function Loading({ type }) {
+  if (type === 'full') {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.wrapper}>
       <ActivityIndicator size="large" color={colors.background.secondary} />

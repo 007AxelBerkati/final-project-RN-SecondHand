@@ -41,9 +41,8 @@ function CardProduct({
           source={{
             uri: source,
             priority: FastImage.priority.low,
-            cache: FastImage.cacheControl.immutable,
           }}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={FastImage.resizeMode.cover}
         />
         <Text
           numberOfLines={1}
