@@ -1,13 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {
-  ActivityIndicator,
   FlatList,
   RefreshControl,
   ScrollView,
   StatusBar,
   StyleSheet, Text, View,
 } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
@@ -16,7 +14,7 @@ import FastImage from 'react-native-fast-image';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
-import { CardCategory, CardProduct } from '../../components';
+import { CardCategory, CardProduct, EmptySkeletonProduct } from '../../components';
 import { getBannerSeller, getCategoryProduct, getProduct } from '../../redux';
 
 function HomeScreen({ navigation }) {
@@ -37,25 +35,37 @@ function HomeScreen({ navigation }) {
     dispatch(getCategoryProduct());
     dispatch(getBannerSeller());
     setRefreshing(false);
-  }, [category, searchQuery, refreshing]);
+  }, [category, searchQuery, refreshing, dispatch]);
 
-  const onChangeSearch = useCallback((query) => {
+  const onChangeSearch = (query) => {
     setSearchQuery(query);
-  }, [dispatch]);
+  };
 
   const getItemLayout = (data, index) => (
     { length: 200, offset: 200 * index, index }
   );
 
-  const renderItem = useCallback(({ item }) => (
-    <CardProduct
-      source={item.image_url}
-      name={item.name}
-      jenis={item.Categories}
-      harga={item.base_price}
-      onPress={() => navigation.navigate('DetailProductScreen', { id: item.id })}
-    />
-  ), [navigation]);
+  const renderItem = ({ item }) => (
+    dataHome.isLoading ? (
+      <View style={{
+        flex: 1,
+        marginHorizontal: 5,
+        marginBottom: 10,
+        justifyContent: 'space-between',
+      }}
+      >
+        <EmptySkeletonProduct />
+      </View>
+    ) : (
+      <CardProduct
+        source={item.image_url}
+        name={item.name}
+        jenis={item.Categories}
+        harga={item.base_price}
+        onPress={() => navigation.navigate('DetailProductScreen', { id: item.id })}
+      />
+    )
+  );
 
   const emptyContent = () => <Text style={styles.textEmpty}>Tidak ada produk</Text>;
 
@@ -110,33 +120,25 @@ function HomeScreen({ navigation }) {
             ))}
 
           </ScrollView>
-          {
-            // eslint-disable-next-line no-nested-ternary
-            dataHome.isLoading ? (
-              <ActivityIndicator size="small" color={colors.background.secondary} />
-            )
-              : (
-                <FlatList
-                  data={dataHome.data}
-                  numColumns={2}
-                  maxToRenderPerBatch={5}
-                  initialNumToRender={5}
-                  removeClippedSubviews
-                  ListEmptyComponent={emptyContent}
-                  getItemLayout={getItemLayout}
-                  windowSize={10}
-                  columnWrapperStyle={{
-                    flex: 1,
-                    marginHorizontal: 5,
-                    marginBottom: 10,
-                    justifyContent: 'space-between',
-                  }}
-                  renderItem={renderItem}
-                  keyExtractor={(item) => item.id}
-                />
-              )
 
-          }
+          <FlatList
+            data={dataHome.data}
+            numColumns={2}
+            maxToRenderPerBatch={5}
+            initialNumToRender={5}
+            removeClippedSubviews
+            ListEmptyComponent={emptyContent}
+            getItemLayout={getItemLayout}
+            windowSize={10}
+            columnWrapperStyle={{
+              flex: 1,
+              marginHorizontal: 5,
+              marginBottom: 10,
+              justifyContent: 'space-between',
+            }}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
 
         </View>
       </ScrollView>

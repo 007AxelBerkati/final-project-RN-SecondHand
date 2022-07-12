@@ -25,20 +25,18 @@ function EmptySkeletonProduct() {
         elevation: 4,
       }}
       >
-        <View>
+        <View style={{ height: '65%', width: '100%' }}>
           <PlaceholderMedia
             style={{
-              height: 100,
-              width: 100,
+              height: '100%',
+              width: '100%',
               borderRadius: borderRadius.small,
-              alignSelf: 'center',
+              marginBottom: 5,
             }}
           />
-        </View>
-        <View style={{ flex: 1, marginLeft: 10, justifyContent: 'center' }}>
           <PlaceholderLine width={windowWidth * 0.2} />
-          <PlaceholderLine width={windowWidth * 0.2} />
-          <PlaceholderLine width={windowWidth * 0.2} />
+          <PlaceholderLine width={windowWidth * 0.1} />
+          <PlaceholderLine width={windowWidth * 0.15} />
         </View>
       </View>
     </Placeholder>
