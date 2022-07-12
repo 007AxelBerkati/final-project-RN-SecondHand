@@ -1,4 +1,3 @@
-
 /* eslint-disable max-len */
 import { addBuyerOrder, detailBuyerProduct, getBuyerOrder } from '../../services';
 import { showError, showSuccess } from '../../utils';
@@ -7,9 +6,6 @@ import {
   BID_PRODUCT_SUCCESS,
   GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS, GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS,
 } from '../types';
-import { detailBuyerProduct } from '../../services';
-import { showError } from '../../utils';
-import { GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_SUCCESS } from '../types';
 import { setLoading } from './global';
 
 export const getDetailProductSuccess = (data) => ({
@@ -23,7 +19,6 @@ export const getDetailProductFail = (err) => ({
   payload: err,
 }
 );
-
 
 export const successGetBidProduct = (value) => ({
   type: GET_ALL_BID_SUCCESS,
@@ -80,4 +75,3 @@ export const bidProduct = (payload, navigation) => async (dispatch) => {
     showError(err.response.data.message);
   });
 };
-
