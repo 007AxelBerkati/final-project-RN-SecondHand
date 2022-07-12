@@ -72,7 +72,7 @@ function HomeScreen({ navigation }) {
         )}
       >
         <StatusBar backgroundColor="transparent" translucent barStyle={useIsFocused() ? 'light-content' : null} />
-        <PagerView style={{ height: windowHeight * 0.4 }} showPageIndicator initialPage={0}>
+        <PagerView style={{ height: windowHeight * 0.2 }} showPageIndicator initialPage={0}>
           {
             dataHome?.banner?.map((item) => (
               <View
