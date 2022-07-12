@@ -1,4 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  Alert, StyleSheet, Text, View,
+} from 'react-native';
 import React, { useState, useCallback } from 'react';
 import { RadioButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
@@ -66,8 +68,16 @@ function Status({ idOrder, handleClosePress }) {
             handleClosePress();
           }
           if (checked === 'second') {
-            onReject();
-            handleClosePress();
+            Alert.alert('Batalkan Transaksi', 'Apakah anda yakin ingin membatalkan transaksi ini?', [
+              { text: 'Tidak', style: 'cancel' },
+              {
+                text: 'Ya',
+                onPress: () => {
+                  onReject();
+                  handleClosePress();
+                },
+              },
+            ], { cancelable: false });
           }
         }}
       />

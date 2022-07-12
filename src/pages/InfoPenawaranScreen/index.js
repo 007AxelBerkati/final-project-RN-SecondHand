@@ -2,6 +2,7 @@ import {
   StyleSheet, Text, View,
   StatusBar,
   Linking,
+  Alert,
 } from 'react-native';
 import React, {
   useCallback, useEffect, useMemo, useRef, useState,
@@ -83,7 +84,21 @@ function InfoPenawaranScreen({ navigation, route }) {
         {
           dataInfoPenawaran?.status === 'pending' && !isAlreadyAccepted ? (
             <View style={styles.btnWrapper}>
-              <ButtonComponent style={styles.btnTolak} type="secondary" title="Tolak" onPress={() => onReject(dataInfoPenawaran?.id)} />
+              <ButtonComponent
+                style={styles.btnTolak}
+                type="secondary"
+                title="Tolak"
+                onPress={() => {
+                  Alert.alert(
+                    'Tolak Penawaran',
+                    'Apakah anda yakin ingin menolak penawaran ini?',
+                    [
+                      { text: 'Tidak', style: 'cancel' },
+                      { text: 'Ya', onPress: () => onReject(dataInfoPenawaran?.id) },
+                    ],
+                  );
+                }}
+              />
               <ButtonComponent style={styles.btnTerima} title="Terima" onPress={() => onAccept(dataInfoPenawaran?.id)} />
             </View>
 
@@ -99,7 +114,9 @@ function InfoPenawaranScreen({ navigation, route }) {
           dataInfoPenawaran?.status === ('accepted' || 'declined') && (
             <CardList
               source={{ uri: dataInfoPenawaran?.image_product }}
-              title={dataInfoPenawaran?.status === 'accepted' ? 'Berhasil Terjual' : 'Penawaran Anda Ditolak'}
+              title={dataInfoPenawaran?.status === 'accepted'
+                ? 'Berhasil Terjual'
+                : 'Penawaran Anda Ditolak'}
               date={dataInfoPenawaran?.updatedAt}
               name={dataInfoPenawaran?.product_name}
               harga={dataInfoPenawaran?.base_price}

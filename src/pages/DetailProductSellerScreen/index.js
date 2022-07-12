@@ -1,6 +1,7 @@
 import {
   SafeAreaView, ScrollView, StyleSheet, View,
   StatusBar,
+  Alert,
 } from 'react-native';
 import React, { useEffect, useCallback } from 'react';
 import { ImageSlider } from 'react-native-image-slider-banner';
@@ -77,7 +78,22 @@ function DetailProductSellerScreen({ route, navigation }) {
       </ScrollView>
       <View style={styles.btnWrapper}>
         <ButtonComponent style={styles.btnPreview} type="secondary" title="Perbarui Produk" onPress={() => navigation.navigate('UpdateDetailProductScreen', { dataDetail: dataDetailProduct })} disable={stateGlobal.isLoading} />
-        <ButtonComponent style={styles.btnTerbitkan} title="Hapus Produk" onPress={() => onDelete()} disable={stateGlobal.isLoading} />
+        <ButtonComponent
+          style={styles.btnTerbitkan}
+          title="Hapus Produk"
+          onPress={() => {
+            Alert.alert(
+              'Hapus Produk',
+              'Apakah anda yakin ingin menghapus produk ini?',
+              [
+                { text: 'Tidak', style: 'cancel' },
+                { text: 'Ya', onPress: () => onDelete() },
+              ],
+              { cancelable: false },
+            );
+          }}
+          disable={stateGlobal.isLoading}
+        />
       </View>
     </SafeAreaView>
   );

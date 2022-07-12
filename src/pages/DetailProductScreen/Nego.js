@@ -1,6 +1,7 @@
 import {
   StyleSheet, Text, TouchableWithoutFeedback, View,
   Keyboard,
+  Alert,
 } from 'react-native';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -68,7 +69,10 @@ function Nego({ handleCloseSheet, setisAlreadyBid }) {
             <Gap height={windowHeight * 0.03} />
             <ButtonComponent
               title="Kirim"
-              onPress={handleSubmit}
+              onPress={() => Alert.alert('Kirim', 'Kirim tawaranmu?', [
+                { text: 'Batal', style: 'cancel' },
+                { text: 'Kirim', onPress: handleSubmit },
+              ])}
               disable={!(dirty && isValid)}
             />
           </View>
