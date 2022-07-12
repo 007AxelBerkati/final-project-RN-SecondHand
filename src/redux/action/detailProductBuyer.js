@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 import { addBuyerOrder, detailBuyerProduct, getBuyerOrder } from '../../services';
-import { showError, showSuccess } from '../../utils';
+import {
+  buatChannel, cancelAllLocalNotifications, configure, kirimNotifikasi, showError, showSuccess,
+} from '../../utils';
 import {
   BID_PRODUCT_FAILED,
   BID_PRODUCT_SUCCESS,
@@ -65,6 +67,14 @@ export const getAllBidProduct = () => async (dispatch) => {
 export const bidProduct = (payload) => async (dispatch) => {
   dispatch(setLoading(true));
   await addBuyerOrder(payload).then((response) => {
+    const notifBid = () => {
+      configure();
+      buatChannel('1');
+      cancelAllLocalNotifications();
+      kirimNotifikasi('1', 'Bid', 'Bid Berhasil');
+    };
+
+    notifBid();
     dispatch(successBid(response.data));
     dispatch(setLoading(false));
     showSuccess('Success menawar produk');

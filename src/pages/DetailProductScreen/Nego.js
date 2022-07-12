@@ -1,20 +1,17 @@
-import {
-  StyleSheet, Text, TouchableWithoutFeedback, View,
-  Keyboard,
-  Alert,
-} from 'react-native';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
+import React from 'react';
 import {
-  bidPriceSchema,
-  colors, fonts, fontSize, windowHeight, windowWidth,
-} from '../../utils';
+  Alert, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View,
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   ButtonComponent,
   CardList, Gap, Input2,
 } from '../../components';
 import { bidProduct } from '../../redux';
+import {
+  bidPriceSchema, colors, fonts, fontSize, windowHeight, windowWidth,
+} from '../../utils';
 
 function Nego({ handleCloseSheet, setisAlreadyBid }) {
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);

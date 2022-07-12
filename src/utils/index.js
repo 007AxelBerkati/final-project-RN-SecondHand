@@ -6,3 +6,4 @@ export * from './showMessage';
 export * from './helperFunction';
 export * from './Validation';
 export * from './size';
+export * from './notif';
