@@ -48,6 +48,13 @@ function DetailProductScreen({ route, navigation }) {
   const handleOpenPress = (index) => bottomSheetRef.current?.snapToIndex(index);
   const handleClosePress = () => bottomSheetRef.current?.close();
 
+  const checkUser = () => {
+    if (!dataLogin.isLoggedIn) {
+      navigation.navigate('LoginScreen');
+    } else {
+      handleOpenPress(1);
+    }
+  };
   return (
     <GestureHandlerRootView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>
@@ -97,7 +104,7 @@ function DetailProductScreen({ route, navigation }) {
       <View style={styles.btnNego}>
         <ButtonComponent
           title={dataDetailBid[0]?.status || isAlreadyBid ? 'Menunggu Respon Penjual' : 'Saya Tertarik dan Ingin Nego'}
-          onPress={() => handleOpenPress(1)}
+          onPress={() => checkUser()}
           disable={dataDetailBid[0]?.status || isAlreadyBid}
         />
       </View>
