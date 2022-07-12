@@ -4,7 +4,7 @@ import { ButtonComponent, CardProductMatch, Gap } from '../../components';
 import { colors, fonts, fontSize } from '../../utils';
 import { keranjang } from '../../assets';
 
-function Accept({ dataInfoPenawaran }) {
+function Accept({ dataInfoPenawaran, onPress }) {
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>
@@ -32,7 +32,7 @@ function Accept({ dataInfoPenawaran }) {
           hargaNego={dataInfoPenawaran?.price}
         />
       </View>
-      <ButtonComponent title="Hubungi via Whatsapp" icon="whatsapp" />
+      <ButtonComponent title="Hubungi via Whatsapp" icon="whatsapp" onPress={onPress} />
     </View>
   );
 }

@@ -1,6 +1,7 @@
 import {
   StyleSheet, Text, View,
   StatusBar,
+  Linking,
 } from 'react-native';
 import React, {
   useCallback, useEffect, useMemo, useRef,
@@ -8,6 +9,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { useIsFocused } from '@react-navigation/native';
 import {
   Headers, CardList, ButtonComponent, BackDropComponent,
 } from '../../components';
@@ -23,20 +25,19 @@ function InfoPenawaranScreen({ navigation, route }) {
   const { id } = route.params;
 
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const dataInfoPenawaran = useSelector((state) => state.dataInfoPenawaran.infoPenawaran);
 
   useEffect(() => {
     dispatch(getSelerOrderId(id));
-  }, []);
+  }, [isFocused]);
 
   // handle bottom sheet
   const bottomSheetRef = useRef(null);
   const snapPointsAccept = useMemo(() => ['1%', '60%'], []);
   const snapPointsStatus = useMemo(() => ['1%', '50%'], []);
-  const handleSheetChanges = useCallback((index) => {
-    console.log('sheet index', index);
-  }, []);
+
   const handleClosePress = () => bottomSheetRef.current?.close();
   const handleOpenPress = (index) => bottomSheetRef.current?.snapToIndex(index);
   // end handle bottom sheet
@@ -49,6 +50,10 @@ function InfoPenawaranScreen({ navigation, route }) {
   const onReject = useCallback((idOrder) => {
     dispatch(patchOrderSeller(idOrder, { status: 'declined' }));
   }, [dispatch]);
+
+  const onHubungi = () => {
+    Linking.openURL(`https://wa.me/62${dataInfoPenawaran?.User?.phone_number}`);
+  };
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -88,7 +93,7 @@ function InfoPenawaranScreen({ navigation, route }) {
           dataInfoPenawaran?.status === 'accepted' && (
             <View style={styles.btnWrapper}>
               <ButtonComponent style={styles.btnTolak} type="secondary" title="Status" onPress={() => handleOpenPress(1)} />
-              <ButtonComponent style={styles.btnTerima} title="Hubungi" onPress={() => { }} icon="whatsapp" />
+              <ButtonComponent style={styles.btnTerima} title="Hubungi" onPress={() => { onHubungi(); }} icon="whatsapp" />
             </View>
           )
         }
@@ -115,11 +120,10 @@ function InfoPenawaranScreen({ navigation, route }) {
         index={0}
         snapPoints={dataInfoPenawaran?.status === 'pending' ? snapPointsAccept : snapPointsStatus}
         backdropComponent={BackDropComponent}
-        onChange={handleSheetChanges}
       >
         {
           dataInfoPenawaran?.status === 'pending' ? (
-            <Accept dataInfoPenawaran={dataInfoPenawaran} />
+            <Accept dataInfoPenawaran={dataInfoPenawaran} onPress={() => onHubungi()} />
           ) : (
             <Status idOrder={dataInfoPenawaran?.id} handleClosePress={handleClosePress} />
           )
