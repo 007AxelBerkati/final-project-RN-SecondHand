@@ -4,12 +4,11 @@ import {
   Linking,
 } from 'react-native';
 import React, {
-  useCallback, useEffect, useMemo, useRef,
+  useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { useIsFocused } from '@react-navigation/native';
 import {
   Headers, CardList, ButtonComponent, BackDropComponent,
 } from '../../components';
@@ -25,13 +24,13 @@ function InfoPenawaranScreen({ navigation, route }) {
   const { id } = route.params;
 
   const dispatch = useDispatch();
-  const isFocused = useIsFocused();
 
   const dataInfoPenawaran = useSelector((state) => state.dataInfoPenawaran.infoPenawaran);
 
+  const [isAlreadyAccepted, setIsAlreadyAccepted] = useState(false);
   useEffect(() => {
     dispatch(getSelerOrderId(id));
-  }, [isFocused]);
+  }, []);
 
   // handle bottom sheet
   const bottomSheetRef = useRef(null);
@@ -44,6 +43,7 @@ function InfoPenawaranScreen({ navigation, route }) {
 
   const onAccept = useCallback((idOrder) => {
     dispatch(patchOrderSeller(idOrder, { status: 'accepted' }));
+    setIsAlreadyAccepted(true);
     handleOpenPress(1);
   }, [dispatch]);
 
@@ -81,21 +81,19 @@ function InfoPenawaranScreen({ navigation, route }) {
           hargaNego={dataInfoPenawaran?.price}
         />
         {
-          dataInfoPenawaran?.status === 'pending' && (
+          dataInfoPenawaran?.status === 'pending' && !isAlreadyAccepted ? (
             <View style={styles.btnWrapper}>
               <ButtonComponent style={styles.btnTolak} type="secondary" title="Tolak" onPress={() => onReject(dataInfoPenawaran?.id)} />
               <ButtonComponent style={styles.btnTerima} title="Terima" onPress={() => onAccept(dataInfoPenawaran?.id)} />
             </View>
 
           )
-        }
-        {
-          dataInfoPenawaran?.status === 'accepted' && (
-            <View style={styles.btnWrapper}>
-              <ButtonComponent style={styles.btnTolak} type="secondary" title="Status" onPress={() => handleOpenPress(1)} />
-              <ButtonComponent style={styles.btnTerima} title="Hubungi" onPress={() => { onHubungi(); }} icon="whatsapp" />
-            </View>
-          )
+            : (
+              <View style={styles.btnWrapper}>
+                <ButtonComponent style={styles.btnTolak} type="secondary" title="Status" onPress={() => handleOpenPress(1)} />
+                <ButtonComponent style={styles.btnTerima} title="Hubungi" onPress={() => { onHubungi(); }} icon="whatsapp" />
+              </View>
+            )
         }
         {/* {
           dataInfoPenawaran?.status === ('accepted' || 'declined') && (
