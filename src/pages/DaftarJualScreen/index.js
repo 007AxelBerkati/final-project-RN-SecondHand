@@ -61,7 +61,7 @@ function DaftarJualScreen({ navigation }) {
       case 1:
         return (
           <Produk
-            dataDaftarJual={dataDaftarJual?.daftarJual}
+            dataDaftarJual={dataDaftarJual}
             navigation={navigation}
           />
         );

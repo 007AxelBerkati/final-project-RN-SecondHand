@@ -74,7 +74,7 @@ function InfoPenawaranScreen({ navigation, route }) {
         <Text style={styles.Detail}>Daftar Produkmu yang Ditawar</Text>
 
         <CardList
-          source={{ uri: dataInfoPenawaran?.image_product }}
+          source={{ uri: dataInfoPenawaran?.image_product !== null ? dataInfoPenawaran?.image_product : 'https://avatars.services.sap.com/images/naushad124_small.png' }}
           title="penawaran produk"
           date={dataInfoPenawaran?.updatedAt}
           name={dataInfoPenawaran?.product_name}

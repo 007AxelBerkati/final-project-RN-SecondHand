@@ -58,7 +58,6 @@ function DetailProductScreen({ route, navigation }) {
   return (
     <GestureHandlerRootView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>
-
         <StatusBar backgroundColor="transparent" translucent />
         <ImageSlider
           data={[
