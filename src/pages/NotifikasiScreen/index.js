@@ -115,7 +115,7 @@ function NotifikasiScreen({ navigation }) {
     <View style={styles.pages}>
       <Headers title="Notifikasi" />
       {!dataLogin.isLoggedIn ? (
-        <NotLogin />
+        <NotLogin onPress={() => navigation.navigate('LoginScreen')} />
       ) : (
         <FlatList
           data={dataNotif.notifikasi.sort(sortDate)}
