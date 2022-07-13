@@ -10,3 +10,7 @@ export const deleteBuyerOrder = (id) => instance.delete(`/buyer/order/${id}`);
 // buyer/product
 export const getBuyerProduct = (params) => instance.get(`/buyer/product${params}`);
 export const detailBuyerProduct = (id) => instance.get(`/buyer/product/${id}`);
+
+// wishlist/buyer
+export const getWishlist = () => instance.get('/buyer/wishlist');
+export const detailWishlist = (id) => instance.get(`/buyer/wishlist/${id}`);

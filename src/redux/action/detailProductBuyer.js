@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import {
-  addBuyerOrder, deleteBuyerOrder, detailBuyerProduct, getBuyerOrder, updateBuyerOrder,
+  addBuyerOrder, deleteBuyerOrder, detailBuyerProduct, getBuyerOrder, getWishlist, updateBuyerOrder,
 } from '../../services';
 import {
   buatChannel, cancelAllLocalNotifications, configure, kirimNotifikasi, showError, showSuccess,
@@ -10,7 +10,7 @@ import {
   BID_PRODUCT_SUCCESS,
   DELETE_BID_FAILED,
   DELETE_BID_SUCCESS,
-  GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS, GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_LOADING, GET_DETAIL_PRODUCT_SUCCESS, PUT_BID_FAILED, PUT_BID_SUCCESS,
+  GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS, GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_LOADING, GET_DETAIL_PRODUCT_SUCCESS, GET_WISHLIST_FAILED, GET_WISHLIST_SUCCESS, PUT_BID_FAILED, PUT_BID_SUCCESS,
 } from '../types';
 import { setLoading } from './global';
 
@@ -142,6 +142,30 @@ export const deleteBid = (id) => async (dispatch) => {
     showSuccess('Success Delete Bid');
   }).catch((err) => {
     dispatch(deleteBidFailed());
+    dispatch(setLoading(false));
+    showError(err.response.data.message);
+  });
+};
+
+// wishlist
+export const getwishlistSuccess = (payload) => ({
+  type: GET_WISHLIST_SUCCESS,
+  payload,
+}
+);
+
+export const getWishlistFailed = () => ({
+  type: GET_WISHLIST_FAILED,
+}
+);
+export const getWishlistBuyer = () => async (dispatch) => {
+  dispatch(setLoading(true));
+  await getWishlist().then((response) => {
+    dispatch(getwishlistSuccess(response.data));
+    dispatch(setLoading(false));
+    showSuccess('Success Get Wishlist');
+  }).catch((err) => {
+    dispatch(getWishlistFailed());
     dispatch(setLoading(false));
     showError(err.response.data.message);
   });

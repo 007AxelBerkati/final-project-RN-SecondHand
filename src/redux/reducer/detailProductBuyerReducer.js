@@ -5,11 +5,13 @@ import {
   DELETE_BID_SUCCESS,
   GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS,
   GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_LOADING,
-  GET_DETAIL_PRODUCT_SUCCESS, LOGOUT, PUT_BID_FAILED, PUT_BID_SUCCESS,
+  GET_DETAIL_PRODUCT_SUCCESS, GET_WISHLIST_FAILED, GET_WISHLIST_SUCCESS, LOGOUT,
+  PUT_BID_FAILED, PUT_BID_SUCCESS,
 } from '../types';
 
 const initialDetailBuyerState = {
   detailBuyer: {},
+  wishlist: {},
   allBidProduct: [],
   isLoading: false,
   putBid: {},
@@ -81,6 +83,18 @@ export const detailProductBuyerReducer = (
       };
 
     case DELETE_BID_FAILED:
+      return {
+        ...state,
+      };
+    case GET_WISHLIST_SUCCESS:
+      return {
+        ...state,
+        wishlist: action.payload,
+        isSuccess: true,
+        error: null,
+        isLoading: false,
+      };
+    case GET_WISHLIST_FAILED:
       return {
         ...state,
       };
