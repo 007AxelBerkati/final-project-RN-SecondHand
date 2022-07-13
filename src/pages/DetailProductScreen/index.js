@@ -59,19 +59,19 @@ function DetailProductScreen({ route, navigation }) {
   };
 
   const checkStatusBid = () => {
-    if (dataDetailBid[0].status === 'pending' || isAlreadyBid) {
+    if (dataDetailBid[0]?.status === 'pending' || isAlreadyBid) {
       return 'Menunggu respon penjual';
     }
-    if (dataDetailBid[0].status === 'declined') {
+    if (dataDetailBid[0]?.status === 'declined') {
       return 'Update penawaran anda';
     }
-    if (dataDetailBid[0].status === 'accepted') {
+    if (dataDetailBid[0]?.status === 'accepted') {
       return 'Penawaran anda diterima, Silahkan tunggu dihubungi oleh penjual';
     }
     if (dataDetailBid[0]?.Product?.status === 'sold') {
       return 'Maaf, produk ini telah terjual';
     }
-    return 'Belum ada penawaran';
+    return 'Saya Tertarik dan Ingin Nego';
   };
 
   if (isLoading) {
