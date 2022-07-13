@@ -1,4 +1,5 @@
 import {
+  Alert,
   ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import React, { useEffect } from 'react';
@@ -52,7 +53,22 @@ function AkunScreen({ navigation }) {
             <CardList type="account" name="edit" title="Ubah Akun" onPress={() => navigation.navigate('ProfileScreen')} />
             <CardList type="account" name="setting" title="Pengaturan Akun" onPress={() => navigation.navigate('PengaturanScreen')} />
             <CardList type="account" name="book" title="Daftar Simpan" onPress={() => navigation.navigate('DaftarSimpanScreen')} />
-            <CardList type="account" name="logout" title="Keluar" onPress={onLogout} />
+            <CardList
+              type="account"
+              name="logout"
+              title="Keluar"
+              onPress={() => {
+                Alert.alert(
+                  'Keluar',
+                  'Apakah anda yakin ingin keluar?',
+                  [
+                    { text: 'Tidak', style: 'cancel' },
+                    { text: 'Ya', onPress: () => onLogout() },
+                  ],
+                  { cancelable: false },
+                );
+              }}
+            />
 
             <Text style={styles.version}>
               Version

@@ -85,6 +85,11 @@ export const notifikasiReducer = (
         ...state,
         loading: action.payload,
       };
+    case 'IS_READ':
+      return {
+        ...state,
+        read: action.payload,
+      };
 
     case LOGOUT:
       return initialNotifikasiState;

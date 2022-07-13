@@ -8,7 +8,8 @@ export default function Loading({ type }) {
   if (type === 'full') {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color={colors.primary} />
+        <ActivityIndicator size="large" color={colors.background.secondary} />
+        <Text style={styles.text}>Loading...</Text>
       </View>
     );
   }
@@ -36,5 +37,11 @@ const styles = StyleSheet.create({
     fontSize: fontSize.xlarge,
     color: colors.text.tertiary,
     marginTop: 12,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.background.primary,
   },
 });

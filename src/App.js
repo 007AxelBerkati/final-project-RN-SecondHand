@@ -16,16 +16,16 @@ const CodePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
   mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
   updateDialog: {
-    title: 'a new update is available!',
+    appendReleaseDescription: true,
   },
 };
 
 function MainApp() {
   const stateGlobal = useSelector((state) => state.dataGlobal);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getNotifikasi());
-  // }, []);
+  useEffect(() => {
+    dispatch(getNotifikasi());
+  }, []);
 
   return (
     <>

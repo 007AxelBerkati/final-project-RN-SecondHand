@@ -11,7 +11,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
 
-  ButtonComponent, CardList, CardProduct, Desc, Gap, BackDropComponent,
+  ButtonComponent, CardList, CardProduct, Desc, Gap, BackDropComponent, Loading,
 } from '../../components';
 import {
   colors, windowHeight, windowWidth,
@@ -22,12 +22,14 @@ import Nego from './Nego';
 
 function DetailProductScreen({ route, navigation }) {
   const { id } = route.params;
+
   const dispatch = useDispatch();
 
   const [isAlreadyBid, setisAlreadyBid] = useState(false);
 
   const dataLogin = useSelector((state) => state.dataLogin);
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
+  const { isLoading } = useSelector((state) => state.dataDetailProductBuyer);
 
   const dataDetailBid = useSelector((state) => state.dataDetailProductBuyer.allBidProduct
     .filter((item) => item.product_id === id));
@@ -55,6 +57,12 @@ function DetailProductScreen({ route, navigation }) {
       handleOpenPress(1);
     }
   };
+
+  if (isLoading) {
+    return (
+      <Loading type="full" />
+    );
+  }
   return (
     <GestureHandlerRootView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>

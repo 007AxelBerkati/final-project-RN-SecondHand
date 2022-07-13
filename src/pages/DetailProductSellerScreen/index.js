@@ -7,7 +7,7 @@ import React, { useEffect, useCallback } from 'react';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  ButtonComponent, CardList, CardProduct, Desc, Gap,
+  ButtonComponent, CardList, CardProduct, Desc, Gap, Loading,
 } from '../../components';
 import {
   borderRadius,
@@ -21,7 +21,8 @@ function DetailProductSellerScreen({ route, navigation }) {
   const dataProfile = useSelector((state) => state.dataProfile.profile);
   const dataDetailProduct = useSelector((state) => state.dataDetailProductSeller
     .detailProductSeller);
-  const stateGlobal = useSelector((state) => state.dataGlobal);
+
+  const { isLoading } = useSelector((state) => state.dataDetailProductSeller);
 
   const dispatch = useDispatch();
 
@@ -32,6 +33,10 @@ function DetailProductSellerScreen({ route, navigation }) {
   const onDelete = useCallback(() => {
     dispatch(deleteSellerProduct(id, navigation));
   }, [dispatch, id]);
+
+  if (isLoading) {
+    return <Loading type="full" />;
+  }
 
   return (
     <SafeAreaView style={styles.pages}>
@@ -77,7 +82,12 @@ function DetailProductSellerScreen({ route, navigation }) {
         <Gap height={60} />
       </ScrollView>
       <View style={styles.btnWrapper}>
-        <ButtonComponent style={styles.btnPreview} type="secondary" title="Perbarui Produk" onPress={() => navigation.navigate('UpdateDetailProductScreen', { dataDetail: dataDetailProduct })} disable={stateGlobal.isLoading} />
+        <ButtonComponent
+          style={styles.btnPreview}
+          type="secondary"
+          title="Perbarui Produk"
+          onPress={() => navigation.navigate('UpdateDetailProductScreen', { dataDetail: dataDetailProduct })}
+        />
         <ButtonComponent
           style={styles.btnTerbitkan}
           title="Hapus Produk"
@@ -92,7 +102,6 @@ function DetailProductSellerScreen({ route, navigation }) {
               { cancelable: false },
             );
           }}
-          disable={stateGlobal.isLoading}
         />
       </View>
     </SafeAreaView>
