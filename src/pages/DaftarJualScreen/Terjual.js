@@ -1,13 +1,13 @@
+import React from 'react';
 import {
   FlatList,
   StyleSheet, Text, View,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
 import { IconSellNull } from '../../assets';
+import { CardList, EmptySkeletonNotif } from '../../components';
 import {
   colors, fonts, fontSize, sortDate, windowHeight, windowWidth,
 } from '../../utils';
-import { CardList, EmptySkeletonNotif } from '../../components';
 
 function Terjual({ navigation, dataTerjual }) {
   const emptyComponent = () => (
