@@ -144,7 +144,11 @@ function DetailProductScreen({ route, navigation }) {
         backdropComponent={BackDropComponent}
         onChange={handleSheetChanges}
       >
-        <Nego handleCloseSheet={handleClosePress} setisAlreadyBid={setisAlreadyBid} />
+        <Nego
+          handleCloseSheet={handleClosePress}
+          setisAlreadyBid={setisAlreadyBid}
+          dataDetailBid={dataDetailBid}
+        />
       </BottomSheet>
 
     </GestureHandlerRootView>

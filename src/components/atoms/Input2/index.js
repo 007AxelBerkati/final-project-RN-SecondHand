@@ -12,6 +12,7 @@ function Input2({
   onBlur,
   placeholder,
   cannotEdited,
+  keyboardType,
   ...props
 
 }) {
@@ -29,8 +30,8 @@ function Input2({
           cannotEdited ? colors.disable.background : colors.outlineInput
         }
         style={{ ...styles.input, ...props.style }}
+        keyboardType={keyboardType}
         {...props}
-        ke
       />
     </View>
   );
