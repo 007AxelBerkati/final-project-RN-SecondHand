@@ -10,19 +10,6 @@ import {
 import { CardList, EmptySkeletonNotif } from '../../components';
 
 function Terjual({ navigation, dataTerjual }) {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const newArray = [];
-    // eslint-disable-next-line array-callback-return
-    dataTerjual?.productDiminati?.map((item) => {
-      if (item?.Product?.status === 'sold') {
-        newArray.push(item);
-      }
-    });
-    setData(newArray);
-  }, []);
-
   const emptyComponent = () => (
     <View style={styles.empty}>
       <IconSellNull style={styles.image} />
@@ -51,7 +38,7 @@ function Terjual({ navigation, dataTerjual }) {
   return (
     <View style={styles.page}>
       <FlatList
-        data={data.sort(sortDate)}
+        data={dataTerjual?.productTerjual?.sort(sortDate)}
         ListEmptyComponent={emptyComponent}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}

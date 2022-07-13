@@ -11,3 +11,4 @@ export * from './detailProductBuyerReducer';
 export * from './infoPenawaranReducer';
 export * from './gantiPassReducer';
 export * from './notifikasiReducer';
+export * from './historyReducer';

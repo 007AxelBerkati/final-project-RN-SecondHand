@@ -24,13 +24,13 @@ function Favorite({ navigation, productDiminati }) {
     )
       : (
         <CardList
-          key={item.id}
-          name={item.Product.name}
+          key={item?.id}
+          name={item?.Product?.name}
           title="Penawaran Produk"
-          source={{ uri: item.Product.image_url }}
-          date={item.createdAt}
-          harga={item.Product.base_price}
-          hargaNego={item.price}
+          source={{ uri: item?.Product?.image_url }}
+          date={item?.createdAt}
+          harga={item?.Product?.base_price}
+          hargaNego={item?.price}
           onPress={() => navigation.navigate('InfoPenawaranScreen', { id: item.id })}
         />
       )
@@ -40,9 +40,9 @@ function Favorite({ navigation, productDiminati }) {
   return (
     <View>
       <FlatList
-        data={productDiminati?.productDiminati.sort(sortDate)}
+        data={productDiminati?.productDiminati?.sort(sortDate)}
         ListEmptyComponent={emptyComponent}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item?.id}
         renderItem={renderItem}
       />
 

@@ -8,7 +8,8 @@ import {
   registerReducer, homeReducer,
   profileReducer, jualReducer, daftarJualReducer,
   detailProductSellerReducer, updateDetailProductSellerReducer,
-  detailProductBuyerReducer, infoPenawaranReducer, notifikasiReducer, gantiPassReducer,
+  detailProductBuyerReducer, infoPenawaranReducer,
+  notifikasiReducer, gantiPassReducer, historyReducer,
 } from '../reducer';
 
 const persistConfig = {
@@ -33,6 +34,7 @@ const rootReducer = {
   dataInfoPenawaran: infoPenawaranReducer,
   dataNotifikasi: notifikasiReducer,
   dataGantiPass: gantiPassReducer,
+  history: historyReducer,
 };
 
 const configPersist = persistReducer(persistConfig, combineReducers(rootReducer));
