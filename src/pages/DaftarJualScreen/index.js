@@ -1,22 +1,21 @@
+import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet, View,
-  RefreshControl,
+  RefreshControl, StyleSheet, View,
 } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { listDaftarJual } from '../../assets';
 import {
   CardCategory, CardList, Headers, NotLogin,
 } from '../../components';
-import { listDaftarJual } from '../../assets';
 import {
   getAkun, getOrderSeller, getProductSeller,
 } from '../../redux';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
-import Produk from './Produk';
 import Favorite from './Favorite';
+import Produk from './Produk';
 import Terjual from './Terjual';
 
 function DaftarJualScreen({ navigation }) {
@@ -48,13 +47,13 @@ function DaftarJualScreen({ navigation }) {
   useEffect(() => {
     dispatch(getAkun());
     dispatch(getProductSeller());
-  }, []);
+  }, [dispatch]);
 
-  const onRefresh = useCallback(async (id) => {
+  const onRefresh = async (id) => {
     setRefreshing(true);
     getDaftarJual(id);
     setRefreshing(false);
-  }, []);
+  };
 
   const dataForRender = () => {
     switch (active) {

@@ -1,13 +1,11 @@
-import { getHistory, getProduct, getSellerOrder } from '../../services';
+import { getProduct, getSellerOrder } from '../../services';
+import { showError } from '../../utils';
 import {
-  GET_HISTORY_FAIL,
-  GET_HISTORY_LOADING,
-  GET_HISTORY_SUCCESS,
   GET_ORDER_SELLER_FAIL,
   GET_ORDER_SELLER_LOADING, GET_ORDER_SELLER_SUCCESS,
-  GET_SELLER_PRODUCT_SUCCESS, GET_SELLER_PRODUCT_FAIL, GET_SELLER_PRODUCT_LOADING,
+  GET_PRODUCT_DIMINATI, GET_PRODUCT_TERJUAL, GET_SELLER_PRODUCT_FAIL,
+  GET_SELLER_PRODUCT_LOADING, GET_SELLER_PRODUCT_SUCCESS,
 } from '../types';
-import { showError } from '../../utils';
 
 // PRODUCT SELLER
 
@@ -29,7 +27,13 @@ export const getProductSellerLoading = (data) => ({
 export const getProductSeller = () => async (dispatch) => {
   dispatch(getProductSellerLoading(true));
   await getProduct().then((response) => {
-    dispatch(getProductSellerSuccess(response.data));
+    const dataNotSold = [];
+    for (let i = 0; i < response.data.length; i += 1) {
+      if (response.data[i].status === 'available') {
+        dataNotSold.push(response.data[i]);
+      }
+    }
+    dispatch(getProductSellerSuccess(dataNotSold));
   }).catch((error) => {
     dispatch(getProductSellerFail(error.response.data.message));
   });
@@ -52,39 +56,48 @@ export const getOrderSellerLoading = (data) => ({
   payload: data,
 });
 
+export const getDataProductDiminati = (data) => ({
+  type: GET_PRODUCT_DIMINATI,
+  payload: data,
+});
+
+export const getDataProductTerjual = (data) => ({
+  type: GET_PRODUCT_TERJUAL,
+  payload: data,
+});
+
 export const getOrderSeller = () => async (dispatch) => {
   dispatch(getOrderSellerLoading(true));
   await getSellerOrder().then((response) => {
+    const dataFilterTerjual = [];
+    const dataFilterDiminati = [];
+
+    // Diminati
+    const checkDataDiminati = async () => {
+      for (let i = 0; i < response.data.length; i += 1) {
+        if (response.data[i]?.status !== 'declined') {
+          dataFilterDiminati.push(response.data[i]);
+        }
+      }
+    };
+
+    // Terjual
+    const checkDataTerjual = async () => {
+      for (let i = 0; i < response.data.length; i += 1) {
+        if (response.data[i]?.Product?.status === 'sold') {
+          dataFilterTerjual.push(response.data[i]);
+        }
+      }
+    };
+
+    checkDataDiminati();
+    checkDataTerjual();
+
+    dispatch(getDataProductDiminati(dataFilterDiminati));
+    dispatch(getDataProductTerjual(dataFilterTerjual));
     dispatch(getOrderSellerSuccess(response.data));
   }).catch((error) => {
     dispatch(getOrderSellerFail(error.response.data.message));
-    showError(error.response.data.message);
-  });
-};
-
-// TERJUAL PRODUCT
-
-export const getHistorySuccess = (data) => ({
-  type: GET_HISTORY_SUCCESS,
-  payload: data,
-});
-
-export const getHistoryFail = (error) => ({
-  type: GET_HISTORY_FAIL,
-  payload: error,
-});
-
-export const getHistoryLoading = (data) => ({
-  type: GET_HISTORY_LOADING,
-  payload: data,
-});
-
-export const getProductSell = () => async (dispatch) => {
-  dispatch(getHistoryLoading(true));
-  await getHistory().then((response) => {
-    dispatch(getHistorySuccess(response.data));
-  }).catch((error) => {
-    dispatch(getHistoryFail(error.response.data.message));
     showError(error.response.data.message);
   });
 };

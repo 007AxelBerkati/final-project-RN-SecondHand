@@ -24,6 +24,7 @@ import {
   PengaturanScreen,
   ForgotPasswordScreen,
   DaftarSimpanScreen,
+  HistoryScreen,
 } from '../pages';
 import { colors, fonts } from '../utils';
 import ProfileScreen from '../pages/ProfileScreen';
@@ -195,6 +196,11 @@ function Router({ notif }) {
         <Stack.Screen
           name="DaftarSimpanScreen"
           component={DaftarSimpanScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="HistoryScreen"
+          component={HistoryScreen}
           options={{ headerShown: false }}
         />
 

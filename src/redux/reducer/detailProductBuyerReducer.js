@@ -2,13 +2,15 @@ import {
   BID_PRODUCT_FAILED,
   BID_PRODUCT_SUCCESS,
   GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS,
-  GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_LOADING, GET_DETAIL_PRODUCT_SUCCESS, LOGOUT,
+  GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_LOADING,
+  GET_DETAIL_PRODUCT_SUCCESS, LOGOUT, PUT_BID_FAILED, PUT_BID_SUCCESS,
 } from '../types';
 
 const initialDetailBuyerState = {
   detailBuyer: {},
   allBidProduct: [],
   isLoading: false,
+  putBid: {},
 };
 
 export const detailProductBuyerReducer = (
@@ -57,6 +59,18 @@ export const detailProductBuyerReducer = (
       return {
         ...state,
       };
+
+    case PUT_BID_SUCCESS:
+      return {
+        ...state,
+        putBid: action.payload,
+      };
+
+    case PUT_BID_FAILED:
+      return {
+        ...state,
+      };
+
     case LOGOUT:
       return initialDetailBuyerState;
     default:

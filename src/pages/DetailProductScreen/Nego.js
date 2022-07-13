@@ -8,16 +8,27 @@ import {
   ButtonComponent,
   CardList, Gap, Input2,
 } from '../../components';
-import { bidProduct } from '../../redux';
+import { bidProduct, putBid } from '../../redux';
 import {
   bidPriceSchema, colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../utils';
 
-function Nego({ handleCloseSheet, setisAlreadyBid }) {
+function Nego({ handleCloseSheet, setisAlreadyBid, dataDetailBid }) {
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
+
   const dispatch = useDispatch();
 
   const submitBid = (bid) => {
+    if (dataDetailBid.length > 0) {
+      if (parseFloat(dataDetailBid[0]?.price) >= parseFloat(bid)) {
+        Alert.alert('Bid tidak valid', 'Bid harus lebih besar dari penawaran harga awal');
+        return;
+      }
+      dispatch(putBid(dataDetailBid[0]?.id, { bid_price: parseFloat(bid) }));
+      setisAlreadyBid(true);
+      handleCloseSheet();
+      return;
+    }
     const data = {
       product_id: dataDetailProductBuyer.id,
       bid_price: bid,
@@ -31,11 +42,11 @@ function Nego({ handleCloseSheet, setisAlreadyBid }) {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Formik
         validationSchema={bidPriceSchema}
-        initialValues={{ bid_price: '' }}
+        initialValues={{ bid_price: dataDetailBid[0]?.price ? dataDetailBid[0]?.price.toString() : '' }}
         onSubmit={(values) => submitBid(values.bid_price)}
       >
         {({
-          handleChange, handleSubmit, errors, isValid, values, handleBlur, touched, dirty,
+          handleChange, handleSubmit, errors, isValid, values, handleBlur, touched,
         }) => (
           <View style={styles.contentContainer}>
             <Text style={{ color: colors.text.primary, fontFamily: fonts.Poppins.SemiBold }}>
@@ -59,7 +70,7 @@ function Nego({ handleCloseSheet, setisAlreadyBid }) {
               onChangeText={handleChange('bid_price')}
               value={values.bid_price}
               onBlur={handleBlur('bid_price')}
-              KeyboardType="numeric"
+              keyboardType="numeric"
             />
             {errors.bid_price && touched.bid_price
               && <Text style={styles.errorText}>{errors.bid_price}</Text>}
@@ -70,7 +81,7 @@ function Nego({ handleCloseSheet, setisAlreadyBid }) {
                 { text: 'Batal', style: 'cancel' },
                 { text: 'Kirim', onPress: handleSubmit },
               ])}
-              disable={!(dirty && isValid)}
+              disable={!(isValid)}
             />
           </View>
         )}

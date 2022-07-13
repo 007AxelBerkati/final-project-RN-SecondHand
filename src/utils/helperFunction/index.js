@@ -51,7 +51,7 @@ export const getImage = (setFieldValue, setPhoto) => {
 
 export const formatRupiah = (harga) => `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
 
-export const dateConvert = (date) => moment(date).format('DD MMM, HH:mm A');
+export const dateConvert = (date) => moment(date).format('DD MMM, HH:mm');
 
 export const sortDate = (a, b) => {
   const dateA = new Date(a.createdAt);

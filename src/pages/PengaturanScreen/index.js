@@ -12,6 +12,7 @@ function PengaturanScreen({ navigation }) {
       <ScrollView>
         <Profile source={{ uri: dataProfile.profile?.image_url }} />
         <CardList type="account" name="key" title="Ganti Password" onPress={() => navigation.navigate('ForgotPasswordScreen')} />
+        <CardList type="account" name="menuunfold" title="History Transaksi" onPress={() => navigation.navigate('HistoryScreen')} />
       </ScrollView>
     </View>
   );
