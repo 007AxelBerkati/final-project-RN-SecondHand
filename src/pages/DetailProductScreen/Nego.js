@@ -8,12 +8,14 @@ import {
   ButtonComponent,
   CardList, Gap, Input2,
 } from '../../components';
-import { bidProduct, putBid } from '../../redux';
+import { bidProduct, getAllBidProduct, putBid } from '../../redux';
 import {
   bidPriceSchema, colors, fonts, fontSize, windowHeight, windowWidth,
 } from '../../utils';
 
-function Nego({ handleCloseSheet, setisAlreadyBid, dataDetailBid }) {
+function Nego({
+  handleCloseSheet, setisAlreadyBid, dataDetailBid, setIsSubmit,
+}) {
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
 
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ function Nego({ handleCloseSheet, setisAlreadyBid, dataDetailBid }) {
       }
       dispatch(putBid(dataDetailBid[0]?.id, { bid_price: parseFloat(bid) }));
       setisAlreadyBid(true);
+      setIsSubmit(true);
       handleCloseSheet();
       return;
     }
@@ -35,6 +38,8 @@ function Nego({ handleCloseSheet, setisAlreadyBid, dataDetailBid }) {
     };
     dispatch(bidProduct(data));
     setisAlreadyBid(true);
+    dispatch(getAllBidProduct());
+    setIsSubmit(true);
     handleCloseSheet();
   };
 

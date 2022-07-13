@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import {
-  addBuyerOrder, detailBuyerProduct, getBuyerOrder, updateBuyerOrder,
+  addBuyerOrder, deleteBuyerOrder, detailBuyerProduct, getBuyerOrder, updateBuyerOrder,
 } from '../../services';
 import {
   buatChannel, cancelAllLocalNotifications, configure, kirimNotifikasi, showError, showSuccess,
@@ -8,6 +8,8 @@ import {
 import {
   BID_PRODUCT_FAILED,
   BID_PRODUCT_SUCCESS,
+  DELETE_BID_FAILED,
+  DELETE_BID_SUCCESS,
   GET_ALL_BID_FAILED, GET_ALL_BID_SUCCESS, GET_DETAIL_PRODUCT_FAIL, GET_DETAIL_PRODUCT_LOADING, GET_DETAIL_PRODUCT_SUCCESS, PUT_BID_FAILED, PUT_BID_SUCCESS,
 } from '../types';
 import { setLoading } from './global';
@@ -116,6 +118,30 @@ export const putBid = (id, payload) => async (dispatch) => {
     showSuccess('Success Update Bid');
   }).catch((err) => {
     dispatch(putBidFailed());
+    dispatch(setLoading(false));
+    showError(err.response.data.message);
+  });
+};
+
+export const deleteBidSuccess = (payload) => ({
+  type: DELETE_BID_SUCCESS,
+  payload,
+}
+);
+
+export const deleteBidFailed = () => ({
+  type: DELETE_BID_FAILED,
+}
+);
+
+export const deleteBid = (id) => async (dispatch) => {
+  dispatch(setLoading(true));
+  await deleteBuyerOrder(id).then((response) => {
+    dispatch(deleteBidSuccess(response.data));
+    dispatch(setLoading(false));
+    showSuccess('Success Delete Bid');
+  }).catch((err) => {
+    dispatch(deleteBidFailed());
     dispatch(setLoading(false));
     showError(err.response.data.message);
   });

@@ -17,7 +17,9 @@ import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
 import { CardCategory, CardProduct } from '../../components';
-import { getBannerSeller, getCategoryProduct, getProduct } from '../../redux';
+import {
+  getBannerSeller, getCategoryProduct, getNotifikasi, getProduct,
+} from '../../redux';
 
 function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -36,6 +38,7 @@ function HomeScreen({ navigation }) {
     }));
     dispatch(getCategoryProduct());
     dispatch(getBannerSeller());
+    dispatch(getNotifikasi());
     setRefreshing(false);
   }, [category, searchQuery, refreshing]);
 

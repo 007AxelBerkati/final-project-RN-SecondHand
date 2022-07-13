@@ -1,6 +1,7 @@
 import {
   ScrollView, StyleSheet, View,
   StatusBar,
+  Alert,
 } from 'react-native';
 import React, {
   useCallback, useEffect, useMemo, useRef, useState,
@@ -10,14 +11,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
-
   ButtonComponent, CardList, CardProduct, Desc, Gap, BackDropComponent, Loading,
 } from '../../components';
 import {
+  borderRadius,
   colors, windowHeight, windowWidth,
 } from '../../utils';
 
-import { getAllBidProduct, getDetailProduct } from '../../redux';
+import { deleteBid, getAllBidProduct, getDetailProduct } from '../../redux';
 import Nego from './Nego';
 
 function DetailProductScreen({ route, navigation }) {
@@ -26,7 +27,7 @@ function DetailProductScreen({ route, navigation }) {
   const dispatch = useDispatch();
 
   const [isAlreadyBid, setisAlreadyBid] = useState(false);
-
+  const [isSubmit, setIsSubmit] = useState(false);
   const dataLogin = useSelector((state) => state.dataLogin);
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
   const { isLoading } = useSelector((state) => state.dataDetailProductBuyer);
@@ -39,7 +40,7 @@ function DetailProductScreen({ route, navigation }) {
     if (dataLogin.isLoggedIn) {
       dispatch(getAllBidProduct());
     }
-  }, []);
+  }, [isSubmit]);
 
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['1%', '60%'], []);
@@ -58,6 +59,11 @@ function DetailProductScreen({ route, navigation }) {
     }
   };
 
+  const deleteOrder = () => {
+    dispatch(deleteBid(dataDetailBid[0]?.id));
+    setisAlreadyBid(false);
+    dispatch(getAllBidProduct());
+  };
   const checkStatusBid = () => {
     if (dataDetailBid[0]?.status === 'pending' || isAlreadyBid) {
       return 'Menunggu respon penjual';
@@ -124,14 +130,38 @@ function DetailProductScreen({ route, navigation }) {
         </View>
         <Gap height={60} />
       </ScrollView>
-      <View style={styles.btnNego}>
-        <ButtonComponent
-          title={checkStatusBid()}
-          onPress={() => checkUser()}
-          disable={dataDetailBid[0]?.status === ('pending' || 'accepted') || isAlreadyBid
-            || dataDetailBid[0]?.Product?.status === 'sold'}
-        />
-      </View>
+      {
+        dataDetailBid[0]?.status === ('pending' || 'accepted') || isAlreadyBid ? (
+          <View style={styles.btnWrapper}>
+            <ButtonComponent style={styles.btnPreview} type="secondary" title="Tunggu Respon" disable />
+            <ButtonComponent
+              style={styles.btnTerbitkan}
+              title="Hapus Order"
+              onPress={() => {
+                Alert.alert(
+                  'Hapus Order',
+                  'Apakah anda yakin ingin menghapus order ini?',
+                  [
+                    { text: 'Tidak', style: 'cancel' },
+                    { text: 'Ya', onPress: () => deleteOrder() },
+                  ],
+                  { cancelable: false },
+                );
+              }}
+            />
+          </View>
+        ) : (
+          <View style={styles.btnNego}>
+            <ButtonComponent
+              title={checkStatusBid()}
+              onPress={() => checkUser()}
+              disable={dataDetailBid[0]?.status === ('pending' || 'accepted') || isAlreadyBid
+                || dataDetailBid[0]?.Product?.status === 'sold'}
+            />
+          </View>
+        )
+      }
+
       <BottomSheet
         enablePanDownToClose
         enableContentPanningGesture
@@ -148,6 +178,7 @@ function DetailProductScreen({ route, navigation }) {
           handleCloseSheet={handleClosePress}
           setisAlreadyBid={setisAlreadyBid}
           dataDetailBid={dataDetailBid}
+          setIsSubmit={setIsSubmit}
         />
       </BottomSheet>
 
@@ -199,5 +230,19 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: 'grey',
   },
+  btnWrapper: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 16,
+    position: 'absolute',
+    bottom: 1,
+  },
+
+  btnPreview: {
+    width: '48%',
+    borderRadius: borderRadius.xlarge,
+  },
+  btnTerbitkan: { width: '48%' },
 
 });
