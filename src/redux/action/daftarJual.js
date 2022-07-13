@@ -29,7 +29,13 @@ export const getProductSellerLoading = (data) => ({
 export const getProductSeller = () => async (dispatch) => {
   dispatch(getProductSellerLoading(true));
   await getProduct().then((response) => {
-    dispatch(getProductSellerSuccess(response.data));
+    const dataNotSold = [];
+    for (let i = 0; i < response.data.length; i += 1) {
+      if (response.data[i].status === 'available') {
+        dataNotSold.push(response.data[i]);
+      }
+    }
+    dispatch(getProductSellerSuccess(dataNotSold));
   }).catch((error) => {
     dispatch(getProductSellerFail(error.response.data.message));
   });
