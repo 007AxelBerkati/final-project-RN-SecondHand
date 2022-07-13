@@ -58,6 +58,22 @@ function DetailProductScreen({ route, navigation }) {
     }
   };
 
+  const checkStatusBid = () => {
+    if (dataDetailBid[0].status === 'pending' || isAlreadyBid) {
+      return 'Menunggu respon penjual';
+    }
+    if (dataDetailBid[0].status === 'declined') {
+      return 'Update penawaran anda';
+    }
+    if (dataDetailBid[0].status === 'accepted') {
+      return 'Penawaran anda diterima, Silahkan tunggu dihubungi oleh penjual';
+    }
+    if (dataDetailBid[0]?.Product?.status === 'sold') {
+      return 'Maaf, produk ini telah terjual';
+    }
+    return 'Belum ada penawaran';
+  };
+
   if (isLoading) {
     return (
       <Loading type="full" />
@@ -110,9 +126,10 @@ function DetailProductScreen({ route, navigation }) {
       </ScrollView>
       <View style={styles.btnNego}>
         <ButtonComponent
-          title={dataDetailBid[0]?.status || isAlreadyBid ? 'Menunggu Respon Penjual' : 'Saya Tertarik dan Ingin Nego'}
+          title={checkStatusBid()}
           onPress={() => checkUser()}
-          disable={dataDetailBid[0]?.status || isAlreadyBid}
+          disable={dataDetailBid[0]?.status === ('pending' || 'accepted') || isAlreadyBid
+            || dataDetailBid[0]?.Product?.status === 'sold'}
         />
       </View>
       <BottomSheet
