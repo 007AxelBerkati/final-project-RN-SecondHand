@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   registerTitle: {
     fontFamily: fonts.Poppins.Medium,
     fontSize: fontSize.medium,
-    color: colors.text.black,
+    color: colors.text.primary,
   },
 
   iconWrapper: {

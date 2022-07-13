@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
     fontSize: fontSize.medium,
     fontFamily: fonts.Poppins.Medium,
     color: colors.text.primary,
-
   },
 
   radioButtonWrapper: {
@@ -111,6 +110,13 @@ const styles = StyleSheet.create({
 
   desc: {
     flex: 7,
+  },
+
+  subtitle: {
+    fontSize: fontSize.small,
+    fontFamily: fonts.Poppins.Regular,
+    color: colors.text.subtitle,
+    marginTop: 8,
   },
 
 });

@@ -12,7 +12,7 @@ import {
 function CardAddProduct({ onPress }) {
   return (
     <TouchableOpacity style={styles.parent} onPress={onPress}>
-      <Icon name="plus" size={scale(20)} color={colors.disable} />
+      <Icon name="plus" size={scale(20)} color={colors.text.subtitle} />
       <Text style={styles.label}>Tambah Produk</Text>
     </TouchableOpacity>
   );

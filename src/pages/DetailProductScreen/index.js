@@ -43,7 +43,7 @@ function DetailProductScreen({ route, navigation }) {
   }, [isSubmit]);
 
   const bottomSheetRef = useRef(null);
-  const snapPoints = useMemo(() => ['1%', '60%'], []);
+  const snapPoints = useMemo(() => ['1%', '70%'], []);
   const handleSheetChanges = useCallback((index) => {
     // eslint-disable-next-line no-console
     console.log('sheet index', index);

@@ -58,7 +58,7 @@ function Nego({
               Masukan Harga Tawarmu
             </Text>
             <Gap height={windowHeight * 0.02} />
-            <Text style={{ color: colors.border, fontFamily: fonts.Poppins.Regular }}>
+            <Text style={{ color: colors.text.subtitle, fontFamily: fonts.Poppins.Regular }}>
               Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu
               akan segera dihubungi penjual.
             </Text>
