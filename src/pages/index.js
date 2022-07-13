@@ -14,6 +14,7 @@ import UpdateDetailProductScreen from './UpdateDetailProductScreen';
 import PengaturanScreen from './PengaturanScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import DaftarSimpanScreen from './DaftarSimpanScreen';
+import HistoryScreen from './HistoryScreen';
 
 export {
   LoginScreen,
@@ -21,4 +22,5 @@ export {
   SplashScreen, PreviewScreen, DetailProductScreen,
   DetailProductSellerScreen, UpdateDetailProductScreen, InfoPenawaranScreen,
   PengaturanScreen, ForgotPasswordScreen, DaftarSimpanScreen,
+  HistoryScreen,
 };

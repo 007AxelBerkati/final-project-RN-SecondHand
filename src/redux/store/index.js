@@ -34,7 +34,7 @@ const rootReducer = {
   dataInfoPenawaran: infoPenawaranReducer,
   dataNotifikasi: notifikasiReducer,
   dataGantiPass: gantiPassReducer,
-  history: historyReducer,
+  dataHistory: historyReducer,
 };
 
 const configPersist = persistReducer(persistConfig, combineReducers(rootReducer));

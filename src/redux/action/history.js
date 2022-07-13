@@ -19,7 +19,7 @@ export const getHistoryLoading = (data) => ({
   payload: data,
 });
 
-export const getProductSell = () => async (dispatch) => {
+export const getDataHistory = () => async (dispatch) => {
   dispatch(getHistoryLoading(true));
   await getHistory().then((response) => {
     dispatch(getHistorySuccess(response.data));
