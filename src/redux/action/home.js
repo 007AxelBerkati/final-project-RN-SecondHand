@@ -25,13 +25,9 @@ export const getProductLoading = (data) => ({
 );
 
 export const getProduct = (params) => async (dispatch) => {
-  console.log('Tes', params?.search);
   dispatch(getProductLoading(true));
-  // await getBuyerProduct(`?search=${params?.search}
-  // &category_id=${params?.category_id}&status=${params?.status}
-  // &page=${params?.page}&per_page=${params?.per_page}`).then((response) => {
-  await getBuyerProduct(`?search=${params?.search}&category_id=${params?.category_id}&status=${params?.status}`).then((response) => {
-    dispatch(getProductSuccess(response.data));
+  await getBuyerProduct(`?search=${params?.search}&category_id=${params?.category_id}&status=${params?.status}&page=${params?.page}&per_page=${params?.per_page}`).then((response) => {
+    dispatch(getProductSuccess(response?.data?.data));
   }).catch((error) => {
     dispatch(getProductFail(error));
   });
