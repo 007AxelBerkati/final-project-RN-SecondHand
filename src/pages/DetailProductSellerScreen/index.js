@@ -42,24 +42,24 @@ function DetailProductSellerScreen({ route, navigation }) {
     <SafeAreaView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>
         <StatusBar backgroundColor="transparent" translucent />
-        <View style={styles.imageContainer}>
-          <ImageSlider
-            data={[
-              { img: dataDetailProduct.image_url },
-            ]}
-            autoPlay
-            timer={5000}
-            closeIconColor={colors.background.primary}
-            caroselImageStyle={{ height: windowHeight * 0.4 }}
-            indicatorContainerStyle={{ bottom: windowHeight * 0.05 }}
+        <ImageSlider
+          data={[
+            { img: dataDetailProduct.image_url },
+          ]}
+          autoPlay
+          timer={5000}
+          closeIconColor={colors.background.primary}
+          caroselImageStyle={{ height: windowHeight * 0.4 }}
+          indicatorContainerStyle={{ bottom: windowHeight * 0.05 }}
+        />
+        <View style={styles.btnBackContainer}>
+          <ButtonComponent
+            type="icon-button"
+            label="BackButton"
+            onPress={() => navigation.goBack()}
           />
-          <View style={styles.btnBackContainer}>
-            <ButtonComponent
-              type="icon-button"
-              label="BackButton"
-              onPress={() => navigation.goBack()}
-            />
-          </View>
+        </View>
+        <View style={{ marginTop: windowHeight * -0.07 }}>
           <View style={styles.productWrapper}>
             <CardProduct
               name={dataDetailProduct.name}
@@ -67,17 +67,17 @@ function DetailProductSellerScreen({ route, navigation }) {
               harga={dataDetailProduct.base_price}
             />
           </View>
-        </View>
-        <View style={styles.card}>
-          <CardList
-            source={{ uri: dataProfile.image_url }}
-            name={dataProfile.full_name}
-            kota={dataProfile.city}
-            type="role"
-          />
-        </View>
-        <View style={styles.title}>
-          <Desc label="Deskripsi" desc={dataDetailProduct.description} />
+          <View style={styles.card}>
+            <CardList
+              source={{ uri: dataProfile.image_url }}
+              name={dataProfile.full_name}
+              kota={dataProfile.city}
+              type="role"
+            />
+          </View>
+          <View style={styles.title}>
+            <Desc label="Deskripsi" desc={dataDetailProduct.description} />
+          </View>
         </View>
         <Gap height={60} />
       </ScrollView>
@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
   card: {
     marginHorizontal: 16,
     marginBottom: 30,
-    marginTop: windowHeight * -0.02,
   },
 
   pages: {
@@ -139,7 +138,6 @@ const styles = StyleSheet.create({
 
   productWrapper: {
     marginHorizontal: 16,
-    marginTop: windowHeight * -0.07,
   },
 
   btnWrapper: {

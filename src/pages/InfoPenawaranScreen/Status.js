@@ -11,7 +11,6 @@ import { ButtonComponent, Gap } from '../../components';
 import { patchOrderSeller } from '../../redux';
 
 function Status({ idOrder, handleClosePress }) {
-  console.log('idOrder', idOrder);
   const dispatch = useDispatch();
   const onAccept = useCallback(() => {
     dispatch(patchOrderSeller(idOrder, { status: 'accepted' }));
