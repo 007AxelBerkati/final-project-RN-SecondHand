@@ -75,7 +75,7 @@ export const getOrderSeller = () => async (dispatch) => {
     // Diminati
     const checkDataDiminati = async () => {
       for (let i = 0; i < response.data.length; i += 1) {
-        if (response.data[i]?.status !== 'declined') {
+        if (response.data[i]?.status !== 'declined' && response.data[i]?.Product?.status !== 'seller') {
           dataFilterDiminati.push(response.data[i]);
         }
       }
@@ -84,7 +84,7 @@ export const getOrderSeller = () => async (dispatch) => {
     // Terjual
     const checkDataTerjual = async () => {
       for (let i = 0; i < response.data.length; i += 1) {
-        if (response.data[i]?.Product?.status === 'sold') {
+        if (response.data[i]?.Product?.status === 'seller') {
           dataFilterTerjual.push(response.data[i]);
         }
       }

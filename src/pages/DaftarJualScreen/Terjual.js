@@ -25,7 +25,7 @@ function Terjual({ navigation, dataTerjual }) {
       <CardList
         key={item.id}
         name={item.product_name}
-        title={item?.Product?.status}
+        title="Berhasil Terjual"
         source={{ uri: item?.Product?.image_url }}
         date={item.transaction_date}
         harga={item.base_price}

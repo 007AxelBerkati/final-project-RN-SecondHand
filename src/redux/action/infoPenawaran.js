@@ -76,9 +76,9 @@ export const patchSellerProductFail = (data) => ({
 }
 );
 
-export const patchSellerProduct = (id, payload) => async (dispatch) => {
+export const patchSellerProduct = (id, data) => async (dispatch) => {
   dispatch(setLoading(true));
-  await patchProductStatus(id, payload).then((response) => {
+  await patchProductStatus(id, data).then((response) => {
     dispatch(patchSellerProductSuccess(response.data));
     showSuccess('Status produk berhasil diperbaharui');
     dispatch(setLoading(false));

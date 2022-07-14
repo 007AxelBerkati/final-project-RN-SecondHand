@@ -47,9 +47,11 @@ export const successBid = (payload) => ({
   payload,
 });
 
-export const failedBid = () => ({
+export const failedBid = (err) => ({
   type: BID_PRODUCT_FAILED,
+  payload: err,
 });
+
 export const getDetailProduct = (id) => async (dispatch) => {
   dispatch(getDetailProductLoading(true));
   await detailBuyerProduct(id).then((response) => {
@@ -84,7 +86,7 @@ export const bidProduct = (payload) => async (dispatch) => {
     dispatch(setLoading(false));
     showSuccess('Success menawar produk');
   }).catch((err) => {
-    dispatch(failedBid());
+    dispatch(failedBid(err));
     dispatch(setLoading(false));
     showError(err.response.data.message);
   });
@@ -103,6 +105,7 @@ export const putBidFailed = (err) => ({
 );
 
 export const putBid = (id, payload) => async (dispatch) => {
+  console.log(id, payload);
   dispatch(setLoading(true));
   await updateBuyerOrder(id, payload).then((response) => {
     dispatch(putBidSuccess(response.data));
@@ -117,7 +120,7 @@ export const putBid = (id, payload) => async (dispatch) => {
     notifUpdateBid();
     showSuccess('Success Update Bid');
   }).catch((err) => {
-    dispatch(putBidFailed());
+    dispatch(putBidFailed(err));
     dispatch(setLoading(false));
     showError(err.response.data.message);
   });

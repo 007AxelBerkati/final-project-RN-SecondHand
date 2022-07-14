@@ -28,11 +28,13 @@ function InfoPenawaranScreen({ navigation, route }) {
 
   const dataInfoPenawaran = useSelector((state) => state.dataInfoPenawaran.infoPenawaran);
 
+  const [isSubmit, setIsSubmit] = useState(false);
+
   const [isAlreadyAccepted, setIsAlreadyAccepted] = useState(false);
   const [bottomSheetRender, setBottomSheetRender] = useState('');
   useEffect(() => {
     dispatch(getSelerOrderId(id));
-  }, []);
+  }, [isSubmit]);
 
   // handle bottom sheet
   const bottomSheetRef = useRef(null);
@@ -51,6 +53,7 @@ function InfoPenawaranScreen({ navigation, route }) {
 
   const onReject = useCallback((idOrder) => {
     dispatch(patchOrderSeller(idOrder, { status: 'declined' }));
+    navigation.goBack();
   }, [dispatch]);
 
   const onHubungi = () => {
@@ -74,86 +77,96 @@ function InfoPenawaranScreen({ navigation, route }) {
 
         <Text style={styles.Detail}>Daftar Produkmu yang Ditawar</Text>
 
-        <CardList
-          source={{ uri: dataInfoPenawaran?.image_product !== null ? dataInfoPenawaran?.image_product : 'https://avatars.services.sap.com/images/naushad124_small.png' }}
-          title="penawaran produk"
-          date={dataInfoPenawaran?.updatedAt}
-          name={dataInfoPenawaran?.product_name}
-          harga={dataInfoPenawaran?.base_price}
-          hargaNego={dataInfoPenawaran?.price}
-        />
         {
-          dataInfoPenawaran?.status === 'pending' && !isAlreadyAccepted ? (
-            <View style={styles.btnWrapper}>
-              <ButtonComponent
-                style={styles.btnTolak}
-                type="secondary"
-                title="Tolak"
-                onPress={() => {
-                  Alert.alert(
-                    'Tolak Penawaran',
-                    'Apakah anda yakin ingin menolak penawaran ini?',
-                    [
-                      { text: 'Tidak', style: 'cancel' },
-                      { text: 'Ya', onPress: () => onReject(dataInfoPenawaran?.id) },
-                    ],
-                  );
-                }}
-              />
-              <ButtonComponent
-                style={styles.btnTerima}
-                title="Terima"
-                onPress={() => {
-                  Alert.alert(
-                    'Terima Penawaran',
-                    'Apakah anda yakin ingin menerima penawaran ini?',
-                    [
-                      { text: 'Tidak', style: 'cancel' },
-                      { text: 'Ya', onPress: () => { onAccept(dataInfoPenawaran?.id); } },
-                    ],
-                  );
-                }}
-              />
-            </View>
-
-          )
-            : (
-              <View style={styles.btnWrapper}>
-                <ButtonComponent
-                  style={styles.btnTolak}
-                  type="secondary"
-                  title="Status"
-                  onPress={() => {
-                    setBottomSheetRender('status');
-                    handleOpenPress(1);
-                  }}
-                />
-                <ButtonComponent
-                  style={styles.btnTerima}
-                  title="Hubungi"
-                  onPress={() => {
-                    setBottomSheetRender('hubungi');
-                    handleOpenPress(1);
-                  }}
-                  icon="whatsapp"
-                />
-              </View>
-            )
-        }
-        {/* {
-          dataInfoPenawaran?.status === ('accepted' || 'declined') && (
+          dataInfoPenawaran?.Product?.status !== 'seller' && (
             <CardList
-              source={{ uri: dataInfoPenawaran?.image_product }}
-              title={dataInfoPenawaran?.status === 'accepted'
-                ? 'Berhasil Terjual'
-                : 'Penawaran Anda Ditolak'}
+              source={{ uri: dataInfoPenawaran?.image_product !== null ? dataInfoPenawaran?.image_product : 'https://avatars.services.sap.com/images/naushad124_small.png' }}
+              title="penawaran produk"
               date={dataInfoPenawaran?.updatedAt}
               name={dataInfoPenawaran?.product_name}
               harga={dataInfoPenawaran?.base_price}
               hargaNego={dataInfoPenawaran?.price}
             />
           )
-        } */}
+        }
+        {
+          dataInfoPenawaran?.Product?.status !== 'seller' && (
+            <View>
+              {
+                dataInfoPenawaran?.status === 'pending' && !isAlreadyAccepted ? (
+                  <View style={styles.btnWrapper}>
+                    <ButtonComponent
+                      style={styles.btnTolak}
+                      type="secondary"
+                      title="Tolak"
+                      onPress={() => {
+                        Alert.alert(
+                          'Tolak Penawaran',
+                          'Apakah anda yakin ingin menolak penawaran ini?',
+                          [
+                            { text: 'Tidak', style: 'cancel' },
+                            { text: 'Ya', onPress: () => onReject(dataInfoPenawaran?.id) },
+                          ],
+                        );
+                      }}
+                    />
+                    <ButtonComponent
+                      style={styles.btnTerima}
+                      title="Terima"
+                      onPress={() => {
+                        Alert.alert(
+                          'Terima Penawaran',
+                          'Apakah anda yakin ingin menerima penawaran ini?',
+                          [
+                            { text: 'Tidak', style: 'cancel' },
+                            { text: 'Ya', onPress: () => { onAccept(dataInfoPenawaran?.id); } },
+                          ],
+                        );
+                      }}
+                    />
+                  </View>
+
+                )
+                  : (
+                    <View style={styles.btnWrapper}>
+                      <ButtonComponent
+                        style={styles.btnTolak}
+                        type="secondary"
+                        title="Status"
+                        onPress={() => {
+                          setBottomSheetRender('status');
+                          handleOpenPress(1);
+                        }}
+                      />
+                      <ButtonComponent
+                        style={styles.btnTerima}
+                        title="Hubungi"
+                        onPress={() => {
+                          setBottomSheetRender('hubungi');
+                          handleOpenPress(1);
+                        }}
+                        icon="whatsapp"
+                      />
+                    </View>
+                  )
+              }
+            </View>
+          )
+        }
+
+        {
+          dataInfoPenawaran?.Product?.status === 'seller'
+            ? (
+              <CardList
+                source={{ uri: dataInfoPenawaran?.image_product }}
+                title="Berhasil Terjual"
+                date={dataInfoPenawaran?.updatedAt}
+                name={dataInfoPenawaran?.product_name}
+                harga={dataInfoPenawaran?.base_price}
+                hargaNego={dataInfoPenawaran?.price}
+              />
+            ) : null
+        }
       </ScrollView>
       <BottomSheet
         enablePanDownToClose
@@ -168,7 +181,12 @@ function InfoPenawaranScreen({ navigation, route }) {
       >
         {
           bottomSheetRender === 'status' ? (
-            <Status dataInfoPenawaran={dataInfoPenawaran} handleClosePress={handleClosePress} />
+            <Status
+              dataInfoPenawaran={dataInfoPenawaran}
+              handleClosePress={handleClosePress}
+              navigation={navigation}
+              setIsSubmit={setIsSubmit}
+            />
           ) : (
             <Accept dataInfoPenawaran={dataInfoPenawaran} onPress={() => onHubungi()} />
           )

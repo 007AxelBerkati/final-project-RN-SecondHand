@@ -4,21 +4,33 @@ import {
 } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
+import FormData from 'form-data';
 import { ButtonComponent, Gap } from '../../components';
 import { patchSellerProduct } from '../../redux';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
 
-function Status({ dataInfoPenawaran, handleClosePress }) {
+function Status({
+  dataInfoPenawaran, handleClosePress, navigation, setIsSubmit,
+}) {
   const dispatch = useDispatch();
 
   const onAccept = useCallback(() => {
-    dispatch(patchSellerProduct(dataInfoPenawaran?.product_id, { status: 'seller' }));
+    const formData = new FormData();
+    formData.append('status', 'seller');
+    dispatch(patchSellerProduct(dataInfoPenawaran?.product_id, formData));
+    handleClosePress();
+    setIsSubmit(true);
   }, [dataInfoPenawaran?.product_id, dispatch]);
 
   const onReject = useCallback(() => {
-    dispatch(patchSellerProduct(dataInfoPenawaran?.product_id, { status: 'available' }));
+    const formData = new FormData();
+    formData.append('status', 'available');
+    dispatch(patchSellerProduct(dataInfoPenawaran?.product_id, formData));
+    handleClosePress();
+    setIsSubmit(true);
+    navigation.goBack();
   }, [dataInfoPenawaran?.product_id, dispatch]);
 
   const [checked, setChecked] = useState(null);
@@ -54,7 +66,7 @@ function Status({ dataInfoPenawaran, handleClosePress }) {
         <View style={styles.desc}>
           <Text style={styles.titleText}>Batalkan Transaksi</Text>
           <Text style={styles.subtitle}>
-            Kamu telah sepakat menjual produk ini kepada pembeli
+            Kamu membatalkan transaksi produk ini dengan pembeli
           </Text>
         </View>
       </View>
@@ -65,7 +77,6 @@ function Status({ dataInfoPenawaran, handleClosePress }) {
         onPress={() => {
           if (checked === 'first') {
             onAccept();
-            handleClosePress();
           }
           if (checked === 'second') {
             Alert.alert('Batalkan Transaksi', 'Apakah anda yakin ingin membatalkan transaksi ini?', [
@@ -74,7 +85,6 @@ function Status({ dataInfoPenawaran, handleClosePress }) {
                 text: 'Ya',
                 onPress: () => {
                   onReject();
-                  handleClosePress();
                 },
               },
             ], { cancelable: false });
