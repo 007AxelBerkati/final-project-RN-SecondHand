@@ -23,7 +23,7 @@ export const postProduct = (data, navigation) => async (dispatch) => {
     dispatch(addProductSuccess(response.data));
     dispatch(setLoading(false));
     showSuccess('Add Product Success');
-    navigation.replace('MainApp');
+    // navigation.replace('MainApp');
   }).catch((error) => {
     dispatch(addProductFail());
     dispatch(setLoading(false));
