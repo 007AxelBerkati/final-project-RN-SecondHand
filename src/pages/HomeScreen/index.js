@@ -13,9 +13,7 @@ import FastImage from 'react-native-fast-image';
 import PagerView from 'react-native-pager-view';
 import { Searchbar } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  ButtonComponent, CardCategory, CardProduct,
-} from '../../components';
+import { CardCategory, CardProduct, FooterHome } from '../../components';
 import {
   getBannerSeller, getCategoryProduct, getNotifikasi, getProduct,
 } from '../../redux';
@@ -30,7 +28,6 @@ function HomeScreen({ navigation }) {
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const dataHome = useSelector((state) => state.dataHome);
-  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     dispatch(getProduct({
@@ -59,33 +56,11 @@ function HomeScreen({ navigation }) {
   );
   const onHandlePrevious = () => {
     setPage(page - 1);
-    setHasMore(true);
   };
 
   const onHandleNext = () => {
     setPage(page + 1);
   };
-
-  const footerHome = () => (
-    <View style={styles.footerContent}>
-      <ButtonComponent
-        disable={page === 1}
-        title="Previous"
-        type="secondary"
-        onPress={() => onHandlePrevious()}
-        style={styles.buttonPagination}
-      />
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={styles.textPagination}>{page}</Text>
-      </View>
-      <ButtonComponent
-        disable={!hasMore}
-        onPress={() => onHandleNext()}
-        style={styles.buttonPagination}
-        title="Next"
-      />
-    </View>
-  );
 
   const renderItem = useCallback(({ item }) => (
     <CardProduct
@@ -97,12 +72,9 @@ function HomeScreen({ navigation }) {
     />
   ), [navigation]);
 
-  const emptyContent = () => {
-    setHasMore(false);
-    return (
-      <Text style={styles.textEmpty}>Tidak ada produk</Text>
-    );
-  };
+  const emptyContent = () => (
+    <Text style={styles.textEmpty}>Tidak ada produk</Text>
+  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -202,7 +174,15 @@ function HomeScreen({ navigation }) {
                   }}
                   renderItem={renderItem}
                   keyExtractor={(item) => item.id}
-                  ListFooterComponent={footerHome}
+                  // eslint-disable-next-line react/no-unstable-nested-components
+                  ListFooterComponent={() => (
+                    <FooterHome
+                      dataHome={dataHome?.data}
+                      onHandleNext={onHandleNext}
+                      onHandlePrevious={onHandlePrevious}
+                      page={page}
+                    />
+                  )}
                 />
               )
           }
@@ -255,29 +235,6 @@ const styles = StyleSheet.create({
   listProduct: {
     justifyContent: 'space-between',
     marginBottom: 16,
-  },
-
-  footerContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 16,
-    elevation: 4,
-    marginHorizontal: 10,
-    marginVertical: 10,
-    backgroundColor: colors.background.primary,
-
-  },
-  buttonPagination: {
-    width: '30%',
-  },
-
-  textPagination: {
-    fontSize: 20,
-    fontFamily: fonts.Poppins.Regular,
-    color: colors.text.tertiary,
-    textAlign: 'center',
   },
 
 });

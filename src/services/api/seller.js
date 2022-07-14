@@ -27,6 +27,13 @@ export const updateProduct = (id, data) => instance.put(`/seller/product/${id}`,
     'Content-Type': 'multipart/form-data',
   },
 });
+export const patchProductStatus = (id, data) => instance.patch(`/seller/product/${id}`, data, {
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'multipart/form-data',
+  },
+});
+
 export const deleteProduct = (id) => instance.delete(`/seller/product/${id}`);
 
 // seller/order

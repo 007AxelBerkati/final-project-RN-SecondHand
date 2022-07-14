@@ -14,6 +14,7 @@ const initialDetailBuyerState = {
   isLoading: false,
   putBid: {},
   deleteBid: {},
+  error: null,
 };
 
 export const detailProductBuyerReducer = (
@@ -48,41 +49,49 @@ export const detailProductBuyerReducer = (
         ...state,
         bidPrice: action.payload,
         isBid: true,
+        error: null,
       };
     case BID_PRODUCT_FAILED:
       return {
         ...state,
+        error: action.payload,
       };
     case GET_ALL_BID_SUCCESS:
       return {
         ...state,
         allBidProduct: action.payload,
+        error: null,
       };
     case GET_ALL_BID_FAILED:
       return {
         ...state,
+        error: action.payload,
       };
 
     case PUT_BID_SUCCESS:
       return {
         ...state,
         putBid: action.payload,
+        error: null,
       };
 
     case PUT_BID_FAILED:
       return {
         ...state,
+        error: action.payload,
       };
 
     case DELETE_BID_SUCCESS:
       return {
         ...state,
         deleteBid: action.payload,
+        error: null,
       };
 
     case DELETE_BID_FAILED:
       return {
         ...state,
+        error: action.payload,
       };
 
     case LOGOUT:

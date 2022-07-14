@@ -155,7 +155,7 @@ function DetailProductScreen({ route, navigation }) {
             <ButtonComponent
               title={checkStatusBid()}
               onPress={() => checkUser()}
-              disable={dataDetailBid[0]?.status === ('pending' || 'accepted') || isAlreadyBid
+              disable={dataDetailBid[0]?.status === 'pending' || dataDetailBid[0]?.status === 'accepted' || isAlreadyBid
                 || dataDetailBid[0]?.Product?.status === 'sold'}
             />
           </View>

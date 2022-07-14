@@ -1,24 +1,37 @@
+import React, { useCallback, useState } from 'react';
 import {
   Alert, StyleSheet, Text, View,
 } from 'react-native';
-import React, { useState, useCallback } from 'react';
 import { RadioButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
+import FormData from 'form-data';
+import { ButtonComponent, Gap } from '../../components';
+import { patchSellerProduct } from '../../redux';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
-import { ButtonComponent, Gap } from '../../components';
-import { patchOrderSeller } from '../../redux';
 
-function Status({ idOrder, handleClosePress }) {
+function Status({
+  dataInfoPenawaran, handleClosePress, navigation, setIsSubmit,
+}) {
   const dispatch = useDispatch();
+
   const onAccept = useCallback(() => {
-    dispatch(patchOrderSeller(idOrder, { status: 'accepted' }));
-  }, [dispatch]);
+    const formData = new FormData();
+    formData.append('status', 'seller');
+    dispatch(patchSellerProduct(dataInfoPenawaran?.product_id, formData));
+    handleClosePress();
+    setIsSubmit(true);
+  }, [dataInfoPenawaran?.product_id, dispatch]);
 
   const onReject = useCallback(() => {
-    dispatch(patchOrderSeller(idOrder, { status: 'declined' }));
-  }, [dispatch]);
+    const formData = new FormData();
+    formData.append('status', 'available');
+    dispatch(patchSellerProduct(dataInfoPenawaran?.product_id, formData));
+    handleClosePress();
+    setIsSubmit(true);
+    navigation.goBack();
+  }, [dataInfoPenawaran?.product_id, dispatch]);
 
   const [checked, setChecked] = useState(null);
   return (
@@ -53,7 +66,7 @@ function Status({ idOrder, handleClosePress }) {
         <View style={styles.desc}>
           <Text style={styles.titleText}>Batalkan Transaksi</Text>
           <Text style={styles.subtitle}>
-            Kamu telah sepakat menjual produk ini kepada pembeli
+            Kamu membatalkan transaksi produk ini dengan pembeli
           </Text>
         </View>
       </View>
@@ -64,7 +77,6 @@ function Status({ idOrder, handleClosePress }) {
         onPress={() => {
           if (checked === 'first') {
             onAccept();
-            handleClosePress();
           }
           if (checked === 'second') {
             Alert.alert('Batalkan Transaksi', 'Apakah anda yakin ingin membatalkan transaksi ini?', [
@@ -73,7 +85,6 @@ function Status({ idOrder, handleClosePress }) {
                 text: 'Ya',
                 onPress: () => {
                   onReject();
-                  handleClosePress();
                 },
               },
             ], { cancelable: false });

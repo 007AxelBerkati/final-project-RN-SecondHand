@@ -26,7 +26,7 @@ function Nego({
         Alert.alert('Bid tidak valid', 'Bid harus lebih besar dari penawaran harga awal');
         return;
       }
-      dispatch(putBid(dataDetailBid[0]?.id, { bid_price: parseFloat(bid) }));
+      dispatch(putBid(dataDetailBid[0]?.id, { bid_price: bid }));
       setisAlreadyBid(true);
       setIsSubmit(true);
       handleCloseSheet();
