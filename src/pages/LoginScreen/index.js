@@ -1,25 +1,19 @@
 import { Formik } from 'formik';
-import {
-  SafeAreaView,
-  Text,
-  StyleSheet,
-  View,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Alert,
-} from 'react-native';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import TouchID from 'react-native-touch-id';
 import {
-  Gap, Input, ButtonComponent, Headers, LinkComponent,
+  Alert, Keyboard, SafeAreaView, StyleSheet, Text, TouchableWithoutFeedback, View,
+} from 'react-native';
+import TouchID from 'react-native-touch-id';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  ButtonComponent, Gap, Headers, Input, LinkComponent,
 } from '../../components';
 import {
   colors, fonts, fontSize, getDataSecure, loginSchema,
   optionalConfigObject, showError, storeDataSecure, windowHeight,
 } from '../../utils';
 
-import { getLogin, getNotifikasi, setLoading } from '../../redux';
+import { getLogin, setLoading } from '../../redux';
 
 function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -29,7 +23,6 @@ function LoginScreen({ navigation }) {
   const onSubmit = (email, password) => {
     storeDataSecure('user', { email, password });
     dispatch(getLogin(email, password, navigation, dataLogin));
-    dispatch(getNotifikasi());
   };
 
   const onFingerprint = () => {
@@ -160,7 +153,7 @@ const styles = StyleSheet.create({
   registerTitle: {
     fontFamily: fonts.Poppins.Medium,
     fontSize: fontSize.medium,
-    color: colors.text.black,
+    color: colors.text.primary,
   },
 
   iconWrapper: {

@@ -32,7 +32,7 @@ export const notifikasiReducer = (
         isSuccess: true,
         error: null,
         loading: false,
-        read: action.read,
+        read: action.isRead,
       };
     case GET_NOTIFIKASI_FAIL:
       return {
@@ -84,11 +84,6 @@ export const notifikasiReducer = (
       return {
         ...state,
         loading: action.payload,
-      };
-    case 'IS_READ':
-      return {
-        ...state,
-        read: action.payload,
       };
 
     case LOGOUT:

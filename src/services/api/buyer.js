@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { instance } from '../../config';
 
 // buyer/order
@@ -11,6 +12,10 @@ export const deleteBuyerOrder = (id) => instance.delete(`/buyer/order/${id}`);
 export const getBuyerProduct = (params) => instance.get(`/buyer/product${params}`);
 export const detailBuyerProduct = (id) => instance.get(`/buyer/product/${id}`);
 
-// wishlist/buyer
-export const getWishlist = () => instance.get('/buyer/wishlist');
+// buyer/ wishlist
 export const detailWishlist = (id) => instance.get(`/buyer/wishlist/${id}`);
+export const getWishlist = () => instance.get('/buyer/wishlist');
+export const addWishlist = (product_id) => instance.post('/buyer/wishlist', { product_id });
+export const deleteWishlist = (id) => instance.delete(`/buyer/wishlist/${id}`);
+export const updateWishlist = (id, payload) => instance.put(`/buyer/wishlist/${id}`, payload);
+

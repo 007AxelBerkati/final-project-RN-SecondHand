@@ -29,14 +29,14 @@ function InfoPenawaranScreen({ navigation, route }) {
   const dataInfoPenawaran = useSelector((state) => state.dataInfoPenawaran.infoPenawaran);
 
   const [isAlreadyAccepted, setIsAlreadyAccepted] = useState(false);
+  const [bottomSheetRender, setBottomSheetRender] = useState('');
   useEffect(() => {
     dispatch(getSelerOrderId(id));
   }, []);
 
   // handle bottom sheet
   const bottomSheetRef = useRef(null);
-  const snapPointsAccept = useMemo(() => ['1%', '60%'], []);
-  const snapPointsStatus = useMemo(() => ['1%', '50%'], []);
+  const snapPoints = useMemo(() => ['1%', '60%'], []);
 
   const handleClosePress = () => bottomSheetRef.current?.close();
   const handleOpenPress = (index) => bottomSheetRef.current?.snapToIndex(index);
@@ -44,6 +44,7 @@ function InfoPenawaranScreen({ navigation, route }) {
 
   const onAccept = useCallback((idOrder) => {
     dispatch(patchOrderSeller(idOrder, { status: 'accepted' }));
+    setBottomSheetRender('hubungi');
     setIsAlreadyAccepted(true);
     handleOpenPress(1);
   }, [dispatch]);
@@ -99,14 +100,43 @@ function InfoPenawaranScreen({ navigation, route }) {
                   );
                 }}
               />
-              <ButtonComponent style={styles.btnTerima} title="Terima" onPress={() => onAccept(dataInfoPenawaran?.id)} />
+              <ButtonComponent
+                style={styles.btnTerima}
+                title="Terima"
+                onPress={() => {
+                  Alert.alert(
+                    'Terima Penawaran',
+                    'Apakah anda yakin ingin menerima penawaran ini?',
+                    [
+                      { text: 'Tidak', style: 'cancel' },
+                      { text: 'Ya', onPress: () => { onAccept(dataInfoPenawaran?.id); } },
+                    ],
+                  );
+                }}
+              />
             </View>
 
           )
             : (
               <View style={styles.btnWrapper}>
-                <ButtonComponent style={styles.btnTolak} type="secondary" title="Status" onPress={() => handleOpenPress(1)} />
-                <ButtonComponent style={styles.btnTerima} title="Hubungi" onPress={() => { onHubungi(); }} icon="whatsapp" />
+                <ButtonComponent
+                  style={styles.btnTolak}
+                  type="secondary"
+                  title="Status"
+                  onPress={() => {
+                    setBottomSheetRender('status');
+                    handleOpenPress(1);
+                  }}
+                />
+                <ButtonComponent
+                  style={styles.btnTerima}
+                  title="Hubungi"
+                  onPress={() => {
+                    setBottomSheetRender('hubungi');
+                    handleOpenPress(1);
+                  }}
+                  icon="whatsapp"
+                />
               </View>
             )
         }
@@ -133,16 +163,15 @@ function InfoPenawaranScreen({ navigation, route }) {
         enableOverDrag
         ref={bottomSheetRef}
         index={0}
-        snapPoints={dataInfoPenawaran?.status === 'pending' ? snapPointsAccept : snapPointsStatus}
+        snapPoints={snapPoints}
         backdropComponent={BackDropComponent}
       >
         {
-          dataInfoPenawaran?.status === 'pending' ? (
-            <Accept dataInfoPenawaran={dataInfoPenawaran} onPress={() => onHubungi()} />
-          ) : (
+          bottomSheetRender === 'status' ? (
             <Status idOrder={dataInfoPenawaran?.id} handleClosePress={handleClosePress} />
+          ) : (
+            <Accept dataInfoPenawaran={dataInfoPenawaran} onPress={() => onHubungi()} />
           )
-
         }
       </BottomSheet>
     </GestureHandlerRootView>
