@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   des: {
     fontFamily: fonts.Poppins.Regular,
     fontSize: fontSize.Regular,
+    color: colors.text.subtitle,
   },
 });
 
