@@ -9,7 +9,7 @@ function DaftarSimpanScreen({ navigation }) {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data);
   useEffect(() => {
-    dispatch(getWishlistBuyer);
+    dispatch(getWishlistBuyer());
   });
 
   return (
