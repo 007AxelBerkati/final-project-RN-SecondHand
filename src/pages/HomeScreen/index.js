@@ -13,9 +13,7 @@ import FastImage from 'react-native-fast-image';
 import PagerView from 'react-native-pager-view';
 import { Searchbar } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  ButtonComponent, CardCategory, CardProduct, FooterHome,
-} from '../../components';
+import { CardCategory, CardProduct, FooterHome } from '../../components';
 import {
   getBannerSeller, getCategoryProduct, getNotifikasi, getProduct,
 } from '../../redux';
@@ -30,7 +28,6 @@ function HomeScreen({ navigation }) {
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const dataHome = useSelector((state) => state.dataHome);
-  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     dispatch(getProduct({
@@ -59,7 +56,6 @@ function HomeScreen({ navigation }) {
   );
   const onHandlePrevious = () => {
     setPage(page - 1);
-    setHasMore(true);
   };
 
   const onHandleNext = () => {
