@@ -78,7 +78,7 @@ function MyTabs() {
           tabBarIcon: ({ color }) => (
             <View>
               <Icon name="notifications-outline" color={color} size={22} />
-              {!read && (
+              {read === false && (
                 <Icon
                   name="ellipse"
                   color="red"

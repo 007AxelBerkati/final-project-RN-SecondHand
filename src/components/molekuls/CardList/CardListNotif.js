@@ -15,7 +15,7 @@ function CardListNotif({
   const titleNotif = () => {
     switch (status) {
       case 'accepted':
-        return 'Barang Berhasil Terjual';
+        return 'Penawaranmu Telah Diterima';
       case 'create':
         return 'Berhasil di terbitkan';
       case 'bid':

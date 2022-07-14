@@ -1,22 +1,17 @@
-import { getNotif, detailNotif, patchNotif } from '../../services';
+import { detailNotif, getNotif, patchNotif } from '../../services';
+import { showError } from '../../utils';
 import {
-  GET_NOTIFIKASI_SUCCESS,
-  GET_NOTIFIKASI_FAIL,
-  GET_NOTIFIKASI_LOADING,
-  GET_NOTIFIKASI_ID_SUCCESS,
-  GET_NOTIFIKASI_ID_FAIL,
-  GET_NOTIFIKASI_ID_LOADING,
-  PATCH_NOTIFIKASI_SUCCESS,
-  PATCH_NOTIFIKASI_FAIL,
-  PATCH_NOTIFIKASI_LOADING,
+  GET_NOTIFIKASI_FAIL, GET_NOTIFIKASI_ID_FAIL,
+  GET_NOTIFIKASI_ID_LOADING, GET_NOTIFIKASI_ID_SUCCESS,
+  GET_NOTIFIKASI_LOADING, GET_NOTIFIKASI_SUCCESS, PATCH_NOTIFIKASI_FAIL,
+  PATCH_NOTIFIKASI_LOADING, PATCH_NOTIFIKASI_SUCCESS,
 } from '../types';
-import { showError, showSuccess } from '../../utils';
 import { setLoading } from './global';
 
-export const getNotifikasiSuccess = (data, read) => ({
+export const getNotifikasiSuccess = (data, isRead) => ({
   type: GET_NOTIFIKASI_SUCCESS,
   payload: data,
-  read,
+  isRead,
 });
 
 export const getNotifikasiFail = (error) => ({
@@ -29,25 +24,17 @@ export const getNotifikasiLoading = (data) => ({
   payload: data,
 });
 
-export const getIsReadNotif = (isRead) => ({
-  type: 'IS_READ',
-  payload: isRead,
-});
-
 export const getNotifikasi = () => async (dispatch) => {
-  dispatch(getNotifikasiLoading(true));
   await getNotif().then(async (response) => {
     const checkNotif = () => {
       for (let i = 0; i < response.data.length; i += 1) {
         if (response.data[i].read === false) {
-          dispatch(getIsReadNotif(false));
-          return;
+          return false;
         }
       }
-      dispatch(getIsReadNotif(true));
+      return true;
     };
-    await checkNotif();
-    dispatch(getNotifikasiSuccess(response.data));
+    dispatch(getNotifikasiSuccess(response.data, checkNotif()));
   }).catch((error) => {
     dispatch(getNotifikasiFail(error.response.data.message));
   });
@@ -95,12 +82,10 @@ export const patchNotifikasiLoading = (data) => ({
 });
 
 export const patchNotifikasi = (id) => async (dispatch) => {
-  dispatch(patchNotifikasiLoading(true));
   await patchNotif(id).then((response) => {
     dispatch(patchNotifikasiSuccess(response.data));
-    showSuccess('Success');
+    dispatch(getNotifikasi());
   }).catch((error) => {
     dispatch(patchNotifikasiFail(error));
-    showError(error.response.data.message);
   });
 };

@@ -7,7 +7,7 @@ import { IconSellNull } from '../../assets';
 import {
   CardList, EmptySkeletonNotif, Headers, NotLogin,
 } from '../../components';
-import { getNotifikasi } from '../../redux';
+import { getNotifikasi, getNotifikasiLoading, patchNotifikasi } from '../../redux';
 import {
   colors, fonts, fontSize, showInfo, sortDate, windowHeight, windowWidth,
 } from '../../utils';
@@ -20,6 +20,7 @@ function NotifikasiScreen({ navigation }) {
   const dataNotif = useSelector((state) => state.dataNotifikasi);
 
   useEffect(() => {
+    dispatch(getNotifikasiLoading(true));
     dispatch(getNotifikasi());
   }, []);
 
@@ -29,12 +30,12 @@ function NotifikasiScreen({ navigation }) {
     setRefreshing(false);
   };
 
-  const onClick = (id, status, productId, orderId, product) => {
-    switch (status) {
+  const onClick = (item) => {
+    dispatch(patchNotifikasi(item?.id));
+
+    switch (item?.status) {
       case 'accepted':
-        // dispatch(patchNotifikasi(id, 'read'));
         showInfo('Penawaranmu telah diterima, silahkan tunggu konfirmasi dari penjual');
-        // dispatch(patchNotifikasi(id));
         break;
       case 'declined':
         Alert.alert('Tawar Lagi?', 'Apakah anda menawar lagi?', [
@@ -42,8 +43,8 @@ function NotifikasiScreen({ navigation }) {
           {
             text: 'Ya',
             onPress: () => {
-              if (product !== null) {
-                navigation.navigate('DetailProductScreen', { id: productId });
+              if (item?.Product !== null) {
+                navigation.navigate('DetailProductScreen', { id: item?.Product?.id });
               } else {
                 Alert.alert('Barang tidak ditemukan', 'Barang yang ingin anda tawarkan tidak ditemukan, mungkin telah dihapus');
               }
@@ -52,8 +53,8 @@ function NotifikasiScreen({ navigation }) {
         ]);
         break;
       case 'bid':
-        if (product !== null) {
-          navigation.navigate('InfoPenawaranScreen', { id: orderId });
+        if (item?.Product !== null) {
+          navigation.navigate('InfoPenawaranScreen', { id: item?.order_id });
         } else {
           Alert.alert('Produk Terhapus', 'Produk ini telah dihapus oleh penjual');
         }
@@ -100,13 +101,7 @@ function NotifikasiScreen({ navigation }) {
         hargaNego={item.bid_price}
         name={item.product_name}
         read={item.read}
-        onPress={() => onClick(
-          item.id,
-          item.status,
-          item?.Product?.id,
-          item?.order_id,
-          item?.Product,
-        )}
+        onPress={() => onClick(item)}
       />
     )
   );

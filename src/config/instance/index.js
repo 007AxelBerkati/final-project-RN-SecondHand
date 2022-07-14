@@ -6,7 +6,7 @@ const headers = {};
 
 const instance = axios.create({
   baseURL: 'https://market-final-project.herokuapp.com',
-  timeout: 1000,
+  timeout: 1000 * 10,
   headers,
 });
 
