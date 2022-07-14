@@ -1,10 +1,11 @@
-import { detailSellerOrder, updateSellerOrder } from '../../services';
+import { detailSellerOrder, patchProductStatus, updateSellerOrder } from '../../services';
 import { showError, showSuccess } from '../../utils';
 import {
   GET_ORDER_SELLER_ID_FAIL, GET_ORDER_SELLER_ID_LOADING,
   GET_ORDER_SELLER_ID_SUCCESS, PATCH_ORDER_SELLER_FAIL,
-  PATCH_ORDER_SELLER_LOADING, PATCH_ORDER_SELLER_SUCCESS,
+  PATCH_ORDER_SELLER_LOADING, PATCH_ORDER_SELLER_SUCCESS, PATCH_PRODUCT_FAIL, PATCH_PRODUCT_SUCCESS,
 } from '../types';
+import { setLoading } from './global';
 
 export const getSellerOrderIdSuccess = (data) => ({
   type: GET_ORDER_SELLER_ID_SUCCESS,
@@ -61,3 +62,29 @@ export const patchOrderSeller = (id, data) => async (dispatch) => {
   });
 };
 // END PATCH ORDER SELLER
+
+// PATCH SELLER PRODUCT
+export const patchSellerProductSuccess = (data) => ({
+  type: PATCH_PRODUCT_SUCCESS,
+  payload: data,
+}
+);
+
+export const patchSellerProductFail = (data) => ({
+  type: PATCH_PRODUCT_FAIL,
+  payload: data,
+}
+);
+
+export const patchSellerProduct = (id, payload) => async (dispatch) => {
+  dispatch(setLoading(true));
+  await patchProductStatus(id, payload).then((response) => {
+    dispatch(patchSellerProductSuccess(response.data));
+    showSuccess('Status produk berhasil diperbaharui');
+    dispatch(setLoading(false));
+  }).catch((error) => {
+    dispatch(patchSellerProductFail(error));
+    showError(error.response.data.message);
+    dispatch(setLoading(false));
+  });
+};

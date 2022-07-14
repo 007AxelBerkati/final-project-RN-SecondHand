@@ -168,7 +168,7 @@ function InfoPenawaranScreen({ navigation, route }) {
       >
         {
           bottomSheetRender === 'status' ? (
-            <Status idOrder={dataInfoPenawaran?.id} handleClosePress={handleClosePress} />
+            <Status dataInfoPenawaran={dataInfoPenawaran} handleClosePress={handleClosePress} />
           ) : (
             <Accept dataInfoPenawaran={dataInfoPenawaran} onPress={() => onHubungi()} />
           )

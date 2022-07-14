@@ -27,6 +27,7 @@ export const updateProduct = (id, data) => instance.put(`/seller/product/${id}`,
     'Content-Type': 'multipart/form-data',
   },
 });
+export const patchProductStatus = (id, payload) => instance.put(`/seller/product/${id}`, payload);
 export const deleteProduct = (id) => instance.delete(`/seller/product/${id}`);
 
 // seller/order

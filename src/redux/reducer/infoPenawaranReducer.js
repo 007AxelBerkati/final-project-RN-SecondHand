@@ -1,7 +1,8 @@
 import {
   GET_ORDER_SELLER_ID_FAIL, GET_ORDER_SELLER_ID_LOADING, GET_ORDER_SELLER_ID_SUCCESS,
   LOGOUT,
-  PATCH_ORDER_SELLER_FAIL, PATCH_ORDER_SELLER_LOADING, PATCH_ORDER_SELLER_SUCCESS,
+  PATCH_ORDER_SELLER_FAIL, PATCH_ORDER_SELLER_LOADING,
+  PATCH_ORDER_SELLER_SUCCESS, PATCH_PRODUCT_FAIL, PATCH_PRODUCT_SUCCESS,
 } from '../types';
 
 const initialInfoPenawaranState = {
@@ -10,6 +11,7 @@ const initialInfoPenawaranState = {
   isSuccess: false,
   error: null,
   updateInfoPenawaran: {},
+  patchProductStatus: {},
 };
 
 export const infoPenawaranReducer = (state = initialInfoPenawaranState, action = {}) => {
@@ -49,6 +51,23 @@ export const infoPenawaranReducer = (state = initialInfoPenawaranState, action =
         error: null,
       };
     case PATCH_ORDER_SELLER_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
+        error: action.payload,
+      };
+
+    case PATCH_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        patchProductStatus: action.payload,
+        error: null,
+      };
+
+    case PATCH_PRODUCT_FAIL:
       return {
         ...state,
         isLoading: false,

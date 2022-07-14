@@ -1,24 +1,25 @@
+import React, { useCallback, useState } from 'react';
 import {
   Alert, StyleSheet, Text, View,
 } from 'react-native';
-import React, { useState, useCallback } from 'react';
 import { RadioButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
+import { ButtonComponent, Gap } from '../../components';
+import { patchSellerProduct } from '../../redux';
 import {
   colors, fonts, fontSize, windowHeight,
 } from '../../utils';
-import { ButtonComponent, Gap } from '../../components';
-import { patchOrderSeller } from '../../redux';
 
-function Status({ idOrder, handleClosePress }) {
+function Status({ dataInfoPenawaran, handleClosePress }) {
   const dispatch = useDispatch();
+
   const onAccept = useCallback(() => {
-    dispatch(patchOrderSeller(idOrder, { status: 'accepted' }));
-  }, [dispatch]);
+    dispatch(patchSellerProduct(dataInfoPenawaran?.product_id, { status: 'seller' }));
+  }, [dataInfoPenawaran?.product_id, dispatch]);
 
   const onReject = useCallback(() => {
-    dispatch(patchOrderSeller(idOrder, { status: 'declined' }));
-  }, [dispatch]);
+    dispatch(patchSellerProduct(dataInfoPenawaran?.product_id, { status: 'available' }));
+  }, [dataInfoPenawaran?.product_id, dispatch]);
 
   const [checked, setChecked] = useState(null);
   return (
