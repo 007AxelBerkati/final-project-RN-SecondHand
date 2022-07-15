@@ -12,6 +12,7 @@ import {
 import FastImage from 'react-native-fast-image';
 import PagerView from 'react-native-pager-view';
 import { Searchbar } from 'react-native-paper';
+import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
 import { CardCategory, CardProduct, FooterHome } from '../../components';
 import {
@@ -78,6 +79,7 @@ function HomeScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1 }}>
+
       <ScrollView
         nestedScrollEnabled
         showsVerticalScrollIndicator={false}
@@ -89,69 +91,79 @@ function HomeScreen({ navigation }) {
         )}
       >
         <StatusBar backgroundColor="transparent" translucent barStyle={useIsFocused() ? 'dark-content' : null} />
-        <PagerView
-          style={{
-            height: windowHeight * 0.2,
-            marginTop: windowHeight * 0.1,
-            marginHorizontal: 16,
-          }}
-          showPageIndicator
-          initialPage={0}
+        <LinearGradient
+          colors={[
+            colors.background.tertiary,
+            colors.background.primary]}
+          style={styles.linearGradient}
         >
-          {
-            dataHome?.banner?.map((item) => (
-              <View
-                key={item.id}
-              >
-                <FastImage
-                  source={{ uri: item.image_url }}
-                  style={{ height: '100%', width: '100%', borderRadius: 10 }}
-                />
-              </View>
-            ))
-          }
-        </PagerView>
-        <Searchbar
-          style={styles.searchBar}
-          placeholder="Cari di Second chance"
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-          inputStyle={{
-            fontSize: fontSize.medium,
-            fontFamily: fonts.Poppins.Regular,
-            color: colors.text.subtitle,
-          }}
-        />
-        <View style={styles.content}>
-          <Text style={styles.titleCategory}>Telusuri Kategori</Text>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ marginBottom: 20 }}
+          <PagerView
+            style={{
+              height: windowHeight * 0.2,
+              marginTop: windowHeight * 0.1,
+              marginHorizontal: 16,
+            }}
+            showPageIndicator
+            initialPage={0}
           >
-            <CardCategory
-              name="search"
-              active={category === 0}
-              kategori="Semua"
-              onPress={() => {
-                setCategory(0);
-                setPage(1);
-              }}
-            />
-            {dataHome?.category?.map((item) => (
+            {
+              dataHome?.banner?.map((item) => (
+                <View
+                  key={item.id}
+                >
+                  <FastImage
+                    source={{ uri: item.image_url }}
+                    style={{ height: '100%', width: '100%', borderRadius: 10 }}
+                  />
+                </View>
+              ))
+            }
+          </PagerView>
+          <Searchbar
+            style={styles.searchBar}
+            placeholder="Cari di Second chance"
+            onChangeText={onChangeSearch}
+            value={searchQuery}
+            inputStyle={{
+              fontSize: fontSize.medium,
+              fontFamily: fonts.Poppins.Regular,
+              color: colors.text.subtitle,
+            }}
+          />
+          <View style={{ marginHorizontal: 16, marginTop: 16 }}>
+            <Text style={styles.titleCategory}>Telusuri Kategori</Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={{ marginBottom: 20 }}
+            >
               <CardCategory
-                key={item.id}
                 name="search"
-                active={category === item?.id}
-                kategori={item.name}
+                active={category === 0}
+                kategori="Semua"
                 onPress={() => {
-                  setCategory(item?.id);
+                  setCategory(0);
                   setPage(1);
                 }}
               />
-            ))}
+              {dataHome?.category?.map((item) => (
+                <CardCategory
+                  key={item.id}
+                  name="search"
+                  active={category === item?.id}
+                  kategori={item.name}
+                  onPress={() => {
+                    setCategory(item?.id);
+                    setPage(1);
+                  }}
+                />
+              ))}
 
-          </ScrollView>
+            </ScrollView>
+          </View>
+
+        </LinearGradient>
+        <View style={{ marginHorizontal: 16 }}>
           {
             dataHome.isLoading ? (
               <ActivityIndicator size="small" color={colors.background.secondary} />
@@ -188,7 +200,6 @@ function HomeScreen({ navigation }) {
           }
         </View>
       </ScrollView>
-
     </View>
   );
 }
@@ -235,6 +246,10 @@ const styles = StyleSheet.create({
   listProduct: {
     justifyContent: 'space-between',
     marginBottom: 16,
+  },
+
+  linearGradient: {
+    flex: 1,
   },
 
 });

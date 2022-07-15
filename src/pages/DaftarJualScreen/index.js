@@ -3,6 +3,7 @@ import {
   RefreshControl, StyleSheet, View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
 import { listDaftarJual } from '../../assets';
 import {
@@ -79,55 +80,61 @@ function DaftarJualScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.pages}>
-      <Headers title="Daftar Jual Saya" />
-      {
-        !dataLogin.isLoggedIn ? (
-          <NotLogin onPress={() => navigation.navigate('LoginScreen')} />
-        ) : (
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            refreshControl={(
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={() => onRefresh(active)}
-              />
-            )}
-          >
-            <View style={{ marginHorizontal: 3 }}>
-              <CardList
-                type="role"
-                name={dataProfile.full_name}
-                source={dataProfile.image_url !== null
-                  ? { uri: dataProfile.image_url } : { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' }}
-                kota={dataProfile.city}
-                onPress={() => navigation.navigate('ProfileScreen')}
-              />
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                style={{ marginVertical: 24 }}
-              >
-                {
-                  listDaftarJual.data.map((item) => (
-                    <View key={item.id}>
-                      <CardCategory
-                        active={active === item.id}
-                        name={item.name}
-                        kategori={item.category}
-                        onPress={() => getDaftarJual(item.id)}
-                      />
-                    </View>
-                  ))
-                }
-              </ScrollView>
-              {dataForRender()}
-            </View>
-          </ScrollView>
-        )
-      }
-
-    </View>
+    <LinearGradient
+      colors={[
+        colors.background.tertiary,
+        colors.background.primary]}
+      style={styles.linearGradient}
+    >
+      <View style={styles.pages}>
+        <Headers title="Daftar Jual Saya" />
+        {
+          !dataLogin.isLoggedIn ? (
+            <NotLogin onPress={() => navigation.navigate('LoginScreen')} />
+          ) : (
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              refreshControl={(
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={() => onRefresh(active)}
+                />
+              )}
+            >
+              <View style={{ marginHorizontal: 3 }}>
+                <CardList
+                  type="role"
+                  name={dataProfile.full_name}
+                  source={dataProfile.image_url !== null
+                    ? { uri: dataProfile.image_url } : { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' }}
+                  kota={dataProfile.city}
+                  onPress={() => navigation.navigate('ProfileScreen')}
+                />
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  style={{ marginVertical: 24 }}
+                >
+                  {
+                    listDaftarJual.data.map((item) => (
+                      <View key={item.id}>
+                        <CardCategory
+                          active={active === item.id}
+                          name={item.name}
+                          kategori={item.category}
+                          onPress={() => getDaftarJual(item.id)}
+                        />
+                      </View>
+                    ))
+                  }
+                </ScrollView>
+                {dataForRender()}
+              </View>
+            </ScrollView>
+          )
+        }
+      </View>
+    </LinearGradient>
   );
 }
 
@@ -156,6 +163,10 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Poppins.Medium,
     fontSize: fontSize.medium,
     color: colors.text.primary,
+  },
+
+  linearGradient: {
+    flex: 1,
   },
 
 });
