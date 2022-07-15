@@ -51,6 +51,7 @@ function DaftarSimpanScreen({ navigation }) {
           name={item?.Product?.name}
           icon="bookmark"
           onPressBookmark={() => handleBookmark(item?.id)}
+          onPress={() => navigation.navigate('DetailProductScreen', { id: item?.Product?.id })}
         />
       )
   );
