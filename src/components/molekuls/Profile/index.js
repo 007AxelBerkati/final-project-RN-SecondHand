@@ -11,10 +11,10 @@ function Profile({ isRemove, source, onPress }) {
   return (
     <View style={styles.photoSection}>
       {!isRemove && (
-      <View style={styles.photo}>
-        <FastImage source={source !== null ? source : ILNullPhoto} style={styles.avatar} />
-        {isRemove && <IconRemovePhoto style={styles.removePhoto} />}
-      </View>
+        <View style={styles.photo}>
+          <FastImage source={source !== null ? source : ILNullPhoto} style={styles.avatar} />
+          {isRemove && <IconRemovePhoto style={styles.removePhoto} />}
+        </View>
       )}
       {isRemove && (
         <TouchableOpacity style={styles.photo} onPress={onPress}>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   avatar: {
     width: windowWidth * 0.3,
-    height: windowHeight * 0.15,
+    height: windowHeight * 0.17,
     alignSelf: 'center',
 
   },
