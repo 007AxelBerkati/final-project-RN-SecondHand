@@ -75,17 +75,9 @@ export const getAllBidProduct = () => async (dispatch) => {
 export const bidProduct = (payload) => async (dispatch) => {
   dispatch(setLoading(true));
   await addBuyerOrder(payload).then((response) => {
-    const notifBid = () => {
-      configure();
-      buatChannel('1');
-      cancelAllLocalNotifications();
-      kirimNotifikasi('1', 'Bid', 'Bid Berhasil');
-    };
-
-    notifBid();
     dispatch(successBid(response.data));
     dispatch(setLoading(false));
-    showSuccess('Success menawar produk');
+    showSuccess('Berhasil mengirim Penawaran');
   }).catch((err) => {
     dispatch(failedBid(err));
     dispatch(setLoading(false));
@@ -115,10 +107,9 @@ export const putBid = (id, payload) => async (dispatch) => {
       configure();
       buatChannel('1');
       cancelAllLocalNotifications();
-      kirimNotifikasi('1', 'Bid', 'Update Bid Berhasil');
+      kirimNotifikasi('1', 'Bid', 'Update Penawaran Berhasil');
     };
     notifUpdateBid();
-    showSuccess('Success Update Bid');
   }).catch((err) => {
     dispatch(putBidFailed(err));
     dispatch(setLoading(false));
@@ -142,7 +133,7 @@ export const deleteBid = (id) => async (dispatch) => {
   await deleteBuyerOrder(id).then((response) => {
     dispatch(deleteBidSuccess(response.data));
     dispatch(setLoading(false));
-    showSuccess('Success Delete Bid');
+    showSuccess('Berhasil Menghapus Order');
   }).catch((err) => {
     dispatch(deleteBidFailed());
     dispatch(setLoading(false));

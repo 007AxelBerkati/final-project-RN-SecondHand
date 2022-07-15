@@ -55,7 +55,7 @@ export const addWishlistBuyer = (id, navigation) => async (dispatch) => {
   await addWishlist(id).then((response) => {
     dispatch(addWishlistSuccess(response.data));
     dispatch(setLoading(false));
-    showInfo('Success Add Wishlist', () => { navigation.navigate('DaftarSimpanScreen'); });
+    showInfo('Berhasil menambah Daftar Simpan. Klik untuk lihat', () => { navigation.navigate('DaftarSimpanScreen'); });
   }).catch((err) => {
     dispatch(addWishlistFailed(err));
     dispatch(setLoading(false));
@@ -80,7 +80,7 @@ export const deleteWishlistBuyer = (id) => async (dispatch) => {
   await deleteWishlist(id).then((response) => {
     dispatch(deleteWishlistSuccess(response.data));
     dispatch(setLoading(false));
-    showInfo('Success Delete Wishlist');
+    showInfo('Berhasil menghapus Daftar Simpan');
   }).catch((err) => {
     dispatch(deleteWishlistFailed(err));
     dispatch(setLoading(false));

@@ -3,7 +3,6 @@ import {
   RefreshControl, StyleSheet, View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
 import { listDaftarJual } from '../../assets';
 import {
