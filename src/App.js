@@ -14,6 +14,9 @@ import { borderRadius, windowHeight, windowWidth } from './utils';
 const CodePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
   mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+  updateDialog: {
+    appendReleaseDescription: true,
+  },
 };
 
 function MainApp() {
