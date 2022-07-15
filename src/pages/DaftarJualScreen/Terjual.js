@@ -30,7 +30,7 @@ function Terjual({ navigation, dataTerjual }) {
         date={item.transaction_date}
         harga={item.base_price}
         hargaNego={item.price}
-        onPress={() => navigation.navigate('InfoPenawaranScreen')}
+        onPress={() => navigation.navigate('InfoPenawaranScreen', { id: item.id })}
       />
     )
   );
