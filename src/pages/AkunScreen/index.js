@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   placeholder: {
     borderRadius: borderRadius.xlarge,
     width: windowWidth * 0.3,
-    height: windowHeight * 0.15,
+    height: windowHeight * 0.17,
     alignSelf: 'center',
   },
 

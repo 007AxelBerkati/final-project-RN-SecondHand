@@ -20,7 +20,7 @@ export const getRegister = (data, navigation) => async (dispatch) => {
   await register(data).then((response) => {
     dispatch(getRegisterSuccess(response.data));
     dispatch(setLoading(false));
-    showSuccess('Register Success');
+    showSuccess('Berhasil Buat Akun');
     navigation.navigate('LoginScreen');
   }).catch((error) => {
     dispatch(getRegisterFail(error.response.data.message));

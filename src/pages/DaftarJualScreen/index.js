@@ -79,6 +79,7 @@ function DaftarJualScreen({ navigation }) {
   };
 
   return (
+
     <View style={styles.pages}>
       <Headers title="Daftar Jual Saya" />
       {
@@ -126,7 +127,6 @@ function DaftarJualScreen({ navigation }) {
           </ScrollView>
         )
       }
-
     </View>
   );
 }

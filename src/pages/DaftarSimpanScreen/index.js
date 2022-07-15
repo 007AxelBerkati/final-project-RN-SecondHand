@@ -57,6 +57,7 @@ function DaftarSimpanScreen({ navigation }) {
   );
 
   return (
+
     <View style={{ flex: 1, margin: 16 }}>
       <Headers type="back-title" onPress={() => navigation.goBack()} title="Daftar Simpan" />
       <FlatList
@@ -76,7 +77,6 @@ function DaftarSimpanScreen({ navigation }) {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
-
     </View>
   );
 }
@@ -103,4 +103,5 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
 
   },
+
 });
