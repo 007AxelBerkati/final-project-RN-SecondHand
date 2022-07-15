@@ -13,3 +13,4 @@ export * from './infoPenawaran';
 export * from './notifikasi';
 export * from './gantiPass';
 export * from './history';
+export * from './wishlist';

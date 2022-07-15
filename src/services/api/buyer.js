@@ -17,5 +17,3 @@ export const detailWishlist = (id) => instance.get(`/buyer/wishlist/${id}`);
 export const getWishlist = () => instance.get('/buyer/wishlist');
 export const addWishlist = (product_id) => instance.post('/buyer/wishlist', { product_id });
 export const deleteWishlist = (id) => instance.delete(`/buyer/wishlist/${id}`);
-export const updateWishlist = (id, payload) => instance.put(`/buyer/wishlist/${id}`, payload);
-

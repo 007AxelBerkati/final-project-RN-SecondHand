@@ -12,3 +12,4 @@ export * from './infoPenawaranReducer';
 export * from './gantiPassReducer';
 export * from './notifikasiReducer';
 export * from './historyReducer';
+export * from './wishlistReducer';
