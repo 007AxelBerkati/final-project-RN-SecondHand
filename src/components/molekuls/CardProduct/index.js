@@ -58,9 +58,7 @@ function CardProduct({
         </Text>
         <Text style={styles.jenis} numberOfLines={1}>
           {
-            jenis?.map((item) => (
-              (`${item.name}, `)
-            ))
+            jenis?.map((item) => (`${item.name}, `))
           }
         </Text>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -70,11 +68,11 @@ function CardProduct({
             }
           </Text>
           {
-            icon !== undefined && ((
+            icon !== undefined && (
               <TouchableOpacity onPress={onPressBookmark}>
                 <Icon name={icon} size={24} color={colors.background.black} />
               </TouchableOpacity>
-            ))
+            )
           }
 
         </View>

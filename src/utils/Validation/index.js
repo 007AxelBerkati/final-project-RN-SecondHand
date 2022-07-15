@@ -21,7 +21,7 @@ export const signupSchema = Yup.object().shape({
     .min(8, 'Password terlalu pendek')
     .matches(/^(?=.*[a-z])/, 'Harus berisi minimal satu huruf kecil')
     .matches(/^(?=.*[A-Z])/, 'Harus berisi minimal satu huruf besar')
-    .matches(/^(?=.*[0-9])/, 'Harus berisi minimal satu angka')
+    .matches(/^(?=.*[\d])/, 'Harus berisi minimal satu angka')
     .trim(),
   address: Yup.string()
     .min(4, 'Alamat terlalu pendek')
@@ -95,7 +95,7 @@ export const gantiPassSchema = Yup.object().shape({
     .min(8, 'Password terlalu pendek')
     .matches(/^(?=.*[a-z])/, 'Harus berisi minimal satu huruf kecil')
     .matches(/^(?=.*[A-Z])/, 'Harus berisi minimal satu huruf besar')
-    .matches(/^(?=.*[0-9])/, 'Harus berisi minimal satu angka')
+    .matches(/^(?=.*[\d])/, 'Harus berisi minimal satu angka')
     .trim(),
   confirm_password: Yup
     .string()
@@ -103,7 +103,7 @@ export const gantiPassSchema = Yup.object().shape({
     .min(8, 'Password terlalu pendek')
     .matches(/^(?=.*[a-z])/, 'Harus berisi minimal satu huruf kecil')
     .matches(/^(?=.*[A-Z])/, 'Harus berisi minimal satu huruf besar')
-    .matches(/^(?=.*[0-9])/, 'Harus berisi minimal satu angka')
+    .matches(/^(?=.*[\d])/, 'Harus berisi minimal satu angka')
     .trim(),
 });
 

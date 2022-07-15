@@ -78,8 +78,14 @@ function DaftarJualScreen({ navigation }) {
     }
   };
 
-  return (
+  const checkImage = () => {
+    if (dataProfile.image_url !== null) {
+      return { uri: dataProfile.image_url };
+    }
+    return { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' };
+  };
 
+  return (
     <View style={styles.pages}>
       <Headers title="Daftar Jual Saya" />
       {
@@ -99,8 +105,7 @@ function DaftarJualScreen({ navigation }) {
               <CardList
                 type="role"
                 name={dataProfile.full_name}
-                source={dataProfile.image_url !== null
-                  ? { uri: dataProfile.image_url } : { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' }}
+                source={checkImage()}
                 kota={dataProfile.city}
                 onPress={() => navigation.navigate('ProfileScreen')}
               />

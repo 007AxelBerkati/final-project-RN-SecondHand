@@ -29,6 +29,12 @@ function CardListNotif({
     }
   };
 
+  const checkStatus = () => {
+    if (status === 'accepted') {
+      return 'Berhasil Ditawar';
+    } return 'Ditawar';
+  };
+
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.wrapper}>
@@ -51,7 +57,7 @@ function CardListNotif({
             hargaNego !== undefined && hargaNego !== null ? (
               <Text style={styles.text}>
                 {
-                  status === ('accepted') ? 'Berhasil Ditawar' : 'Ditawar'
+                  checkStatus()
                 }
                 {' '}
                 {formatRupiah(hargaNego)}

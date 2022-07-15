@@ -30,6 +30,22 @@ function AkunScreen({ navigation }) {
     navigation.replace('MainApp');
   };
 
+  const checkIsLoading = () => {
+    if (dataProfile.isLoading) {
+      (
+        <Placeholder
+          Animation={Fade}
+          style={styles.photoSection}
+        >
+          <PlaceholderMedia style={styles.placeholder} />
+        </Placeholder>
+      );
+    }
+    (
+      <Profile source={dataProfile.profile?.image_url !== null ? { uri: dataProfile.profile?.image_url } : { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' }} />
+    );
+  };
+
   return (
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
@@ -39,16 +55,7 @@ function AkunScreen({ navigation }) {
         ) : (
           <ScrollView>
             {
-              dataProfile.isLoading ? (
-                <Placeholder
-                  Animation={Fade}
-                  style={styles.photoSection}
-                >
-                  <PlaceholderMedia style={styles.placeholder} />
-                </Placeholder>
-              ) : (
-                <Profile source={dataProfile.profile?.image_url !== null ? { uri: dataProfile.profile?.image_url } : { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' }} />
-              )
+              checkIsLoading()
             }
             <CardList type="account" name="edit" title="Ubah Akun" onPress={() => navigation.navigate('ProfileScreen')} />
             <CardList type="account" name="setting" title="Pengaturan Akun" onPress={() => navigation.navigate('PengaturanScreen')} />

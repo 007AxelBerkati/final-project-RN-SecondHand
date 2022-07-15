@@ -39,7 +39,6 @@ function HistoryScreen({ navigation }) {
         date={item.transaction_date}
         harga={item.price}
         name={item.product_name}
-        onPress={() => { }}
         type2="history"
       />
     )
