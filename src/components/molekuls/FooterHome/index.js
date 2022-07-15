@@ -8,9 +8,7 @@ function FooterHome({
 }) {
   return (
     <View style={styles.footerContent}>
-      {
-        console.log('item', dataHome)
-      }
+
       <ButtonComponent
         disable={page === 1}
         title="Previous"

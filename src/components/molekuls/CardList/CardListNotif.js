@@ -12,7 +12,6 @@ import {
 function CardListNotif({
   source, name, harga, hargaNego, onPress, date, status, read, type2,
 }) {
-  console.log(type2, hargaNego);
   const titleNotif = () => {
     switch (status) {
       case 'accepted':
