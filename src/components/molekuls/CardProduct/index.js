@@ -11,13 +11,18 @@ import {
 } from '../../../utils';
 
 function CardProduct({
-  onPress, source, name, jenis, harga, idJenis, icon,
+  onPress, source, name, jenis, harga, idJenis, icon, onPressBookmark,
 }) {
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
   if (source === undefined) {
     return (
       <View style={styles.cardPreview}>
-        <Text style={styles.name}>{name}</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={styles.name}>{name}</Text>
+          <TouchableOpacity onPress={onPress}>
+            <Icon name={icon} size={24} color={colors.text.primary} />
+          </TouchableOpacity>
+        </View>
         <Text style={styles.jenis}>
           {jenis?.map((item) => (
             idJenis !== undefined ? (
@@ -61,11 +66,15 @@ function CardProduct({
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text numberOfLines={1} style={styles.harga}>
             {
-            hargaConvert
-          }
+              hargaConvert
+            }
           </Text>
           {
-            icon !== undefined && (<Icon name={icon} size={24} color={colors.background.black} />)
+            icon !== undefined && ((
+              <TouchableOpacity onPress={onPressBookmark}>
+                <Icon name={icon} size={24} color={colors.background.black} />
+              </TouchableOpacity>
+            ))
           }
 
         </View>

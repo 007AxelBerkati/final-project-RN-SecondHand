@@ -7,7 +7,6 @@ export function showError(message) {
     type: 'danger',
     color: colors.white,
     icon: 'danger',
-
   });
 }
 
@@ -20,11 +19,12 @@ export function showSuccess(message) {
   });
 }
 
-export function showInfo(message) {
+export function showInfo(message, onPress) {
   showMessage({
     message,
     type: 'info',
     color: colors.white,
     icon: 'info',
+    onPress,
   });
 }

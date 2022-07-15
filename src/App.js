@@ -9,6 +9,7 @@ import React, { useEffect } from 'react';
 import { LogBox, StatusBar } from 'react-native';
 import { Loading } from './components';
 import { Persistore, Store } from './redux';
+import { borderRadius, windowHeight, windowWidth } from './utils';
 
 const CodePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
@@ -24,7 +25,15 @@ function MainApp() {
     <>
       <StatusBar barStyle="dark-content" />
       <Router />
-      <FlashMessage position="top" />
+      <FlashMessage
+        position="top"
+        style={{
+          marginTop: windowHeight * 0.1,
+          width: windowWidth * 0.9,
+          borderRadius: borderRadius.xxlarge,
+          alignSelf: 'center',
+        }}
+      />
       {stateGlobal.isLoading && <Loading />}
     </>
   );

@@ -1,24 +1,25 @@
-import {
-  ScrollView, StyleSheet, View,
-  StatusBar,
-  Alert,
-} from 'react-native';
+import BottomSheet from '@gorhom/bottom-sheet';
 import React, {
-  useCallback, useEffect, useMemo, useRef, useState,
+  useEffect, useMemo, useRef, useState,
 } from 'react';
+import {
+  Alert, ScrollView, StatusBar, StyleSheet, View,
+} from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useDispatch, useSelector } from 'react-redux';
-import BottomSheet from '@gorhom/bottom-sheet';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
-  ButtonComponent, CardList, CardProduct, Desc, Gap, BackDropComponent, Loading,
+  BackDropComponent, ButtonComponent, CardList, CardProduct, Desc, Gap, Loading,
 } from '../../components';
 import {
   borderRadius,
   colors, windowHeight, windowWidth,
 } from '../../utils';
 
-import { deleteBid, getAllBidProduct, getDetailProduct } from '../../redux';
+import {
+  addWishlistBuyer, deleteBid, deleteWishlistBuyer,
+  getAllBidProduct, getDetailProduct, getWishlistBuyer,
+} from '../../redux';
 import Nego from './Nego';
 
 function DetailProductScreen({ route, navigation }) {
@@ -31,23 +32,27 @@ function DetailProductScreen({ route, navigation }) {
   const dataLogin = useSelector((state) => state.dataLogin);
   const dataDetailProductBuyer = useSelector((state) => state.dataDetailProductBuyer.detailBuyer);
   const { isLoading } = useSelector((state) => state.dataDetailProductBuyer);
+  const dataWishlist = useSelector((state) => state.dataWishlist.data
+    .filter((item) => item.product_id === id));
+  const [isBookmark, setIsBookmark] = useState(dataWishlist.length > 0);
 
   const dataDetailBid = useSelector((state) => state.dataDetailProductBuyer.allBidProduct
     .filter((item) => item.product_id === id));
 
   useEffect(() => {
     dispatch(getDetailProduct(id));
+  }, []);
+
+  useEffect(() => {
     if (dataLogin.isLoggedIn) {
       dispatch(getAllBidProduct());
+      dispatch(getWishlistBuyer());
     }
-  }, [isSubmit]);
+  }, [isSubmit, isBookmark]);
 
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['1%', '70%'], []);
-  const handleSheetChanges = useCallback((index) => {
-    // eslint-disable-next-line no-console
-    console.log('sheet index', index);
-  }, []);
+
   const handleOpenPress = (index) => bottomSheetRef.current?.snapToIndex(index);
   const handleClosePress = () => bottomSheetRef.current?.close();
 
@@ -64,6 +69,18 @@ function DetailProductScreen({ route, navigation }) {
     setisAlreadyBid(false);
     dispatch(getAllBidProduct());
   };
+
+  const handleBookmark = () => {
+    setIsBookmark(!isBookmark);
+    if (isBookmark) {
+      dispatch(deleteWishlistBuyer(dataWishlist[0]?.id));
+    }
+
+    if (!isBookmark) {
+      dispatch(addWishlistBuyer(dataDetailProductBuyer?.id, navigation));
+    }
+  };
+
   const checkStatusBid = () => {
     if (dataDetailBid[0]?.status === 'pending' || isAlreadyBid) {
       return 'Menunggu respon penjual';
@@ -85,6 +102,7 @@ function DetailProductScreen({ route, navigation }) {
       <Loading type="full" />
     );
   }
+
   return (
     <GestureHandlerRootView style={styles.pages}>
       <ScrollView showsVerticalScrollIndicator>
@@ -110,11 +128,25 @@ function DetailProductScreen({ route, navigation }) {
         </View>
         <View style={{ marginTop: windowHeight * -0.07 }}>
           <View style={styles.productWrapper}>
-            <CardProduct
-              name={dataDetailProductBuyer?.name}
-              jenis={dataDetailProductBuyer?.Categories}
-              harga={dataDetailProductBuyer?.base_price}
-            />
+            {
+              dataLogin?.isLoggedIn ? (
+                <CardProduct
+                  name={dataDetailProductBuyer?.name}
+                  jenis={dataDetailProductBuyer?.Categories}
+                  harga={dataDetailProductBuyer?.base_price}
+                  icon={isBookmark ? 'bookmark' : 'bookmark-outline'}
+                  onPress={handleBookmark}
+                />
+              ) : (
+                <CardProduct
+                  name={dataDetailProductBuyer?.name}
+                  jenis={dataDetailProductBuyer?.Categories}
+                  harga={dataDetailProductBuyer?.base_price}
+                />
+
+              )
+            }
+
           </View>
           <View style={styles.card}>
             <CardList
@@ -172,7 +204,6 @@ function DetailProductScreen({ route, navigation }) {
         index={0}
         snapPoints={snapPoints}
         backdropComponent={BackDropComponent}
-        onChange={handleSheetChanges}
       >
         <Nego
           handleCloseSheet={handleClosePress}

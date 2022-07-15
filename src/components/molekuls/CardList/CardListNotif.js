@@ -1,16 +1,16 @@
+import propTypes from 'prop-types';
+import React from 'react';
 import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
-import React from 'react';
 import FastImage from 'react-native-fast-image';
-import propTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   borderRadius, colors, dateConvert, fonts, fontSize, formatRupiah,
 } from '../../../utils';
 
 function CardListNotif({
-  source, name, harga, hargaNego, onPress, date, status, read,
+  source, name, harga, hargaNego, onPress, date, status, read, type2,
 }) {
   const titleNotif = () => {
     switch (status) {
@@ -37,7 +37,7 @@ function CardListNotif({
           <Text style={styles.productNego}>{titleNotif()}</Text>
           <Text style={styles.text}>{name}</Text>
           {
-            status !== 'create' ? (
+            status !== 'create' && type2 !== 'history' ? (
               <Text style={styles.textLineMiddle}>
                 {formatRupiah(harga)}
               </Text>
@@ -48,7 +48,7 @@ function CardListNotif({
             )
           }
           {
-            hargaNego !== (undefined || null) && (
+            hargaNego !== undefined && hargaNego !== null ? (
               <Text style={styles.text}>
                 {
                   status === ('accepted') ? 'Berhasil Ditawar' : 'Ditawar'
@@ -56,10 +56,12 @@ function CardListNotif({
                 {' '}
                 {formatRupiah(hargaNego)}
               </Text>
+            ) : (
+              null
             )
           }
           {
-            status === ('accepted') && (
+            status === ('accepted') && type2 !== 'history' && (
               <Text style={styles.textSubtitle}>
                 Kamu akan segera dihubungi penjual via whatsapp
               </Text>

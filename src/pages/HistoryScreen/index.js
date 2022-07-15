@@ -40,6 +40,7 @@ function HistoryScreen({ navigation }) {
         harga={item.price}
         name={item.product_name}
         onPress={() => { }}
+        type2="history"
       />
     )
   );

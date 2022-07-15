@@ -22,7 +22,6 @@ function JualScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const onSubmitPost = (values) => {
-    console.log(values.location);
     const formData = new FormData();
     formData.append('name', values.namaProduk);
     formData.append('description', values.deskripsi);
