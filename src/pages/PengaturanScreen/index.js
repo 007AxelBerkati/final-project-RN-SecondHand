@@ -10,7 +10,7 @@ function PengaturanScreen({ navigation }) {
     <View style={styles.pages}>
       <Headers title="Pengaturan Akun" type="back-title" onPress={() => navigation.goBack()} />
       <ScrollView>
-        <Profile source={{ uri: dataProfile.profile?.image_url }} />
+        <Profile source={dataProfile.profile?.image_url !== null ? { uri: dataProfile.profile?.image_url } : { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' }} />
         <CardList type="account" name="key" title="Ganti Password" onPress={() => navigation.navigate('ForgotPasswordScreen')} />
         <CardList type="account" name="menuunfold" title="History Transaksi" onPress={() => navigation.navigate('HistoryScreen')} />
       </ScrollView>
