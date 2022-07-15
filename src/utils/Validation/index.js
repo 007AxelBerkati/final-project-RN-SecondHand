@@ -1,53 +1,53 @@
 import * as Yup from 'yup';
 
 export const loginSchema = Yup.object().shape({
-  email: Yup.string().email('Email Tidak Valid').required('Required').trim(),
+  email: Yup.string().email('Email Tidak Valid').required('Diperlukan').trim(),
   password: Yup
     .string()
-    .required('Please Enter your password')
+    .required('Tolong Masukan Password Anda')
     .trim(),
 });
 
 export const signupSchema = Yup.object().shape({
   full_name: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .min(2, 'Nama terlalu pendek')
+    .max(50, 'Nama terlalu panjang')
     .trim()
-    .required('Required'),
-  email: Yup.string().email('Email Tidak Valid').required('Required'),
+    .required('Diperlukan'),
+  email: Yup.string().email('Email Tidak Valid').required('Diperlukan'),
   password: Yup
     .string()
-    .required('Please Enter your password')
-    .trim()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-    ),
+    .required('Tolong Masukan Password Anda')
+    .min(8, 'Password terlalu pendek')
+    .matches(/^(?=.*[a-z])/, 'Harus berisi minimal satu huruf kecil')
+    .matches(/^(?=.*[A-Z])/, 'Harus berisi minimal satu huruf besar')
+    .matches(/^(?=.*[0-9])/, 'Harus berisi minimal satu angka')
+    .trim(),
   address: Yup.string()
-    .min(4, 'Too Short!')
-    .max(50, 'Too Long!')
+    .min(4, 'Alamat terlalu pendek')
+    .max(50, 'Alamat terlalu panjang')
     .trim()
-    .required('Required'),
+    .required('Diperlukan'),
   phone_number: Yup.string()
     .trim()
     .min(9, 'No Hp Terlalu Pendek')
     .max(11, 'No Hp Terlalu Panjang')
     .required('Silahkan Isi Nomor Handphone Anda'),
-  city: Yup.string().required('Required'),
+  city: Yup.string().required('Diperlukan'),
 });
 
 export const updateProfileSchema = Yup.object().shape({
   full_name: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .min(2, 'Nama Terlalu Pendek')
+    .max(50, 'Nama Terlalu Panjang')
     .trim()
-    .required('Required'),
+    .required('Diperlukan'),
   city: Yup.string()
-    .required('Required'),
+    .required('Diperlukan'),
   address: Yup.string()
-    .min(2, 'Too Short!')
-    .max(100, 'Too Long!')
-    .required('Required')
+    .min(2, 'Alamat terlalu pendek')
+    .max(100, 'Alamat terlalu panjang')
+    .required('Diperlukan')
     .trim(),
   phone_number: Yup.string()
     .trim()
@@ -87,15 +87,23 @@ export const UpdateDataSchema = Yup.object().shape({
 export const gantiPassSchema = Yup.object().shape({
   current_password: Yup
     .string()
-    .required('Please Enter your password')
+    .required('Tolong Masukan Password Anda')
     .trim(),
   new_password: Yup
     .string()
-    .required('Please Enter your password')
+    .required('Tolong Masukan Password Anda')
+    .min(8, 'Password terlalu pendek')
+    .matches(/^(?=.*[a-z])/, 'Harus berisi minimal satu huruf kecil')
+    .matches(/^(?=.*[A-Z])/, 'Harus berisi minimal satu huruf besar')
+    .matches(/^(?=.*[0-9])/, 'Harus berisi minimal satu angka')
     .trim(),
   confirm_password: Yup
     .string()
-    .required('Please Enter your password')
+    .required('Tolong Masukan Password Anda')
+    .min(8, 'Password terlalu pendek')
+    .matches(/^(?=.*[a-z])/, 'Harus berisi minimal satu huruf kecil')
+    .matches(/^(?=.*[A-Z])/, 'Harus berisi minimal satu huruf besar')
+    .matches(/^(?=.*[0-9])/, 'Harus berisi minimal satu angka')
     .trim(),
 });
 
