@@ -22,7 +22,7 @@ function DaftarSimpanScreen({ navigation }) {
 
   const handleBookmark = (id) => {
     dispatch(deleteWishlistBuyer(id));
-    setIsSubmit(true);
+    setIsSubmit(!isSubmit);
   };
 
   const emptyContent = () => (
