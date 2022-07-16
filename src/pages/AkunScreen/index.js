@@ -32,7 +32,7 @@ function AkunScreen({ navigation }) {
 
   const checkIsLoading = () => {
     if (dataProfile.isLoading) {
-      (
+      return (
         <Placeholder
           Animation={Fade}
           style={styles.photoSection}
@@ -41,7 +41,7 @@ function AkunScreen({ navigation }) {
         </Placeholder>
       );
     }
-    (
+    return (
       <Profile source={dataProfile.profile?.image_url !== null ? { uri: dataProfile.profile?.image_url } : { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' }} />
     );
   };
