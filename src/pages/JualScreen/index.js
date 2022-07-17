@@ -1,15 +1,16 @@
 import {
   StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard, ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import FormData from 'form-data';
+import { useIsFocused } from '@react-navigation/native';
 import {
   ButtonComponent, Gap, Headers, Input2, NotLogin, Select2, UploadPhoto,
 } from '../../components';
 import {
-  borderRadius, colors, fonts, fontSize, getImage, TambahDataSchema, windowHeight,
+  borderRadius, colors, fonts, fontSize, getImage, showInfo, TambahDataSchema, windowHeight,
 } from '../../utils';
 import { postProduct } from '../../redux';
 
@@ -20,6 +21,8 @@ function JualScreen({ navigation }) {
   const dataLogin = useSelector((state) => state.dataLogin);
 
   const dispatch = useDispatch();
+
+  const isFocused = useIsFocused();
 
   const onSubmitPost = (values) => {
     const formData = new FormData();
@@ -36,6 +39,16 @@ function JualScreen({ navigation }) {
 
     dispatch(postProduct(formData));
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key in dataProfile) {
+      if (dataProfile[key] === null || dataProfile[key] === undefined || dataProfile[key] === '') {
+        showInfo('Mohon lengkapi data profile anda');
+        navigation.navigate('ProfileScreen');
+      }
+    }
+  }, [isFocused]);
 
   return (
     <View style={styles.pages}>

@@ -27,7 +27,7 @@ function RegisterScreen({ navigation }) {
     formData.append('email', data.email);
     formData.append('password', data.password);
     formData.append('city', data.city);
-    formData.append('address', data.address);
+    // formData.append('address', data.address);
     formData.append('phone_number', parseInt(data.phone_number, 10));
     dispatch(getRegister(formData, navigation));
   };
