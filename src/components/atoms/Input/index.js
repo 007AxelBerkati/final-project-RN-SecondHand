@@ -19,7 +19,7 @@ function Input({
   ...props
 
 }) {
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(true);
   return (
     <View style={{ borderRadius: borderRadius.xxlarge }}>
       <TextInput
