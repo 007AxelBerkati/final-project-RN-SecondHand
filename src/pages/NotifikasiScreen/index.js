@@ -53,7 +53,7 @@ function NotifikasiScreen({ navigation }) {
         ]);
         break;
       case 'bid':
-        if (item?.Product !== null) {
+        if (item?.Product !== null || item?.order_id !== null) {
           navigation.navigate('InfoPenawaranScreen', { id: item?.order_id });
         } else {
           Alert.alert('Produk Terhapus', 'Produk ini telah dihapus oleh penjual');

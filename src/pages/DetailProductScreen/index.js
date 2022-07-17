@@ -13,7 +13,7 @@ import {
 } from '../../components';
 import {
   borderRadius,
-  colors, windowHeight, windowWidth,
+  colors, showInfo, windowHeight, windowWidth,
 } from '../../utils';
 
 import {
@@ -58,6 +58,7 @@ function DetailProductScreen({ route, navigation }) {
 
   const checkUser = () => {
     if (!dataLogin.isLoggedIn) {
+      showInfo('Silahkan login terlebih dahulu');
       navigation.navigate('LoginScreen');
     } else {
       handleOpenPress(1);
