@@ -29,6 +29,7 @@ function HomeScreen({ navigation }) {
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const dataHome = useSelector((state) => state.dataHome);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     dispatch(getProduct({
@@ -46,7 +47,7 @@ function HomeScreen({ navigation }) {
     dispatch(getCategoryProduct());
     dispatch(getBannerSeller());
     dispatch(getNotifikasi());
-  }, []);
+  }, [isFocused]);
 
   const onChangeSearch = useCallback((query) => {
     setSearchQuery(query);

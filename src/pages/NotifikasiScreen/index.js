@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import {
   Alert, FlatList, StyleSheet, Text, View,
@@ -19,10 +20,12 @@ function NotifikasiScreen({ navigation }) {
   const dispatch = useDispatch();
   const dataNotif = useSelector((state) => state.dataNotifikasi);
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     dispatch(getNotifikasiLoading(true));
     dispatch(getNotifikasi());
-  }, []);
+  }, [isFocused, dispatch]);
 
   const onRefresh = () => {
     setRefreshing(true);

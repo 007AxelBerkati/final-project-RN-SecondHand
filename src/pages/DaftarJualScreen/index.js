@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import {
   RefreshControl, StyleSheet, View,
@@ -27,6 +28,7 @@ function DaftarJualScreen({ navigation }) {
   const dataLogin = useSelector((state) => state.dataLogin);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
 
+  const isFocused = useIsFocused();
   const getDaftarJual = (id) => {
     setActive(id);
     switch (id) {
@@ -47,7 +49,7 @@ function DaftarJualScreen({ navigation }) {
   useEffect(() => {
     dispatch(getAkun());
     dispatch(getProductSeller());
-  }, [dispatch]);
+  }, [dispatch, isFocused]);
 
   const onRefresh = async (id) => {
     setRefreshing(true);
