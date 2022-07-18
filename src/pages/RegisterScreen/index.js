@@ -32,7 +32,7 @@ function RegisterScreen({ navigation }) {
     dispatch(getRegister(formData, navigation));
   };
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} testID="register-screen">
       <View style={{ flex: 1, margin: 16 }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Headers type="back" onPress={() => navigation.goBack()} />
@@ -70,6 +70,7 @@ function RegisterScreen({ navigation }) {
                   label="Email"
                   onBlur={handleBlur('email')}
                   leftIcon="email"
+                  testId="email"
                 />
                 {errors.email && touched.email
                   && <Text style={styles.errorText}>{errors.email}</Text>}
@@ -81,6 +82,7 @@ function RegisterScreen({ navigation }) {
                   onBlur={handleBlur('password')}
                   secureTextEntry
                   leftIcon="key"
+                  testId="password"
                 />
                 {errors.password && touched.password
                   && <Text style={styles.errorText}>{errors.password}</Text>}
@@ -129,6 +131,7 @@ function RegisterScreen({ navigation }) {
                   title="Daftar"
                   onPress={handleSubmit}
                   disable={!(dirty && isValid) || stateGlobal.isLoading}
+                  testID="register"
                 />
                 <Gap height={20} />
                 <View style={{ flexDirection: 'row', alignSelf: 'center' }}>

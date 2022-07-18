@@ -16,6 +16,7 @@ function Input({
   cannotEdited,
   secureTextEntry,
   leftIcon,
+  testId,
   ...props
 
 }) {
@@ -45,6 +46,7 @@ function Input({
             />
           ) : null
         }
+        testID={testId}
         {...props}
       />
     </View>
@@ -58,7 +60,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Poppins.Regular,
     fontSize: fontSize.medium,
     color: colors.text.primary,
-
   },
 });
 
