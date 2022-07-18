@@ -68,7 +68,7 @@ function InfoPenawaranScreen({ navigation, route }) {
         <View style={{ marginHorizontal: 3 }}>
           <CardList
             type="role"
-            source={keranjang}
+            source={{ uri: dataInfoPenawaran?.User?.image_url }}
             style={styles.bgProduk}
             name={dataInfoPenawaran?.User?.full_name}
             kota={dataInfoPenawaran?.User?.city}
