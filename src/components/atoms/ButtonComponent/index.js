@@ -1,15 +1,15 @@
+import propTypes from 'prop-types';
 import React, { memo } from 'react';
 import {
-  StyleSheet, Text, TouchableOpacity, View,
+  StyleSheet, Text, TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
 
-import IconButton from './IconButton';
 import FloatingButton from './FloatingButton';
+import IconButton from './IconButton';
 
 function ButtonComponent({
   type, title, onPress, icon,

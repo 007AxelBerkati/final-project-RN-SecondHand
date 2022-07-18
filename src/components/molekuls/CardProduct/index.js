@@ -11,7 +11,8 @@ import {
 } from '../../../utils';
 
 function CardProduct({
-  onPress, source, name, jenis, harga, idJenis, icon, onPressBookmark,
+  onPress, source, name, jenis, harga,
+  idJenis, icon, onPressBookmark, testID,
 }) {
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
   if (source === undefined) {
@@ -40,7 +41,7 @@ function CardProduct({
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID={testID}>
       <TouchableOpacity onPress={onPress} style={{ height: '65%', width: '100%' }}>
         <FastImage
           style={styles.image}
