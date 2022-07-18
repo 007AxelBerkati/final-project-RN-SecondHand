@@ -41,7 +41,7 @@ function HomeScreen({ navigation }) {
     }));
 
     setRefreshing(false);
-  }, [category, searchQuery, refreshing, page]);
+  }, [category, searchQuery, refreshing, page, isFocused]);
 
   useEffect(() => {
     dispatch(getCategoryProduct());

@@ -1,23 +1,19 @@
-import {
-  StyleSheet, Text, View,
-  StatusBar,
-  Linking,
-  Alert,
-} from 'react-native';
+import BottomSheet from '@gorhom/bottom-sheet';
 import React, {
   useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  Alert, Linking, StatusBar, StyleSheet, Text, View,
+} from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
-import BottomSheet from '@gorhom/bottom-sheet';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  Headers, CardList, ButtonComponent, BackDropComponent,
+  BackDropComponent, ButtonComponent, CardList, Headers,
 } from '../../components';
-import {
-  fonts, colors, borderRadius, fontSize,
-} from '../../utils';
-import { keranjang } from '../../assets';
 import { getSelerOrderId, patchOrderSeller } from '../../redux';
+import {
+  borderRadius, colors, fonts, fontSize,
+} from '../../utils';
 import Accept from './Accept';
 import Status from './Status';
 
