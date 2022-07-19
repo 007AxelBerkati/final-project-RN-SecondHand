@@ -683,6 +683,7 @@ exports[`Register Screen should render Register Screen 1`] = `
                       },
                     ]
                   }
+                  testID="email"
                   underlineColorAndroid="transparent"
                   value=""
                 />
@@ -1045,6 +1046,7 @@ exports[`Register Screen should render Register Screen 1`] = `
                       },
                     ]
                   }
+                  testID="password"
                   underlineColorAndroid="transparent"
                   value=""
                 />
@@ -2133,6 +2135,7 @@ exports[`Register Screen should render Register Screen 1`] = `
               "paddingVertical": 10,
             }
           }
+          testID="register"
         >
           <Text
             style={
