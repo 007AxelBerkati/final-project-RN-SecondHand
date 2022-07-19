@@ -14,7 +14,9 @@ jobs:
         - name: Install npm dependencies
           run: |
             yarn install
-            yarn test -u          
+        - name: Test
+          run |
+            yarn test -u         
 
   build-android:
       needs: install-and-test
