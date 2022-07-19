@@ -1,18 +1,20 @@
+import propTypes from 'prop-types';
 import React, { memo } from 'react';
 import {
-  StyleSheet, Text, TouchableOpacity, View,
+  StyleSheet, Text, TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
 
-import IconButton from './IconButton';
 import FloatingButton from './FloatingButton';
+import IconButton from './IconButton';
 
 function ButtonComponent({
-  type, title, onPress, icon, disable, nonButton, label, style, styleText,
+  type, title, onPress, icon,
+  disable, nonButton, label, style, styleText,
+  testID,
 }) {
   if (type === 'icon-button') {
     return (
@@ -28,17 +30,19 @@ function ButtonComponent({
     return <FloatingButton icon={icon} onPress={onPress} />;
   }
 
-  if (disable) {
-    return (
-      <View style={{ ...styles.disableBG, ...style }}>
-        <Text style={styles.disableText}>{title}</Text>
-      </View>
-    );
-  }
-
   return (
-    <TouchableOpacity style={{ ...styles.container(type), ...style }} onPress={onPress}>
-      <Text style={{ ...styles.text(type), ...styleText }}>{title}</Text>
+    <TouchableOpacity
+      style={!disable ? { ...styles.container(type), ...style } : { ...styles.disableBG, ...style }}
+      onPress={onPress}
+      testID={testID}
+      disabled={disable}
+    >
+      <Text style={!disable ? { ...styles.text(type), ...styleText }
+        : styles.disableText}
+      >
+        {title}
+
+      </Text>
       {
         icon && (
           <Icon name={icon} size={24} color={colors.background.primary} style={styles.icon} />

@@ -54,7 +54,7 @@ function LoginScreen({ navigation }) {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} testID="login-screen">
       <View style={{ flex: 1, margin: 16 }}>
         <Headers type="back" onPress={() => navigation.goBack()} />
         <Formik
@@ -85,6 +85,7 @@ function LoginScreen({ navigation }) {
                 label="Email"
                 onBlur={handleBlur('email')}
                 leftIcon="email"
+                testID="email"
               />
               {errors.email && touched.email
                 && <Text style={styles.errorText}>{errors.email}</Text>}
@@ -96,6 +97,7 @@ function LoginScreen({ navigation }) {
                 onBlur={handleBlur('password')}
                 secureTextEntry
                 leftIcon="key"
+                testID="password"
               />
               {errors.password
                 && touched.password && <Text style={styles.errorText}>{errors.password}</Text>}
@@ -112,6 +114,7 @@ function LoginScreen({ navigation }) {
                 title="Login"
                 onPress={handleSubmit}
                 disable={!(dirty && isValid) || stateGlobal.isLoading}
+                testID="login"
               />
             </SafeAreaView>
           )}

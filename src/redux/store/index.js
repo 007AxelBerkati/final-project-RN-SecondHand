@@ -20,7 +20,7 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
-const rootReducer = {
+export const rootReducer = {
   dataGlobal: globalReducer,
   dataLogin: loginReducer,
   dataRegister: registerReducer,

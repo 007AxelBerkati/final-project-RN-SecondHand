@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DaftarSimpanScreen should render DaftarSimpanScreen 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "margin": 16,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "center",
+        "marginTop": 40.019999999999996,
+        "width": null,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "left": 0,
+          "opacity": 1,
+          "position": "absolute",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        selectable={false}
+        style={
+          Array [
+            Object {
+              "color": "#112340",
+              "fontSize": 24,
+            },
+            undefined,
+            Object {
+              "fontFamily": "Feather",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+    <Text
+      style={
+        Object {
+          "color": "#112340",
+          "fontFamily": "Poppins-Bold",
+          "fontSize": 22,
+          "textAlign": "center",
+        }
+      }
+    >
+      Daftar Simpan
+    </Text>
+  </View>
+  <RCTScrollView
+    ListEmptyComponent={[Function]}
+    data={Array []}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    initialNumToRender={5}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={5}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={true}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={10}
+  >
+    <View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
+            "marginHorizontal": 16,
+          }
+        }
+      >
+        <test-file-stub
+          style={
+            Object {
+              "height": 667,
+              "resizeMode": "contain",
+              "width": 600,
+            }
+          }
+        />
+        <Text
+          style={
+            Object {
+              "color": "#7D8797",
+              "fontFamily": "Poppins-Regular",
+              "fontSize": 22,
+            }
+          }
+        >
+          History Transaksi Anda Masih Kosong 
+        </Text>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

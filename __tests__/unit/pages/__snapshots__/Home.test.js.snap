@@ -1,0 +1,411 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeScreen should render HomeScreen 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    nestedScrollEnabled={true}
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[Function]}
+        refreshing={false}
+      />
+    }
+    showsVerticalScrollIndicator={false}
+  >
+    <RCTRefreshControl />
+    <View>
+      <BVLinearGradient
+        colors={
+          Array [
+            4294953876,
+            4294967295,
+          ]
+        }
+        endPoint={
+          Object {
+            "x": 0.5,
+            "y": 1,
+          }
+        }
+        locations={null}
+        startPoint={
+          Object {
+            "x": 0.5,
+            "y": 0,
+          }
+        }
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <RNCViewPager
+          initialPage={0}
+          layoutDirection="ltr"
+          onMoveShouldSetResponderCapture={[Function]}
+          onPageScroll={[Function]}
+          onPageScrollStateChanged={[Function]}
+          onPageSelected={[Function]}
+          showPageIndicator={true}
+          style={
+            Object {
+              "height": 266.8,
+              "marginHorizontal": 16,
+              "marginTop": 133.4,
+            }
+          }
+        />
+        <View
+          collapsable={false}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "borderColor": "#B0B0B0",
+              "borderRadius": 16,
+              "borderWidth": 1,
+              "elevation": 4,
+              "flexDirection": "row",
+              "fontFamily": "Poppins-Bold",
+              "marginHorizontal": 16,
+              "marginTop": 80.03999999999999,
+              "position": "absolute",
+              "shadowColor": "#000000",
+              "shadowOffset": Object {
+                "height": 3,
+                "width": 0,
+              },
+              "shadowOpacity": 0.24,
+              "shadowRadius": 4,
+              "width": null,
+            }
+          }
+        >
+          <View
+            accessibilityLabel="search"
+            accessibilityRole="button"
+            accessibilityState={
+              Object {
+                "disabled": true,
+              }
+            }
+            accessible={true}
+            focusable={false}
+            hitSlop={
+              Object {
+                "bottom": 6,
+                "left": 6,
+                "right": 6,
+                "top": 6,
+              }
+            }
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "overflow": "hidden",
+                },
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "justifyContent": "center",
+                    "margin": 6,
+                    "overflow": "hidden",
+                  },
+                  Object {
+                    "borderRadius": 18,
+                    "height": 36,
+                    "width": 36,
+                  },
+                  undefined,
+                  undefined,
+                ],
+              ]
+            }
+          >
+            <View>
+              <Text
+                accessibilityElementsHidden={true}
+                allowFontScaling={false}
+                importantForAccessibility="no-hide-descendants"
+                pointerEvents="none"
+                selectable={false}
+                style={
+                  Array [
+                    Object {
+                      "color": "rgba(0, 0, 0, 0.54)",
+                      "fontSize": 24,
+                    },
+                    Array [
+                      Object {
+                        "lineHeight": 24,
+                        "transform": Array [
+                          Object {
+                            "scaleX": 1,
+                          },
+                        ],
+                      },
+                      Object {
+                        "backgroundColor": "transparent",
+                      },
+                    ],
+                    Object {
+                      "fontFamily": "Material Design Icons",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    Object {},
+                  ]
+                }
+              >
+                󰍉
+              </Text>
+            </View>
+          </View>
+          <TextInput
+            accessibilityRole="search"
+            accessibilityTraits="search"
+            keyboardAppearance="light"
+            onChangeText={[Function]}
+            placeholder="Cari di Second chance"
+            placeholderTextColor="rgba(0, 0, 0, 0.54)"
+            returnKeyType="search"
+            selectionColor="#6200ee"
+            style={
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "flex": 1,
+                  "fontSize": 18,
+                  "minWidth": 0,
+                  "paddingLeft": 8,
+                  "textAlign": "left",
+                },
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                },
+                Object {
+                  "color": "#7D8797",
+                  "fontFamily": "Poppins-Regular",
+                  "fontSize": 22,
+                },
+              ]
+            }
+            underlineColorAndroid="transparent"
+            value=""
+          />
+          <View
+            accessibilityLabel="clear"
+            accessibilityRole="button"
+            accessibilityState={
+              Object {
+                "disabled": true,
+              }
+            }
+            accessible={true}
+            focusable={true}
+            hitSlop={
+              Object {
+                "bottom": 6,
+                "left": 6,
+                "right": 6,
+                "top": 6,
+              }
+            }
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "overflow": "hidden",
+                },
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "justifyContent": "center",
+                    "margin": 6,
+                    "overflow": "hidden",
+                  },
+                  Object {
+                    "borderRadius": 18,
+                    "height": 36,
+                    "width": 36,
+                  },
+                  Object {
+                    "opacity": 0.32,
+                  },
+                  undefined,
+                ],
+              ]
+            }
+          >
+            <View>
+              <Text
+                accessibilityElementsHidden={true}
+                allowFontScaling={false}
+                importantForAccessibility="no-hide-descendants"
+                pointerEvents="none"
+                selectable={false}
+                style={
+                  Array [
+                    Object {
+                      "color": "rgba(255, 255, 255, 0)",
+                      "fontSize": 24,
+                    },
+                    Array [
+                      Object {
+                        "lineHeight": 24,
+                        "transform": Array [
+                          Object {
+                            "scaleX": 1,
+                          },
+                        ],
+                      },
+                      Object {
+                        "backgroundColor": "transparent",
+                      },
+                    ],
+                    Object {
+                      "fontFamily": "Material Design Icons",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    Object {},
+                  ]
+                }
+              >
+                󰅖
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "marginHorizontal": 16,
+              "marginTop": 16,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#112340",
+                "fontFamily": "Poppins-Bold",
+                "fontSize": 22,
+                "marginBottom": 16,
+              }
+            }
+          >
+            Telusuri Kategori
+          </Text>
+          <RCTScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={
+              Object {
+                "marginBottom": 20,
+              }
+            }
+          >
+            <View>
+              <View
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "#FF8303",
+                    "borderColor": "white",
+                    "borderRadius": 18.857142857142858,
+                    "borderWidth": 1,
+                    "flexDirection": "row",
+                    "height": 93.38000000000001,
+                    "justifyContent": "center",
+                    "marginHorizontal": 5,
+                    "opacity": 1,
+                    "paddingHorizontal": 16,
+                    "paddingVertical": 12,
+                  }
+                }
+              >
+                <Text
+                  allowFontScaling={false}
+                  selectable={false}
+                  style={
+                    Array [
+                      Object {
+                        "color": "white",
+                        "fontSize": 20,
+                      },
+                      undefined,
+                      Object {
+                        "fontFamily": "Material Icons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      Object {},
+                    ]
+                  }
+                >
+                  
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "color": "white",
+                      "fontFamily": "Poppins-Regular",
+                    }
+                  }
+                >
+                  Semua
+                </Text>
+              </View>
+            </View>
+          </RCTScrollView>
+        </View>
+      </BVLinearGradient>
+      <View
+        style={
+          Object {
+            "marginHorizontal": 16,
+          }
+        }
+      >
+        <ActivityIndicator
+          color="#FF8303"
+          size="small"
+        />
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

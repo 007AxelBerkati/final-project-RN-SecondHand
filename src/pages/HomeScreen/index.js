@@ -70,6 +70,7 @@ function HomeScreen({ navigation }) {
       name={item.name}
       jenis={item.Categories}
       harga={item.base_price}
+      testID="product-card"
       onPress={() => navigation.navigate('DetailProductScreen', { id: item.id })}
     />
   ), [navigation]);
