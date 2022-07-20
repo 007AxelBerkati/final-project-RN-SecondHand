@@ -20,7 +20,7 @@ function FooterHome({
         <Text style={styles.textPagination}>{page}</Text>
       </View>
       <ButtonComponent
-        disable={dataHome.length < 1}
+        disable={dataHome?.length !== undefined ? dataHome?.length < 1 : false}
         onPress={() => onHandleNext()}
         style={styles.buttonPagination}
         title="Next"

@@ -27,7 +27,7 @@ export const getProductLoading = (data) => ({
 export const getProduct = (params) => async (dispatch) => {
   dispatch(getProductLoading(true));
   await getBuyerProduct(`?search=${params?.search}&category_id=${params?.category_id}&status=${params?.status}&page=${params?.page}&per_page=${params?.per_page}`).then((response) => {
-    dispatch(getProductSuccess(response?.data?.data));
+    dispatch(getProductSuccess(response?.data));
   }).catch((error) => {
     dispatch(getProductFail(error));
   });
