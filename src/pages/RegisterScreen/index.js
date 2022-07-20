@@ -37,7 +37,7 @@ function RegisterScreen({ navigation }) {
           <Headers type="back" onPress={() => navigation.goBack()} />
           <Formik
             initialValues={{
-              full_name: '', email: '', password: '', phone_number: '', address: '', city: '', image: 'https://avatars.services.sap.com/images/naushad124_small.png',
+              full_name: '', email: '', password: '', phone_number: '', address: '', city: '',
             }}
             onSubmit={(values) => onSubmit(values)}
             validationSchema={signupSchema}
