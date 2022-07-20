@@ -16,8 +16,8 @@ const persistConfig = {
   key: 'root',
   // blacklist: ['dataPokemon, dataGlobal, dataPokemonDetail'],
   // blacklist: ['dataGlobal, dataProfile, dataLogin, dataHome, dataJual, dataDaftarJual'],
-  Whitelist: ['dataLogin'],
   storage: AsyncStorage,
+  blacklist: ['dataGlobal'],
 };
 
 export const rootReducer = {
