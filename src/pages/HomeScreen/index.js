@@ -33,7 +33,7 @@ function HomeScreen({ navigation }) {
 
   useEffect(() => {
     dispatch(getProduct({
-      search: searchQuery,
+      search: '',
       category_id: category !== 0 ? category : '',
       status: 'available',
       page,
@@ -41,7 +41,24 @@ function HomeScreen({ navigation }) {
     }));
 
     setRefreshing(false);
-  }, [category, searchQuery, refreshing, page, isFocused]);
+  }, [category, refreshing, page, isFocused]);
+
+  useEffect(
+    () => {
+      const getData = setTimeout(() => {
+        dispatch(getProduct({
+          search: searchQuery,
+          category_id: category !== 0 ? category : '',
+          status: 'available',
+          page,
+          per_page: 20,
+        }));
+      }, 500);
+
+      return () => clearTimeout(getData);
+    },
+    [isFocused, searchQuery],
+  );
 
   useEffect(() => {
     dispatch(getCategoryProduct());
