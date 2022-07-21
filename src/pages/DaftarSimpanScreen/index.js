@@ -49,6 +49,7 @@ function DaftarSimpanScreen({ navigation }) {
           source={item?.Product?.image_url}
           harga={item?.Product?.base_price}
           name={item?.Product?.name}
+          jenis={item?.Product?.Categories}
           icon="bookmark"
           onPressBookmark={() => handleBookmark(item?.id)}
           onPress={() => navigation.navigate('DetailProductScreen', { id: item?.Product?.id })}

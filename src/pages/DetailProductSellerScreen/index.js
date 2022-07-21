@@ -6,6 +6,7 @@ import {
 import React, { useEffect, useCallback } from 'react';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
 import {
   ButtonComponent, CardList, CardProduct, Desc, Gap, Loading,
 } from '../../components';
@@ -26,9 +27,11 @@ function DetailProductSellerScreen({ route, navigation }) {
 
   const dispatch = useDispatch();
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     dispatch(getSellerProductId(id));
-  }, [id]);
+  }, [id, isFocused]);
 
   const onDelete = useCallback(() => {
     dispatch(deleteSellerProduct(id, navigation));

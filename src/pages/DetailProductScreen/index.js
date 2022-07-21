@@ -35,6 +35,7 @@ function DetailProductScreen({ route, navigation }) {
   const dataWishlist = useSelector((state) => state.dataWishlist.data
     .filter((item) => item.product_id === id));
   const [isBookmark, setIsBookmark] = useState(dataWishlist.length > 0);
+  const { profile } = useSelector((state) => state.dataProfile);
 
   const dataDetailBid = useSelector((state) => state.dataDetailProductBuyer.allBidProduct
     .filter((item) => item.product_id === id));
@@ -94,6 +95,9 @@ function DetailProductScreen({ route, navigation }) {
     }
     if (dataDetailBid[0]?.Product?.status === 'sold') {
       return 'Maaf, produk ini telah terjual';
+    }
+    if (profile.id === dataDetailProductBuyer?.User?.id) {
+      return 'Anda tidak dapat menawar produk sendiri';
     }
     return 'Saya Tertarik dan Ingin Nego';
   };
@@ -189,7 +193,7 @@ function DetailProductScreen({ route, navigation }) {
               title={checkStatusBid()}
               onPress={() => checkUser()}
               disable={dataDetailBid[0]?.status === 'pending' || dataDetailBid[0]?.status === 'accepted' || isAlreadyBid
-                || dataDetailBid[0]?.Product?.status === 'sold'}
+                || dataDetailBid[0]?.Product?.status === 'sold' || profile.id === dataDetailProductBuyer?.User?.id}
             />
           </View>
         )

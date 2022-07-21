@@ -10,9 +10,9 @@ import {
   StyleSheet, Text, View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
 import PagerView from 'react-native-pager-view';
 import { Searchbar } from 'react-native-paper';
-import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
 import { CardCategory, CardProduct, FooterHome } from '../../components';
 import {
@@ -29,7 +29,6 @@ function HomeScreen({ navigation }) {
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const dataHome = useSelector((state) => state.dataHome);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
     dispatch(getProduct({
@@ -41,7 +40,7 @@ function HomeScreen({ navigation }) {
     }));
 
     setRefreshing(false);
-  }, [category, refreshing, page, isFocused]);
+  }, [category, refreshing, page]);
 
   useEffect(
     () => {
@@ -57,14 +56,14 @@ function HomeScreen({ navigation }) {
 
       return () => clearTimeout(getData);
     },
-    [isFocused, searchQuery],
+    [searchQuery],
   );
 
   useEffect(() => {
     dispatch(getCategoryProduct());
     dispatch(getBannerSeller());
     dispatch(getNotifikasi());
-  }, [isFocused]);
+  }, []);
 
   const onChangeSearch = useCallback((query) => {
     setSearchQuery(query);
