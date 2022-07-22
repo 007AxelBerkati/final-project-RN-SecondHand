@@ -1,27 +1,28 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
+import propTypes from 'prop-types';
 import { borderRadius, colors } from '../../../utils';
 
 function Icons({ label }) {
-  if (label === 'BackButton') return <Icon name="arrow-back-circle-outline" size={25} color={colors.background.primary} />;
+  if (label === 'BackButton') return <Icon name="arrow-back" size={24} color={colors.background.black} />;
   return <Icon name="fingerprint" size={25} color={colors.background.secondary} />;
 }
 function IconButton({
-  onPress, nonButton, iconHeight, iconWidth, label,
+  onPress, nonButton, label, style,
 }) {
   return (
     <View>
       {nonButton ? (
         <View style={styles.iconNonButton}>
           <View style={styles.icon}>
-            <Icons iconHeight={iconHeight} iconWidth={iconWidth} label={label} />
+            <Icons label={label} />
           </View>
         </View>
       ) : (
-        <TouchableOpacity style={styles.iconWrapper} onPress={onPress}>
+        <TouchableOpacity style={{ ...styles.iconWrapper, ...style }} onPress={onPress}>
           <View style={styles.icon}>
-            <Icons iconHeight={iconHeight} iconWidth={iconWidth} label={label} />
+            <Icons label={label} />
           </View>
         </TouchableOpacity>
       )}
@@ -34,15 +35,14 @@ export default IconButton;
 
 const styles = StyleSheet.create({
   iconWrapper: {
-    width: 55,
-    height: 55,
-    borderRadius: 55 / 5,
+    width: 24,
+    height: 24,
+    borderRadius: 24 / 2,
     justifyContent: 'center',
     backgroundColor: colors.background.primary,
     elevation: 6,
   },
   icon: {
-    padding: 16,
     alignSelf: 'center',
     borderRadius: borderRadius.medium,
   },
@@ -56,3 +56,17 @@ const styles = StyleSheet.create({
   },
 
 });
+
+IconButton.propTypes = {
+  onPress: propTypes.func,
+  nonButton: propTypes.bool,
+  label: propTypes.string,
+  style: propTypes.shape({}),
+};
+
+IconButton.defaultProps = {
+  nonButton: false,
+  style: {},
+  label: undefined,
+  onPress: undefined,
+};

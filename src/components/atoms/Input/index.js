@@ -2,27 +2,33 @@
 import React, { memo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { colors, fonts, fontSize } from '../../../utils';
+import propTypes from 'prop-types';
+import {
+  borderRadius, colors, fonts, fontSize,
+} from '../../../utils';
 
 function Input({
   onChangeText,
   value,
   label,
+  placeholder,
   onBlur,
   cannotEdited,
   secureTextEntry,
   leftIcon,
+  testId,
   ...props
 
 }) {
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(true);
   return (
-    <View>
+    <View style={{ borderRadius: borderRadius.xxlarge }}>
       <TextInput
         onChangeText={onChangeText}
         value={value}
         label={label}
         onBlur={onBlur}
+        placeholder={placeholder}
         mode="outlined"
         activeOutlineColor={colors.lineTextInput}
         outlineColor={
@@ -40,6 +46,7 @@ function Input({
             />
           ) : null
         }
+        testID={testId}
         {...props}
       />
     </View>
@@ -55,3 +62,18 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
   },
 });
+
+Input.propTypes = {
+  onChangeText: propTypes.func.isRequired,
+  value: propTypes.string.isRequired,
+  label: propTypes.string.isRequired,
+  onBlur: propTypes.func.isRequired,
+  cannotEdited: propTypes.bool,
+  secureTextEntry: propTypes.bool,
+  leftIcon: propTypes.string.isRequired,
+};
+
+Input.defaultProps = {
+  cannotEdited: false,
+  secureTextEntry: false,
+};

@@ -1,57 +1,38 @@
-import { StyleSheet, View, Text } from 'react-native';
+import {
+  StyleSheet, View, Text, TouchableWithoutFeedback, Keyboard,
+  ScrollView,
+} from 'react-native';
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { launchImageLibrary } from 'react-native-image-picker';
 import FormData from 'form-data';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  showError, updateProfileSchema, fonts, colors,
-  windowHeight, windowWidth, fontSize, borderRadius,
+  updateProfileSchema, fonts, colors,
+  windowHeight, windowWidth, fontSize, borderRadius, getImage,
 } from '../../utils';
 import {
   Headers,
-  Input, Profile, ButtonComponent, Gap, Select,
+  Input2, Profile, ButtonComponent, Gap, Select2,
 } from '../../components';
 import { putDataProfile } from '../../redux';
-import { kota } from '../../assets';
+import { kabupaten } from '../../assets';
 
 function ProfileScreen({ navigation }) {
   const dispatch = useDispatch();
   const stateGlobal = useSelector((state) => state.dataGlobal);
   const dataProfile = useSelector((state) => state.dataProfile.profile);
-  const [photo, setPhoto] = useState(dataProfile.image_url);
-
-  const getImage = (setFieldValue) => {
-    launchImageLibrary(
-      {
-        quality: 1,
-        maxWidth: 1000,
-        maxHeight: 1000,
-        includeBase64: true,
-      },
-      (response) => {
-        if (response.didCancel || response.error) {
-          showError('Sepertinya anda tidak memilih fotonya');
-        } else {
-          const source = response?.assets[0];
-          const Uri = source.uri;
-          setPhoto(Uri);
-          setFieldValue('image', source, true);
-        }
-      },
-    );
-  };
+  const [photo, setPhoto] = useState(dataProfile.image_url ? dataProfile.image_url : 'https://avatars.services.sap.com/images/naushad124_small.png');
 
   const updateProfile = (data) => {
     const formData = new FormData();
     formData.append('full_name', data.full_name);
     formData.append('city', data.city);
     formData.append('address', data.address);
-    formData.append('phone_number', parseInt(data.phone_number, 10));
+    formData.append('phone_number', data.phone_number);
     formData.append('image', {
       uri: data.image.uri ? data.image.uri : data.image,
       type: 'image/jpeg',
-      name: data.image.fileName ? data.image.fileName : 'image.jpg',
+      name: data.image.fileName ? data.image.fileName : 'image.jpeg',
     });
     dispatch(putDataProfile(formData, navigation));
   };
@@ -71,7 +52,7 @@ function ProfileScreen({ navigation }) {
           city: dataProfile.city,
           address: dataProfile.address,
           phone_number: dataProfile.phone_number,
-          image: dataProfile.image_url,
+          image: dataProfile.image_url !== null ? dataProfile.image_url : 'https://avatars.services.sap.com/images/naushad124_small.png',
         }}
         onSubmit={(values) => updateProfile(values)}
         validationSchema={updateProfileSchema}
@@ -79,58 +60,67 @@ function ProfileScreen({ navigation }) {
         {({
           handleChange, handleSubmit, errors, values, handleBlur, touched, setFieldValue, isValid,
         }) => (
-          <View>
-            <View style={styles.photo}>
-              <Profile
-                source={{ uri: photo }}
-                isRemove
-                onPress={() => getImage(setFieldValue)}
-              />
-            </View>
-            <Input
-              leftIcon="account-circle"
-              label="Nama"
-              onChangeText={handleChange('full_name')}
-              value={values.full_name}
-              onBlur={handleBlur('full_name')}
-            />
-            {errors.full_name && touched.full_name
-              && <Text style={styles.errorText}>{errors.full_name}</Text>}
-            <Gap height={15} />
-
-            <Select
-              data={kota}
-              onSelect={(selectedItem) => {
-                // eslint-disable-next-line no-param-reassign
-                values.city = selectedItem;
-              }}
-              defaultValue={values.city}
-            />
-            {errors.city && touched.city
-              && <Text style={styles.errorText}>{errors.city}</Text>}
-            <Gap height={15} />
-            <Input
-              leftIcon="map-marker"
-              label="Alamat"
-              onChangeText={handleChange('address')}
-              value={values.address}
-              onBlur={handleBlur('address')}
-            />
-            {errors.address && touched.address
-              && <Text style={styles.errorText}>{errors.address}</Text>}
-            <Gap height={15} />
-            <Input
-              leftIcon="phone"
-              label="Nomor Telepon +62"
-              onChangeText={handleChange('phone_number')}
-              value={values.phone_number}
-              onBlur={handleBlur('phone_number')}
-            />
-            {errors.phone_number && touched.phone_number
-              && <Text style={styles.errorText}>{errors.phone_number}</Text>}
-            <Gap height={windowHeight * 0.05} />
-            <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(isValid) || stateGlobal.isLoading} />
-          </View>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+              <View>
+                <View style={styles.photo}>
+                  <Profile
+                    source={{ uri: photo }}
+                    isRemove
+                    onPress={() => getImage(setFieldValue, setPhoto)}
+                  />
+                </View>
+                <Input2
+                  leftIcon="account-circle"
+                  label="Nama"
+                  onChangeText={handleChange('full_name')}
+                  value={values.full_name}
+                  onBlur={handleBlur('full_name')}
+                />
+                {errors.full_name && touched.full_name
+                  && <Text style={styles.errorText}>{errors.full_name}</Text>}
+                <Gap height={windowHeight * 0.01} />
+                <Select2
+                  data={kabupaten}
+                  setFieldValue={setFieldValue}
+                  value={values.city}
+                  initialData={values.city}
+                  schema={{
+                    label: 'name',
+                    value: 'name',
+                  }}
+                  name="city"
+                  placeholder="Pilih Kota"
+                />
+                {errors.city && touched.city
+                  && <Text style={styles.errorText}>{errors.city}</Text>}
+                <Gap height={windowHeight * 0.01} />
+                <Input2
+                  leftIcon="map-marker"
+                  label="Alamat"
+                  onChangeText={handleChange('address')}
+                  value={values.address}
+                  onBlur={handleBlur('address')}
+                  multiline
+                  numberOfLines={4}
+                />
+                {errors.address && touched.address
+                  && <Text style={styles.errorText}>{errors.address}</Text>}
+                <Gap height={windowHeight * 0.01} />
+                <Input2
+                  leftIcon="phone"
+                  label="Nomor Telepon +62"
+                  onChangeText={handleChange('phone_number')}
+                  value={values.phone_number}
+                  onBlur={handleBlur('phone_number')}
+                />
+                {errors.phone_number && touched.phone_number
+                  && <Text style={styles.errorText}>{errors.phone_number}</Text>}
+                <Gap height={windowHeight * 0.02} />
+                <ButtonComponent title="Simpan" onPress={handleSubmit} disable={!(isValid) || stateGlobal.isLoading} />
+              </View>
+            </TouchableWithoutFeedback>
+          </ScrollView>
         )}
       </Formik>
     </View>

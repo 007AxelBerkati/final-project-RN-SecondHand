@@ -1,4 +1,4 @@
-import { GET_REGISTER_FAIL, GET_REGISTER_SUCCESS } from '../types';
+import { GET_REGISTER_FAIL, GET_REGISTER_SUCCESS, LOGOUT } from '../types';
 
 const initialRegisterState = {
   isSuccess: false,
@@ -19,6 +19,8 @@ export const registerReducer = (state = initialRegisterState, action = {}) => {
         ...state,
         error: action.payload,
       };
+    case LOGOUT:
+      return initialRegisterState;
     default:
       return state;
   }

@@ -1,114 +1,223 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useIsFocused } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  RefreshControl,
   ScrollView,
   StatusBar,
   StyleSheet, Text, View,
 } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
+import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
+import PagerView from 'react-native-pager-view';
 import { Searchbar } from 'react-native-paper';
-import { ImageSlider } from 'react-native-image-slider-banner';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { CardCategory, CardProduct, FooterHome } from '../../components';
 import {
-  colors, fonts, fontSize,
+  getBannerSeller, getCategoryProduct, getNotifikasi, getProduct,
+} from '../../redux';
+import {
+  colors, fonts, fontSize, windowHeight,
 } from '../../utils';
-import { CardCategory, CardProduct } from '../../components';
-import { getCategoryProduct, getProduct } from '../../redux';
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
+  const [category, setCategory] = useState(0);
+  const [page, setPage] = useState(1);
+  const [refreshing, setRefreshing] = useState(false);
   const dataHome = useSelector((state) => state.dataHome);
-  const [active, setActive] = useState('');
-  const [btnAllActive, setBtnAllActive] = useState(true);
-  const [category, setCategory] = useState('');
 
   useEffect(() => {
-    dispatch(getProduct(category));
+    dispatch(getProduct({
+      search: '',
+      category_id: category !== 0 ? category : '',
+      status: 'available',
+      page,
+      per_page: 20,
+    }));
+
+    setRefreshing(false);
+  }, [category, refreshing, page]);
+
+  useEffect(
+    () => {
+      const getData = setTimeout(() => {
+        dispatch(getProduct({
+          search: searchQuery,
+          category_id: category !== 0 ? category : '',
+          status: 'available',
+          page,
+          per_page: 20,
+        }));
+      }, 500);
+
+      return () => clearTimeout(getData);
+    },
+    [searchQuery],
+  );
+
+  useEffect(() => {
     dispatch(getCategoryProduct());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(getBannerSeller());
+    dispatch(getNotifikasi());
   }, []);
-
-  const getProductByCategory = (categoryId) => {
-    setActive(categoryId);
-    setBtnAllActive(false);
-    setCategory(`?category_id=${categoryId}`);
-    dispatch(getProduct(`?category_id=${categoryId}`));
-  };
-
-  const getAllProduct = () => {
-    setBtnAllActive(true);
-    setActive('');
-    setCategory('');
-    dispatch(getProduct(''));
-  };
 
   const onChangeSearch = useCallback((query) => {
     setSearchQuery(query);
-    dispatch(getProduct(`?search=${query}&&${category}`));
-  }, [dispatch, category]);
+  }, [dispatch]);
+
+  const getItemLayout = (data, index) => (
+    { length: 200, offset: 200 * index, index }
+  );
+  const onHandlePrevious = () => {
+    setPage(page - 1);
+  };
+
+  const onHandleNext = () => {
+    setPage(page + 1);
+  };
+
+  const renderItem = useCallback(({ item }) => (
+    <CardProduct
+      source={item.image_url}
+      name={item.name}
+      jenis={item.Categories}
+      harga={item.base_price}
+      testID="product-card"
+      onPress={() => navigation.navigate('DetailProductScreen', { id: item.id })}
+    />
+  ), [navigation]);
+
+  const emptyContent = () => (
+    <Text style={styles.textEmpty}>Tidak ada produk</Text>
+  );
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.background.primary} />
-        <ImageSlider
-          data={[
-            { img: 'https://img.freepik.com/free-vector/online-shopping-concept-illustration_114360-1084.jpg?w=1060&t=st=1655909482~exp=1655910082~hmac=17398ae027564d6d34625f5b83f8ab39616da2ea74d55677a11eb56ce8eb70bd' },
-            { img: 'https://media.istockphoto.com/photos/male-outfit-set-on-white-background-closeup-top-view-picture-id1176614800?k=20&m=1176614800&s=612x612&w=0&h=uM0CkYhsM12_OYWhnO641tXqD3ZCOx61dyGZClkrv6k=' },
-            { img: 'https://images.unsplash.com/photo-1479064555552-3ef4979f8908?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' },
-          ]}
-          autoPlay
-          timer={5000}
-          closeIconColor={colors.background.primary}
-        />
-        <Searchbar
-          style={styles.searchBar}
-          placeholder="Cari di Second chance"
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-          inputStyle={{
-            fontSize: fontSize.medium,
-            fontFamily: fonts.Poppins.Regular,
-            color: colors.text.subtitle,
-          }}
-        />
-        <View style={styles.content}>
-          <Text style={styles.titleCategory}>Telusuri Kategori</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <CardCategory name="search" active={btnAllActive} kategori="Semua" onPress={() => getAllProduct()} />
-            {dataHome.category.map((item) => (
-              <CardCategory key={item.id} name="search" active={active === item.id} kategori={item.name} onPress={() => getProductByCategory(item.id)} />
-            ))}
 
-          </ScrollView>
+      <ScrollView
+        nestedScrollEnabled
+        showsVerticalScrollIndicator={false}
+        refreshControl={(
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => setRefreshing(true)}
+          />
+        )}
+      >
+        <StatusBar backgroundColor="transparent" translucent barStyle={useIsFocused() ? 'dark-content' : null} />
+        <LinearGradient
+          colors={[
+            colors.background.tertiary,
+            colors.background.primary]}
+          style={styles.linearGradient}
+        >
+          <PagerView
+            style={{
+              height: windowHeight * 0.2,
+              marginTop: windowHeight * 0.1,
+              marginHorizontal: 16,
+            }}
+            showPageIndicator
+            initialPage={0}
+          >
+            {
+              dataHome?.banner?.map((item) => (
+                <View
+                  key={item.id}
+                >
+                  <FastImage
+                    source={{ uri: item.image_url }}
+                    style={{ height: '100%', width: '100%', borderRadius: 10 }}
+                  />
+                </View>
+              ))
+            }
+          </PagerView>
+          <Searchbar
+            style={styles.searchBar}
+            placeholder="Cari di Second chance"
+            onChangeText={onChangeSearch}
+            value={searchQuery}
+            inputStyle={{
+              fontSize: fontSize.medium,
+              fontFamily: fonts.Poppins.Regular,
+              color: colors.text.subtitle,
+            }}
+          />
+          <View style={{ marginHorizontal: 16, marginTop: 16 }}>
+            <Text style={styles.titleCategory}>Telusuri Kategori</Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={{ marginBottom: 20 }}
+            >
+              <CardCategory
+                name="search"
+                active={category === 0}
+                kategori="Semua"
+                onPress={() => {
+                  setCategory(0);
+                  setPage(1);
+                }}
+              />
+              {dataHome?.category?.map((item) => (
+                <CardCategory
+                  key={item.id}
+                  name="search"
+                  active={category === item?.id}
+                  kategori={item.name}
+                  onPress={() => {
+                    setCategory(item?.id);
+                    setPage(1);
+                  }}
+                />
+              ))}
+
+            </ScrollView>
+          </View>
+
+        </LinearGradient>
+        <View style={{ marginHorizontal: 16 }}>
           {
-            // eslint-disable-next-line no-nested-ternary
             dataHome.isLoading ? (
               <ActivityIndicator size="small" color={colors.background.secondary} />
-            ) : (dataHome.data.length === 0 ? (
-              <Text style={styles.textEmpty}>Tidak ada produk</Text>
-            ) : (
-              <FlatList
-                data={dataHome.data}
-                numColumns={2}
-                renderItem={({ item }) => (
-                  <CardProduct
-                    source={{ uri: item.image_url }}
-                    name={item.name}
-                    jenis={item.description}
-                    harga={item.base_price}
-                  />
-                )}
-                keyExtractor={(item) => item.id}
-              />
             )
-            )
+              : (
+                <FlatList
+                  data={dataHome?.data}
+                  numColumns={2}
+                  maxToRenderPerBatch={5}
+                  initialNumToRender={5}
+                  removeClippedSubviews
+                  ListEmptyComponent={emptyContent}
+                  getItemLayout={getItemLayout}
+                  windowSize={10}
+                  columnWrapperStyle={{
+                    flex: 1,
+                    marginHorizontal: 5,
+                    marginBottom: 10,
+                    justifyContent: 'space-between',
+                  }}
+                  renderItem={renderItem}
+                  keyExtractor={(item) => item.id}
+                  // eslint-disable-next-line react/no-unstable-nested-components
+                  ListFooterComponent={() => (
+                    <FooterHome
+                      dataHome={dataHome?.data}
+                      onHandleNext={onHandleNext}
+                      onHandlePrevious={onHandlePrevious}
+                      page={page}
+                    />
+                  )}
+                />
+              )
           }
-
         </View>
       </ScrollView>
-
     </View>
   );
 }
@@ -120,7 +229,7 @@ const styles = StyleSheet.create({
     width: null,
     borderWidth: 1,
     borderRadius: 16,
-    marginTop: 38,
+    marginTop: windowHeight * 0.06,
     marginHorizontal: 16,
     fontFamily: fonts.Poppins.Bold,
     backgroundColor: colors.background.primary,
@@ -150,6 +259,15 @@ const styles = StyleSheet.create({
     color: colors.text.subtitle,
     marginTop: 16,
     textAlign: 'center',
+  },
+
+  listProduct: {
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+
+  linearGradient: {
+    flex: 1,
   },
 
 });

@@ -22,8 +22,8 @@ export const getLogin = (email, password, navigation) => async (dispatch) => {
   await login(email, password).then((response) => {
     dispatch(getLoginSuccess(response.data));
     dispatch(setLoading(false));
-    showSuccess('Login Success');
-    navigation.navigate('MainApp');
+    showSuccess('Berhasil Login');
+    navigation.replace('MainApp');
   }).catch((error) => {
     dispatch(getLoginFail(error.response.data.message));
     dispatch(setLoading(false));

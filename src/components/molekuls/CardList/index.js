@@ -1,15 +1,19 @@
 import {
-  Image, StyleSheet, Text, TouchableOpacity, View,
+  StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
+import moment from 'moment';
+import FastImage from 'react-native-fast-image';
+import propTypes from 'prop-types';
 import {
   borderRadius, colors, fonts, fontSize,
 } from '../../../utils';
 import CardListRole from './CardListRole';
 import CardListAccount from './CardListAccount';
+import CardListNotif from './CardListNotif';
 
 function CardList({
-  source, name, harga, hargaNego, onPress, date, title, type, kota,
+  source, name, harga, hargaNego, onPress, date, title, type, kota, status, read, type2,
 }) {
   if (type === 'role') {
     return (
@@ -23,17 +27,33 @@ function CardList({
     );
   }
 
+  if (type === 'notif') {
+    return (
+      <CardListNotif
+        name={name}
+        onPress={onPress}
+        harga={harga}
+        hargaNego={hargaNego}
+        date={date}
+        status={status}
+        source={source}
+        read={read}
+        type2={type2}
+      />
+    );
+  }
   const hargaConvert = `Rp. ${parseFloat(harga).toLocaleString('id-ID')}`;
   const hargaNegoConvert = `Rp. ${parseFloat(hargaNego).toLocaleString('id-ID')}`;
+  const dateConvert = moment(date).format('DD MMM, hh:mm');
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.wrapper}>
-        <Image source={source} style={styles.image} />
+        <FastImage source={source} style={styles.image} />
         <View>
           <Text style={styles.productNego}>{title}</Text>
           <Text style={styles.text}>{name}</Text>
-          <Text style={styles.text}>{hargaConvert}</Text>
+          <Text style={styles.textLineMiddle}>{hargaConvert}</Text>
           {
             hargaNego !== undefined ? (
               <Text style={styles.text}>
@@ -45,7 +65,7 @@ function CardList({
           }
 
         </View>
-        <Text style={styles.date}>{date}</Text>
+        <Text style={styles.date}>{dateConvert}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -58,10 +78,15 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: colors.border.primary,
   },
   wrapper: {
     flexDirection: 'row',
+    backgroundColor: colors.background.primary,
+    shadowColor: colors.background.grey,
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 
   image: {
@@ -69,6 +94,8 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: borderRadius.large,
+    borderWidth: 1,
+    borderColor: colors.border.secondary,
   },
 
   text: {
@@ -92,4 +119,34 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
 
+  textLineMiddle: {
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid',
+    fontFamily: fonts.Poppins.Regular,
+    fontSize: fontSize.medium,
+    color: colors.text.primary,
+  },
+
 });
+
+CardList.propTypes = {
+  name: propTypes.string,
+  harga: propTypes.number,
+  hargaNego: propTypes.number,
+  onPress: propTypes.func,
+  date: propTypes.string,
+  title: propTypes.string,
+  type: propTypes.string,
+  kota: propTypes.string,
+};
+
+CardList.defaultProps = {
+  hargaNego: undefined,
+  kota: undefined,
+  onPress: undefined,
+  type: undefined,
+  title: undefined,
+  name: undefined,
+  harga: undefined,
+  date: undefined,
+};

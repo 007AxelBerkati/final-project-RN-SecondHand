@@ -1,18 +1,12 @@
 import { Formik } from 'formik';
-import {
-  SafeAreaView,
-  Text,
-  StyleSheet,
-  View,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Alert,
-} from 'react-native';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import TouchID from 'react-native-touch-id';
 import {
-  Gap, Input, ButtonComponent, Headers, LinkComponent,
+  Alert, Keyboard, SafeAreaView, StyleSheet, Text, TouchableWithoutFeedback, View,
+} from 'react-native';
+import TouchID from 'react-native-touch-id';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  ButtonComponent, Gap, Headers, Input, LinkComponent,
 } from '../../components';
 import {
   colors, fonts, fontSize, getDataSecure, loginSchema,
@@ -60,9 +54,9 @@ function LoginScreen({ navigation }) {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} testID="login-screen">
       <View style={{ flex: 1, margin: 16 }}>
-        <Headers type="back" />
+        <Headers type="back" onPress={() => navigation.goBack()} />
         <Formik
           initialValues={{ email: '', password: '' }}
           onSubmit={(values) => onSubmit(values.email, values.password)}
@@ -91,9 +85,10 @@ function LoginScreen({ navigation }) {
                 label="Email"
                 onBlur={handleBlur('email')}
                 leftIcon="email"
+                testID="email"
               />
               {errors.email && touched.email
-              && <Text style={styles.errorText}>{errors.email}</Text>}
+                && <Text style={styles.errorText}>{errors.email}</Text>}
               <Gap height={16} />
               <Input
                 onChangeText={handleChange('password')}
@@ -102,14 +97,16 @@ function LoginScreen({ navigation }) {
                 onBlur={handleBlur('password')}
                 secureTextEntry
                 leftIcon="key"
+                testID="password"
               />
               {errors.password
-              && touched.password && <Text style={styles.errorText}>{errors.password}</Text>}
+                && touched.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
               <View style={styles.iconWrapper}>
                 <ButtonComponent
                   type="icon-button"
                   onPress={onFingerprint}
+                  style={styles.iconButton}
                 />
               </View>
               <Gap height={24} />
@@ -117,17 +114,18 @@ function LoginScreen({ navigation }) {
                 title="Login"
                 onPress={handleSubmit}
                 disable={!(dirty && isValid) || stateGlobal.isLoading}
+                testID="login"
               />
             </SafeAreaView>
           )}
         </Formik>
-        <Gap height={windowHeight * 0.20} />
+        <Gap height={windowHeight * 0.1} />
         <View style={styles.goRegisterWrapper}>
           <Text style={styles.registerTitle}>
             Belum Punya Akun ?
             {' '}
           </Text>
-          <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={14} onPress={() => navigation.navigate('RegisterScreen')} />
+          <LinkComponent disable={stateGlobal.isLoading} title="Register" color={colors.text.tertiary} size={fontSize.medium} onPress={() => navigation.navigate('RegisterScreen')} />
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -158,11 +156,17 @@ const styles = StyleSheet.create({
   registerTitle: {
     fontFamily: fonts.Poppins.Medium,
     fontSize: fontSize.medium,
-    color: colors.text.black,
+    color: colors.text.primary,
   },
 
   iconWrapper: {
     marginTop: 16,
     alignItems: 'center',
+  },
+
+  iconButton: {
+    width: 54,
+    height: 54,
+    borderRadius: 54 / 5,
   },
 });

@@ -1,4 +1,7 @@
 import {
+  GET_BANNER_SELLER_FAIL,
+  GET_BANNER_SELLER_LOADING,
+  GET_BANNER_SELLER_SUCCESS,
   GET_CATEGORY_FAIL,
   GET_CATEGORY_SUCCESS, GET_PRODUCT_FAIL, GET_PRODUCT_LOADING, GET_PRODUCT_SUCCESS,
 } from '../types';
@@ -8,6 +11,7 @@ const initialStateHome = {
   data: [],
   error: '',
   category: [],
+  banner: [],
   isLoading: false,
 };
 
@@ -46,6 +50,25 @@ export const homeReducer = (state = initialStateHome, action = {}) => {
         ...state,
         isSuccess: false,
         error: action.payload,
+      };
+    case GET_BANNER_SELLER_SUCCESS:
+      return {
+        ...state,
+        isSuccess: true,
+        banner: action.payload,
+      };
+
+    case GET_BANNER_SELLER_FAIL:
+      return {
+        ...state,
+        isSuccess: false,
+        error: action.payload,
+      };
+
+    case GET_BANNER_SELLER_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
       };
 
     default:

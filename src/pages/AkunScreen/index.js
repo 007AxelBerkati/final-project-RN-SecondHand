@@ -1,9 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  Alert,
+  ScrollView, StyleSheet, Text, View,
+} from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Fade, Placeholder, PlaceholderMedia } from 'rn-placeholder';
 import {
-  ButtonComponent, CardList, Headers, Profile,
+  CardList, Headers, NotLogin, Profile,
 } from '../../components';
 import {
   borderRadius,
@@ -19,7 +22,7 @@ function AkunScreen({ navigation }) {
 
   useEffect(() => {
     dispatch(getAkun());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onLogout = () => {
@@ -27,43 +30,61 @@ function AkunScreen({ navigation }) {
     navigation.replace('MainApp');
   };
 
+  const checkIsLoading = () => {
+    if (dataProfile.isLoading) {
+      return (
+        <Placeholder
+          Animation={Fade}
+          style={styles.photoSection}
+        >
+          <PlaceholderMedia style={styles.placeholder} />
+        </Placeholder>
+      );
+    }
+    return (
+      <Profile source={dataProfile.profile?.image_url !== null ? { uri: dataProfile.profile?.image_url } : { uri: 'https://avatars.services.sap.com/images/naushad124_small.png' }} />
+    );
+  };
+
   return (
     <View style={styles.pages}>
       <Headers title="Akun Saya" />
       {
         !dataLogin.isLoggedIn ? (
-          <View style={{ flex: 1, justifyContent: 'center' }}>
-            <View style={styles.notLogin}>
-              <Text style={styles.notLoginText}>
-                Anda belum login
-              </Text>
-            </View>
-            <ButtonComponent onPress={() => navigation.replace('LoginScreen')} title="Login" />
-          </View>
+          <NotLogin onPress={() => navigation.navigate('LoginScreen')} />
         ) : (
-          <View>
+          <ScrollView>
             {
-        dataProfile.isLoading ? (
-          <Placeholder
-            Animation={Fade}
-            style={styles.photoSection}
-          >
-            <PlaceholderMedia style={styles.placeholder} />
-          </Placeholder>
-        ) : (
-          <Profile source={{ uri: dataProfile.profile?.image_url }} />
-        )
-      }
+              checkIsLoading()
+            }
             <CardList type="account" name="edit" title="Ubah Akun" onPress={() => navigation.navigate('ProfileScreen')} />
-            <CardList type="account" name="setting" title="Pengaturan Akun" />
-            <CardList type="account" name="logout" title="Keluar" onPress={onLogout} />
+            <CardList type="account" name="setting" title="Pengaturan Akun" onPress={() => navigation.navigate('PengaturanScreen')} />
+            <CardList type="account" name="book" title="Daftar Simpan" onPress={() => navigation.navigate('DaftarSimpanScreen')} />
+            <CardList
+              type="account"
+              name="logout"
+              title="Keluar"
+              onPress={() => {
+                Alert.alert(
+                  'Keluar',
+                  'Apakah anda yakin ingin keluar?',
+                  [
+                    { text: 'Tidak', style: 'cancel' },
+                    { text: 'Ya', onPress: () => onLogout() },
+                  ],
+                  { cancelable: false },
+                );
+              }}
+            />
+
             <Text style={styles.version}>
               Version
               {' '}
               {version}
             </Text>
-          </View>
+          </ScrollView>
         )
+
       }
     </View>
   );
@@ -88,7 +109,7 @@ const styles = StyleSheet.create({
   placeholder: {
     borderRadius: borderRadius.xlarge,
     width: windowWidth * 0.3,
-    height: windowHeight * 0.15,
+    height: windowHeight * 0.17,
     alignSelf: 'center',
   },
 
@@ -96,16 +117,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 24,
   },
-
-  notLogin: {
-    justifyContent: 'center',
-    marginVertical: 24,
-    alignItems: 'center',
-  },
-  notLoginText: {
-    fontFamily: fonts.Poppins.Medium,
-    fontSize: fontSize.medium,
-    color: colors.text.primary,
-  },
-
 });

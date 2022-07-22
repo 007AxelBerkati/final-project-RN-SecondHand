@@ -3,6 +3,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
+import propTypes from 'prop-types';
 import {
   borderRadius,
   colors, fonts, windowHeight,
@@ -47,3 +48,10 @@ const styles = StyleSheet.create({
   }),
 
 });
+
+CardCategory.propTypes = {
+  onPress: propTypes.func.isRequired,
+  name: propTypes.string.isRequired,
+  kategori: propTypes.string.isRequired,
+  active: propTypes.bool.isRequired,
+};

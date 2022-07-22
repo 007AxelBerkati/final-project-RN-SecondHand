@@ -11,10 +11,10 @@ import {
   colors, fonts, fontSize, signupSchema, windowHeight,
 } from '../../utils';
 import {
-  ButtonComponent, Gap, Headers, Input, LinkComponent, Select,
+  ButtonComponent, Gap, Headers, Input, LinkComponent, Select2,
 } from '../../components';
 import { getRegister } from '../../redux';
-import { kota } from '../../assets';
+import { kabupaten } from '../../assets';
 
 function RegisterScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -22,39 +22,34 @@ function RegisterScreen({ navigation }) {
 
   const onSubmit = (data) => {
     const formData = new FormData();
-
     formData.append('full_name', data.full_name);
     formData.append('email', data.email);
     formData.append('password', data.password);
     formData.append('city', data.city);
     formData.append('address', data.address);
     formData.append('phone_number', parseInt(data.phone_number, 10));
-    formData.append('image', {
-      uri: data.image,
-      type: 'image/jpeg',
-      name: 'image.jpg',
-    });
     dispatch(getRegister(formData, navigation));
   };
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} testID="register-screen">
       <View style={{ flex: 1, margin: 16 }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Headers type="back" onPress={() => navigation.goBack()} />
           <Formik
             initialValues={{
-              full_name: '', email: '', password: '', phone_number: '', address: '', city: '', image: 'https://avatars.services.sap.com/images/naushad124_small.png',
+              full_name: '', email: '', password: '', phone_number: '', address: '', city: '',
             }}
             onSubmit={(values) => onSubmit(values)}
             validationSchema={signupSchema}
           >
             {({
               handleChange, handleSubmit, errors, isValid, values, handleBlur, touched, dirty,
+              setFieldValue,
             }) => (
               <SafeAreaView>
                 <Text
                   style={{
-                    marginTop: windowHeight * 0.05,
+                    marginTop: windowHeight * 0.02,
                     alignSelf: 'flex-start',
                     color: colors.text.tertiary,
                     fontSize: 30,
@@ -65,7 +60,7 @@ function RegisterScreen({ navigation }) {
                 </Text>
                 <Input leftIcon="account-circle" label="Fullname" onChangeText={handleChange('full_name')} value={values.full_name} onBlur={handleBlur('full_name')} />
                 {errors.full_name && touched.full_name
-              && <Text style={styles.errorText}>{errors.full_name}</Text>}
+                  && <Text style={styles.errorText}>{errors.full_name}</Text>}
                 <Gap height={10} />
                 <Input
                   placeHolder="Email"
@@ -74,9 +69,10 @@ function RegisterScreen({ navigation }) {
                   label="Email"
                   onBlur={handleBlur('email')}
                   leftIcon="email"
+                  testId="email"
                 />
                 {errors.email && touched.email
-              && <Text style={styles.errorText}>{errors.email}</Text>}
+                  && <Text style={styles.errorText}>{errors.email}</Text>}
                 <Gap height={10} />
                 <Input
                   onChangeText={handleChange('password')}
@@ -85,20 +81,26 @@ function RegisterScreen({ navigation }) {
                   onBlur={handleBlur('password')}
                   secureTextEntry
                   leftIcon="key"
+                  testId="password"
                 />
                 {errors.password && touched.password
-              && <Text style={styles.errorText}>{errors.password}</Text>}
+                  && <Text style={styles.errorText}>{errors.password}</Text>}
 
                 <Gap height={10} />
-                <Select
-                  data={kota}
-                  onSelect={(selectedItem) => {
-                    // eslint-disable-next-line no-param-reassign
-                    values.city = selectedItem;
+                <Select2
+                  data={kabupaten}
+                  setFieldValue={setFieldValue}
+                  value={values.city}
+                  initialData={values.city}
+                  schema={{
+                    label: 'name',
+                    value: 'name',
                   }}
+                  name="city"
+                  placeholder="Pilih Kabupaten/Kota"
                 />
                 {errors.city && touched.city
-              && <Text style={styles.errorText}>{errors.city}</Text>}
+                  && <Text style={styles.errorText}>{errors.city}</Text>}
                 <Gap height={10} />
                 <Input
                   onChangeText={handleChange('address')}
@@ -108,7 +110,7 @@ function RegisterScreen({ navigation }) {
                   leftIcon="map-marker"
                 />
                 {errors.address && touched.address
-              && <Text style={styles.errorText}>{errors.address}</Text>}
+                  && <Text style={styles.errorText}>{errors.address}</Text>}
 
                 <Gap height={10} />
                 <Input
@@ -120,7 +122,7 @@ function RegisterScreen({ navigation }) {
                   keyboardType="numeric"
                 />
                 {errors.phone_number && touched.phone_number
-              && <Text style={styles.errorText}>{errors.phone_number}</Text>}
+                  && <Text style={styles.errorText}>{errors.phone_number}</Text>}
 
                 <Gap height={20} />
 
@@ -128,6 +130,7 @@ function RegisterScreen({ navigation }) {
                   title="Daftar"
                   onPress={handleSubmit}
                   disable={!(dirty && isValid) || stateGlobal.isLoading}
+                  testID="register"
                 />
                 <Gap height={20} />
                 <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
@@ -145,7 +148,7 @@ function RegisterScreen({ navigation }) {
                     title="Masuk disini"
                     color={colors.text.tertiary}
                     onPress={() => navigation.navigate('LoginScreen')}
-                    size={13}
+                    size={fontSize.medium}
                   />
                 </View>
               </SafeAreaView>
