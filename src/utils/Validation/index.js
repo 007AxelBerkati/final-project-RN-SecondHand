@@ -23,17 +23,6 @@ export const signupSchema = Yup.object().shape({
     .matches(/^(?=.*[A-Z])/, 'Harus berisi minimal satu huruf besar')
     .matches(/^(?=.*[\d])/, 'Harus berisi minimal satu angka')
     .trim(),
-  address: Yup.string()
-    .min(4, 'Alamat terlalu pendek')
-    .max(50, 'Alamat terlalu panjang')
-    .trim()
-    .required('Diperlukan'),
-  phone_number: Yup.string()
-    .trim()
-    .min(9, 'No Hp Terlalu Pendek')
-    .max(11, 'No Hp Terlalu Panjang')
-    .required('Silahkan Isi Nomor Handphone Anda'),
-  city: Yup.string().required('Diperlukan'),
 });
 
 export const updateProfileSchema = Yup.object().shape({
