@@ -11,14 +11,6 @@ import { Loading } from './components';
 import { Persistore, Store } from './redux';
 import { borderRadius, windowHeight, windowWidth } from './utils';
 
-const CodePushOptions = {
-  checkFrequency: CodePush.CheckFrequency.ON_APP_START,
-  mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
-  updateDialog: {
-    appendReleaseDescription: true,
-  },
-};
-
 function MainApp() {
   const stateGlobal = useSelector((state) => state.dataGlobal);
   return (
@@ -52,4 +44,4 @@ function App() {
   );
 }
 
-export default CodePush(CodePushOptions)(App);
+export default App;
