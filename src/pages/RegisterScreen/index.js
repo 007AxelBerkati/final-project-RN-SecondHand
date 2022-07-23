@@ -1,20 +1,19 @@
 /* eslint-disable no-undef */
 /* eslint-disable camelcase */
-import {
-  SafeAreaView, StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard, ScrollView,
-} from 'react-native';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Formik } from 'formik';
 import FormData from 'form-data';
+import { Formik } from 'formik';
+import React from 'react';
+import {
+  Keyboard, SafeAreaView, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View,
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  ButtonComponent, Gap, Headers, Input, LinkComponent,
+} from '../../components';
+import { getRegister } from '../../redux';
 import {
   colors, fonts, fontSize, signupSchema, windowHeight,
 } from '../../utils';
-import {
-  ButtonComponent, Gap, Headers, Input, LinkComponent, Select2,
-} from '../../components';
-import { getRegister } from '../../redux';
-import { kabupaten } from '../../assets';
 
 function RegisterScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -25,9 +24,6 @@ function RegisterScreen({ navigation }) {
     formData.append('full_name', data.full_name);
     formData.append('email', data.email);
     formData.append('password', data.password);
-    formData.append('city', data.city);
-    formData.append('address', data.address);
-    formData.append('phone_number', parseInt(data.phone_number, 10));
     dispatch(getRegister(formData, navigation));
   };
   return (
@@ -37,14 +33,13 @@ function RegisterScreen({ navigation }) {
           <Headers type="back" onPress={() => navigation.goBack()} />
           <Formik
             initialValues={{
-              full_name: '', email: '', password: '', phone_number: '', address: '', city: '',
+              full_name: '', email: '', password: '',
             }}
             onSubmit={(values) => onSubmit(values)}
             validationSchema={signupSchema}
           >
             {({
               handleChange, handleSubmit, errors, isValid, values, handleBlur, touched, dirty,
-              setFieldValue,
             }) => (
               <SafeAreaView>
                 <Text
@@ -87,42 +82,6 @@ function RegisterScreen({ navigation }) {
                   && <Text style={styles.errorText}>{errors.password}</Text>}
 
                 <Gap height={10} />
-                <Select2
-                  data={kabupaten}
-                  setFieldValue={setFieldValue}
-                  value={values.city}
-                  initialData={values.city}
-                  schema={{
-                    label: 'name',
-                    value: 'name',
-                  }}
-                  name="city"
-                  placeholder="Pilih Kabupaten/Kota"
-                />
-                {errors.city && touched.city
-                  && <Text style={styles.errorText}>{errors.city}</Text>}
-                <Gap height={10} />
-                <Input
-                  onChangeText={handleChange('address')}
-                  value={values.address}
-                  label="Address"
-                  onBlur={handleBlur('address')}
-                  leftIcon="map-marker"
-                />
-                {errors.address && touched.address
-                  && <Text style={styles.errorText}>{errors.address}</Text>}
-
-                <Gap height={10} />
-                <Input
-                  onChangeText={handleChange('phone_number')}
-                  value={values.phone_number}
-                  label="Phone Number +62"
-                  onBlur={handleBlur('phone_number')}
-                  leftIcon="phone"
-                  keyboardType="numeric"
-                />
-                {errors.phone_number && touched.phone_number
-                  && <Text style={styles.errorText}>{errors.phone_number}</Text>}
 
                 <Gap height={20} />
 
