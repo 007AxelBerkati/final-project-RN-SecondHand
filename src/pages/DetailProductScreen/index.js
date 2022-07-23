@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import BottomSheet from '@gorhom/bottom-sheet';
 import React, {
   useEffect, useMemo, useRef, useState,
@@ -8,6 +9,7 @@ import {
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ImageSlider } from 'react-native-image-slider-banner';
 import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
 import {
   BackDropComponent, ButtonComponent, CardList, CardProduct, Desc, Gap, Loading,
 } from '../../components';
@@ -36,9 +38,12 @@ function DetailProductScreen({ route, navigation }) {
     .filter((item) => item.product_id === id));
   const [isBookmark, setIsBookmark] = useState(dataWishlist.length > 0);
   const { profile } = useSelector((state) => state.dataProfile);
+  const dataProfile = useSelector((state) => state.dataProfile.profile);
 
   const dataDetailBid = useSelector((state) => state.dataDetailProductBuyer.allBidProduct
     .filter((item) => item.product_id === id));
+
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     dispatch(getDetailProduct(id));
@@ -49,7 +54,7 @@ function DetailProductScreen({ route, navigation }) {
       dispatch(getAllBidProduct());
       dispatch(getWishlistBuyer());
     }
-  }, [isSubmit, isBookmark]);
+  }, [isSubmit, isBookmark, isFocused]);
 
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['1%', '70%'], []);
@@ -58,6 +63,12 @@ function DetailProductScreen({ route, navigation }) {
   const handleClosePress = () => bottomSheetRef.current?.close();
 
   const checkUser = () => {
+    for (const key in dataProfile) {
+      if (dataProfile[key] === null || dataProfile[key] === undefined || dataProfile[key] === '') {
+        showInfo('Mohon lengkapi data profile anda');
+        return;
+      }
+    }
     if (!dataLogin.isLoggedIn) {
       showInfo('Silahkan login terlebih dahulu');
       navigation.navigate('LoginScreen');

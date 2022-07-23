@@ -31,18 +31,7 @@ export const updateProfileSchema = Yup.object().shape({
     .max(50, 'Nama Terlalu Panjang')
     .trim()
     .required('Diperlukan'),
-  city: Yup.string()
-    .required('Diperlukan'),
-  address: Yup.string()
-    .min(2, 'Alamat terlalu pendek')
-    .max(100, 'Alamat terlalu panjang')
-    .required('Diperlukan')
-    .trim(),
-  phone_number: Yup.string()
-    .trim()
-    .min(9, 'No Hp Terlalu Pendek')
-    .max(11, 'No Hp Terlalu Panjang')
-    .required('Silahkan Isi Nomor Handphone Anda'),
+
 });
 
 export const TambahDataSchema = Yup.object().shape({
