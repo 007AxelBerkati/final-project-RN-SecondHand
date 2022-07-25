@@ -10,6 +10,16 @@ import {
 } from '../../utils';
 
 function Terjual({ navigation, dataTerjual }) {
+  const checkTitle = (item) => {
+    if (item?.status === 'accepted' && item?.Product?.status === 'sold') {
+      return 'Perbarui Status Produk';
+    }
+    if (item?.Product?.status === 'seller') {
+      return 'Produk Berhasil Terjual';
+    }
+    return 'Produk Berhasil Terjual';
+  };
+
   const emptyComponent = () => (
     <View style={styles.empty}>
       <IconSellNull style={styles.image} />
@@ -25,7 +35,7 @@ function Terjual({ navigation, dataTerjual }) {
       <CardList
         key={item.id}
         name={item.product_name}
-        title="Berhasil Terjual"
+        title={checkTitle(item)}
         source={{ uri: item?.Product?.image_url }}
         date={item.transaction_date}
         harga={item.base_price}

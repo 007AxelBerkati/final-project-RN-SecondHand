@@ -84,7 +84,7 @@ export const getOrderSeller = () => async (dispatch) => {
     // Terjual
     const checkDataTerjual = async () => {
       for (let i = 0; i < response.data.length; i += 1) {
-        if (response.data[i]?.Product?.status === 'seller' || response.data[i]?.Product?.status === 'sold') {
+        if (response.data[i]?.Product?.status === 'seller' || (response.data[i]?.Product?.status === 'sold' && response.data[i]?.status === 'accepted')) {
           dataFilterTerjual.push(response.data[i]);
         }
       }
